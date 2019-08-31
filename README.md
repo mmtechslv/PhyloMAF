@@ -1,4 +1,4 @@
 # PhyloMAF
 Next Generation Phylogenetic Microbiome Analysis Framework
 
-An initial upload will be in a few days.
+Project will be uploaded during article publication process.
