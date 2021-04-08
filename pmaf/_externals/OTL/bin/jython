@@ -1,0 +1,4 @@
+#!/bin/bash
+export JYTHONPATH=.:/home/mmtechslv/akasha/DGRPy/jadval/database/ott:/home/mmtechslv/akasha/DGRPy/jadval/database/ott/util:/home/mmtechslv/akasha/DGRPy/jadval/database/ott/lib/json-simple-1.1.1.jar
+[ "x$JAVAFLAGS" = x ] && JAVAFLAGS="-Xmx14G"
+exec java $JAVAFLAGS -jar /home/mmtechslv/akasha/DGRPy/jadval/database/ott/lib/jython-standalone-2.7.0.jar $*

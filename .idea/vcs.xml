@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Backup/Archive_1/pmaf/database/backup/helpers/ott" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Backup/Archive_1/pmaf/database/helpers/ott" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/backup/pmaf/database/ott" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pmaf/database/_ott/ott" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pmaf/database/backup/helpers/ott" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pmaf/database/helpers/ott" vcs="Git" />
+  </component>
+</project>

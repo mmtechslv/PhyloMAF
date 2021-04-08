@@ -1,0 +1,1 @@
+from ._multialignment import MultiSequenceAligner
