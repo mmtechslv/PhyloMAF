@@ -9,6 +9,7 @@ import numpy as np
 import biom
 
 class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialSampleMetabase):
+    """The `Essential` class for handling frequency data. """
     def __init__(self, frequency, skipcols=None, allow_nan=False, **kwargs):
         tmp_skipcols = np.asarray([])
         tmp_metadata = kwargs.pop('metadata',{})
@@ -69,6 +70,15 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
 
     @classmethod
     def from_biom(cls, filepath, **kwargs):
+        """Construct a FrequencyTable from BIOM file.
+
+        :param filepath: Path to .biom file.
+        :type filepath: str
+        :param kwargs:
+        :type kwargs:
+        :return: Instance of FrequencyTable
+        :rtype: FrequencyTable
+        """
         frequency_frame, new_metadata = cls.__load_biom(filepath, **kwargs)
         tmp_metadata = kwargs.pop('metadata', {})
         tmp_metadata.update({'biom': new_metadata})
@@ -76,6 +86,15 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
 
     @classmethod
     def from_csv(cls, filepath, **kwargs):
+        """Construct a FrequencyTable from CSV file.
+
+        :param filepath: Path to .csv file.
+        :type filepath: str
+        :param kwargs:
+        :type kwargs:
+        :return: Instance of FrequencyTable
+        :rtype: FrequencyTable
+        """
         tmp_frequency = pd.read_csv(filepath,**kwargs)
         tmp_metadata = kwargs.pop('metadata', {})
         tmp_metadata.update({'filepath': path.abspath(filepath)})
@@ -87,12 +106,14 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         return biom_file.to_dataframe(dense=True), {}
 
     def _remove_features_by_id(self, ids, **kwargs):
+        """ Remove feature by id and ratify action. """
         tmp_ids = np.asarray(ids,dtype=self.__internal_frequency.index.dtype)
         if len(tmp_ids)>0:
             self.__internal_frequency.drop(index=tmp_ids,inplace=True)
         return self._ratify_action('_remove_features_by_id', ids, **kwargs)
 
     def _merge_features_by_map(self, map_dict, aggfunc='sum', **kwargs):
+        """Merge features by map with aggfunc and ratify action."""
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
             tmp_agg_dict[new_id] = self.__internal_frequency.loc[group, :].agg(func=aggfunc, axis=0).values
@@ -101,12 +122,14 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         return self._ratify_action('_merge_features_by_map', map_dict, aggfunc=aggfunc, **kwargs)
 
     def _remove_samples_by_id(self, ids, **kwargs):
+        """Remove samples by id and ratify action."""
         tmp_ids = np.asarray(ids, dtype=self.__internal_frequency.columns.dtype)
         if len(tmp_ids) > 0:
             self.__internal_frequency.drop(columns=tmp_ids, inplace=True)
         return self._ratify_action('_remove_samples_by_id', ids, **kwargs)
 
     def _merge_samples_by_map(self, map_dict, aggfunc='mean', **kwargs):
+        """Merge samples by map with aggfunc and ratify action."""
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
             tmp_agg_dict[new_id] = self.__internal_frequency.loc[:, group].agg(func=aggfunc, axis=1).to_dict()
@@ -115,35 +138,67 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         return self._ratify_action('_merge_samples_by_map', map_dict, aggfunc=aggfunc, **kwargs)
 
     def transform_to_relative_abundance(self):
+        """Transform absolute counts to relative."""
         self.__internal_frequency = self.__internal_frequency.div(self.__internal_frequency.sum(axis=0),axis=1)
 
     def replace_nan_with(self, value):
+        """Replace NaN values with `value`.
+
+        :param value: Value to replace with.
+        :type value: Any
+        """
         self.__internal_frequency.fillna(value,inplace=True)
 
-    def drop_features_by_id(self,ids):
+    def drop_features_by_id(self, ids):
+        """Drop features by `ids`
+
+        :param ids: Feature identifiers
+        :type ids: list-like
+        :return:
+        :rtype:
+        """
         target_ids = np.asarray(ids)
         if self.__internal_frequency.index.isin(target_ids) == len(target_ids):
             self._remove_features_by_id(target_ids)
-            if self._isbuckled:
+            if self.is_buckled:
                 return target_ids
         else:
             raise ValueError('Invalid _feature ids are provided.')
 
-    def drop_samples_by_id(self,ids):
+    def drop_samples_by_id(self, ids):
+        """Drop samples by `ids`.
+
+        :param ids: Sample identifiers
+        :type ids: list-like
+        :return:
+        :rtype:
+        """
         target_ids = np.asarray(ids)
         if self.__internal_frequency.columns.isin(target_ids) == len(target_ids):
             self._remove_samples_by_id(target_ids)
-            if self._isbuckled:
+            if self.is_buckled:
                 return target_ids
         else:
             raise ValueError('Invalid _sample ids are provided.')
 
-    def __init_frequency_table(self,freq_table):
+    def __init_frequency_table(self, freq_table):
+        """Initiate the frequency table."""
         self.__internal_frequency = freq_table
 
     def merge_features_by_map(self, mapping, aggfunc='sum', **kwargs):
+        """Merge features by `mapping`.
+
+        :param mapping: Map where values are feature identifiers to be aggregated.
+        :type mapping: dict-like
+        :param aggfunc: Aggregation function.
+        :type aggfunc: str
+        :param kwargs:
+        :type kwargs:
+        :return:
+        :rtype:
+        """
         if isinstance(mapping, (dict, pd.Series)):
-            tmp_ids = sorted({x for _,v in mapping.items() for x in v})
+            tmp_ids = sorted({x for _,v in mapping.items() for x in v}) # FIXME: Uncool behavior make it better and follow the usage.
             if self.__internal_frequency.index.isin(tmp_ids).sum() == len(tmp_ids):
                 return self._merge_features_by_map(mapping, aggfunc, **kwargs)
             else:
@@ -152,8 +207,19 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
             raise TypeError('`mapping` can be `dict` or `pd.Series`')
 
     def merge_samples_by_map(self, mapping, aggfunc='mean', **kwargs):
+        """Merge samples by `mapping`
+
+        :param mapping: Map where values are feature identifiers to be aggreagated.
+        :type mapping: dict-like
+        :param aggfunc: Aggregation function.
+        :type aggfunc: str
+        :param kwargs:
+        :type kwargs:
+        :return:
+        :rtype:
+        """
         if isinstance(mapping, (dict, pd.Series)):
-            tmp_ids = sorted({x for _,v in mapping.items() for x in v})
+            tmp_ids = sorted({x for _,v in mapping.items() for x in v}) # FIXME: Uncool. See above.
             if self.__internal_frequency.columns.isin(tmp_ids).sum() == len(tmp_ids):
                 return self._merge_samples_by_map(mapping, aggfunc, **kwargs)
             else:
@@ -162,9 +228,23 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
             raise TypeError('`mapping` can be `dict` or `pd.Series`')
 
     def copy(self):
+        """Copy of the instance."""
         return type(self)(frequency=self.__internal_frequency, metadata=self.metadata,name=self.name)
 
     def get_subset(self, rids=None, sids=None, *args, **kwargs):
+        """Get subset of the `FrequencyTable`.
+
+        :param rids: Subset `rids` on feature axis.
+        :type rids: list-like
+        :param sids: Subset `sids` on sample axis.
+        :type sids: list-like
+        :param args:
+        :type args:
+        :param kwargs:
+        :type kwargs:
+        :return:
+        :rtype:
+        """
         if rids is None:
             target_rids = self.xrid
         else:
@@ -183,7 +263,20 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         else:
             raise NotImplemented
 
-    def export(self, output_fp, *args, _add_ext=False, sep=',', **kwargs):
+    def export(self, output_fp, *args, _add_ext=False, sep=',', **kwargs): # TODO: Improve
+        """ Export the `FrequncyTable`.
+
+        :param output_fp: Export file path.
+        :type output_fp:  str
+        :param args:
+        :type args:
+        :param _add_ext:
+        :type _add_ext:
+        :param sep:
+        :type sep:
+        :param kwargs:
+        :type kwargs:
+        """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
             tmp_export.to_csv("{}.csv".format(output_fp), sep=sep)
@@ -192,16 +285,20 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
 
     @property
     def data(self):
+        """Pandas dataframe of `FrequencyTable`"""
         return self.__internal_frequency
 
     @property
     def xrid(self):
+        """Feature axis."""
         return self.__internal_frequency.index
 
     @property
     def xsid(self):
+        """Sample axis."""
         return self.__internal_frequency.columns
 
     @property
     def any_nan(self):
+        """Is there nan values present?"""
         return self.__internal_frequency.isnull().any().any()

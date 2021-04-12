@@ -41,7 +41,7 @@ class EssentialBackboneMetabase(BiomeBackboneMetabase):
 
     @property
     @abstractmethod
-    def _isbuckled(self):
+    def is_buckled(self):
         pass
 
     @property

@@ -2,8 +2,8 @@ import warnings
 warnings.simplefilter('ignore', category=FutureWarning)
 from ._metakit import BiomeAssemblyBackboneMetabase
 from pmaf.biome.essentials._metakit import EssentialBackboneMetabase,EssentialSampleMetabase,EssentialFeatureMetabase
-from pmaf.biome.essentials._feature._taxonomy import RepTaxonomy
-from pmaf.biome.essentials._composite._frequency import FrequencyTable
+from pmaf.biome.essentials._taxonomy import RepTaxonomy
+from pmaf.biome.essentials._frequency import FrequencyTable
 from pmaf.biome._base import BiomeBackboneBase
 from pmaf.biome.essentials._controller import EssentialsController
 import numpy as np

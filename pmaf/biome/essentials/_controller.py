@@ -3,13 +3,27 @@ from pmaf.biome.essentials._metakit import EssentialFeatureMetabase,EssentialSam
 import numpy as np
 
 class EssentialsController(EssentialControllerBackboneMetabse):
-    def __init__(self,remount=False,**kwargs):
+    """Controller for any `biome.essentials` working together within `biome.assembly`."""
+
+    def __init__(self, remount=False, **kwargs):
+        """
+
+        :param remount: Force remount.
+        :type remount: bool
+        :param kwargs:
+        :type kwargs:
+        """
         self.__essentials = []
         self.__feature_ids = None
         self.__sample_ids = None
         self.__remount = bool(remount)
 
     def insert_essential(self, essential):
+        """Add instance of `Essentials` to the controller.
+
+        :param essential: Instance of `pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
+        :type essential: EssentialBackboneMetabase
+        """
         if isinstance(essential,EssentialBackboneMetabase):
             if not essential.is_mounted or self.__remount:
                 self.__append_essential(essential)
@@ -19,6 +33,17 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             raise TypeError('`essential` has invalid type.')
 
     def verify_essential(self, essential, check_axis=True, check_mount=True):
+        """Validates the essentials instance.
+
+        :param essential: Instance of `Essentials` to validate.
+        :type essential: EssentialBackboneMetabase
+        :param check_axis: Whether to check if axes are compatible with active essential instances.
+        :type check_axis: bool
+        :param check_mount: Whether to check if the instance is already mounted.
+        :type check_mount: bool
+        :return: Result of validation.
+        :rtype: bool
+        """
         ret = False
         if isinstance(essential,EssentialBackboneMetabase):
             if not essential.is_mounted or self.__remount or not check_mount :
@@ -52,7 +77,12 @@ class EssentialsController(EssentialControllerBackboneMetabse):
                     ret = True
         return ret
 
-    def __append_essential(self,essential):
+    def __append_essential(self, essential):
+        """Logic behind adding the instance of `Essentials`.
+
+        :param essential: Instance to append.
+        :type essential: EssentialBackboneMetabase
+        """
         tmp_essential_types = {type(tmp_essential) for tmp_essential in self.__essentials}
         if type(essential) not in tmp_essential_types:
             if isinstance(essential,EssentialBackboneMetabase):
@@ -89,6 +119,10 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             raise RuntimeError('`essential` of same type is already present.')
 
     def __reinitialize(self):
+        """(Re)initialize the current controller instance.
+
+        :rtype: object
+        """
         tmp_feature_ids = None
         tmp_sample_ids = None
         for essential in self.__essentials:
@@ -108,6 +142,19 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         self.__sample_ids = tmp_sample_ids
 
     def reflect_action(self, source, method, value, **kwargs):
+        """Reflect or mirror the action to controlled instances of `essentials`.
+
+        :param source: Instance of Essential where the action is coming from.
+        :type source: EssentialBackboneMetabase
+        :param method: Name of the method to be reflected.
+        :type method: str
+        :param value: Value to be passed to mirroring functions. Eg. ids to be removed.
+        :type value: Any
+        :param kwargs: Remaining parameters passed to mirroring function.
+        :type kwargs: dict
+        :return: Dictionary with results for each `Essential`
+        :rtype: dict
+        """
         if len(self.__essentials)>0:
             tmp_rets = {source: value}
             self.__unbuckle_essentials()
@@ -122,20 +169,36 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             raise RuntimeError('Controller has not been initialized yet.')
 
     def __buckle_essentials(self):
+        """Buckle all controlled essentials so that no other change is made during mirroring."""
         for essential in self.__essentials:
             essential._buckle()
 
     def __unbuckle_essentials(self):
+        """Unbuckle all controlled essentials."""
         for essential in self.__essentials:
             essential._unbuckle()
 
-    def has_essential_by_types(self,*args):
+    def has_essential_by_types(self, *args):
+        """Helper function that checks if `Essentials` in `args` are controlled via current `Controller` instance.
+
+        :param args: `Essentials`
+        :type args: list-like
+        :return:
+        :rtype: bool
+        """
         ret = []
         for arg in args:
             ret.append(any([isinstance(essential,arg) for essential in self.__essentials]))
         return all(ret)
 
-    def take_essential_by_type(self,type):
+    def take_essential_by_type(self, type):
+        """Get controlled essential by type.
+
+        :param type:
+        :type type:
+        :return:
+        :rtype:
+        """
         ret = None
         for essential in self.__essentials:
             if isinstance(essential,type):
@@ -147,22 +210,27 @@ class EssentialsController(EssentialControllerBackboneMetabse):
 
     @property
     def state(self):
+        """Is controller active."""
         return len(self.__essentials)>0
 
     @property
     def count(self):
+        """Total controlled essentials."""
         return len(self.__essentials)
 
     @property
     def essentials(self):
+        """Get controlled essentials."""
         return self.__essentials
 
     @property
     def xrid(self):
+        """Feature axis of controlled essentials."""
         return self.__feature_ids
 
     @property
     def xsid(self):
+        """Sample axis of controlled essentials."""
         return self.__sample_ids
 
 

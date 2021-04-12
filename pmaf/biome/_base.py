@@ -1,7 +1,17 @@
 from ._metakit import BiomeBackboneMetabase,BiomeFeatureMetabase,BiomeSampleMetabase
 
 class BiomeBackboneBase(BiomeBackboneMetabase):
+    """ Base class for all biome classes. """
     def __init__(self, metadata=None, name=None, **kwargs):
+        """
+
+        :param metadata: Metadata of `biome` instance.
+        :type metadata: dict
+        :param name: Name/Label of `biome` instance
+        :type name: str
+        :param kwargs:
+        :type kwargs:
+        """
         if isinstance(name, (str, int, type(None))):
             self.__name = name
         else:
@@ -29,6 +39,14 @@ class BiomeBackboneBase(BiomeBackboneMetabase):
 
     @property
     def shape(self):
+        """Return the shape/size of the `biome` instance.
+
+        :return: Shape of the `biome` instance.
+        :rtype: tuple
+        """
+
+        # TODO: this function must return tuple of size 2 always!
+
         if isinstance(self,BiomeFeatureMetabase) and isinstance(self,BiomeSampleMetabase):
             return (len(self.xrid), len(self.xsid))
         elif isinstance(self,BiomeFeatureMetabase):

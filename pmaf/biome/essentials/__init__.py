@@ -1,5 +1,7 @@
-from ._feature import RepTaxonomy
-from ._feature import RepSequence
-from ._feature import RepPhylogeny
-from ._composite import FrequencyTable
-from ._sample import SampleMetadata
+from ._taxonomy import RepTaxonomy
+from ._repsequence import RepSequence
+from ._tree import RepPhylogeny
+from ._frequency import FrequencyTable
+from ._samplemeta import SampleMetadata
+
+__all__ = ['RepTaxonomy', 'RepSequence', 'RepPhylogeny', 'FrequencyTable', 'SampleMetadata']
