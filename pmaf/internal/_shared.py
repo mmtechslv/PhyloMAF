@@ -73,20 +73,62 @@ def get_datetime(datetime_str,format=None):
     return ret
 
 
-def validate_ranks(ranks,refranks=MAIN_RANKS):
-    ret = False
-    if all(map(lambda rank: rank in refranks, ranks)):
-        ret = True
-    return ret
+def validate_ranks(ranks, ref_ranks = None):
+    """Validate the ranks based on ref_ranks.
 
-def extract_valid_ranks(ranks, refranks=MAIN_RANKS):
-    ret = False
-    valid_ranks = [rank for rank in ranks if rank in refranks]
+    :param ranks: Target ranks to validate
+    :type ranks: list or tuple
+    :param ref_ranks: Reference ranks to use. Default to None or MAIN_RANKS
+    :type ref_ranks: None or list or tuple
+    :return: Validation result.
+    :rtype: None or bool
+    """
+    if ref_ranks:
+        if not isinstance(ref_ranks,(list,tuple)):
+            raise NotImplementedError
+    else:
+        ref_ranks = MAIN_RANKS
+    return all(map(lambda rank: rank in ref_ranks, ranks))
+
+def extract_valid_ranks(ranks, ref_ranks = None):
+    """Extract real rank values from list-like ranks
+
+    :param ranks: Target ranks to extract from.
+    :type ranks: list or tuple
+    :param ref_ranks: Ref ranks to use. Default to None or MAIN_RANKS
+    :type ref_ranks: None or list or tuple
+    :return: Extracted ranks
+    :rtype: None or bool
+    """
+    if ref_ranks:
+        if not isinstance(ref_ranks, (list, tuple)):
+            raise NotImplementedError
+    else:
+        ref_ranks = MAIN_RANKS
+    valid_ranks = [rank for rank in ranks if rank in ref_ranks]
     if len(valid_ranks)>0:
-        ret = valid_ranks
-    return ret
+        return valid_ranks
 
+def cols2ranks(cols,ref_ranks=None):
+    """ Transform columns to ranks based on order.
 
+    :param cols: Original column values.
+    :type cols: list or tuple
+    :param ref_ranks:  Reference ranks to use. Default to None or VALID_RANKS
+    :type ref_ranks: None or list or tuple
+    :return: Transformed ranks
+    :rtype: list
+    """
+    if ref_ranks:
+        if not isinstance(ref_ranks,(list,tuple)):
+            raise NotImplementedError
+    else:
+        ref_ranks = VALID_RANKS
+    ref_ranks = ref_ranks[::-1]
+    ranks = []
+    for i, col in enumerate(cols[::-1]):
+        ranks.append(ref_ranks[i])
+    return ranks[::-1]
 
 
 def get_rank_upto(ranks,ter_rank,include_terminal=False):

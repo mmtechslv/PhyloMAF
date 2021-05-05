@@ -3,7 +3,8 @@ warnings.simplefilter('ignore', category=FutureWarning)
 from pmaf.biome.essentials._metakit import EssentialFeatureMetabase
 from pmaf.biome.essentials._base import EssentialBackboneBase
 from pmaf.internal._constants import AVAIL_TAXONOMY_NOTATIONS,jRegexGG,jRegexQIIME,BIOM_TAXONOMY_NAMES,VALID_RANKS
-from pmaf.internal._shared import generate_lineages_from_taxa,get_rank_upto,indentify_taxon_notation, validate_ranks,extract_valid_ranks
+from pmaf.internal._shared import generate_lineages_from_taxa, get_rank_upto, \
+    indentify_taxon_notation, validate_ranks, extract_valid_ranks, cols2ranks
 from collections import defaultdict
 from os import path
 import pandas as pd
@@ -75,7 +76,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         return cls(taxonomy=taxonomy_frame, metadata=tmp_metadata, **kwargs)
 
     @classmethod
-    def __load_biom(cls,filepath,**kwargs):
+    def __load_biom(cls, filepath, **kwargs):
         biom_file = biom.load_table(filepath)
         if biom_file.metadata(axis='observation') is not None:
             obs_data = biom_file.metadata_to_dataframe('observation')
@@ -83,11 +84,12 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             col_names_low = [col.lower() for col in col_names]
             avail_col_names = [colname for tax_name in BIOM_TAXONOMY_NAMES for colname in col_names_low if colname[::-1].find(tax_name[::-1]) < 3 and colname[::-1].find(tax_name[::-1]) > -1]
             metadata_cols = [col for col in col_names if col.lower() not in avail_col_names]
+            print(avail_col_names)
             if len(avail_col_names) == 1:
                 tmp_col_index = col_names_low.index(avail_col_names[0])
                 taxonomy_frame = obs_data[col_names[tmp_col_index]]
             else:
-                raise NotADirectoryError
+                taxonomy_frame = obs_data
             tmp_metadata = obs_data.loc[:,metadata_cols].to_dict()
             return taxonomy_frame, tmp_metadata
         else:
@@ -243,9 +245,9 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         elif isinstance(taxonomy_data, pd.DataFrame):
             if taxonomy_data.shape[1] == 1:
                 taxonomy_data_series = pd.Series(data=taxonomy_data.iloc[:, 0], index=taxonomy_data.index)
-                new_taxonomy = self.__init_taxonomy_from_lineages(taxonomy_data_series, taxonomy_notation)
+                new_taxonomy = self.__init_taxonomy_from_lineages(taxonomy_data_series, taxonomy_notation, order_ranks)
             else:
-                new_taxonomy = self.__init_taxonomy_from_frame(taxonomy_data, taxonomy_notation)
+                new_taxonomy = self.__init_taxonomy_from_frame(taxonomy_data, taxonomy_notation, order_ranks)
         else:
             raise RuntimeError('`taxonomy_data` must be either pd.Series or pd.Dataframe')
         if new_taxonomy is not None:
@@ -325,13 +327,20 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         else:
             raise NotImplementedError
 
-    def __init_taxonomy_from_frame(self, taxonomy_dataframe, taxonomy_notation):  # Done # For now only pass to _init_taxonomy_from_series
+    def __init_taxonomy_from_frame(self, taxonomy_dataframe, taxonomy_notation, order_ranks):  # Done # For now only pass to _init_taxonomy_from_series
         valid_ranks = extract_valid_ranks(taxonomy_dataframe.columns,VALID_RANKS)
-        if len(valid_ranks)>0:
-            return pd.concat([taxonomy_dataframe,pd.DataFrame(data='',index=taxonomy_dataframe.index,columns=[rank for rank in VALID_RANKS if rank not in valid_ranks])],axis=1)
+        if valid_ranks is not None:
+            if len(valid_ranks)>0:
+                return pd.concat([taxonomy_dataframe,pd.DataFrame(data='',index=taxonomy_dataframe.index,columns=[rank for rank in VALID_RANKS if rank not in valid_ranks])],axis=1)
+            else:
+                taxonomy_series = taxonomy_dataframe.apply(lambda taxa: ';'.join(taxa.values.tolist()), axis=1)
+                return self.__init_taxonomy_from_lineages(taxonomy_series, taxonomy_notation,order_ranks)
         else:
+            valid_ranks = cols2ranks(taxonomy_dataframe.columns)
+            taxonomy_dataframe.columns = valid_ranks
             taxonomy_series = taxonomy_dataframe.apply(lambda taxa: ';'.join(taxa.values.tolist()), axis=1)
-            return self.__init_taxonomy_from_lineages(taxonomy_series, taxonomy_notation)
+            return self.__init_taxonomy_from_lineages(taxonomy_series, taxonomy_notation, order_ranks)
+
 
     @property
     def avail_ranks(self):
