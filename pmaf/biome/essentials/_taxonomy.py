@@ -237,9 +237,23 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         self.__internal_taxonomy.loc[:, VALID_RANKS] = self.__internal_taxonomy.loc[:, VALID_RANKS].applymap(taxon_fixer)
 
     def __reconstruct_internal_lineages(self):
+        """Reconstruct the internal lineages, `self.__internal_taxonomy.loc[:, 'lineage']`.
+
+        """
         self.__internal_taxonomy.loc[:, 'lineage'] = generate_lineages_from_taxa(self.__internal_taxonomy,True, self.__avail_ranks, False)
 
     def __init_internal_taxonomy(self, taxonomy_data, taxonomy_notation='greengenes', order_ranks=None, **kwargs):
+        """
+
+        :param taxonomy_data: Incoming parsed taxonomy data
+        :type taxonomy_data: pd.DataFrame or pd.Series
+        :param taxonomy_notation: Taxonomy lineage notation style. Can be one of AVAIL_TAXONOMY_NOTATIONS
+        :type taxonomy_notation: str
+        :param order_ranks: List with the target rank order. Default is set to None. The 'silva' notation require `order_ranks`.
+        :type order_ranks: list or None
+        :param kwargs: None
+        :type kwargs: None
+        """
         if isinstance(taxonomy_data, pd.Series):
             new_taxonomy = self.__init_taxonomy_from_lineages(taxonomy_data, taxonomy_notation, order_ranks)
         elif isinstance(taxonomy_data, pd.DataFrame):
@@ -261,6 +275,17 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Provided taxonomy is invalid.')
 
     def __init_taxonomy_from_lineages(self, taxonomy_series, taxonomy_notation, order_ranks):  # Done
+        """Main method that produces taxonomy dataframe from lineages
+
+        :param taxonomy_series: Map for rid - taxonomy lineage str
+        :type taxonomy_series: pd.Series
+        :param taxonomy_notation: Taxonomy lineage notation style. Can be one of AVAIL_TAXONOMY_NOTATIONS
+        :type taxonomy_notation: str
+        :param order_ranks: List with the target rank order. Default is set to None. The 'silva' notation require `order_ranks`.
+        :type order_ranks: list or None
+        :return: Dataframe with taxonomy
+        :rtype: pd.DataFrame
+        """
         if taxonomy_notation in AVAIL_TAXONOMY_NOTATIONS:  # Check if taxonomy is known and is available for parsing. Otherwise indentify_taxon_notation() will try to identify notation
             notation = taxonomy_notation
         else:
@@ -328,6 +353,17 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise NotImplementedError
 
     def __init_taxonomy_from_frame(self, taxonomy_dataframe, taxonomy_notation, order_ranks):  # Done # For now only pass to _init_taxonomy_from_series
+        """Main method that produces taxonomy dataframe from dataframe
+
+        :param taxonomy_dataframe: Map for rid - taxa with columns as levels/ranks
+        :type taxonomy_dataframe: pd.DataFrame
+        :param taxonomy_notation: Taxonomy lineage notation style. Can be one of AVAIL_TAXONOMY_NOTATIONS
+        :type taxonomy_notation: str
+        :param order_ranks: List with the target rank order. Default is set to None. The 'silva' notation require `order_ranks`.
+        :type order_ranks: list or None
+        :return: Dataframe with taxonomy
+        :rtype: pd.DataFrame
+        """
         valid_ranks = extract_valid_ranks(taxonomy_dataframe.columns,VALID_RANKS)
         if valid_ranks is not None:
             if len(valid_ranks)>0:
