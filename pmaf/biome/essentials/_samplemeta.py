@@ -65,6 +65,11 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             raise ValueError('Biom file does not contain sample metadata.')
         return sample_data, {}
 
+    def _rename_samples_by_map(self, map_like, **kwargs):
+        """ Rename sample names by map and ratify action. """
+        self.__internal_samples.rename(mapper=map_like, axis=0, inplace=True)
+        return self._ratify_action('_rename_samples_by_map', map_like, **kwargs)
+
     def _remove_samples_by_id(self, ids, **kwargs):
         tmp_ids = np.asarray(ids,dtype=self.__internal_samples.index.dtype)
         if len(tmp_ids)>0:
@@ -79,6 +84,25 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         tmp_samples.index.name = self.__internal_samples.index.name
         self.__internal_samples = tmp_samples
         return self._ratify_action('_merge_samples_by_map', map_dict, aggfunc=aggfunc, **kwargs)
+
+    def rename_samples(self, mapper):
+        """Rename sample names
+
+        :param mapper: dict or callable
+        :type mapper: Union[dict, callable]
+        :return:
+        :rtype:
+        """
+        if isinstance(mapper,dict) or callable(mapper):
+            if isinstance(mapper, dict):
+                if self.__internal_samples.index.isin(list(mapper.keys())).sum() == len(mapper):
+                    self._rename_samples_by_map(mapper)
+                else:
+                    raise ValueError('Invalid sample ids are provided.')
+            else:
+                self._rename_samples_by_map(mapper)
+        else:
+            raise TypeError('Invalid `mapper` type.')
 
     def drop_sample_by_id(self, ids, **kwargs):
         target_ids = np.asarray(ids)

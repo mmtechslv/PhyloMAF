@@ -84,7 +84,6 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             col_names_low = [col.lower() for col in col_names]
             avail_col_names = [colname for tax_name in BIOM_TAXONOMY_NAMES for colname in col_names_low if colname[::-1].find(tax_name[::-1]) < 3 and colname[::-1].find(tax_name[::-1]) > -1]
             metadata_cols = [col for col in col_names if col.lower() not in avail_col_names]
-            print(avail_col_names)
             if len(avail_col_names) == 1:
                 tmp_col_index = col_names_low.index(avail_col_names[0])
                 taxonomy_frame = obs_data[col_names[tmp_col_index]]

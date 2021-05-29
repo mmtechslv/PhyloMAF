@@ -18,7 +18,7 @@ __warnings_.filterwarnings(action='ignore', category=__tables_.PerformanceWarnin
 from . import database
 from . import biome
 from . import alignment
-from . import classifier
+#from . import classifier
 from . import phylo
 from . import pipe
 from . import remote

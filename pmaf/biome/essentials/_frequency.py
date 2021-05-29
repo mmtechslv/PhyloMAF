@@ -105,6 +105,11 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         biom_file = biom.load_table(filepath)
         return biom_file.to_dataframe(dense=True), {}
 
+    def _rename_samples_by_map(self, map_like, **kwargs):
+        """ Rename sample names by map and ratify action. """
+        self.__internal_frequency.rename(mapper=map_like, axis=1, inplace=True)
+        return self._ratify_action('_rename_samples_by_map', map_like, **kwargs)
+
     def _remove_features_by_id(self, ids, **kwargs):
         """ Remove feature by id and ratify action. """
         tmp_ids = np.asarray(ids,dtype=self.__internal_frequency.index.dtype)
@@ -158,12 +163,31 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         :rtype:
         """
         target_ids = np.asarray(ids)
-        if self.__internal_frequency.index.isin(target_ids) == len(target_ids):
+        if self.__internal_frequency.index.isin(target_ids).sum() == len(target_ids):
             self._remove_features_by_id(target_ids)
             if self.is_buckled:
                 return target_ids
         else:
             raise ValueError('Invalid _feature ids are provided.')
+
+    def rename_samples(self, mapper):
+        """Rename sample names
+
+        :param mapper: dict or callable
+        :type mapper: Union[dict, callable]
+        :return:
+        :rtype:
+        """
+        if isinstance(mapper,dict) or callable(mapper):
+            if isinstance(mapper, dict):
+                if self.__internal_frequency.columns.isin(list(mapper.keys())).sum() == len(mapper):
+                    self._rename_samples_by_map(mapper)
+                else:
+                    raise ValueError('Invalid sample ids are provided.')
+            else:
+                self._rename_samples_by_map(mapper)
+        else:
+            raise TypeError('Invalid `mapper` type.')
 
     def drop_samples_by_id(self, ids):
         """Drop samples by `ids`.
@@ -174,7 +198,7 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         :rtype:
         """
         target_ids = np.asarray(ids)
-        if self.__internal_frequency.columns.isin(target_ids) == len(target_ids):
+        if self.__internal_frequency.columns.isin(target_ids).sum() == len(target_ids):
             self._remove_samples_by_id(target_ids)
             if self.is_buckled:
                 return target_ids
