@@ -272,11 +272,11 @@ class FrequencyTable(EssentialBackboneBase, EssentialFeatureMetabase, EssentialS
         if rids is None:
             target_rids = self.xrid
         else:
-            target_rids = np.asarray(rids)
+            target_rids = np.asarray(rids).astype(self.__internal_frequency.index.dtype)
         if sids is None:
             target_sids = self.xsid
         else:
-            target_sids = np.asarray(sids)
+            target_sids = np.asarray(sids).astype(self.__internal_frequency.columns.dtype)
         if not ((self.xrid.isin(target_rids).sum() == len(target_rids)) and (self.xsid.isin(target_sids).sum() == len(target_sids))):
             raise ValueError('Invalid ids are provided.')
         return type(self)(frequency=self.__internal_frequency.loc[target_rids,target_sids], metadata=self.metadata,name=self.name)

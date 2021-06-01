@@ -30,17 +30,17 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         if curb is not None:
             if isinstance(curb,EssentialBackboneMetabase):
                 if isinstance(curb,EssentialFeatureMetabase):
-                    tmp_target_rids = curb.xrid
+                    tmp_target_rids = curb.get_feature_ids(str)
                 if isinstance(curb,EssentialSampleMetabase):
-                    tmp_target_sids = curb.xsid
+                    tmp_target_sids = curb.get_sample_ids(str)
             elif curb == 'intersect':
                 tmp_rids_list = []
                 tmp_sids_list = []
                 for essential in tmp_essentials:
                     if isinstance(essential, EssentialFeatureMetabase):
-                        tmp_rids_list.append(essential.xrid)
+                        tmp_rids_list.append(essential.get_feature_ids(str))
                     if isinstance(essential, EssentialSampleMetabase):
-                        tmp_sids_list.append(essential.xsid)
+                        tmp_sids_list.append(essential.get_sample_ids(str))
                 tmp_target_rids = reduce(np.intersect1d, tmp_rids_list) if len(tmp_rids_list)>0 else tmp_target_rids
                 tmp_target_sids = reduce(np.intersect1d, tmp_sids_list) if len(tmp_sids_list)>0 else tmp_target_sids
             else:
@@ -85,7 +85,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         copied_essentials = [essential.copy() for essential in  self.__controller.essentials]
         return type(self)(*copied_essentials,name=self.name,metadata=self.metadata)
 
-    def add_essentials(self, *args,curb=None, copy=True):
+    def add_essentials(self, *args, curb=None, copy=True):
         tmp_essentials = []
         for arg in args:
             if isinstance(arg, (list, tuple)):
@@ -94,7 +94,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
                 tmp_essentials.append(arg)
         tmp_essentials_adj = []
         for essential in tmp_essentials:
-            if self.__controller.verify_essential(essential,check_axis=curb is None, check_mount=not copy):
+            if self.__controller.verify_essential(essential, check_axis=curb is None, check_mount=not copy):
                 if curb == 'intersect':
                     if isinstance(essential,EssentialFeatureMetabase) and not isinstance(essential,EssentialSampleMetabase):
                         tmp_essentials_adj.append(essential.get_subset(self.__controller.xrid))

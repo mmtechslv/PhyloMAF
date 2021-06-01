@@ -55,6 +55,8 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         if not ignore_polytomy:
             tmp_tree.resolve_polytomy()
         self.__feature_ids = np.asarray(tmp_tip_ids)
+        self.__feature_ids_dtype = self.__feature_ids.dtype
+        # PhyloTree class uses ete3 trees, which work unstable when tips are not strings. Therefore, dtype of internal `__feature_ids` and external `xrid` are kept different.
         self.__internal_tree = tmp_tree
         self.__annotations = tmp_annotation_adj
 
@@ -77,9 +79,10 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             else:
                 tmp_new_node = self.__internal_tree.get_node_by_name(str(group[0]))
             tmp_new_node.name = tmp_new_name
+        self.__feature_ids_dtype = type(list(map_dict.keys())[0])
         self.__internal_tree.prune_by_ids(new_tips)
         self.__annotations = {str(tid):annot for tid,annot in _annotations.items()} if _annotations is not None else {}
-        self.__feature_ids = np.array(new_tips,dtype=self.__feature_ids.dtype)
+        self.__feature_ids = np.array(new_tips,dtype=str)
         return self._ratify_action('_merge_features_by_map', map_dict, _annotations=_annotations, **kwargs)
 
     def __make_annotated_tree(self):
@@ -139,13 +142,13 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
     def get_subset(self, rids=None, *args, **kwargs):
         if rids is None:
-            target_rids = self.xrid
+            target_rids = self.__feature_ids
         else:
-            target_rids = np.asarray(rids)
-        if not self.xrid.isin(target_rids).sum() == len(target_rids):
+            target_rids = np.asarray(rids).astype(str)
+        if not np.isin(self.__feature_ids, target_rids).sum() == len(target_rids):
             raise ValueError('Invalid feature ids are provided.')
         tmp_tree = self.__internal_tree.copy()
-        tmp_tree.prune_by_ids(target_rids.astype(str))
+        tmp_tree.prune_by_ids(target_rids)
         return type(self)(tree=tmp_tree, feature_ids=self.__feature_ids, annotation=self.__annotations, copy=True, metadata = self.metadata,name=self.name)
 
     def write(self, output_fp, mode='w',  **kwargs):
@@ -163,4 +166,4 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
     @property
     def xrid(self):
-        return pd.Index(self.__feature_ids).astype(int)
+        return pd.Index(self.__feature_ids).astype(self.__feature_ids_dtype)

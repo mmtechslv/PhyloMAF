@@ -31,8 +31,8 @@ def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kw
                 complevel = value
             elif key == 'complib' and isinstance(value, str):
                 complib = value
-            else:
-                raise KeyError('Invalid parameters were provided.')
+            # else:
+            #     raise KeyError('Invalid parameters were provided.')  # TODO: Maybe remove this or make better finalizer.
     if compress:
         print('Compressing storage file.')
         if not storage_manager.compress_storage(complevel=complevel, complib=complib, overwrite=overwrite):

@@ -198,7 +198,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         if rids is None:
             target_rids = self.xrid
         else:
-            target_rids = np.asarray(rids)
+            target_rids = np.asarray(rids).astype(self.__internal_taxonomy.index.dtype)
         if not self.xrid.isin(target_rids).sum() == len(target_rids):
             raise ValueError('Invalid feature ids are provided.')
         return type(self)(taxonomy=self.__internal_taxonomy.loc[target_rids, 'lineage'], metadata=self.metadata, name=self.name)
@@ -290,6 +290,13 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         else:
             sample_taxon = taxonomy_series.iloc[0]  # Get first lineage _sample for notation testing assuming the rest have the the same notations
             notation = indentify_taxon_notation(sample_taxon)  # Identify notation of the lineage string
+        if order_ranks is not None:
+            if not all([rank in VALID_RANKS for rank in order_ranks]):
+                raise NotImplementedError
+            else:
+                target_order_ranks = order_ranks
+        else:
+            target_order_ranks = VALID_RANKS
         if notation == 'greengenes':
             lineages = taxonomy_series.reset_index().values.tolist()
             ordered_taxa_list = []
@@ -320,13 +327,11 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             tmp_taxonomy_df = pd.DataFrame.from_records(tmp_taxa_dict_list)
             tmp_taxonomy_df.set_index(None, inplace=True)
             tmp_taxonomy_df = tmp_taxonomy_df.loc[:, sorted(list(tmp_ranks))]
-            tmp_taxonomy_df.columns = [rank for rank in VALID_RANKS[::-1][:len(tmp_ranks)]][::-1]
+            tmp_taxonomy_df.columns = [rank for rank in target_order_ranks[::-1][:len(tmp_ranks)]][::-1]
             for rank in [rank for rank in VALID_RANKS if rank not in tmp_taxonomy_df.columns]:
                 tmp_taxonomy_df.loc[:,rank] = None
             return tmp_taxonomy_df 
-        elif notation=='silva' and order_ranks is not None:
-            if not all([rank in VALID_RANKS for rank in order_ranks]):
-                raise NotImplementedError
+        elif notation=='silva':
             lineages = taxonomy_series.reset_index().values.tolist()
             tmp_taxa_dict_list = []
             tmp_ranks = set()
@@ -335,15 +340,15 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
                 tmp_taxa_dict = defaultdict(None)
                 tmp_taxa_dict[None] = lineage[0]            
                 for rank_i, taxon in enumerate(tmp_lineage):
-                    rank = order_ranks[rank_i]
+                    rank = target_order_ranks[rank_i]
                     tmp_taxa_dict[rank] = taxon
                     tmp_ranks.add(rank)
                 tmp_taxa_dict_list.append(dict(tmp_taxa_dict))
             tmp_taxonomy_df = pd.DataFrame.from_records(tmp_taxa_dict_list)
             tmp_taxonomy_df.set_index(None, inplace=True)
-            tmp_rank_ordered = [rank for rank in order_ranks if rank in VALID_RANKS]
+            tmp_rank_ordered = [rank for rank in target_order_ranks if rank in VALID_RANKS]
             tmp_taxonomy_df = tmp_taxonomy_df.loc[:, tmp_rank_ordered]
-            tmp_taxonomy_df.columns = [rank for rank in order_ranks[::-1][:len(tmp_ranks)]][::-1]
+            tmp_taxonomy_df.columns = [rank for rank in target_order_ranks[::-1][:len(tmp_ranks)]][::-1]
             for rank in [rank for rank in VALID_RANKS if rank not in tmp_taxonomy_df.columns]:
                 tmp_taxonomy_df.loc[:,rank] = None
             return tmp_taxonomy_df 

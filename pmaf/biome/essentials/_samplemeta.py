@@ -148,7 +148,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         if sids is None:
             target_sids = self.xsid
         else:
-            target_sids = np.asarray(sids)
+            target_sids = np.asarray(sids).astype(self.__internal_samples.index.dtype)
         if not self.xsid.isin(target_sids).sum() == len(target_sids):
             raise ValueError('Invalid sample ids are provided.')
         return type(self)(samples= self.__internal_samples.loc[target_sids,:], axis=0, metadata = self.metadata, name=self.name)

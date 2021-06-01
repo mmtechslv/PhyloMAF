@@ -92,7 +92,7 @@ class EssentialsController(EssentialControllerBackboneMetabse):
                         self.__feature_ids = np.sort(essential.xrid)
                         essential_pass = True
                     else:
-                        tmp_feature_ids  = np.sort(essential.xrid)
+                        tmp_feature_ids  = np.sort(essential.get_feature_ids(self.__feature_ids.dtype))
                         if np.array_equal(self.__feature_ids, tmp_feature_ids):
                             essential_pass = True
                         else:
@@ -102,7 +102,7 @@ class EssentialsController(EssentialControllerBackboneMetabse):
                         self.__sample_ids = np.sort(essential.xsid)
                         essential_pass = True
                     else:
-                        tmp_sample_ids = np.sort(essential.xsid)
+                        tmp_sample_ids = np.sort(essential.get_sample_ids(self.__sample_ids.dtype))
                         if np.array_equal(self.__sample_ids, tmp_sample_ids):
                             essential_pass = True
                         else:
@@ -112,7 +112,7 @@ class EssentialsController(EssentialControllerBackboneMetabse):
                     essential._buckle()
                     self.__essentials.append(essential)
                 else:
-                    raise RuntimeError('`essential` has invalid type.')
+                    raise RuntimeError('`essential` did not pass controls.')
             else:
                 raise ValueError('`essential` has invalid type.')
         else:

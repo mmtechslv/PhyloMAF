@@ -46,7 +46,7 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         if rids is None:
             target_rids = self.xrid
         else:
-            target_rids = np.asarray(rids)
+            target_rids = np.asarray(rids).astype(self.__sequence_df.index.dtype)
         if not self.xrid.isin(target_rids).sum() == len(target_rids):
             raise ValueError('Invalid feature ids are provided.')
         return type(self)(sequences=self.__sequence_df.loc[target_rids,'sequence'], metadata = self.metadata,name=self.name)

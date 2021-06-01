@@ -38,6 +38,13 @@ class BiomeBackboneMetabase(ABC):
 
 class BiomeFeatureMetabase(BiomeBackboneMetabase):
 
+    def get_feature_ids(self, dtype=None):
+        """This function and its sample twin is a rescue method to fix RepPhylogeny index problem. """
+        if dtype is None:
+            return self.xrid
+        else:
+            return self.xrid.astype(dtype)
+
     @property
     @abstractmethod
     def xrid(self):
@@ -45,6 +52,13 @@ class BiomeFeatureMetabase(BiomeBackboneMetabase):
 
 
 class BiomeSampleMetabase(BiomeBackboneMetabase):
+
+    def get_sample_ids(self, dtype):
+        """This function and its sample twin is a rescue method to fix RepPhylogeny index problem. """
+        if dtype is None:
+            return self.xsid
+        else:
+            return self.xsid.astype(dtype)
 
     @property
     @abstractmethod
