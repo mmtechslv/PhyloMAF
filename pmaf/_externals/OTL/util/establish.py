@@ -2,6 +2,21 @@
 # This is very similar to what processAdditionDocument (in Addition.java) has to do.
 
 def establish(name, taxonomy, rank=None, parent=None, ancestor=None, division=None, ott_id=None, source=None):
+    '''
+
+    Args:
+      name: 
+      taxonomy: 
+      rank: (Default value = None)
+      parent: (Default value = None)
+      ancestor: (Default value = None)
+      division: (Default value = None)
+      ott_id: (Default value = None)
+      source: (Default value = None)
+
+    Returns:
+
+    '''
     taxon = None
     anc = None
     if parent != None:

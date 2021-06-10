@@ -5,6 +5,17 @@ from functools import reduce
 from pprint import pprint
 
 def mergeRepTaxonmy(feature_groupby,features_map,essentials_map,aggfunc_dict):
+    '''
+
+    Args:
+      feature_groupby: 
+      features_map: 
+      essentials_map: 
+      aggfunc_dict: 
+
+    Returns:
+
+    '''
     if feature_groupby == 'taxonomy':
         new_tax_lineages = features_map.loc[:, 'index'].reset_index().set_index('index')
         return RepTaxonomy(new_tax_lineages, name='Taxonomy')
@@ -21,6 +32,19 @@ def mergeRepTaxonmy(feature_groupby,features_map,essentials_map,aggfunc_dict):
         raise ValueError('`feature_groupby` is invalid.')
 
 def mergeFrequencyTable(feature_groupby,sample_groupby, features_map, samples_map, essentials_map,aggfunc_dict):
+    '''
+
+    Args:
+      feature_groupby: 
+      sample_groupby: 
+      features_map: 
+      samples_map: 
+      essentials_map: 
+      aggfunc_dict: 
+
+    Returns:
+
+    '''
     if feature_groupby == 'taxonomy' and sample_groupby in ['index','label']:
         feature_groups = features_map.reset_index(drop=True).set_index('index')
         sample_groups = samples_map.reset_index(drop=True).set_index('index')
@@ -61,6 +85,17 @@ def mergeFrequencyTable(feature_groupby,sample_groupby, features_map, samples_ma
         return FrequencyTable(new_frequency_table, name='FrequencyTable')
 
 def mergeSampleMetadata(sample_groupby,samples_map,essentials_map,aggfunc_dict):
+    '''
+
+    Args:
+      sample_groupby: 
+      samples_map: 
+      essentials_map: 
+      aggfunc_dict: 
+
+    Returns:
+
+    '''
     if sample_groupby in ['index','label']:
         sample_groups = samples_map.reset_index(drop=True).set_index('index')
         new_sample_parts = {nsid: list() for nsid in sample_groups.index}
@@ -85,6 +120,16 @@ def mergeSampleMetadata(sample_groupby,samples_map,essentials_map,aggfunc_dict):
         raise ValueError('`sample_groupby` is invalid.')
 
 def parse_assembly_maps(feature_groupby,sample_groupby,assembly_map):
+    '''
+
+    Args:
+      feature_groupby: 
+      sample_groupby: 
+      assembly_map: 
+
+    Returns:
+
+    '''
     if feature_groupby in ['index','label']:
         features_set = set()
         for label, asmbly in assembly_map.items():

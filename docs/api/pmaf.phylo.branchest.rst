@@ -1,6 +1,11 @@
 pmaf.phylo.branchest package
 ============================
 
+.. automodule:: pmaf.phylo.branchest
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -9,11 +14,3 @@ Subpackages
 
    pmaf.phylo.branchest.erable
    pmaf.phylo.branchest.fasttree2
-
-Module contents
----------------
-
-.. automodule:: pmaf.phylo.branchest
-   :members:
-   :undoc-members:
-   :show-inheritance:

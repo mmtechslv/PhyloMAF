@@ -21,6 +21,18 @@ repo_dir = '..'              # directory containing repo clones
 trees_in_synthesis = {}
 
 def report_on_shard(study_tree_pairs_path, shard, taxpath, allp, outpath):
+    '''
+
+    Args:
+      study_tree_pairs_path: 
+      shard: 
+      taxpath: 
+      allp: 
+      outpath: 
+
+    Returns:
+
+    '''
     if not allp:
         with open(study_tree_pairs_path, 'r') as infile:
             print 'reading', study_tree_pairs_path
@@ -42,6 +54,18 @@ def report_on_shard(study_tree_pairs_path, shard, taxpath, allp, outpath):
             report_on_study(study_id, shard, taxonomy, allp, outfile)
 
 def report_on_study(study_id, shard, taxonomy, allp, outfile):
+    '''
+
+    Args:
+      study_id: 
+      shard: 
+      taxonomy: 
+      allp: 
+      outfile: 
+
+    Returns:
+
+    '''
     study = get_study(study_id, shard)
     if study == None: return
     focal = get_focal_taxon(study, taxonomy)
@@ -50,6 +74,18 @@ def report_on_study(study_id, shard, taxonomy, allp, outfile):
             report_on_tree(study, tree, focal, taxonomy, outfile)
 
 def report_on_tree(study, tree, focal, taxonomy, outfile):
+    '''
+
+    Args:
+      study: 
+      tree: 
+      focal: 
+      taxonomy: 
+      outfile: 
+
+    Returns:
+
+    '''
     tree_as_taxo = import_tree(tree, study)
     count = 0
     losers = []
@@ -83,6 +119,15 @@ def report_on_tree(study, tree, focal, taxonomy, outfile):
         outfile.write('  loser: %s not under %s, mrca %s\n' % (loser, focal_name, focal.mrca(ott_loser).name))
 
 def map_to_reference(taxon, taxonomy):
+    '''
+
+    Args:
+      taxon: 
+      taxonomy: 
+
+    Returns:
+
+    '''
     if taxon.sourceIds != None:
         for qid in taxon.sourceIds:
             if qid.prefix == taxonomy.idspace:
@@ -92,6 +137,15 @@ def map_to_reference(taxon, taxonomy):
 warnp = False
 
 def get_focal_taxon(study, taxonomy):
+    '''
+
+    Args:
+      study: 
+      taxonomy: 
+
+    Returns:
+
+    '''
     focal = None
     focal_id = study.get(u'^ot:focalClade')
     if focal_id != None:
@@ -118,6 +172,15 @@ def get_focal_taxon(study, taxonomy):
 single_study_cache = {'id': None, 'study': None}
 
 def get_study(study_id, shard):
+    '''
+
+    Args:
+      study_id: 
+      shard: 
+
+    Returns:
+
+    '''
     if study_id == single_study_cache['id']:
         study = single_study_cache['study']
     else:
@@ -130,6 +193,15 @@ def get_study(study_id, shard):
     return study
 
 def gobble_study(study_id, phylesystem):
+    '''
+
+    Args:
+      study_id: 
+      phylesystem: 
+
+    Returns:
+
+    '''
     filepath = study_id_to_path(study_id, phylesystem)
     # should do try/catch for file-not-found
     if not os.path.exists(filepath):
@@ -141,6 +213,15 @@ def gobble_study(study_id, phylesystem):
 # shard is the path to the root of the repository (or shard) clone
 
 def study_id_to_path(study_id, shard):
+    '''
+
+    Args:
+      study_id: 
+      shard: 
+
+    Returns:
+
+    '''
     (prefix, number) = study_id.split('_', 1)
     if len(number) == 1:
         residue = '_' + number
@@ -151,6 +232,15 @@ def study_id_to_path(study_id, shard):
 # Java class for parsing nexson
 
 def import_tree(tree, study):
+    '''
+
+    Args:
+      tree: 
+      study: 
+
+    Returns:
+
+    '''
     return Nexson.importTree(tree.nexson_tree,
                              tree._nexson_proxy.reftax_otus,
                              '%s@%s' % (study.id, tree.tree_id))
@@ -158,6 +248,7 @@ def import_tree(tree, study):
 # Proxy object for study file in nexson format
 
 class NexsonProxy(object):
+    ''' '''
     def __init__(self, filepath):
         self.filepath = filepath # peyotl name
         self.nexson = None
@@ -174,6 +265,14 @@ class NexsonProxy(object):
         self.id = self.get(u'^ot:studyId')
 
     def get(self, attribute):
+        '''
+
+        Args:
+          attribute: 
+
+        Returns:
+
+        '''
         if attribute in self.nexson[u'nexml']:
             return self._nexml_element[attribute]
         else:
@@ -181,6 +280,16 @@ class NexsonProxy(object):
 
     # cf. peyotl _create_tree_proxy (does not always create)
     def _get_tree_proxy(self, tree_id, tree, otus_id):
+        '''
+
+        Args:
+          tree_id: 
+          tree: 
+          otus_id: 
+
+        Returns:
+
+        '''
         tp = self._tree_proxy_cache.get(tree_id)
         if tp is None:
             np = NexsonTreeProxy(tree, tree_id, otus_id, self)
@@ -188,6 +297,14 @@ class NexsonProxy(object):
         return np
 
     def get_tree(self, tree_id):
+        '''
+
+        Args:
+          tree_id: 
+
+        Returns:
+
+        '''
         np = self._tree_proxy_cache.get(tree_id)
         if np is not None:
             return np
@@ -201,7 +318,14 @@ class NexsonProxy(object):
         return None
 
 def tree_iter_nexson_proxy(nexson_proxy): # peyotl
-    '''Iterates over NexsonTreeProxy objects in order determined by the nexson blob'''
+    '''Iterates over NexsonTreeProxy objects in order determined by the nexson blob
+
+    Args:
+      nexson_proxy: 
+
+    Returns:
+
+    '''
     nexml_el = nexson_proxy._nexml_element
     tg_order = nexml_el['^ot:treesElementOrder']
     tgd = nexml_el['treesById']
@@ -215,6 +339,7 @@ def tree_iter_nexson_proxy(nexson_proxy): # peyotl
             yield nexson_proxy._get_tree_proxy(tree_id=k, tree=v, otus_id=otus_id)
 
 class NexsonTreeProxy(object):
+    ''' '''
     def __init__(self, nexson_tree, tree_id, otus_id, nexson_proxy):
         self.nexson_tree = nexson_tree
         self.nexson_otus_id = otus_id
@@ -225,6 +350,7 @@ class NexsonTreeProxy(object):
             print '** otus id not found', nexson_proxy.id, tree_id, otus_id, by_id.keys()
         self._otus = by_id[otus_id][u'otuById']
     def ingroup(self):
+        ''' '''
         ingroup = self.nexson_tree.get(u'^ot:inGroupClade')
         if ingroup == '':
             return None
@@ -234,6 +360,14 @@ class NexsonTreeProxy(object):
 # All study ids within a given phylesystem (shard)
 
 def all_study_ids(shard):
+    '''
+
+    Args:
+      shard: 
+
+    Returns:
+
+    '''
     ids = []
     top = os.path.join(shard, 'study')
     hundreds = os.listdir(top)

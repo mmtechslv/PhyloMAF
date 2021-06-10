@@ -7,6 +7,7 @@ from pmaf.pipe.agents.dockers._mediums._phy_medium import DockerPhylogenyMedium
 import numpy as np
 
 class SpecTSPBP(SpecificationCompositeBase):
+    ''' '''
     def __init__(self, *args, branch_estimator,  **kwargs):
         if not isinstance(branch_estimator,BranchEstimatorBackboneMetabase):
             raise TypeError('`branch_estimator` has invalid type.')
@@ -43,6 +44,7 @@ class SpecTSPBP(SpecificationCompositeBase):
 
     @property
     def outlet(self):
+        ''' '''
         return DockerPhylogenyMedium
 
 

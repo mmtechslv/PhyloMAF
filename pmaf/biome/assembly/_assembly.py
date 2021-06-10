@@ -12,6 +12,7 @@ import pandas as pd
 from os import path
 
 class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
+    ''' '''
     def __init__(self, essentials=None, *args, curb=None, copy=True, **kwargs):
         if essentials is not None:
             if isinstance(essentials,(tuple,list)):
@@ -79,13 +80,25 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         return sorted(dir(type(self)) + [type(essential).__name__ for essential in self.__controller.essentials])
 
     def _repr_appendage__(self):
+        ''' '''
         return {'Essentials':len(self.__controller.essentials)}
 
     def copy(self):
+        ''' '''
         copied_essentials = [essential.copy() for essential in  self.__controller.essentials]
         return type(self)(*copied_essentials,name=self.name,metadata=self.metadata)
 
     def add_essentials(self, *args, curb=None, copy=True):
+        '''
+
+        Args:
+          *args: 
+          curb: (Default value = None)
+          copy: (Default value = True)
+
+        Returns:
+
+        '''
         tmp_essentials = []
         for arg in args:
             if isinstance(arg, (list, tuple)):
@@ -113,6 +126,16 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
             self.__controller.insert_essential(essential)
 
     def get_subset(self, rids=None, sids=None, **kwargs):
+        '''
+
+        Args:
+          rids: (Default value = None)
+          sids: (Default value = None)
+          **kwargs: 
+
+        Returns:
+
+        '''
         if rids is None:
             target_rids = self.xrid
         else:
@@ -155,13 +178,47 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         return tmp_freq_df
 
     def to_otu_table(self,*args, **kwargs):
+        '''
+
+        Args:
+          *args: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         return self.__make_otu_table(*args, **kwargs)[0]
 
     def write_otu_table(self, output_fp, *args, sep=',', **kwargs):
+        '''
+
+        Args:
+          output_fp: 
+          *args: 
+          sep: (Default value = ')
+          ': 
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_otu_table = self.__make_otu_table(*args, **kwargs)
         tmp_otu_table.to_csv(output_fp, sep=sep)
 
     def export(self, output_dir, prefix=None, as_otu_table=False, sep=',', **kwargs):
+        '''
+
+        Args:
+          output_dir: 
+          prefix: (Default value = None)
+          as_otu_table: (Default value = False)
+          sep: (Default value = ')
+          ': 
+          **kwargs: 
+
+        Returns:
+
+        '''
         for essential in self.__controller.essentials:
             if as_otu_table and isinstance(essential,(FrequencyTable,RepTaxonomy)):
                 pass
@@ -181,18 +238,22 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
     @property
     def essentials(self):
+        ''' '''
         return self.__controller.essentials
 
     @property
     def xrid(self):
+        ''' '''
         return pd.Index(self.__controller.xrid if self.__controller.xrid is not None else np.array([],dtype=object))
 
     @property
     def xsid(self):
+        ''' '''
         return pd.Index(self.__controller.xsid if self.__controller.xsid is not None else np.array([],dtype=object))
 
     @property
     def controller(self):
+        ''' '''
         return self.__controller
 
 

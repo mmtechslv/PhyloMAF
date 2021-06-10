@@ -5,6 +5,15 @@ from org.opentreeoflife.taxa import Taxonomy
 import csv, sys
 
 def check(inclusionspath, ott):
+    '''
+
+    Args:
+      inclusionspath: 
+      ott: 
+
+    Returns:
+
+    '''
     infile = open(inclusionspath, 'rb')
     reader = csv.reader(infile)
     for row in reader:
@@ -50,6 +59,16 @@ def check(inclusionspath, ott):
     infile.close()
 
 def show_interloper(small_node, small_id, ott):
+    '''
+
+    Args:
+      small_node: 
+      small_id: 
+      ott: 
+
+    Returns:
+
+    '''
     if small_node != small_node.taxon():
         print '   %s is a synonym for %s' % (small_node.name, small_node.taxon().name)
     probe = ott.lookupId(small_id)

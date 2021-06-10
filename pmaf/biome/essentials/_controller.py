@@ -3,7 +3,7 @@ from pmaf.biome.essentials._metakit import EssentialFeatureMetabase,EssentialSam
 import numpy as np
 
 class EssentialsController(EssentialControllerBackboneMetabse):
-    """Controller for any `biome.essentials` working together within `biome.assembly`."""
+    '''Controller for any `biome.essentials` working together within `biome.assembly`.'''
 
     def __init__(self, remount=False, **kwargs):
         """
@@ -19,11 +19,14 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         self.__remount = bool(remount)
 
     def insert_essential(self, essential):
-        """Add instance of `Essentials` to the controller.
+        '''Add instance of `Essentials` to the controller.
 
-        :param essential: Instance of `pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
-        :type essential: EssentialBackboneMetabase
-        """
+        Args:
+          essential(EssentialBackboneMetabase): Instance of `pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
+
+        Returns:
+
+        '''
         if isinstance(essential,EssentialBackboneMetabase):
             if not essential.is_mounted or self.__remount:
                 self.__append_essential(essential)
@@ -33,17 +36,17 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             raise TypeError('`essential` has invalid type.')
 
     def verify_essential(self, essential, check_axis=True, check_mount=True):
-        """Validates the essentials instance.
+        '''Validates the essentials instance.
 
-        :param essential: Instance of `Essentials` to validate.
-        :type essential: EssentialBackboneMetabase
-        :param check_axis: Whether to check if axes are compatible with active essential instances.
-        :type check_axis: bool
-        :param check_mount: Whether to check if the instance is already mounted.
-        :type check_mount: bool
-        :return: Result of validation.
-        :rtype: bool
-        """
+        Args:
+          essential(EssentialBackboneMetabase): Instance of `Essentials` to validate.
+          check_axis(bool, optional): Whether to check if axes are compatible with active essential instances. (Default value = True)
+          check_mount(bool, optional): Whether to check if the instance is already mounted. (Default value = True)
+
+        Returns:
+          bool: Result of validation.
+
+        '''
         ret = False
         if isinstance(essential,EssentialBackboneMetabase):
             if not essential.is_mounted or self.__remount or not check_mount :
@@ -142,19 +145,19 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         self.__sample_ids = tmp_sample_ids
 
     def reflect_action(self, source, method, value, **kwargs):
-        """Reflect or mirror the action to controlled instances of `essentials`.
+        '''Reflect or mirror the action to controlled instances of `essentials`.
 
-        :param source: Instance of Essential where the action is coming from.
-        :type source: EssentialBackboneMetabase
-        :param method: Name of the method to be reflected.
-        :type method: str
-        :param value: Value to be passed to mirroring functions. Eg. ids to be removed.
-        :type value: Any
-        :param kwargs: Remaining parameters passed to mirroring function.
-        :type kwargs: dict
-        :return: Dictionary with results for each `Essential`
-        :rtype: dict
-        """
+        Args:
+          source(EssentialBackboneMetabase): Instance of Essential where the action is coming from.
+          method(str): Name of the method to be reflected.
+          value(Any): Value to be passed to mirroring functions. Eg. ids to be removed.
+          kwargs(dict): Remaining parameters passed to mirroring function.
+          **kwargs: 
+
+        Returns:
+          dict: Dictionary with results for each `Essential`
+
+        '''
         if len(self.__essentials)>0:
             tmp_rets = {source: value}
             self.__unbuckle_essentials()
@@ -179,26 +182,31 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             essential._unbuckle()
 
     def has_essential_by_types(self, *args):
-        """Helper function that checks if `Essentials` in `args` are controlled via current `Controller` instance.
+        '''Helper function that checks if `Essentials` in `args` are controlled via current `Controller` instance.
 
-        :param args: `Essentials`
-        :type args: list-like
-        :return:
-        :rtype: bool
-        """
+        Args:
+          args(list-like): Essentials`
+          *args: 
+
+        Returns:
+          rtype: bool
+
+        '''
         ret = []
         for arg in args:
             ret.append(any([isinstance(essential,arg) for essential in self.__essentials]))
         return all(ret)
 
     def take_essential_by_type(self, type):
-        """Get controlled essential by type.
+        '''Get controlled essential by type.
 
-        :param type:
-        :type type:
-        :return:
-        :rtype:
-        """
+        Args:
+          type: type type:
+
+        Returns:
+          rtype: 
+
+        '''
         ret = None
         for essential in self.__essentials:
             if isinstance(essential,type):
@@ -210,27 +218,27 @@ class EssentialsController(EssentialControllerBackboneMetabse):
 
     @property
     def state(self):
-        """Is controller active."""
+        '''Is controller active.'''
         return len(self.__essentials)>0
 
     @property
     def count(self):
-        """Total controlled essentials."""
+        '''Total controlled essentials.'''
         return len(self.__essentials)
 
     @property
     def essentials(self):
-        """Get controlled essentials."""
+        '''Get controlled essentials.'''
         return self.__essentials
 
     @property
     def xrid(self):
-        """Feature axis of controlled essentials."""
+        '''Feature axis of controlled essentials.'''
         return self.__feature_ids
 
     @property
     def xsid(self):
-        """Sample axis of controlled essentials."""
+        '''Sample axis of controlled essentials.'''
         return self.__sample_ids
 
 

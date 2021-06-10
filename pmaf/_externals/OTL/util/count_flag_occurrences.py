@@ -2,6 +2,15 @@ import sys
 
 
 def insert_into_dict(flag,dict):
+    '''
+
+    Args:
+      flag: 
+      dict: 
+
+    Returns:
+
+    '''
     if flag in flagdict:
         flagdict[flag] += 1
     else:

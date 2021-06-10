@@ -13,6 +13,15 @@ non_tip_grafts = 0
 # Returns set of seen idspaces.
 
 def recur(taxon, seen):
+    '''
+
+    Args:
+      taxon: 
+      seen: 
+
+    Returns:
+
+    '''
     global count, grafts, non_tip_grafts
     count += 1
 
@@ -46,6 +55,14 @@ bit_positions = {}
 next_position = 1
 
 def bit_position(space):
+    '''
+
+    Args:
+      space: 
+
+    Returns:
+
+    '''
     global next_position
     pos = bit_positions.get(space)
     if pos == None:
@@ -56,6 +73,15 @@ def bit_position(space):
     return pos
 
 def adjoin(x, s):
+    '''
+
+    Args:
+      x: 
+      s: 
+
+    Returns:
+
+    '''
     return bit_position(x) | s
 
 def union(s, t): return s | t
@@ -65,6 +91,22 @@ def intersectp(s, t): return (s & t) != 0
 def empty(): return 0
 
 def isin(x, s):
+    '''
+
+    Args:
+      s: 
+      t): return s | tintersectp(s:
+      t): return (s & t) !:  (Default value = 0empty(): return 0isin(x)
+      t): return s | tintersectp(s:
+      t): return (s & t) !:  (Default value = 0empty(): return 0isin(x)
+      t): return s | tintersectp(s:
+      t): return (s & t) !:  (Default value = 0empty(): return 0isin(x)
+      t): return s | tintersectp(s: 
+      t): return (s & t) !:  (Default value = 0empty(): return 0isin(x)
+
+    Returns:
+
+    '''
     return (bit_position(x) & s) != 0
 
 for root in ott.roots():

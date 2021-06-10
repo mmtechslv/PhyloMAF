@@ -1,6 +1,11 @@
 pmaf.phylo.builders package
 ===========================
 
+.. automodule:: pmaf.phylo.builders
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -8,11 +13,3 @@ Subpackages
    :maxdepth: 4
 
    pmaf.phylo.builders.fasttree2
-
-Module contents
----------------
-
-.. automodule:: pmaf.phylo.builders
-   :members:
-   :undoc-members:
-   :show-inheritance:

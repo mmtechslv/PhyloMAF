@@ -1,6 +1,11 @@
 pmaf.pipe package
 =================
 
+.. automodule:: pmaf.pipe
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -10,11 +15,3 @@ Subpackages
    pmaf.pipe.factors
    pmaf.pipe.markers
    pmaf.pipe.specs
-
-Module contents
----------------
-
-.. automodule:: pmaf.pipe
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -41,6 +41,15 @@ column_uris = [qualname('taxonID'),
                qualname('datasetID')]
 
 def project_gbif(inpath, outpath):
+    '''
+
+    Args:
+      inpath: 
+      outpath: 
+
+    Returns:
+
+    '''
 
     print 'Opening archive', inpath
 
@@ -57,6 +66,15 @@ def project_gbif(inpath, outpath):
             sys.stdout.flush()
 
         def get_value(row, uri):
+            '''
+
+            Args:
+              row: 
+              uri: 
+
+            Returns:
+
+            '''
             if uri in terms:
                 value = row.data[uri]
             elif uri == scientific_name_uri:
@@ -109,6 +127,14 @@ has_digit = re.compile(u".*[0-9].*")
 count = 0
 
 def canonical_name(name):
+    '''
+
+    Args:
+      name: 
+
+    Returns:
+
+    '''
     global count
     if ' phage ' in name or name.endswith(' phage'): return name
     if ' virus ' in name or name.endswith(' virus'): return name

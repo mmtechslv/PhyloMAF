@@ -2,7 +2,7 @@ from ._metakit import EssentialBackboneMetabase,EssentialControllerBackboneMetab
 from pmaf.biome._base import BiomeBackboneBase
 
 class EssentialBackboneBase(BiomeBackboneBase,EssentialBackboneMetabase):
-    """Base class for `Essentials` with common methods and properties."""
+    '''Base class for `Essentials` with common methods and properties.'''
     def __init__(self, _controller=None, **kwargs):
         if _controller is not None:
             if isinstance(_controller,EssentialControllerBackboneMetabse):
@@ -15,21 +15,20 @@ class EssentialBackboneBase(BiomeBackboneBase,EssentialBackboneMetabase):
         self.__buckled = False
 
     def _ratify_action(self, method, value, _reflectin=False, rlog=False, **kwargs):
-        """Ratify the action. Actual reflection handled by `Controller`.
+        '''Ratify the action. Actual reflection handled by `Controller`.
 
-        :param method: Name of the method to mirror.
-        :type method: str
-        :param value: Value of the method to mirror.
-        :type value: Any
-        :param _reflectin: Is the beginning of reflection or continuation.
-        :type _reflectin: bool
-        :param rlog: Return the result or not.
-        :type rlog: bool
-        :param kwargs:
-        :type kwargs:
-        :return: Result of called method.
-        :rtype: Any
-        """
+        Args:
+          method(str): Name of the method to mirror.
+          value(Any): Value of the method to mirror.
+          _reflectin(bool, optional): Is the beginning of reflection or continuation. (Default value = False)
+          rlog(bool, optional): Return the result or not. (Default value = False)
+          kwargs: type kwargs:
+          **kwargs: 
+
+        Returns:
+          Any: Result of called method.
+
+        '''
         if self.__buckled and (self.__controller is not None):
             ret = self.__controller.reflect_action(self, method, value, **kwargs)
         else:
@@ -40,23 +39,36 @@ class EssentialBackboneBase(BiomeBackboneBase,EssentialBackboneMetabase):
             return None
 
     def _buckle(self):
-        """Mark `Essental` istance as buckled.
+        '''Mark `Essental` istance as buckled.
         When buckled some methods, which are ratified change their return behavior.
-        """
+
+        Args:
+
+        Returns:
+
+        '''
         self.__buckled = True
 
     def _unbuckle(self):
-        """Unmark `Essental` istance as buckled.
+        '''Unmark `Essental` istance as buckled.
         When unbuckled some methods, which are ratified return to their original behavior.
-        """
+
+        Args:
+
+        Returns:
+
+        '''
         self.__buckled = False
 
     def _mount_controller(self, controller):
-        """Mount the `Controller` to instance of `Essentials`
+        '''Mount the `Controller` to instance of `Essentials`
 
-        :param controller: `Controller` instance
-        :type controller: EssentialControllerBackboneMetabse
-        """
+        Args:
+          controller(EssentialControllerBackboneMetabse): Controller` instance
+
+        Returns:
+
+        '''
         if self.__controller is None:
             if isinstance(controller, EssentialControllerBackboneMetabse):
                 self.__controller = controller
@@ -67,12 +79,15 @@ class EssentialBackboneBase(BiomeBackboneBase,EssentialBackboneMetabase):
 
     @property
     def is_mounted(self):
+        ''' '''
         return self.__controller is not None
 
     @property
     def controller(self):
+        ''' '''
         return self.__controller
 
     @property
     def is_buckled(self):
+        ''' '''
         return self.__buckled

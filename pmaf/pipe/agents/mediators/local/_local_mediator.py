@@ -2,6 +2,15 @@ from pmaf.database._metakit import DatabaseBackboneMetabase,DatabaseAccessionMet
 from ._components import MediatorLocalAccessionMixin,MediatorLocalSequenceMixin,MediatorLocalPhylogenyMixin,MediatorLocalTaxonomyMixin
 
 def LocalMediator(database, **kwargs):
+    '''
+
+    Args:
+      database: 
+      **kwargs: 
+
+    Returns:
+
+    '''
     if not isinstance(database,DatabaseBackboneMetabase):
         raise TypeError('`database` has invalid type.')
 

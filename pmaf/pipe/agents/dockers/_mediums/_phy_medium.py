@@ -4,6 +4,7 @@ import numpy as np
 from pmaf.phylo.tree._tree import PhyloTree
 
 class DockerPhylogenyMedium(DockerPhylogenyMetabase,DockerBase):
+    ''' '''
     _UNIT_TYPES = (PhyloTree,type(None))
     def __init__(self, trees, ignore_tips=False, **kwargs):
         if isinstance(trees, list):
@@ -39,6 +40,15 @@ class DockerPhylogenyMedium(DockerPhylogenyMetabase,DockerBase):
         self.__ignore_tips = bool(ignore_tips)
 
     def get_tip_names(self, indices=None, dtype=None):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          dtype: (Default value = None)
+
+        Returns:
+
+        '''
         if self.singleton:
             tips = next(iter(self.data.values())).tip_names
             if dtype is None:
@@ -57,6 +67,16 @@ class DockerPhylogenyMedium(DockerPhylogenyMetabase,DockerBase):
             return {ix: self.data[ix].get_tip_names(dtype=dtype) for ix in target_indices if self.data[ix] is not None}
 
     def get_node_names(self, indices=None, dtype=None, include_missing=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          dtype: (Default value = None)
+          include_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if self.singleton:
             tmp_nodes = next(iter(self.data.values())).node_names
             if not include_missing:
@@ -79,6 +99,15 @@ class DockerPhylogenyMedium(DockerPhylogenyMetabase,DockerBase):
             return {ix: self.data[ix].get_node_names(dtype=dtype, include_missing=include_missing) for ix in target_indices if self.data[ix] is not None}
 
     def get_tree(self,indices=None,exclude_missing=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          exclude_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if self.singleton:
             return next(iter(self.data.values()))
         else:

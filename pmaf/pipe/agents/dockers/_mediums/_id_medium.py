@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 
 class DockerIdentifierMedium(DockerIdentifierMetabase,DockerBase):
+    ''' '''
     _UNIT_TYPES = (int,str,np.integer,type(None))
     def __init__(self, identifiers, **kwargs):
         if isinstance(identifiers,(list,tuple,np.ndarray,pd.Index)):
@@ -19,6 +20,16 @@ class DockerIdentifierMedium(DockerIdentifierMetabase,DockerBase):
         super().__init__(_data_dict=tmp_identifiers,_valid_types=self._UNIT_TYPES,**kwargs)
 
     def to_array(self, indices=None, exclude_missing=False, unique=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          exclude_missing: (Default value = False)
+          unique: (Default value = False)
+
+        Returns:
+
+        '''
         if indices is None:
             target_indices = self.index
         elif np.isscalar(indices):

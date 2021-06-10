@@ -23,6 +23,14 @@ total_otu_count = 0
 total_mapped_count = 0
 
 def process_all(path):
+    '''
+
+    Args:
+      path: 
+
+    Returns:
+
+    '''
     process(path)
     print >>sys.stderr, 'studies:', study_count, 'rejected:', reject_count
     print >>sys.stderr, 'OTUs:', total_otu_count, 'mapped:', total_mapped_count
@@ -33,6 +41,14 @@ def process_all(path):
         writer.writerow([study_id, label.encode('utf8')])
 
 def process(path):
+    '''
+
+    Args:
+      path: 
+
+    Returns:
+
+    '''
     if os.path.isdir(path):
         for name in os.listdir(path):
             process(os.path.join(path, name))
@@ -40,6 +56,14 @@ def process(path):
         process_study(path)
 
 def process_study(path):
+    '''
+
+    Args:
+      path: 
+
+    Returns:
+
+    '''
     global study_count, reject_count, total_otu_count, total_mapped_count
     nexson = load_study(path)
     if nexson == None:
@@ -78,12 +102,28 @@ def process_study(path):
             unmapped.append((study_id, label))
 
 def load_study(path):
+    '''
+
+    Args:
+      path: 
+
+    Returns:
+
+    '''
     with open(path, 'r') as infile:
         blob = json.load(infile)
         if not "nexml" in blob: return
         return blob["nexml"]
 
 def get_label_to_ottid(nexson):
+    '''
+
+    Args:
+      nexson: 
+
+    Returns:
+
+    '''
     label_to_ottid = {}
     for block in nexson["otusById"].itervalues():
         for otu in block["otuById"].itervalues():
@@ -96,6 +136,14 @@ def get_label_to_ottid(nexson):
     return label_to_ottid
 
 def count_mapped(label_to_ottid):
+    '''
+
+    Args:
+      label_to_ottid: 
+
+    Returns:
+
+    '''
     count = 0
     for label in label_to_ottid:
         if label_to_ottid[label] != None:

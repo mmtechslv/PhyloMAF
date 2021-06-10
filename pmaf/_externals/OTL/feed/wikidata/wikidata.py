@@ -60,9 +60,18 @@ import fileinput
 import codecs
 
 def warn(*objs):
+    '''
+
+    Args:
+      *objs: 
+
+    Returns:
+
+    '''
     print(*objs, file=sys.stderr)
 
 def memory_usage_resource():
+    ''' '''
     import resource
     rusage_denom = 1024.
     if sys.platform == 'darwin':
@@ -114,6 +123,14 @@ OTT.close()
 warn("Done")
 
 def check_presence(json):
+    '''
+
+    Args:
+      json: 
+
+    Returns:
+
+    '''
     try:
         EoLprop = item['claims'][EOLid_prop][0]['mainsnak']['datavalue']['value']
     except LookupError:

@@ -1,6 +1,11 @@
 pmaf.database package
 =====================
 
+.. automodule:: pmaf.database
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -9,11 +14,3 @@ Subpackages
 
    pmaf.database.helpers
    pmaf.database.manifest
-
-Module contents
----------------
-
-.. automodule:: pmaf.database
-   :members:
-   :undoc-members:
-   :show-inheritance:

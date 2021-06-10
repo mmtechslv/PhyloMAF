@@ -6,6 +6,18 @@ from pmaf.database._core._acs_base import DatabaseAccessionMixin
 import numpy as np
 
 def export_database_by_rid(database, output_fasta_fp, output_tax_fp, ids=None, chunksize=100):
+    '''
+
+    Args:
+      database: 
+      output_fasta_fp: 
+      output_tax_fp: 
+      ids: (Default value = None)
+      chunksize: (Default value = 100)
+
+    Returns:
+
+    '''
     if isinstance(database,DatabaseBase):
         if isinstance(database,DatabaseTaxonomyMixin) and isinstance(database,DatabaseSequenceMixin):
             if database.storage_manager.state == 1:

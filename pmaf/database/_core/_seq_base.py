@@ -3,8 +3,21 @@ from pmaf.sequence import Nucleotide,MultiSequence,MultiSequenceStream
 import numpy as np
 
 class DatabaseSequenceMixin(DatabaseSequenceMetabase):
+    ''' '''
 
     def get_sequence_by_tid(self, ids=None, subs=False, iterator=True, like='multiseq', chunksize=100):
+        '''
+
+        Args:
+          ids: (Default value = None)
+          subs: (Default value = False)
+          iterator: (Default value = True)
+          like: (Default value = 'multiseq')
+          chunksize: (Default value = 100)
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             repseq_map_gen = self.find_rid_by_tid(ids, subs, True)
             if iterator:
@@ -15,6 +28,18 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
             raise RuntimeError('Storage is closed.')
 
     def get_alignment_by_tid(self, ids=None, subs=False, iterator=True, like='multiseq', chunksize=100):
+        '''
+
+        Args:
+          ids: (Default value = None)
+          subs: (Default value = False)
+          iterator: (Default value = True)
+          like: (Default value = 'multiseq')
+          chunksize: (Default value = 100)
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             repseq_map_gen = self.find_rid_by_tid(ids, subs, True)
             if iterator:
@@ -25,6 +50,17 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
             raise RuntimeError('Storage is closed.')
 
     def get_sequence_by_rid(self, ids=None, iterator=True, like='multiseq', chunksize=100):
+        '''
+
+        Args:
+          ids: (Default value = None)
+          iterator: (Default value = True)
+          like: (Default value = 'multiseq')
+          chunksize: (Default value = 100)
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             if ids is None:
                 target_ids = np.asarray(self.xrid)
@@ -38,6 +74,17 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
             raise RuntimeError('Storage is closed.')
 
     def get_alignment_by_rid(self, ids=None, iterator=True, like='multiseq', chunksize=300):
+        '''
+
+        Args:
+          ids: (Default value = None)
+          iterator: (Default value = True)
+          like: (Default value = 'multiseq')
+          chunksize: (Default value = 300)
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             if ids is None:
                 target_ids = np.asarray(self.xrid)
@@ -51,6 +98,17 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
             raise RuntimeError('Storage is closed.')
 
     def _retrieve_repseq_by_rid(self, repseq_ids, like, seq_name, alignment):
+        '''
+
+        Args:
+          repseq_ids: 
+          like: 
+          seq_name: 
+          alignment: 
+
+        Returns:
+
+        '''
         if len(repseq_ids) > 0:
             tmp_repseq_df = self.storage_manager.get_element_data_by_ids('sequence-representative' if not alignment else 'sequence-aligned', repseq_ids)
             if like == 'multiseq':
@@ -74,6 +132,18 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
             return None
 
     def _iter_repseq_by_rid(self, repseq_ids, like, seq_name, alignment, chunksize):
+        '''
+
+        Args:
+          repseq_ids: 
+          like: 
+          seq_name: 
+          alignment: 
+          chunksize: 
+
+        Returns:
+
+        '''
         if len(repseq_ids)>0:
             chunksize_fixed = chunksize if chunksize is not None else len(repseq_ids)
             rid_chunks = [repseq_ids[i:i + chunksize_fixed] for i in range(0, len(repseq_ids), chunksize_fixed)]

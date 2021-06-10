@@ -34,6 +34,14 @@ print len(res), len(cap)
 
 # Turn 2014-01-30 into 20140130
 def squash_date(value):
+    '''
+
+    Args:
+      value: 
+
+    Returns:
+
+    '''
     if not (isinstance(value, str) or isinstance(value, unicode)):
         return value
     if (len(value) == 10 and
@@ -47,6 +55,14 @@ def squash_date(value):
         return value
 
 def convert(blob):
+    '''
+
+    Args:
+      blob: 
+
+    Returns:
+
+    '''
     series = res[blob["capture_of"]]
     props = {}
     if "ott_idspace" in series:

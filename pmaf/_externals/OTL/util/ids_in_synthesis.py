@@ -11,6 +11,15 @@ from org.opentreeoflife.taxa import Nexson
 # preprocessed/v3.0/trees
 
 def doit(trees_dir_name, out_file_name):
+    '''
+
+    Args:
+      trees_dir_name: 
+      out_file_name: 
+
+    Returns:
+
+    '''
     tre_regex = re.compile('^(.*)_([0-9]+)\\.tre$')
     nexson_regex = re.compile('^(.+)@(.+)\\.json$')
     count = 0
@@ -39,6 +48,14 @@ def doit(trees_dir_name, out_file_name):
     print count
 
 def ott_ids_in(tree_file_name):
+    '''
+
+    Args:
+      tree_file_name: 
+
+    Returns:
+
+    '''
     splitx = re.compile('[),]')
     regex1 = re.compile('[(]*([^(]*)_ott([0-9]+)')
     regex2 = re.compile('[(]*([0-9]+)')

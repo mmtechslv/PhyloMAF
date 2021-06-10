@@ -12,6 +12,14 @@ fung_metrics.doit(fung)
 """
 
 def doit(fung):
+    '''
+
+    Args:
+      fung: 
+
+    Returns:
+
+    '''
     internal = 0
     tips = 0
     species = 0

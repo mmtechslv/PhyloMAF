@@ -13,6 +13,14 @@ name = args.taxonname
 ott_path = '/Users/karen/Documents/opentreeoflife/data/ott/ott2.9draft12/'
 ott = Taxonomy.getTaxonomy(ott_path, 'ott')
 def count_families(taxon):
+    '''
+
+    Args:
+      taxon: 
+
+    Returns:
+
+    '''
     count = 0
     with open('families.txt','w') as f:
         for t in taxon.descendants(False):

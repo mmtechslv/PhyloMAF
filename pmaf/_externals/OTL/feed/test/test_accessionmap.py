@@ -3,14 +3,18 @@ import os
 from feed.ncbi import map_ncbi_accessions
 
 class testAccessionMapping(unittest.TestCase):
+    ''' '''
     def setUp(self):    
+        ''' '''
         self.accessionNumber = "AF025822"
         pass
 
     def tearDown(self):
+        ''' '''
         pass
 
     def testDoesEutilCreatesOutputFile(self):
+        ''' '''
         tempfilename = "efetchtest.tmp"
         batch = [self.accessionNumber]
         mna.callEutils(tempfilename,batch)
@@ -19,6 +23,7 @@ class testAccessionMapping(unittest.TestCase):
             os.unlink(tempfilename)
     
     def testCorrectlyMapSingleAccession(self):
+        ''' '''
         taxonID = '67760'
         strain='ME'
         map={self.accessionNumber:'2356'}

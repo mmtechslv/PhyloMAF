@@ -15,6 +15,14 @@ import sys, os, json, argparse, re
 root = 'r'
 
 def convert_config(blob):
+    '''
+
+    Args:
+      blob: 
+
+    Returns:
+
+    '''
 
     if "sources" in blob:
         blob = blob["sources"]
@@ -63,6 +71,7 @@ def convert_config(blob):
         print '%s: r/%s-HEAD/resource/.made' % (series, series)
 
 def get_config():
+    ''' '''
     if not os.path.exists('config.json'):
         return
     props_path = 'r/ott-HEAD/properties.json'
@@ -75,6 +84,14 @@ def get_config():
             outfile.write('\n')
 
 def write_config(blob):
+    '''
+
+    Args:
+      blob: 
+
+    Returns:
+
+    '''
     sys.stderr.write('Writing updated config.json\n')
     with open('config.json', 'w') as outfile:
         json.dump(blob, outfile, indent=1, sort_keys=True)
@@ -109,6 +126,15 @@ convert_config(blob)
 # Not used
 # Create properties.json file, if it doesn't already exist
 def stub_properties(series, version):
+    '''
+
+    Args:
+      series: 
+      version: 
+
+    Returns:
+
+    '''
     blob = {"series":series, "version":version}
     dir = os.path.join('r', version)
     prop_path = os.path.join(dir, 'properties.json')
@@ -121,12 +147,29 @@ def stub_properties(series, version):
 # Note used
 # Link from foo-HEAD to foo-123, if link doesn't already exist
 def set_head(series, version):
+    '''
+
+    Args:
+      series: 
+      version: 
+
+    Returns:
+
+    '''
     h = os.path.join('r', series + '-HEAD')
     if not os.path.lexists(h):
         os.symlink(version, h)
 
 # This isn't used but I can't bear to throw it away
 def stem(v):
+    '''
+
+    Args:
+      v: 
+
+    Returns:
+
+    '''
     if v.startswith('amendments'):
         # kludge due to hex digits in commit hashes
         return 'amendments'

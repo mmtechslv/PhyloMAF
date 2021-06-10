@@ -37,6 +37,17 @@ DEFAULT_PICKLE_FILE = sys.argv[2]  #'Genbank.pickle'
 # Process one genbank flat file, extracting taxon ids and strain names.
 
 def process_file(flatfilespec, accessions, conflicts, interesting_ids):
+    '''
+
+    Args:
+      flatfilespec: 
+      accessions: 
+      conflicts: 
+      interesting_ids: 
+
+    Returns:
+
+    '''
     time.sleep(1)    # try to forestall throttling
     with open(flatfilespec) as flatfile:
         locus_id = None
@@ -48,6 +59,7 @@ def process_file(flatfilespec, accessions, conflicts, interesting_ids):
         i = 0
 
         def finish_accession():
+            ''' '''
             if (accession_id and taxon_id):
                 if strain_id:
                     accession_pair = (taxon_id, strain_id)
@@ -104,6 +116,14 @@ def process_file(flatfilespec, accessions, conflicts, interesting_ids):
         return (accessions, conflicts)
 
 def tokenize(line):
+    '''
+
+    Args:
+      line: 
+
+    Returns:
+
+    '''
     result = []
     for item in line[:-1].split(' '):
         if item != '':
@@ -111,6 +131,14 @@ def tokenize(line):
     return result
 
 def first_token(line):
+    '''
+
+    Args:
+      line: 
+
+    Returns:
+
+    '''
     s = line.split(' ', 1)
     if len(s) >= 1 and s[0] != '':
         return s[0]
@@ -118,6 +146,15 @@ def first_token(line):
         return None
 
 def extract_feature(line, tag):
+    '''
+
+    Args:
+      line: 
+      tag: 
+
+    Returns:
+
+    '''
     stripped = line.strip()
     detagged = stripped[len(tag):]
     return detagged.strip('"')
@@ -126,6 +163,14 @@ def extract_feature(line, tag):
 # out which genbank ids we care about.
 # Has about .5 million rows.
 def read_silva(filename):
+    '''
+
+    Args:
+      filename: 
+
+    Returns:
+
+    '''
     print 'reading', filename
     ids = {}
     with open(filename, 'r') as infile:
@@ -139,12 +184,21 @@ def read_silva(filename):
     return ids
 
 def driver():
+    ''' '''
     for dataset in RANGES.keys():
         for count in xrange(RANGES[dataset]):
             yield dataset+str(count+1)
 
 
 def main(args):
+    '''
+
+    Args:
+      args: 
+
+    Returns:
+
+    '''
     if os.path.exists(SILVA_FILE):
         interesting_ids = read_silva(SILVA_FILE)
     if os.path.exists(DEFAULT_PICKLE_FILE):

@@ -15,11 +15,29 @@ from org.opentreeoflife.taxa import Taxonomy, QualifiedId
 from java.lang import System, Runtime
 
 def load_eol_page_ids(inpath, tax):
+    '''
+
+    Args:
+      inpath: 
+      tax: 
+
+    Returns:
+
+    '''
     (page_to_nodes, node_to_pages) = load_eol_ids(inpath, tax)
     add_page_ids_to_nodes(tax, node_to_pages, page_to_nodes)
     return (page_to_nodes, node_to_pages)
 
 def load_eol_ids(inpath, tax):
+    '''
+
+    Args:
+      inpath: 
+      tax: 
+
+    Returns:
+
+    '''
     System.gc()
     rt = Runtime.getRuntime()
     print '# Memory', rt.freeMemory()/(1024*1024), rt.totalMemory()/(1024*1024)
@@ -66,6 +84,16 @@ def load_eol_ids(inpath, tax):
     return (page_to_nodes, node_to_pages)
 
 def add_page_ids_to_nodes(tax, node_to_pages, page_to_nodes):
+    '''
+
+    Args:
+      tax: 
+      node_to_pages: 
+      page_to_nodes: 
+
+    Returns:
+
+    '''
 
     # Sort for sake of deterministic output (?) and unique choice
     for page_id in page_to_nodes:
@@ -83,6 +111,15 @@ def add_page_ids_to_nodes(tax, node_to_pages, page_to_nodes):
         # 1237 cases where node2 is not node
 
 def dump_mapping(node_to_pages, outpath):
+    '''
+
+    Args:
+      node_to_pages: 
+      outpath: 
+
+    Returns:
+
+    '''
     with open(outpath, 'w') as outfile:
         writer = csv.writer(outfile)
         writer.writerow(['ott', 'eol'])
@@ -90,6 +127,15 @@ def dump_mapping(node_to_pages, outpath):
             writer.writerow([node.id, node_to_pages[node][0]])
 
 def report(page_to_nodes, reportpath):
+    '''
+
+    Args:
+      page_to_nodes: 
+      reportpath: 
+
+    Returns:
+
+    '''
     # Report on errors EOL homonym errors / OTT missing synonyms
 
     pages_to_report = []
@@ -152,18 +198,44 @@ def report(page_to_nodes, reportpath):
                                      node1.rank.name, node1.mrca(node2).count(), similarity])
 
 def in_alist(node, nodes):
+    '''
+
+    Args:
+      node: 
+      nodes: 
+
+    Returns:
+
+    '''
     for (xnode, qid) in nodes:
         if node is xnode:
             return True
     return False
 
 def get_eol_qid(node):
+    '''
+
+    Args:
+      node: 
+
+    Returns:
+
+    '''
     for qid in node.sourceIds:
         if qid.prefix == 'eol':
             return qid
     return None
 
 def same_epithet(name1, name2):
+    '''
+
+    Args:
+      name1: 
+      name2: 
+
+    Returns:
+
+    '''
     epi1 = epithet_stem(name1)
     if epi1 == None: return False
     epi2 = epithet_stem(name2)
@@ -171,6 +243,14 @@ def same_epithet(name1, name2):
     return epi1 == epi2
 
 def epithet_stem(name):
+    '''
+
+    Args:
+      name: 
+
+    Returns:
+
+    '''
     s = name.split(' ', 1)
     epi = s[-1]
     if epi.endswith('us'): return epi[0:-2]

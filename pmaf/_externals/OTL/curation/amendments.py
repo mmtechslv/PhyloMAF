@@ -5,6 +5,14 @@ from proposition import *
 # ----- Final patches -----
 
 def patch_ott(ott):
+    '''
+
+    Args:
+      ott: 
+
+    Returns:
+
+    '''
 
     # troublemakers.  we don't use them
     print '| Flushing %s viruses' % ott.taxon('Viruses').count()

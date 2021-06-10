@@ -3,6 +3,14 @@
 import argparse, csv
 
 def get_accession_to_taxon(accessionfilename):
+    '''
+
+    Args:
+      accessionfilename: 
+
+    Returns:
+
+    '''
     accession_to_taxon = {}
     with open(accessionfilename, 'r') as afile:
         i = 0
@@ -22,6 +30,14 @@ def get_accession_to_taxon(accessionfilename):
     return accession_to_taxon
 
 def get_ncbi_to_name(taxonomyfilename):
+    '''
+
+    Args:
+      taxonomyfilename: 
+
+    Returns:
+
+    '''
     ncbi_to_name = {}
     i = 0
     with open(taxonomyfilename, 'r') as nfile:

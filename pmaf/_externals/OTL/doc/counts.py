@@ -11,6 +11,16 @@ ott = Taxonomy.getTaxonomy('tax/2.8/')
 ncbi = Taxonomy.getTaxonomy('tax/ncbi/')
 
 def do_counts(tax, bac, cil):
+    '''
+
+    Args:
+      tax: 
+      bac: 
+      cil: 
+
+    Returns:
+
+    '''
 	for x in ["Bacteria",
 				"Cyanobacteria",
 				"Ciliophora",

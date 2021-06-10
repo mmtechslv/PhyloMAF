@@ -14,6 +14,7 @@ ids = SourceTaxonomy(ottdirname)
 # Load ids file and write ids file
 
 def doit():
+    ''' '''
     win = 0
     lose = 0
     infile = open(infilename, 'r')

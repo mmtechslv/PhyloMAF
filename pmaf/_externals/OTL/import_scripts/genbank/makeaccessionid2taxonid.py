@@ -14,6 +14,14 @@ parser = argparse.ArgumentParser(description='Text genbank flatfile testing')
 
 
 def main(args):
+    '''
+
+    Args:
+      args: 
+
+    Returns:
+
+    '''
     with open(DEFAULT_PICKLE_FILE,'rb') as picklefile:
         to_load = pickle.load(picklefile)
     if to_load:

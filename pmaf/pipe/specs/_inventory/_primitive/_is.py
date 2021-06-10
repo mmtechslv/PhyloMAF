@@ -7,6 +7,7 @@ from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase,DockerBackboneMetabase
 
 class SpecIS(SpecificationPrimitiveBase):
+    ''' '''
     def __init__(self, mediator, factor, **kwargs):
         if not isinstance(mediator, MediatorSequenceMetabase):
             raise TypeError('`mediator` must be instance of MediatorSequenceMetabase.')
@@ -39,12 +40,22 @@ class SpecIS(SpecificationPrimitiveBase):
         return sequence, args, kwargs
 
     def verify_docker(self, docker):
+        '''
+
+        Args:
+          docker: 
+
+        Returns:
+
+        '''
         return self.miner.verify_docker(docker) and isinstance(docker, DockerIdentifierMetabase)
 
     @property
     def inlet(self):
+        ''' '''
         return DockerIdentifierMedium
 
     @property
     def outlet(self):
+        ''' '''
         return DockerSequenceMedium

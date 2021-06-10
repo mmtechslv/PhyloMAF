@@ -16,6 +16,7 @@ import numpy as np
 
 
 class MediatorLocalTaxonomyMixin(MediatorLocalBase,MediatorTaxonomyMetabase):
+    ''' '''
     CORRELATION_METHODS = ['lineage','complement','taxon']
     def __init__(self,database,
                  tax_rank_tolerance=None,
@@ -71,6 +72,16 @@ class MediatorLocalTaxonomyMixin(MediatorLocalBase,MediatorTaxonomyMetabase):
 
 
     def get_taxonomy_by_identifier(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerIdentifierMetabase):
@@ -82,6 +93,16 @@ class MediatorLocalTaxonomyMixin(MediatorLocalBase,MediatorTaxonomyMetabase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def get_identifier_by_taxonomy(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker,DockerTaxonomyMetabase):

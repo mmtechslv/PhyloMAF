@@ -54,6 +54,14 @@ taxpattern = re.compile(".*<TSeq_taxid>(.*)</TSeq_taxid>.*")
 # Look up the unmapped accession ids, in batches.
 
 def do_one_batch(batch):
+    '''
+
+    Args:
+      batch: 
+
+    Returns:
+
+    '''
 	#print batch
 	tempfilename = "efetch.tmp"
 	command = ("wget -q -O " + tempfilename +

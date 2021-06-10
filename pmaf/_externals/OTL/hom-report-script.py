@@ -9,6 +9,15 @@ skel = Taxonomy.getTaxonomy('tax/skel/', 'skel')
 union.setSkeleton(skel)
 
 def report(tax, tag):
+    '''
+
+    Args:
+      tax: 
+      tag: 
+
+    Returns:
+
+    '''
     union.markDivisionsFromSkeleton(tax, skel)
     HomonymReport.homonymReport(tax, 'reports/' + tag + '-homonym-report.tsv')
 

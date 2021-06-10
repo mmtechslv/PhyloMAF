@@ -12,6 +12,14 @@ this_source = 'https://github.com/OpenTreeOfLife/reference-taxonomy/blob/master/
 # ----- Difficult polysemies -----
 
 def deal_with_polysemies(ott):
+    '''
+
+    Args:
+      ott: 
+
+    Returns:
+
+    '''
     # Ctenophora is seriously messing up the division logic.
     # ncbi 1003038	|	33856	|	Ctenophora	|	genus	|	= diatom        OTT 103964
     # ncbi 10197 	|	6072	|	Ctenophora	|	phylum	|	= comb jellies  OTT 641212
@@ -79,6 +87,14 @@ def deal_with_polysemies(ott):
     establish('Corymorpha', ott, division='Nematoda', source='ncbi:364543', ott_id='860265')
 
 def adjust_silva(silva):
+    '''
+
+    Args:
+      silva: 
+
+    Returns:
+
+    '''
     patch_silva(silva)
     for name in ['Metazoa',
                  'Fungi',
@@ -92,6 +108,14 @@ def adjust_silva(silva):
     return silva
 
 def patch_silva(silva):
+    '''
+
+    Args:
+      silva: 
+
+    Returns:
+
+    '''
 
     # Used in studies pg_2448,pg_2783,pg_2753, seen deprecated on 2015-07-20
     # These are probably now obviated by improvements in the way silva is merged
@@ -142,6 +166,15 @@ def patch_silva(silva):
     silva.taxon('Fungi').take(silva.taxon('Rozella'))
 
     def fix_name(bad, good):
+        '''
+
+        Args:
+          bad: 
+          good: 
+
+        Returns:
+
+        '''
         b = silva.maybeTaxon(bad)
         if b != None: b.rename(good, 'spelling variant')
         else:
@@ -271,6 +304,15 @@ silva_bad_names = [
 # ----- SILVA -----
 
 def align_silva(silva, ott):
+    '''
+
+    Args:
+      silva: 
+      ott: 
+
+    Returns:
+
+    '''
     a = ott.alignment(silva)
     a.same(silva.taxonThatContains('Ctenophora', 'Ctenophora pulchella'),
            ott.taxon('103964'))
@@ -291,6 +333,14 @@ def align_silva(silva, ott):
 # Hibbett 2007
 
 def adjust_h2007(h2007):
+    '''
+
+    Args:
+      h2007: 
+
+    Returns:
+
+    '''
 
     # h2007/if synonym https://github.com/OpenTreeOfLife/reference-taxonomy/issues/40
     h2007.taxon('Urocystales').synonym('Urocystidales')
@@ -304,6 +354,14 @@ def adjust_h2007(h2007):
 # Index Fungorum
 
 def adjust_fung(fung):
+    '''
+
+    Args:
+      fung: 
+
+    Returns:
+
+    '''
     fung.analyzeMajorRankConflicts()
 
     # 2014-04-14 Bad Fungi homonyms in new version of IF.  90156 is the good one.
@@ -326,6 +384,14 @@ def adjust_fung(fung):
     return fung
 
 def patch_fung(fung):
+    '''
+
+    Args:
+      fung: 
+
+    Returns:
+
+    '''
     # analyzeMajorRankConflicts sets the "major_rank_conflict" flag when
     # intermediate ranks are missing (e.g. a family that's a child of a
     # class)
@@ -487,6 +553,14 @@ def patch_fung(fung):
 # tax = ott
 
 def link_to_h2007(tax):
+    '''
+
+    Args:
+      tax: 
+
+    Returns:
+
+    '''
     print '-- Putting families in Hibbett 2007 orders --'
     # 2014-04-13 Romina #40, #60
 
@@ -574,6 +648,15 @@ def link_to_h2007(tax):
 # than NCBI.
 
 def align_fungi(fungi, ott):
+    '''
+
+    Args:
+      fungi: 
+      ott: 
+
+    Returns:
+
+    '''
     a = ott.alignment(fungi)
 
     # *** Alignment to SILVA
@@ -656,6 +739,15 @@ def align_fungi(fungi, ott):
     return a
 
 def align_fungorum_sans_fungi(sans, ott):
+    '''
+
+    Args:
+      sans: 
+      ott: 
+
+    Returns:
+
+    '''
     a = ott.alignment(sans)
     if sans.maybeTaxon('Byssus') != None: # seems to have disappeared
         a.same(sans.taxon('Byssus'), ott.taxon('Trentepohlia', 'Chlorophyta'))
@@ -666,9 +758,26 @@ def align_fungorum_sans_fungi(sans, ott):
 # http://dx.doi.org/10.1186/1471-2148-10-352
 
 def adjust_lamiales(study713):
+    '''
+
+    Args:
+      study713: 
+
+    Returns:
+
+    '''
     return study713
 
 def align_lamiales(study713, ott):
+    '''
+
+    Args:
+      study713: 
+      ott: 
+
+    Returns:
+
+    '''
     a = ott.alignment(study713)
     # Without the explicit alignment of Chloroplastida, alignment thinks that
     # the study713 Chloroplastida cannot be the same as the OTT Chloroplastida,
@@ -681,6 +790,14 @@ def align_lamiales(study713, ott):
 # WoRMS
 
 def adjust_worms(worms):
+    '''
+
+    Args:
+      worms: 
+
+    Returns:
+
+    '''
     worms.smush()
 
     # 2015-02-17 According to WoRMS web site.  Occurs in pg_1229
@@ -712,10 +829,26 @@ def adjust_worms(worms):
 # NCBI
 
 def adjust_ncbi(ncbi):
+    '''
+
+    Args:
+      ncbi: 
+
+    Returns:
+
+    '''
     patch_ncbi(ncbi)
     return ncbi
 
 def patch_ncbi(ncbi):
+    '''
+
+    Args:
+      ncbi: 
+
+    Returns:
+
+    '''
 
     # New NCBI top level taxa introduced circa July 2014
     for toplevel in ["Viroids", "other sequences", "unclassified sequences"]:
@@ -917,6 +1050,16 @@ def patch_ncbi(ncbi):
 # ----- NCBI Taxonomy -----
 
 def align_ncbi(ncbi, silva, ott):
+    '''
+
+    Args:
+      ncbi: 
+      silva: 
+      ott: 
+
+    Returns:
+
+    '''
 
     a = ott.alignment(ncbi)
 
@@ -1011,6 +1154,15 @@ def align_ncbi(ncbi, silva, ott):
     return a
 
 def align_ncbi_to_silva(mappings, a):
+    '''
+
+    Args:
+      mappings: 
+      a: 
+
+    Returns:
+
+    '''
     changes = 0
     for taxon in mappings:
         a.same(taxon, mappings[taxon])
@@ -1021,6 +1173,14 @@ def align_ncbi_to_silva(mappings, a):
 # ----- GBIF (Global Biodiversity Information Facility) taxonomy -----
 
 def adjust_gbif(gbif):
+    '''
+
+    Args:
+      gbif: 
+
+    Returns:
+
+    '''
     gbif.smush()
 
     # In GBIF, if a rank is skipped for some children but not others, that
@@ -1031,6 +1191,15 @@ def adjust_gbif(gbif):
     return gbif
 
 def align_gbif(gbif, ott):
+    '''
+
+    Args:
+      gbif: 
+      ott: 
+
+    Returns:
+
+    '''
 
     a = ott.alignment(gbif)
 
@@ -1220,6 +1389,14 @@ def align_gbif(gbif, ott):
     return a
 
 def patch_gbif(gbif):
+    '''
+
+    Args:
+      gbif: 
+
+    Returns:
+
+    '''
     # - Touch-up -
 
     # Rod Page blogged about this one
@@ -1462,6 +1639,15 @@ def patch_gbif(gbif):
 
 # Align low-priority WoRMS
 def align_worms(worms, ott):
+    '''
+
+    Args:
+      worms: 
+      ott: 
+
+    Returns:
+
+    '''
 
     a = ott.alignment(worms)
 
@@ -1503,6 +1689,14 @@ def align_worms(worms, ott):
 # ----- Interim Register of Marine and Nonmarine Genera (IRMNG) -----
 
 def adjust_irmng(irmng):
+    '''
+
+    Args:
+      irmng: 
+
+    Returns:
+
+    '''
     irmng.smush()
     irmng.analyzeMajorRankConflicts()
 
@@ -1622,6 +1816,15 @@ def adjust_irmng(irmng):
     return irmng
 
 def align_irmng(irmng, ott):
+    '''
+
+    Args:
+      irmng: 
+      ott: 
+
+    Returns:
+
+    '''
 
     a = ott.alignment(irmng)
 
@@ -1680,6 +1883,16 @@ def align_irmng(irmng, ott):
     #  ... .notSame(ott.taxon('Morganella', 'Arthropoda'))
 
     def trouble(name, ancestor, not_ancestor):
+        '''
+
+        Args:
+          name: 
+          ancestor: 
+          not_ancestor: 
+
+        Returns:
+
+        '''
         probe = irmng.maybeTaxon(name, ancestor)
         if probe == None: return
         probe.prune(this_source)
@@ -1770,6 +1983,15 @@ def align_irmng(irmng, ott):
 nonchloroplastids = ['Rhodophyta', 'Rhodophyceae', 'Glaucophyta', 'Glaucophyceae']
 
 def set_divisions(taxonomy, ott):
+    '''
+
+    Args:
+      taxonomy: 
+      ott: 
+
+    Returns:
+
+    '''
 
     plants = taxonomy.taxon('Plantae') # = Archaeplastida
 
@@ -1812,6 +2034,15 @@ sar_contains = ['Stramenopiles',
                 ]
 
 def set_SAR_divisions(taxonomy, ott):
+    '''
+
+    Args:
+      taxonomy: 
+      ott: 
+
+    Returns:
+
+    '''
     for name in sar_contains:
         z = taxonomy.maybeTaxon(name, 'Chromista')
         if z == None:

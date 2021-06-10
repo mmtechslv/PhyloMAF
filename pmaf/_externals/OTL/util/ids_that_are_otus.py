@@ -22,6 +22,7 @@ import requests, json, sys
 tab = {}
 
 def doit():
+    ''' '''
 
     outname = sys.argv[1]
     outfile = open(outname, 'w')

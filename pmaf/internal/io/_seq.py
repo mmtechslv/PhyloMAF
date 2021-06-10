@@ -5,6 +5,7 @@ from io import StringIO,IOBase
 from skbio.io.registry import sniff
 
 class SequenceIO(FileIOBackboneMetabase):
+    ''' '''
     def __init__(self, seqsrc, ftype='auto', upper=False, **kwargs):
         if isinstance(seqsrc,(tuple,list)):
             if len(set([type(src) for src in seqsrc]))==1:
@@ -64,6 +65,15 @@ class SequenceIO(FileIOBackboneMetabase):
                     yield seq_record
 
     def pull_parser(self,parser='simple',**kwargs):
+        '''
+
+        Args:
+          parser: (Default value = 'simple')
+          **kwargs: 
+
+        Returns:
+
+        '''
         if parser == 'simple':
             if self.__type == 'fasta':
                 return self.__fasta_parser_simple(**kwargs)
@@ -75,8 +85,10 @@ class SequenceIO(FileIOBackboneMetabase):
 
     @property
     def type(self):
+        ''' '''
         return self.__type
 
     @property
     def src(self):
+        ''' '''
         return self.__src

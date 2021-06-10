@@ -12,6 +12,7 @@ from pmaf.sequence._metakit import MultiSequenceMetabase,NucleotideMetabase
 from pmaf.sequence._shared import validate_seq_mode
 
 class MultiSequence(MultiSequenceMetabase):
+    ''' '''
     def __init__(self,sequences,name=None,mode=None,metadata=None,aligned=False,**kwargs):
         if name is None or np.isscalar(name):
             tmp_name = name
@@ -85,6 +86,14 @@ class MultiSequence(MultiSequenceMetabase):
         return repr_str
 
     def to_skbio_msa(self, indices=None):
+        '''
+
+        Args:
+          indices: (Default value = None)
+
+        Returns:
+
+        '''
         if self.__aligned:
             tmp_sequences = self.__get_seqs_by_index(indices)
             return TabularMSA([sequence.skbio for sequence in tmp_sequences])
@@ -102,6 +111,14 @@ class MultiSequence(MultiSequenceMetabase):
             raise ValueError('Invalid indices are provided.')
 
     def get_consensus(self,indices=None):
+        '''
+
+        Args:
+          indices: (Default value = None)
+
+        Returns:
+
+        '''
         if self.__aligned:
             tmp_msa = self.to_skbio_msa(indices)
             return Nucleotide(tmp_msa.consensus(),name=self.__name,metadata=self.__metadata,mode=self.__mode)
@@ -109,9 +126,18 @@ class MultiSequence(MultiSequenceMetabase):
             raise RuntimeError('Consensus can be retrieved only from alignment.')
 
     def get_subset(self,indices=None):
+        '''
+
+        Args:
+          indices: (Default value = None)
+
+        Returns:
+
+        '''
         return type(self)(self.__get_seqs_by_index(indices),name=self.__name,metadata=self.__metadata,mode=self.__mode, aligned=self.__aligned)
 
     def buckle_for_alignment(self):
+        ''' '''
         if not self.__buckled:
             from collections import defaultdict
             from random import random
@@ -130,6 +156,14 @@ class MultiSequence(MultiSequenceMetabase):
             raise RuntimeError('MultiSequence instance is already buckled.')
 
     def restore_buckle(self,buckled_pack):
+        '''
+
+        Args:
+          buckled_pack: 
+
+        Returns:
+
+        '''
         if self.__buckled:
             self.__metadata = buckled_pack['master-metadata']
             self.__name = buckled_pack['__name']
@@ -143,7 +177,16 @@ class MultiSequence(MultiSequenceMetabase):
             raise RuntimeError('MultiSequence instance is not buckled.')
 
     def get_iter(self, method='asis'):
+        '''
+
+        Args:
+          method: (Default value = 'asis')
+
+        Returns:
+
+        '''
         def make_generator():
+            ''' '''
             for sequence in self.__sequences:
                 if method == 'asis':
                     yield sequence.name, sequence
@@ -156,9 +199,20 @@ class MultiSequence(MultiSequenceMetabase):
         return make_generator()
 
     def copy(self):
+        ''' '''
         return copy.deepcopy(self)
 
     def write(self, file, mode='w', **kwargs):
+        '''
+
+        Args:
+          file: 
+          mode: (Default value = 'w')
+          **kwargs: 
+
+        Returns:
+
+        '''
         buffer_io = self.__make_fasta_io(**kwargs)
         if isinstance(file,IOBase):
             file_handle = file
@@ -170,6 +224,14 @@ class MultiSequence(MultiSequenceMetabase):
         buffer_io.close()
 
     def get_string_as(self,**kwargs):
+        '''
+
+        Args:
+          **kwargs: 
+
+        Returns:
+
+        '''
         buffer_io = self.__make_fasta_io(**kwargs)
         ret = buffer_io.getvalue()
         buffer_io.close()
@@ -184,6 +246,16 @@ class MultiSequence(MultiSequenceMetabase):
 
     @classmethod
     def from_buckled(cls, sequences, buckled_pack, **kwargs):
+        '''
+
+        Args:
+          sequences: 
+          buckled_pack: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not isinstance(buckled_pack,dict):
             raise TypeError('`buckled_pack` must have dict type.')
         tmp_multiseq = cls(sequences,buckled=True,**kwargs)
@@ -192,38 +264,47 @@ class MultiSequence(MultiSequenceMetabase):
 
     @property
     def count(self):
+        ''' '''
         return len(self.__sequences)
 
     @property
     def metadata(self):
+        ''' '''
         return self.__metadata
 
     @property
     def mode(self):
+        ''' '''
         return self.__mode
 
     @property
     def skbio_mode(self):
+        ''' '''
         return self.__skbio_mode
 
     @property
     def sequences(self):
+        ''' '''
         return  self.__sequences
 
     @property
     def name(self):
+        ''' '''
         return self.__name
 
     @property
     def is_alignment(self):
+        ''' '''
         return self.__aligned
 
     @property
     def is_buckled(self):
+        ''' '''
         return self.__buckled
 
     @property
     def index(self):
+        ''' '''
         return self.__indices
 
 

@@ -65,8 +65,14 @@ NAME2TAXON = {}
 GENUS_TABLE = {}
 
 def startup(args):
-    """
-    """
+    '''
+
+    Args:
+      args: 
+
+    Returns:
+
+    '''
     global FDC_DICT
     global FDC_SET
     global HOMONYMS
@@ -194,6 +200,14 @@ def startup(args):
 
 
 def find_homonyms(name_rows):
+    '''
+
+    Args:
+      name_rows: 
+
+    Returns:
+
+    '''
     result = {}
     count = 0
     for row in name_rows:
@@ -241,8 +255,15 @@ def find_homonyms(name_rows):
 
 
 def report_homonym(row, name):
-    """
-    """
+    '''
+
+    Args:
+      row: 
+      name: 
+
+    Returns:
+
+    '''
     current_authority = format_authority(row)
     existing_row = NAME2TAXON[name]
     existing_authority = format_authority(existing_row)
@@ -265,6 +286,7 @@ def report_homonym(row, name):
 
 
 def process_args():
+    ''' '''
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("IF_file", nargs='?', default=DEFAULT_IF_NAME)
@@ -281,9 +303,16 @@ def process_args():
 
 
 def validate_name(name, row, taxon_rows):
-    """
-    marks name as valid and updates lists and mappings
-    """
+    '''marks name as valid and updates lists and mappings
+
+    Args:
+      name: 
+      row: 
+      taxon_rows: 
+
+    Returns:
+
+    '''
     global NAME2TAXON
     if 'homonym_status' in row:
         if row['homonym_status'] == 'Not best':
@@ -299,6 +328,16 @@ def validate_name(name, row, taxon_rows):
 
 
 def get_taxonomy(names, if_dict, fossil_taxa):
+    '''
+
+    Args:
+      names: 
+      if_dict: 
+      fossil_taxa: 
+
+    Returns:
+
+    '''
     for row in names:
         if 'status' in row:
             if row['status'] == 'available':
@@ -312,17 +351,27 @@ def get_taxonomy(names, if_dict, fossil_taxa):
 
 
 def is_synonym(row):
-    """
-    tests if the if id and the current name id differ,
+    '''tests if the if id and the current name id differ,
     which indicates a synonym
-    """
+
+    Args:
+      row: 
+
+    Returns:
+
+    '''
     return 'CurrentNameID' in row and (row['IF-ID'] != row['CurrentNameID'])
 
 
 def format_authority(row):
-    """
-    Generates an authority string for a name
-    """
+    '''Generates an authority string for a name
+
+    Args:
+      row: 
+
+    Returns:
+
+    '''
     name_str = utf8e(row['Name'])
     if 'Author' in row:
         author_str = utf8e(row['Author'])
@@ -340,10 +389,17 @@ TAXON_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t%s\n"
 
 
 def write_taxonomy(taxonomy_fname, name_table, fossil_taxa):
-    """
-    Opens and writes lines in the taxonomy file corresponding to
+    '''Opens and writes lines in the taxonomy file corresponding to
     each valid (available) name
-    """
+
+    Args:
+      taxonomy_fname: 
+      name_table: 
+      fossil_taxa: 
+
+    Returns:
+
+    '''
     try:
         taxonomy_file = codecs.open(taxonomy_fname, "w", "utf-8")
         taxonomy_file.write(TAXON_HEADER)
@@ -378,7 +434,14 @@ def write_taxonomy(taxonomy_fname, name_table, fossil_taxa):
 
 
 def get_row_uid(row):
-    ''' returns the appropriate id for a row '''
+    '''returns the appropriate id for a row
+
+    Args:
+      row: 
+
+    Returns:
+
+    '''
     if 'id' in row:
         return row['id']
     elif 'CurrentNameID' in row:
@@ -394,13 +457,19 @@ SYNONYM_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t\n"
 
 
 def write_synonyms(synonyms_fname, synonyms):
-    """
-    Opens and writes lines in the synonyms file corresponding to
+    '''Opens and writes lines in the synonyms file corresponding to
     each name identified as a synonym (IF id != Current Name id)
-    If the name is a homonym and authority information is 
-    available, it will appear in the third column, prefix by 
+    If the name is a homonym and authority information is
+    available, it will appear in the third column, prefix by
     'authority', rather than by 'synonym'
-    """
+
+    Args:
+      synonyms_fname: 
+      synonyms: 
+
+    Returns:
+
+    '''
     try:
         synonyms_file = codecs.open(synonyms_fname, "w", "utf-8")
         synonyms_file.write(SYNONYM_HEADER)
@@ -432,13 +501,19 @@ BAD_SYNONYMS = []
 
 
 def resolve_synonym(row, if_id_dict):
-    """
-    This chains back to find the taxonomically valid name for the synonym
+    '''This chains back to find the taxonomically valid name for the synonym
     in the name field of row.  Synonyms are names of rows which have
     a CurrentNameID defined and has a different value from the IF-ID.  This
     returns the IF-ID of the first row encountered in the chaining that is
     not a synonym.
-    """
+
+    Args:
+      row: 
+      if_id_dict: 
+
+    Returns:
+
+    '''
     if_id = row['IF-ID']
     if if_id in BAD_SYNONYMS:
         logging.info("found bad synonym %s", if_id)
@@ -471,6 +546,14 @@ def resolve_synonym(row, if_id_dict):
 
 
 def fill_if_dict(name_rows):
+    '''
+
+    Args:
+      name_rows: 
+
+    Returns:
+
+    '''
     if_dict = dict()
     for row in name_rows:    
         if 'IF-ID' not in row:
@@ -483,9 +566,14 @@ def fill_if_dict(name_rows):
 
 
 def back_translate_name(name):
-    """
-    returns an if-id for a name
-    """
+    '''returns an if-id for a name
+
+    Args:
+      name: 
+
+    Returns:
+
+    '''
     if name in NAME2TAXON:
         row = NAME2TAXON[name]
         return row['IF-ID']
@@ -520,6 +608,14 @@ rank_list_len = len(rank_list)
 
 
 def get_rank(row):
+    '''
+
+    Args:
+      row: 
+
+    Returns:
+
+    '''
     name = row['Name']
     display_name = utf8e(name)
     logging.info("Looking for rank for %s", display_name)
@@ -602,8 +698,16 @@ def get_rank(row):
 
 
 def get_parent(row, if_dict, fossil_taxa):
-    """
-    """
+    '''
+
+    Args:
+      row: 
+      if_dict: 
+      fossil_taxa: 
+
+    Returns:
+
+    '''
     name = row['Name']
     if 'FDC-ID' in row and (row['IF-ID'] != row['FDC-ID']):
         # probably species
@@ -650,7 +754,15 @@ def get_parent(row, if_dict, fossil_taxa):
 def fdc_parent_search(
     row,
     fossil_taxa):
-    """ """
+    '''
+
+    Args:
+      row: 
+      fossil_taxa: 
+
+    Returns:
+
+    '''
     name = row['Name']
     if 'FDC-ID' in row and row['FDC-ID'] in FDC_DICT:
         hier = FDC_DICT[row['FDC-ID']]
@@ -697,6 +809,16 @@ def fdc_parent_search(
 
 
 def extract_parent(name, hier, fossil_taxa):
+    '''
+
+    Args:
+      name: 
+      hier: 
+      fossil_taxa: 
+
+    Returns:
+
+    '''
     logging.info("extracting parent for %s", utf8e(name))
     parent_offset = find_immediate_parent(name, hier)
     re_parent = re_search_ranks(
@@ -712,6 +834,15 @@ def extract_parent(name, hier, fossil_taxa):
 
 
 def find_immediate_parent(name, hier):
+    '''
+
+    Args:
+      name: 
+      hier: 
+
+    Returns:
+
+    '''
     for n, rank_field in enumerate(rank_list):
         if name == hier[rank_field]:
             return n+1
@@ -721,7 +852,17 @@ def re_search_ranks(parent_index,
                     hier,
                     name,
                     fossil_taxa):
-    """ """
+    '''
+
+    Args:
+      parent_index: 
+      hier: 
+      name: 
+      fossil_taxa: 
+
+    Returns:
+
+    '''
     disp_name = utf8e(name)
     logging.info("trying re_search_ranks for %s", disp_name)
     for sub_key in rank_list[parent_index:]:
@@ -751,6 +892,14 @@ def re_search_ranks(parent_index,
 
 
 def init_fdc_dict(rows):
+    '''
+
+    Args:
+      rows: 
+
+    Returns:
+
+    '''
     new_dict = {}
     for row in rows:
         if validate_FDC_row(row, new_dict):
@@ -760,6 +909,15 @@ def init_fdc_dict(rows):
 
 # sanity checking - doesn't seem to happen
 def validate_FDC_row(row,dictionary):
+    '''
+
+    Args:
+      row: 
+      dictionary: 
+
+    Returns:
+
+    '''
     if 'FDC-ID' not in row:
         logging.warning("found taxonomy row without FDC-ID: %s", str(row))
         return False
@@ -772,6 +930,14 @@ def validate_FDC_row(row,dictionary):
 
 
 def fdc_search(name):
+    '''
+
+    Args:
+      name: 
+
+    Returns:
+
+    '''
     result = []
     for fdc_id in FDC_DICT:
         row = FDC_DICT[fdc_id]
@@ -782,6 +948,7 @@ def fdc_search(name):
 
 
 def init_fdc_set():
+    ''' '''
     fset = set()
     for fdc_id in FDC_DICT:
         for name in FDC_DICT[fdc_id].values():
@@ -790,10 +957,28 @@ def init_fdc_set():
 
 
 def fdc_find(name, fset):
+    '''
+
+    Args:
+      name: 
+      fset: 
+
+    Returns:
+
+    '''
     return name in fset
 
 
 def validate_lineages(name, fdc_list):
+    '''
+
+    Args:
+      name: 
+      fdc_list: 
+
+    Returns:
+
+    '''
     myrank = None
     for (taxon, rank) in fdc_list:
         if myrank is None:
@@ -808,6 +993,14 @@ def validate_lineages(name, fdc_list):
     return True
 
 def build_genus_table(rows):
+    '''
+
+    Args:
+      rows: 
+
+    Returns:
+
+    '''
     result = {}
     for row in rows:
         if 'FDC-ID' in row and (row['FDC-ID']==row['IF-ID']):
@@ -821,6 +1014,14 @@ def build_genus_table(rows):
 
 
 def get_dicts(names_file):
+    '''
+
+    Args:
+      names_file: 
+
+    Returns:
+
+    '''
     result = []
     line = names_file.readline()
     keys = extract_keys(line)
@@ -838,6 +1039,14 @@ def get_dicts(names_file):
 
 
 def extract_keys(line):
+    '''
+
+    Args:
+      line: 
+
+    Returns:
+
+    '''
     strings = line.split(',')
     keys = []
     for s in strings:
@@ -848,6 +1057,14 @@ def extract_keys(line):
 
 
 def extract_values(line):
+    '''
+
+    Args:
+      line: 
+
+    Returns:
+
+    '''
     strings = line.split('"')
     if strings[0] != '':
         prefix_ids = strings[0].split(',')
@@ -883,7 +1100,15 @@ def extract_values(line):
 
 
 def reverse_name_lookup(name_id, name_rows):
-    """searches for a name based on an id"""
+    '''searches for a name based on an id
+
+    Args:
+      name_id: 
+      name_rows: 
+
+    Returns:
+
+    '''
     for row in name_rows:
         if row['id'] == name_id:
             return row['name']
@@ -894,7 +1119,14 @@ def reverse_name_lookup(name_id, name_rows):
 # formatting errors in log messages disappear,
 # but it seems to be effective.
 def utf8e(raw):
-    """returns utf-8 encoded string from latin-1(?) argument"""
+    '''returns utf-8 encoded string from latin-1(?) argument
+
+    Args:
+      raw: 
+
+    Returns:
+
+    '''
     return codecs.encode(raw, 'utf-8')
 
 

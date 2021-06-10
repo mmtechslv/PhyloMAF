@@ -9,6 +9,7 @@ from collections import defaultdict
 import biom
 
 class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
+    ''' '''
     def __init__(self,samples, axis=1, index_col=0, **kwargs):
         tmp_sample = None
         tmp_metadata = kwargs.pop('metadata',{})
@@ -44,6 +45,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
 
     @classmethod
     def from_csv(cls,filepath,**kwargs):
+        '''
+
+        Args:
+          filepath: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_sample = pd.read_csv(filepath,**kwargs)
         tmp_metadata = kwargs.pop('metadata',{})
         tmp_metadata.update({'filepath': path.abspath(filepath)})
@@ -51,6 +61,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
 
     @classmethod
     def from_biom(cls, filepath, **kwargs):
+        '''
+
+        Args:
+          filepath: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         samples_frame, new_metadata = cls.__load_biom(filepath, **kwargs)
         tmp_metadata = kwargs.pop('metadata', {})
         tmp_metadata.update({'biom': new_metadata})
@@ -66,17 +85,45 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         return sample_data, {}
 
     def _rename_samples_by_map(self, map_like, **kwargs):
-        """ Rename sample names by map and ratify action. """
+        '''Rename sample names by map and ratify action.
+
+        Args:
+          map_like: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         self.__internal_samples.rename(mapper=map_like, axis=0, inplace=True)
         return self._ratify_action('_rename_samples_by_map', map_like, **kwargs)
 
     def _remove_samples_by_id(self, ids, **kwargs):
+        '''
+
+        Args:
+          ids: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_ids = np.asarray(ids,dtype=self.__internal_samples.index.dtype)
         if len(tmp_ids)>0:
             self.__internal_samples.drop(tmp_ids, inplace=True)
         return self._ratify_action('_remove_samples_by_id', ids, **kwargs)
 
     def _merge_samples_by_map(self, map_dict, aggfunc='mean', variable=None, **kwargs):
+        '''
+
+        Args:
+          map_dict: 
+          aggfunc: (Default value = 'mean')
+          variable: (Default value = None)
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
             tmp_agg_dict[new_id] = self.__internal_samples.loc[group, :].agg(func=aggfunc, axis=0).to_dict()
@@ -86,13 +133,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         return self._ratify_action('_merge_samples_by_map', map_dict, aggfunc=aggfunc, **kwargs)
 
     def rename_samples(self, mapper):
-        """Rename sample names
+        '''Rename sample names
 
-        :param mapper: dict or callable
-        :type mapper: Union[dict, callable]
-        :return:
-        :rtype:
-        """
+        Args:
+          mapper(Union[dict): dict or callable
+
+        Returns:
+          rtype: 
+
+        '''
         if isinstance(mapper,dict) or callable(mapper):
             if isinstance(mapper, dict):
                 if self.__internal_samples.index.isin(list(mapper.keys())).sum() == len(mapper):
@@ -105,6 +154,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             raise TypeError('Invalid `mapper` type.')
 
     def drop_sample_by_id(self, ids, **kwargs):
+        '''
+
+        Args:
+          ids: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         target_ids = np.asarray(ids)
         if self.xsid.isin(target_ids).sum() == len(target_ids):
             return self._remove_samples_by_id(target_ids, **kwargs)
@@ -112,6 +170,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             raise ValueError('Invalid sample ids are provided.')
 
     def get_variables_by_id(self, ids=None, variables=None):
+        '''
+
+        Args:
+          ids: (Default value = None)
+          variables: (Default value = None)
+
+        Returns:
+
+        '''
         if ids is None:
             target_ids = self.xsid
         else:
@@ -126,6 +193,16 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             raise ValueError('Invalid sample ids or variables are provided.')
 
     def merge_samples_by_variable(self, variable, aggfunc='mean', **kwargs):
+        '''
+
+        Args:
+          variable: 
+          aggfunc: (Default value = 'mean')
+          **kwargs: 
+
+        Returns:
+
+        '''
         ret = {}
         if variable not in self.__internal_samples.columns:
             raise TypeError('`variable` is invalid.')
@@ -142,9 +219,20 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         return self._merge_samples_by_map(ret, aggfunc=aggfunc,variable=variable, **kwargs)
 
     def copy(self):
+        ''' '''
         return type(self)(samples= self.__internal_samples.copy(), axis=0, metadata = self.metadata, name=self.name)
 
     def get_subset(self, sids=None, *args, **kwargs):
+        '''
+
+        Args:
+          sids: (Default value = None)
+          *args: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if sids is None:
             target_sids = self.xsid
         else:
@@ -154,9 +242,31 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         return type(self)(samples= self.__internal_samples.loc[target_sids,:], axis=0, metadata = self.metadata, name=self.name)
 
     def _export(self, *args, **kwargs):
+        '''
+
+        Args:
+          *args: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         return  self.data, kwargs
 
     def export(self, output_fp, *args, _add_ext=False, sep=',', **kwargs):
+        '''
+
+        Args:
+          output_fp: 
+          *args: 
+          _add_ext: (Default value = False)
+          sep: (Default value = ')
+          ': 
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
             tmp_export.to_csv("{}.csv".format(output_fp), sep=sep)
@@ -165,13 +275,16 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
 
     @property
     def variables(self):
+        ''' '''
         return self.__internal_samples.columns.values
 
     @property
     def data(self):
+        ''' '''
         return self.__internal_samples
 
     @property
     def xsid(self):
+        ''' '''
         return self.__internal_samples.index
 

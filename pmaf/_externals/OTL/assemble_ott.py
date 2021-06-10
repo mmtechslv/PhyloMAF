@@ -29,6 +29,14 @@ new_taxa_path = 'new_taxa'
 # ott_spec would typically be "ott-NEW"
 
 def create_ott(ott_spec):
+    '''
+
+    Args:
+      ott_spec: 
+
+    Returns:
+
+    '''
 
     # Fail fast
     additions_clone_path = os.path.join(access_head('amendments'), 'amendments-1')
@@ -93,6 +101,14 @@ def create_ott(ott_spec):
     return ott
 
 def merge_sources(ott):
+    '''
+
+    Args:
+      ott: 
+
+    Returns:
+
+    '''
 
     # Genbank - this is a kludge to make sure it's in the dependencies list.
     # But eventually it ought to be handled in this file, not in the silva
@@ -203,27 +219,69 @@ def merge_sources(ott):
                                        gbif, gbif_to_ott)
 
 def load_taxonomy(spec):
+    '''
+
+    Args:
+      spec: 
+
+    Returns:
+
+    '''
     return Taxonomy.getTaxonomy(access_head(spec), management.get_property(spec, "ott_idspace"))
 
 accessed_sources = {}
 
 def access_source(spec):
+    '''
+
+    Args:
+      spec: 
+
+    Returns:
+
+    '''
     accessed_sources[management.get_property(spec, "series")] = \
        management.get_property(spec, "name")
     return management.resource_path(spec)
 
 def access_head(series):
+    '''
+
+    Args:
+      series: 
+
+    Returns:
+
+    '''
     return access_source(series + '-HEAD')
 
 # or, read the ott-NEW properties.json file, add the sources, and write it out
 
 def record_ott_sources(ott_spec):
+    '''
+
+    Args:
+      ott_spec: 
+
+    Returns:
+
+    '''
     print '| Recording source version numbers in properties file'
     management.set_property(ott_spec, "sources", accessed_sources)
 
 # utilities
 
 def debug_divisions(name, ncbi, ott):
+    '''
+
+    Args:
+      name: 
+      ncbi: 
+      ott: 
+
+    Returns:
+
+    '''
     print '##', name
     n = ncbi.taxon(name)
     if n != None:
@@ -239,6 +297,15 @@ def debug_divisions(name, ncbi, ott):
 # Splits a taxonomy into two parts: 1. the subtree rooted at taxon_name
 # and 2. everything else
 def split_taxonomy(taxy, taxon_name):
+    '''
+
+    Args:
+      taxy: 
+      taxon_name: 
+
+    Returns:
+
+    '''
     # get the taxon with name=taxon_name from the taxonomy
     t = taxy.taxon(taxon_name)
     # get the subtree rooted at this taxon
@@ -252,6 +319,17 @@ def split_taxonomy(taxy, taxon_name):
 # Maps taxon in NCBI taxonomy to SILVA-derived OTT taxon
 
 def load_ncbi_to_silva(ncbi_to_silva_path, ncbi, silva, silva_to_ott):
+    '''
+
+    Args:
+      ncbi_to_silva_path: 
+      ncbi: 
+      silva: 
+      silva_to_ott: 
+
+    Returns:
+
+    '''
     mappings = {}
     flush = []
     with open(ncbi_to_silva_path, 'r') as infile:
@@ -285,6 +363,15 @@ def load_ncbi_to_silva(ncbi_to_silva_path, ncbi, silva, silva_to_ott):
 # 2016-11-03 This is a disturbingly large number: 67254
 
 def compare_ncbi_to_silva(mappings, silva_to_ott):
+    '''
+
+    Args:
+      mappings: 
+      silva_to_ott: 
+
+    Returns:
+
+    '''
     problems = 0
     for taxon in mappings:
         t1 = mappings[taxon]
@@ -306,6 +393,16 @@ def compare_ncbi_to_silva(mappings, silva_to_ott):
 # comes from NCBI, WoRMS, etc. then we do not mark it as extinct).
 
 def get_default_extinct_info_from_gbif(paleo_path, gbif, gbif_to_ott):
+    '''
+
+    Args:
+      paleo_path: 
+      gbif: 
+      gbif_to_ott: 
+
+    Returns:
+
+    '''
     with open(paleo_path, 'r') as infile:
         paleos = 0
         flagged = 0
@@ -330,6 +427,14 @@ def get_default_extinct_info_from_gbif(paleo_path, gbif, gbif_to_ott):
 
 
 def hide_irmng(irmng):
+    '''
+
+    Args:
+      irmng: 
+
+    Returns:
+
+    '''
     # Sigh...
     # https://github.com/OpenTreeOfLife/feedback/issues/302
     for root in irmng.roots():
@@ -350,6 +455,16 @@ def hide_irmng(irmng):
 # OTT id assignment
 
 def retain_ids(ott, prev_path, by_qid):
+    '''
+
+    Args:
+      ott: 
+      prev_path: 
+      by_qid: 
+
+    Returns:
+
+    '''
 
     # ad hoc assignments specifically for NCBI taxa, basedon NCBI id
 
@@ -442,6 +557,15 @@ def retain_ids(ott, prev_path, by_qid):
 # Use master OTT id list to assign some ids
 
 def retain_ids_from_list(tax, filename):
+    '''
+
+    Args:
+      tax: 
+      filename: 
+
+    Returns:
+
+    '''
     count = 0
     change_count = 0
     infile = FileReader(filename)
@@ -522,11 +646,29 @@ def retain_ids_from_list(tax, filename):
 # Reports
 
 def align_and_merge(alignment):
+    '''
+
+    Args:
+      alignment: 
+
+    Returns:
+
+    '''
     ott = alignment.target
     ott.align(alignment)
     ott.merge(alignment)
 
 def report_on_h2007(h2007, h2007_to_ott, stars):
+    '''
+
+    Args:
+      h2007: 
+      h2007_to_ott: 
+      stars: 
+
+    Returns:
+
+    '''
     # https://github.com/OpenTreeOfLife/reference-taxonomy/issues/40
     print '-- Checking realization of h2007'
     for taxon in h2007.taxa():
@@ -538,6 +680,14 @@ def report_on_h2007(h2007, h2007_to_ott, stars):
             print stars, 'h2007 taxon not mapped to OTT', taxon
 
 def report(ott):
+    '''
+
+    Args:
+      ott: 
+
+    Returns:
+
+    '''
 
     if False:
         # This one is getting too big.  Should write it to a file.

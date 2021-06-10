@@ -13,6 +13,17 @@ from org.opentreeoflife.smasher import AlignmentByName
 # outpath is for the general stats JSON, and comes from the command line
 
 def doit(ott, sep, outpath, conpath):
+    '''
+
+    Args:
+      ott: 
+      sep: 
+      outpath: 
+      conpath: 
+
+    Returns:
+
+    '''
 
     do_rug = False  #os.path.isdir('out/ruggiero')
 
@@ -35,6 +46,15 @@ exclude_from_analysis = (Taxonomy.FORMER_CONTAINER |
                         Taxonomy.NOT_OTU)  
 
 def overall_table(ott, outpath):
+    '''
+
+    Args:
+      ott: 
+      outpath: 
+
+    Returns:
+
+    '''
 
     excluded = 0
     syn_count = 0
@@ -139,6 +159,17 @@ def overall_table(ott, outpath):
 def dashify(x): return x if x != 0 else '-'
 
 def fix_prefix(qid):
+    '''
+
+    Args:
+      x): return x if x !:  (Default value = 0 else '-'fix_prefix(qid)
+      x): return x if x !:  (Default value = 0 else '-'fix_prefix(qid)
+      x): return x if x !:  (Default value = 0 else '-'fix_prefix(qid)
+      x): return x if x !:  (Default value = 0 else '-'fix_prefix(qid)
+
+    Returns:
+
+    '''
     prefix = qid.prefix
     if prefix.startswith('http'): prefix = 'curated'
     elif prefix.startswith('additions'): prefix = 'curated'
@@ -146,6 +177,15 @@ def fix_prefix(qid):
 
 
 def source_breakdown_table(ott, conpath):
+    '''
+
+    Args:
+      ott: 
+      conpath: 
+
+    Returns:
+
+    '''
 
     contributed = {}
 
@@ -223,6 +263,7 @@ def source_breakdown_table(ott, conpath):
 # Unused
 
 def show_contributions():
+    ''' '''
 
     # Show table in human-readable form
     print
@@ -242,12 +283,29 @@ Key:
     """
 
 def dump_table_as_csv(table, outfile):
+    '''
+
+    Args:
+      table: 
+      outfile: 
+
+    Returns:
+
+    '''
     # Provide CSV form for Pensoft
     writer = csv.writer(outfile)
     for row in table:
         writer.writerow(row)
 
 def max_depth(node):
+    '''
+
+    Args:
+      node: 
+
+    Returns:
+
+    '''
     m = 0
     for child in node.getChildren():
         d = max_depth(child) + 1

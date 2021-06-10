@@ -1,6 +1,11 @@
 pmaf.phylo package
 ==================
 
+.. automodule:: pmaf.phylo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -10,11 +15,3 @@ Subpackages
    pmaf.phylo.branchest
    pmaf.phylo.builders
    pmaf.phylo.tree
-
-Module contents
----------------
-
-.. automodule:: pmaf.phylo
-   :members:
-   :undoc-members:
-   :show-inheritance:

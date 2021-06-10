@@ -29,11 +29,29 @@ for rank in ['kingdom', 'phylum', 'subphylum', 'class', 'subclass', 'order', 'fa
 all_ranks = {}
 
 def get_taxonomy(dirname, tag):
+    '''
+
+    Args:
+      dirname: 
+      tag: 
+
+    Returns:
+
+    '''
     return Taxonomy(dirname)
 
 # ofung is not a smasher Taxonomy object.  see class Taxonomy below.
 
 def fixit(ofung, use_names):
+    '''
+
+    Args:
+      ofung: 
+      use_names: 
+
+    Returns:
+
+    '''
     count = 0
     added = 0
     for id in ofung.taxa:
@@ -83,6 +101,15 @@ def fixit(ofung, use_names):
     print 'Added', added, '/ fixed', count
 
 def copy_taxon(otaxon, fung):
+    '''
+
+    Args:
+      otaxon: 
+      fung: 
+
+    Returns:
+
+    '''
     if otaxon.name in fung.taxa_by_name:
         # Do not create homonyms
         return
@@ -94,6 +121,7 @@ def copy_taxon(otaxon, fung):
     taxon.flags = otaxon.flags
 
 class Taxonomy:
+    ''' '''
     def __init__(self, dirname):
         print 'Loading', dirname
         self.taxa = {}
@@ -113,6 +141,14 @@ class Taxonomy:
         infile.close()
 
     def enter(self, rec):
+        '''
+
+        Args:
+          rec: 
+
+        Returns:
+
+        '''
         self.taxa[rec.id] = rec
         if rec.name in self.taxa_by_name:
             self.taxa_by_name[rec.name] = True
@@ -121,6 +157,14 @@ class Taxonomy:
 
 
     def dump(self, dirname):
+        '''
+
+        Args:
+          dirname: 
+
+        Returns:
+
+        '''
 
         # Decide which records to keep
         keep = {}
@@ -159,6 +203,14 @@ class Taxonomy:
         print 'Missing', missing, 'parents /', badrank, 'upranks'
 
     def maybeTaxon(self, id_or_name):
+        '''
+
+        Args:
+          id_or_name: 
+
+        Returns:
+
+        '''
         if id_or_name in self.taxa:
             return self.taxa[id_or_name]
         if id_or_name in self.taxa_by_name:
@@ -169,11 +221,22 @@ class Taxonomy:
                 return rec
 
     def new_taxon(self, name, rank, sources):
+        '''
+
+        Args:
+          name: 
+          rank: 
+          sources: 
+
+        Returns:
+
+        '''
         tax = Taxon(None, '', name, rank, '', self)
         return tax
 
 
 class Taxon:
+    ''' '''
     def __init__(self, id, parent_id, name, rank, flags, taxonomy):
         if parent_id == '': parent_id = None
         self.id = id
@@ -186,12 +249,21 @@ class Taxon:
             all_ranks[rank] = True
 
     def getParent(self):
+        ''' '''
         if self.parent_id in self.taxonomy.taxa:
             return self.taxonomy.taxa[self.parent_id]
         else:
             return None
 
     def dump(self, writer):
+        '''
+
+        Args:
+          writer: 
+
+        Returns:
+
+        '''
         parent_id = self.parent_id
         if parent_id == None: parent_id = ''
         if self.rank == None: self.rank = 'no rank'
@@ -245,6 +317,14 @@ print "Don't forget to cp -p feed/fung/if.4/synonyms.tsv %ssynonyms.tsv" % destd
 # --- End of file ---
 
 def oldmethod(ofung):
+    '''
+
+    Args:
+      ofung: 
+
+    Returns:
+
+    '''
     for id in fung.taxa:
         taxon = fung.taxa[id]
         danger = False

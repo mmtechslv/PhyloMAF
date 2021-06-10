@@ -44,6 +44,7 @@ for X in ott.taxa():
 
 
 def foo():
+    ''' '''
     nodes = ott.lookup(taxon.name)
     if nodes != None:
         # Look for synonym Y of X

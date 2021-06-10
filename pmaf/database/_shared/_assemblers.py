@@ -9,7 +9,26 @@ from pmaf.database._shared._summarizers import merge_recaps
 
 
 def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kwargs):
+    '''
+
+    Args:
+      storage_manager: 
+      stamp_data: 
+      prior_recap: 
+      **kwargs: 
+
+    Returns:
+
+    '''
     def produce_metadata_db_summary(final_recap):
+        '''
+
+        Args:
+          final_recap: 
+
+        Returns:
+
+        '''
         yield None, None
         yield final_recap.sort_index()
 
@@ -41,12 +60,29 @@ def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kw
     return
 
 def make_interxmaps(storage_manager):
+    '''
+
+    Args:
+      storage_manager: 
+
+    Returns:
+
+    '''
     if storage_manager.state == -1:
         active_elements = filter_interx_elements(storage_manager.active_elements)
         if len(active_elements) > 0:
             repseq_elements = [element for element in active_elements if get_element_index_type(element) == 'map-interx-repseq']
             taxon_elements = [element for element in active_elements if get_element_index_type(element) == 'map-interx-taxon']
             def make_interxmap(target_elements,storage_manager):
+                '''
+
+                Args:
+                  target_elements: 
+                  storage_manager: 
+
+                Returns:
+
+                '''
                 first_element = target_elements[0]
                 internal_index_map = storage_manager.get_index_by_element(first_element)
                 internal_index_map = internal_index_map.reset_index(name='target').set_index('target').rename({'index': first_element}, axis=1)
@@ -65,6 +101,15 @@ def make_interxmaps(storage_manager):
         raise RuntimeError('Storage Manager must be in construction state.')
 
 def reparse_tree(tree_object, index_mapper):
+    '''
+
+    Args:
+      tree_object: 
+      index_mapper: 
+
+    Returns:
+
+    '''
     nodes_with_names = [node for node in tree_object.iter_leaves() if node.name != '']
     for node in nodes_with_names:
         if node.name in index_mapper.index:
@@ -77,6 +122,14 @@ def reparse_tree(tree_object, index_mapper):
         return tmp_newick_io.file.read()
 
 def rebuild_phylo(tree_object):
+    '''
+
+    Args:
+      tree_object: 
+
+    Returns:
+
+    '''
     nodes_with_no_names = tree_object.iter_search_nodes(name='')
     nn_counter = 1
     for node in nodes_with_no_names:
@@ -95,6 +148,14 @@ def rebuild_phylo(tree_object):
     return tree_object
 
 def make_tree_map(tree_object):
+    '''
+
+    Args:
+      tree_object: 
+
+    Returns:
+
+    '''
     uid_map_list = []
     for node in tree_object.traverse('postorder'):
         if not node.is_root():
@@ -106,6 +167,16 @@ def make_tree_map(tree_object):
     return tree_map.applymap(str)
 
 def reconstruct_taxonomy(master_taxonomy_sheet_df,index_mapper,reject_taxa=None):
+    '''
+
+    Args:
+      master_taxonomy_sheet_df: 
+      index_mapper: 
+      reject_taxa: (Default value = None)
+
+    Returns:
+
+    '''
     if reject_taxa is None:
         taxa_to_reject = []
     else:
@@ -121,6 +192,14 @@ def reconstruct_taxonomy(master_taxonomy_sheet_df,index_mapper,reject_taxa=None)
     removed_rids = index_mapper[index_mapper.isin(tmp_dropped_taxa)].index
 
     def correct_taxa(taxon):
+        '''
+
+        Args:
+          taxon: 
+
+        Returns:
+
+        '''
         if taxon is not None:
             tmp_taxon_trimmed = taxon.lower().strip()
             if not any([taxon in tmp_taxon_trimmed for taxon in taxa_to_reject]):
@@ -215,12 +294,37 @@ def reconstruct_taxonomy(master_taxonomy_sheet_df,index_mapper,reject_taxa=None)
     return final_taxonomy_sheet.applymap(lambda x: '' if pd.isna(x) else x), transformation_details
 
 def make_rid_index_mapper(rids_index):
+    '''
+
+    Args:
+      rids_index: 
+
+    Returns:
+
+    '''
     return rids_index.to_series(index=range(1,rids_index.shape[0]+1),name='rids').reset_index().set_index('rids').iloc[:,0]
 
 def reindex_frame(target_df, index_mapper):
+    '''
+
+    Args:
+      target_df: 
+      index_mapper: 
+
+    Returns:
+
+    '''
     return target_df.rename(index=index_mapper)
 
 def make_column_details(storage_manager):
+    '''
+
+    Args:
+      storage_manager: 
+
+    Returns:
+
+    '''
     tmp_column_summary = pd.Series()
     for element_key in storage_manager.active_elements:
         tmp_df = None
@@ -233,6 +337,15 @@ def make_column_details(storage_manager):
     return tmp_column_summary
 
 def produce_rep_stats(storage_manager, chunksize):
+    '''
+
+    Args:
+      storage_manager: 
+      chunksize: 
+
+    Returns:
+
+    '''
     total_repseqs = storage_manager.get_index_by_element('sequence-representative').shape[0]
     repseq_generator = storage_manager.retrieve_data_by_element('sequence-representative', chunksize=chunksize)
 
@@ -241,6 +354,15 @@ def produce_rep_stats(storage_manager, chunksize):
         yield get_stats_for_sequence_record_df(repseq_df)
 
 def produce_tax_stats(storage_manager, novel_tids):
+    '''
+
+    Args:
+      storage_manager: 
+      novel_tids: 
+
+    Returns:
+
+    '''
     map2tid = storage_manager.retrieve_data_by_element('map-rep2tid')
     tid_subseqs_stat = defaultdict(tuple)
     for rank in map2tid.columns[map2tid.columns != 'tid']:
@@ -257,6 +379,15 @@ def produce_tax_stats(storage_manager, novel_tids):
 
 # Following function is experimental and is not integrated. It is here just in case if I changed my mind but I doubt it.
 def make_repseq_map_generator(transformation_details,chunksize=500):
+    '''
+
+    Args:
+      transformation_details: 
+      chunksize: (Default value = 500)
+
+    Returns:
+
+    '''
     tid_index = transformation_details['map-rep2tid']['tid'].unique().tolist() + transformation_details['novel-tids']
     rid_index = transformation_details['map-rep2tid'].index.values.tolist()
 

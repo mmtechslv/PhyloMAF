@@ -5,11 +5,27 @@ forwards = {}
 # Load legacy forwards
 
 def load_forwards(filename):
+    '''
+
+    Args:
+      filename: 
+
+    Returns:
+
+    '''
     infile = open(filename, 'r')
     load_forwards_from_stream(infile)
     infile.close()
 
 def load_forwards_from_stream(infile):
+    '''
+
+    Args:
+      infile: 
+
+    Returns:
+
+    '''
     reader = csv.reader(infile, delimiter='\t')
     idcolumn = 0
     repcolumn = 1
@@ -26,6 +42,14 @@ def load_forwards_from_stream(infile):
 # want binary mode for output...
 
 def dump_forwards_to_stream(outfile):
+    '''
+
+    Args:
+      outfile: 
+
+    Returns:
+
+    '''
     writer = csv.writer(outfile, delimiter='\t')
     writer.writerow(('id', 'replacement'))
 

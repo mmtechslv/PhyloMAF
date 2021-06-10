@@ -54,6 +54,7 @@ import csv
 import argparse
 
 class Taxon:
+    ''' '''
     def __init__(self):
         self.id = None
         self.parent_id = None
@@ -72,6 +73,14 @@ Seen = {} # to tell whether the taxon name has been seen before - to know if hom
 # to lineage
 
 def makePathDict(infilename):
+    '''
+
+    Args:
+      infilename: 
+
+    Returns:
+
+    '''
     infile = open(infilename,'rU')
     inclusive = 0
     exclusive = 0
@@ -95,6 +104,18 @@ def makePathDict(infilename):
 
 # Not used for now...
 def checkHomonym(cluster_id,taxon,pathdict,olduid,homfilename):
+    '''
+
+    Args:
+      cluster_id: 
+      taxon: 
+      pathdict: 
+      olduid: 
+      homfilename: 
+
+    Returns:
+
+    '''
     newpath = pathdict[cluster_id]
     oldpath = pathdict[olduid]
     newparindex = newpath.index(taxon) - 1
@@ -112,6 +133,14 @@ ranks = {}
 # No longer used - the SILVA ranks turned out to be really random
 
 def readRanks(indir):
+    '''
+
+    Args:
+      indir: 
+
+    Returns:
+
+    '''
     rankfilename = indir + '/tax_ranks.txt'
     rankfile = open(rankfilename,'r')
     for line in rankfile:
@@ -129,6 +158,14 @@ def readRanks(indir):
 # Each row is (accession id, ncbi id, strain, taxon name)
 
 def read_accession_to_ncbi_info(ncbifilename):
+    '''
+
+    Args:
+      ncbifilename: 
+
+    Returns:
+
+    '''
     accession_to_ncbi_info = {}
     with open(ncbifilename, 'r') as ncbifile:
         print 'Reading', ncbifilename
@@ -150,6 +187,15 @@ def read_accession_to_ncbi_info(ncbifilename):
 synonyms = {}
 
 def process_silva(pathdict, outdir):
+    '''
+
+    Args:
+      pathdict: 
+      outdir: 
+
+    Returns:
+
+    '''
     taxa = {}
     synonyms = {}
     cluster_parent = get_higher_taxa(pathdict, taxa, synonyms)
@@ -160,6 +206,16 @@ def process_silva(pathdict, outdir):
 # be somewhere in between)
 
 def get_higher_taxa(pathdict, taxa, synonyms):
+    '''
+
+    Args:
+      pathdict: 
+      taxa: 
+      synonyms: 
+
+    Returns:
+
+    '''
     i = 0
     taxon_id_counter = 1
     taxa_by_key = {}  # maps (parentid, name) to taxon
@@ -247,6 +303,15 @@ def get_higher_taxa(pathdict, taxa, synonyms):
 # map is True.
 
 def get_tips(taxa, cluster_parent):
+    '''
+
+    Args:
+      taxa: 
+      cluster_parent: 
+
+    Returns:
+
+    '''
 
     # Cluster ids - sort canonically so that there's a chance they'll match up from one run to the next
     cluster_ids = [cluster_id for (z, cluster_id) in sorted([(len(cluster_id), cluster_id) for cluster_id in cluster_parent.keys()])]
@@ -330,6 +395,19 @@ def get_tips(taxa, cluster_parent):
     return ncbi_to_taxon
 
 def write_taxonomy(taxa, synonyms, ncbi_to_taxon, blob, nodesfilename, outdir):
+    '''
+
+    Args:
+      taxa: 
+      synonyms: 
+      ncbi_to_taxon: 
+      blob: 
+      nodesfilename: 
+      outdir: 
+
+    Returns:
+
+    '''
     taxpath = os.path.join(outdir, 'taxonomy.tsv')
     newtaxpath = taxpath + '.new'
     with open(newtaxpath, 'w') as taxfile:
@@ -365,6 +443,14 @@ def write_taxonomy(taxa, synonyms, ncbi_to_taxon, blob, nodesfilename, outdir):
     writeAboutFile(blob, nodesfilename, outdir)
 
 def form_id(taxon):
+    '''
+
+    Args:
+      taxon: 
+
+    Returns:
+
+    '''
     if taxon.name == None:
         return None
     elif taxon.height == 0:
@@ -377,6 +463,16 @@ def form_id(taxon):
         return taxon.id
 
 def writeAboutFile(blob, nodesfilename, taxdir):
+    '''
+
+    Args:
+      blob: 
+      nodesfilename: 
+      taxdir: 
+
+    Returns:
+
+    '''
     aboutfilename = taxdir+"/about.json"
     aboutfile = open(aboutfilename,"w")
     # Get file date from nodes.dmp in downloaddir
@@ -403,6 +499,15 @@ def writeAboutFile(blob, nodesfilename, taxdir):
 # Map from NCBI id to taxon and from there to taxon id.
 
 def write_ncbi_to_taxonid(ncbi_to_taxon, outdir):
+    '''
+
+    Args:
+      ncbi_to_taxon: 
+      outdir: 
+
+    Returns:
+
+    '''
     xref_path = os.path.join(outdir, 'ncbi_to_silva.tsv')
     with open(xref_path + '.new','w') as xref:
         print 'Writing', xref_path
@@ -414,6 +519,7 @@ def write_ncbi_to_taxonid(ncbi_to_taxon, outdir):
 
 
 class Ncbi_info:
+    ''' '''
     def __init__(self, id):
         self.id = id
         self.silva_parent = None

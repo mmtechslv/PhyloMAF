@@ -47,6 +47,14 @@ not_extinct = ['1531',     # Sarcopterygii
 grandfathered = {}
 
 def init_grandfathered(grandfathered):
+    '''
+
+    Args:
+      grandfathered: 
+
+    Returns:
+
+    '''
     for (id, name) in [
         ('10180190', 'Opulaster opulifolius'),
         ('11899420', 'Palaemonetes granulosus'),
@@ -104,6 +112,7 @@ synonyms = {}
 roots = []
 
 class Taxon:
+    ''' '''
     def __init__(self, id, parentid, name, rank, tstatus, nstatus):
         self.id = id
         self.parentid = parentid
@@ -115,6 +124,7 @@ class Taxon:
         self.extinctp = False
 
 def read_irmng():
+    ''' '''
 
     # 0 "TAXONID","SCIENTIFICNAME","SCIENTIFICNAMEAUTHORSHIP","GENUS",
     # 4 "SPECIFICEPITHET","FAMILY","TAXONRANK","TAXONOMICSTATUS",
@@ -189,6 +199,7 @@ def read_irmng():
     print >>sys.stderr, 'Processed: %s taxa, %s synonyms' % (len(taxa), len(synonyms))
 
 def fix_irmng():
+    ''' '''
 
     # Get rid of all synonym of a synonym
 
@@ -259,6 +270,7 @@ def fix_irmng():
                     taxon.extinctp = False
 
 def extinctness_report():
+    ''' '''
     # Report on nonextinct descended from extinct
 
     count = 0
@@ -279,8 +291,18 @@ def extinctness_report():
 # Returns True if one or more children also got written
 
 def write_irmng():
+    ''' '''
 
     def write_taxon(taxon, taxfile):
+        '''
+
+        Args:
+          taxon: 
+          taxfile: 
+
+        Returns:
+
+        '''
         parentid = taxon.parentid
         if parentid == '':
             parentid = '0'

@@ -8,6 +8,7 @@ import pickle
 
 
 class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
+    ''' '''
 
     def __retrieve_tree_instance(self):
         tree_pickled = self.storage_manager.retrieve_data_by_element('tree-object')
@@ -21,6 +22,16 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
         return tmp_node
 
     def prune_tree_by_tid(self, ids, subreps=False, include_rid=False):
+        '''
+
+        Args:
+          ids: 
+          subreps: (Default value = False)
+          include_rid: (Default value = False)
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xtid.isin(target_ids).sum() == len(target_ids):
@@ -95,6 +106,14 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
             raise RuntimeError('Storage is closed.')
 
     def prune_tree_by_rid(self, ids):
+        '''
+
+        Args:
+          ids: 
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xrid.isin(target_ids).sum() == len(target_ids):
@@ -138,14 +157,16 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
 
 
     def infer_topology_by_tid(self, ids, subreps=False, include_rid=False):
-        """
-        Rapidly infers topology from map-tree.
+        '''Rapidly infers topology from map-tree.
+
         Args:
-            ids: Tips to infer for.
+          ids: Tips to infer for.
+          subreps: (Default value = False)
+          include_rid: (Default value = False)
 
         Returns:
 
-        """
+        '''
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xtid.isin(target_ids).sum() == len(target_ids):
@@ -167,6 +188,14 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
             raise RuntimeError('Storage is closed.')
 
     def infer_topology_by_rid(self, ids):
+        '''
+
+        Args:
+          ids: 
+
+        Returns:
+
+        '''
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xrid.isin(target_ids).sum() == len(target_ids):
@@ -250,6 +279,14 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
         mca_following_aligned_df_dict = defaultdict(pd.DataFrame)
 
         def adjust_unique(rid_row):
+            '''
+
+            Args:
+              rid_row: 
+
+            Returns:
+
+            '''
             unique_rid = rid_row.unique()
             return np.concatenate((unique_rid, np.array([None] * (total_levels - len(unique_rid)))))
 

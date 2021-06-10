@@ -29,6 +29,16 @@ import sys, os, json, argparse, requests
 url = 'https://api.opentreeoflife.org/v3/amendment'
 
 def service_request_using_web_service(request, url, auth):
+    '''
+
+    Args:
+      request: 
+      url: 
+      auth: 
+
+    Returns:
+
+    '''
     with open(auth, 'r') as authfile:
         auth_stuff = json.load(authfile)
     r = requests.request('POST',
@@ -44,6 +54,16 @@ def service_request_using_web_service(request, url, auth):
     return r.json()
 
 def service_request_locally(request, firstid, clone):
+    '''
+
+    Args:
+      request: 
+      firstid: 
+      clone: 
+
+    Returns:
+
+    '''
     taxa = request["taxa"]         # fail fast
     if not os.path.isdir(clone):
         os.makedirs(clone)
@@ -63,6 +83,16 @@ def service_request_locally(request, firstid, clone):
 # No need to make this if storing to local repo clone.
 
 def make_additions_document(request, firstid, dir):
+    '''
+
+    Args:
+      request: 
+      firstid: 
+      dir: 
+
+    Returns:
+
+    '''
     taxa = request["taxa"]         # fail fast
     count = 0
     for taxon in taxa:
@@ -82,6 +112,16 @@ def make_additions_document(request, firstid, dir):
 # Allocate a range of ids (from clone) by modifying next_ott_id.json
 
 def get_id_range(count, firstid, dir):
+    '''
+
+    Args:
+      count: 
+      firstid: 
+      dir: 
+
+    Returns:
+
+    '''
     if not os.path.exists(dir):
         os.makedirs(dir)
     idpath = os.path.join(dir, 'next_ott_id.json')
@@ -101,6 +141,15 @@ def get_id_range(count, firstid, dir):
     return (id, id + count - 1)
 
 def assign_ids(taxa, firstid):
+    '''
+
+    Args:
+      taxa: 
+      firstid: 
+
+    Returns:
+
+    '''
     tag_to_id = {}
     first_id = firstid
     last_id = None
@@ -117,6 +166,14 @@ def assign_ids(taxa, firstid):
     return tag_to_id
 
 def validate(request):
+    '''
+
+    Args:
+      request: 
+
+    Returns:
+
+    '''
     for taxon in request["taxa"]:
         if not "tag" in taxon:
             return {"error": "missing tag"}

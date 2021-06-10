@@ -8,6 +8,7 @@ from java.io import FileReader
 from proposition import *
 
 def assemble():
+    ''' '''
 
     # Create model taxonomy
     tax = UnionTaxonomy.newTaxonomy('ott')
@@ -93,6 +94,15 @@ def assemble():
     tax.dump('t/tax/aster/', '\t|\t')
 
 def assign_ids_from_list(tax, filename):
+    '''
+
+    Args:
+      tax: 
+      filename: 
+
+    Returns:
+
+    '''
     count = 0
     if True:
         infile = FileReader(filename)
@@ -112,6 +122,14 @@ def assign_ids_from_list(tax, filename):
     print '| Assigned %s ids from %s' % (count, filename)
 
 def align_and_merge(alignment):
+    '''
+
+    Args:
+      alignment: 
+
+    Returns:
+
+    '''
     ott = alignment.target
     ott.align(alignment)
     ott.merge(alignment)

@@ -13,6 +13,7 @@ taxonomies = [('fung', load_fung(), 'Index Fungorum'),
           ]
 
 def main():
+    ''' '''
     infile = open('order-counts-orders.csv', 'r')
     reader = csv.reader(infile)
     reader.next()   #header row
@@ -24,6 +25,14 @@ def main():
     write_counts(taxa)
 
 def write_counts(taxa):
+    '''
+
+    Args:
+      taxa: 
+
+    Returns:
+
+    '''
     outfile = open('order-counts.csv', 'w')
     writer = csv.writer(outfile)
     header = ['order']
@@ -41,6 +50,16 @@ def write_counts(taxa):
     outfile.close()
 
 def do_count(taxonomy, name, fun):
+    '''
+
+    Args:
+      taxonomy: 
+      name: 
+      fun: 
+
+    Returns:
+
+    '''
     taxon = taxonomy.maybeTaxon(name, 'Fungi')
     if taxon == None:
         return ''

@@ -4,6 +4,7 @@ from pmaf.pipe.agents.dockers._metakit import DockerAccessionMetabase,DockerIden
 from pmaf.pipe.factors._metakit import FactorBackboneMetabase
 
 class MinerBase(MinerBackboneMetabase):
+    ''' '''
     def __init__(self,mediator,factor,**kwargs):
         if not isinstance(mediator, MediatorBackboneMetabase):
             raise TypeError('`mediator` has invalid type.')
@@ -21,6 +22,14 @@ class MinerBase(MinerBackboneMetabase):
         return repr_str
 
     def verify_docker(self, docker):
+        '''
+
+        Args:
+          docker: 
+
+        Returns:
+
+        '''
         if isinstance(docker,DockerBackboneMetabase):
             compatibility_tests = [isinstance(docker,DockerAccessionMetabase) and isinstance(self.__mediator,MediatorAccessionMetabase),
                                    isinstance(docker,DockerPhylogenyMetabase) and isinstance(self.__mediator,MediatorPhylogenyMetabase),
@@ -33,13 +42,16 @@ class MinerBase(MinerBackboneMetabase):
 
     @property
     def factor(self):
+        ''' '''
         return self.__factor
 
     @property
     def mediator(self):
+        ''' '''
         return self.__mediator
 
     @property
     def state(self):
+        ''' '''
         return self.__mediator.state
 

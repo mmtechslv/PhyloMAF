@@ -5,6 +5,15 @@ import sys, os, json, argparse, csv
 from org.opentreeoflife.taxa import Taxonomy, Nexson, Flag
 
 def compare(t1, t2):
+    '''
+
+    Args:
+      t1: 
+      t2: 
+
+    Returns:
+
+    '''
     print 'comparing', t1, 'to', t2
     retired = 0
     became_hidden = 0

@@ -9,6 +9,7 @@ import pmaf.database._shared._summarizers as summarizer
 import pandas as pd
 
 class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccessionMixin,DatabaseBase):
+    ''' '''
     DATABASE_NAME = 'OpenTreeOfLife'
     INVALID_TAXA = None
     def __init__(self,*args,**kwargs):
@@ -16,6 +17,21 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
 
     @classmethod
     def build_database_storage(cls, storage_hdf5_fp, taxonomy_map_csv_fp, tree_newick_fp, stamp_dict, force=False, chunksize=500, delimiter='|', **kwargs):
+        '''
+
+        Args:
+          storage_hdf5_fp: 
+          taxonomy_map_csv_fp: 
+          tree_newick_fp: 
+          stamp_dict: 
+          force: (Default value = False)
+          chunksize: (Default value = 500)
+          delimiter: (Default value = '|')
+          **kwargs: 
+
+        Returns:
+
+        '''
         if path.exists(storage_hdf5_fp) and not force:
             raise ValueError('Storage file exists.')
         if not path.isfile(taxonomy_map_csv_fp):
@@ -47,15 +63,42 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
         from collections import defaultdict
 
         def produce_taxonomy_prior(full_taxonomy_prior, index_mapper):
+            '''
+
+            Args:
+              full_taxonomy_prior: 
+              index_mapper: 
+
+            Returns:
+
+            '''
             tmp_taxonomy_map = full_taxonomy_prior.loc[index_mapper.index].applymap(lambda x: '' if pd.isna(x) else x)
             yield None, None
             yield transformer.reindex_frame(tmp_taxonomy_map, index_mapper)
 
         def produce_taxonomy_sheet(taxonomy_sheet):
+            '''
+
+            Args:
+              taxonomy_sheet: 
+
+            Returns:
+
+            '''
             yield None, None
             yield taxonomy_sheet
 
         def produce_sequence_accession(taxonomy_prior, index_mapper, dropped_taxa):
+            '''
+
+            Args:
+              taxonomy_prior: 
+              index_mapper: 
+              dropped_taxa: 
+
+            Returns:
+
+            '''
             if len(dropped_taxa)>0:
                 taxonomy_map_df = taxonomy_prior.drop(index=index_mapper.loc[dropped_taxa].values, errors='ignore')
             else:
@@ -64,6 +107,14 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
             acc_map_series = taxonomy_map_df.loc[:, 'sourceinfo']
 
             def acc_rearranger(taxon_acc):
+                '''
+
+                Args:
+                  taxon_acc: 
+
+                Returns:
+
+                '''
                 acc_split = taxon_acc.split(',')
                 acc_type_split = [acc_data.split(':') for acc_data in acc_split]
                 acc_parsed = defaultdict(list)
@@ -80,6 +131,14 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
             del all_acc_types
 
             def valid_acc_generator(acc_map_dict):
+                '''
+
+                Args:
+                  acc_map_dict: 
+
+                Returns:
+
+                '''
                 for taxid, acc_dict in acc_map_dict.items():
                     yield [taxid] + [acc_dict.get(acc_type, '') for acc_type in unique_acc_types]
 
@@ -89,10 +148,26 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
             yield accession_map_df
 
         def produce_metadata_db_history(transformation_details):
+            '''
+
+            Args:
+              transformation_details: 
+
+            Returns:
+
+            '''
             yield None, None
             yield transformation_details['changes']
 
         def produce_map_rep2tid(transformation_details):
+            '''
+
+            Args:
+              transformation_details: 
+
+            Returns:
+
+            '''
             yield None, None
             yield transformation_details['map-rep2tid']
 
@@ -124,10 +199,27 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
         regex_ott_tags = re.compile('ott([0-9]+)')
 
         def produce_tree_prior(tree_newick_fp):
+            '''
+
+            Args:
+              tree_newick_fp: 
+
+            Returns:
+
+            '''
             yield None, None
             yield read_newick_tree(tree_newick_fp)
 
         def produce_tree_parsed(tree_newick_string, index_mapper):
+            '''
+
+            Args:
+              tree_newick_string: 
+              index_mapper: 
+
+            Returns:
+
+            '''
             yield None, None
             newick_string_no_mrca_tag = re.sub(regex_mrca_tags, "", tree_newick_string)
             newick_string_parsed = re.sub(regex_ott_tags, "\\1", newick_string_no_mrca_tag)
@@ -135,10 +227,26 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
             yield transformer.reparse_tree(tmp_tree, index_mapper)
 
         def produce_tree_object(tree_newick_string):
+            '''
+
+            Args:
+              tree_newick_string: 
+
+            Returns:
+
+            '''
             yield None, None
             yield Tree(tree_newick_string, format=2,quoted_node_names=True)
 
         def produce_map_tree( tree_object):
+            '''
+
+            Args:
+              tree_object: 
+
+            Returns:
+
+            '''
             yield None, None
             tmp_rebuilded_tree = transformer.rebuild_phylo(tree_object)
             yield transformer.make_tree_map(tmp_rebuilded_tree)
@@ -152,10 +260,26 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
     @classmethod
     def __process_interxmaps(cls, storage_manager):
         def produce_map_interx_taxon(interx_maker_result):
+            '''
+
+            Args:
+              interx_maker_result: 
+
+            Returns:
+
+            '''
             yield None, None
             yield interx_maker_result['map-interx-taxon']
 
         def produce_map_interx_repseq(interx_maker_result):
+            '''
+
+            Args:
+              interx_maker_result: 
+
+            Returns:
+
+            '''
             yield None, None
             yield interx_maker_result['map-interx-repseq']
 
@@ -166,6 +290,7 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
 
     @property
     def name(self):
+        ''' '''
         return self.DATABASE_NAME
 
 

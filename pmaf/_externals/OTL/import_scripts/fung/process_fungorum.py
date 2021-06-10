@@ -55,6 +55,14 @@ KNOWNBAD = [u'90157',u'532576',u'580198',u'522581',u'522582',u'522583',
             u'801343',u'491285',u'515429',u'373082']
 
 def startup(args):
+    '''
+
+    Args:
+      args: 
+
+    Returns:
+
+    '''
     if len(args) == 3:
         names_fname = args[1]
         taxonomy_fname = args[2]
@@ -185,14 +193,34 @@ def startup(args):
 
 
 def validate_name(name2taxon,name,row,taxon_rows):
-    """marks name as valid and updates lists and mappings """
+    '''marks name as valid and updates lists and mappings
+
+    Args:
+      name2taxon: 
+      name: 
+      row: 
+      taxon_rows: 
+
+    Returns:
+
+    '''
     name2taxon[name] = row
     row['status'] = 'available'
     taxon_rows.append(row)
 
 
 def get_taxonomy(name_rows,fdc_dict,name2taxon,name2synonym):
-    """ """
+    '''
+
+    Args:
+      name_rows: 
+      fdc_dict: 
+      name2taxon: 
+      name2synonym: 
+
+    Returns:
+
+    '''
     for row in name_rows: 
         if 'status' in row:
             if row['status'] == 'available':
@@ -203,15 +231,25 @@ def get_taxonomy(name_rows,fdc_dict,name2taxon,name2synonym):
 
 
 def is_synonym(row):
-    """
-    tests if the if id and the current name id differ, which indicates a synonym
-    """
+    '''tests if the if id and the current name id differ, which indicates a synonym
+
+    Args:
+      row: 
+
+    Returns:
+
+    '''
     return 'CurrentNameID' in row and (row['IF-ID'] != row['CurrentNameID'])
 
 def format_authority(row):
-    """
-    Generates an authority string for a name
-    """
+    '''Generates an authority string for a name
+
+    Args:
+      row: 
+
+    Returns:
+
+    '''
     name_str = utf8e(row['Name'])
     if 'Author' in row:
         author_str = utf8e(row['Author'])
@@ -227,10 +265,17 @@ TAXON_HEADER = "uid\t|\tparent_uid\t|\tname\t|\trank\t|\t\n"
 TAXON_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t\n"
 
 def write_taxonomy(taxonomy_fname,name_table,name2taxon):
-    """
-    Opens and writes lines in the taxonomy file corresponding to
+    '''Opens and writes lines in the taxonomy file corresponding to
     each valid (available) name
-    """
+
+    Args:
+      taxonomy_fname: 
+      name_table: 
+      name2taxon: 
+
+    Returns:
+
+    '''
     try:        
         taxonomy_file = codecs.open(taxonomy_fname,"w","utf-8")
         taxonomy_file.write(TAXON_HEADER)
@@ -262,12 +307,18 @@ SYNONYM_HEADER = "uid\t|\tname\t|\ttype\t|\tTBD\t|\n"
 SYNONYM_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t\n"
 
 def write_synonyms(synonyms_fname,synonyms):
-    """
-    Opens and writes lines in the synonyms file corresponding to
+    '''Opens and writes lines in the synonyms file corresponding to
     each name identified as a synonym (IF id != Current Name id)
     If authority information is available, it will appear in the
-    third column, prefix by 'authority', rather than by 'synonym'     
-    """
+    third column, prefix by 'authority', rather than by 'synonym'
+
+    Args:
+      synonyms_fname: 
+      synonyms: 
+
+    Returns:
+
+    '''
     try:
         synonyms_file = codecs.open(synonyms_fname,"w","utf-8")
         synonyms_file.write(SYNONYM_HEADER)
@@ -288,13 +339,19 @@ def write_synonyms(synonyms_fname,synonyms):
 BAD_SYNONYMS = []
 
 def resolve_synonym(row,if_id_dict):
-    """
-    This chains back to find the taxonomically valid name for the synonym 
+    '''This chains back to find the taxonomically valid name for the synonym
     in the name field of row.  Synonyms are names of rows which have
     a CurrentNameID defined and has a different value from the IF-ID.  This
     returns the IF-ID of the first row encountered in the chaining that is
-    not a synonym.    
-    """
+    not a synonym.
+
+    Args:
+      row: 
+      if_id_dict: 
+
+    Returns:
+
+    '''
     if_id = row['IF-ID']
     if if_id in BAD_SYNONYMS:
        logging.info("found bad synonym %s",if_id)
@@ -321,6 +378,14 @@ def resolve_synonym(row,if_id_dict):
 
            
 def fill_if_dict(name_rows):
+    '''
+
+    Args:
+      name_rows: 
+
+    Returns:
+
+    '''
     if_dict = dict()
     for row in name_rows:
         if 'IF-ID' not in row:
@@ -332,7 +397,16 @@ def fill_if_dict(name_rows):
     return if_dict
 
 def back_translate_name(name,name2taxon,name2synonym):
-    """returns an if-id for a name"""
+    '''returns an if-id for a name
+
+    Args:
+      name: 
+      name2taxon: 
+      name2synonym: 
+
+    Returns:
+
+    '''
     if name in name2taxon:
         row = name2taxon[name]
         return row['IF-ID']
@@ -360,6 +434,15 @@ raw_rank_list = ["genus","family","order","subclass","class","subphylum","phylum
 rank_list_len = len(rank_list)
 
 def get_rank(row,fdc_dict):
+    '''
+
+    Args:
+      row: 
+      fdc_dict: 
+
+    Returns:
+
+    '''
     name = row['Name']
     display_name = utf8e(name)
     logging.info("Looking for rank for %s",display_name)
@@ -426,8 +509,17 @@ def get_rank(row,fdc_dict):
 
 
 def get_parent(row,fdc_dict,name2taxon,name2synonym):
-    """
-    """
+    '''
+
+    Args:
+      row: 
+      fdc_dict: 
+      name2taxon: 
+      name2synonym: 
+
+    Returns:
+
+    '''
     name = row['Name']
     if ('FDC-FK' in row and row['IF-ID'] != row['FDC-FK']):         # probably species
         if len(name.split(' ')) == 2:
@@ -458,6 +550,17 @@ def get_parent(row,fdc_dict,name2taxon,name2synonym):
 
           
 def fdc_parent_search(row,fdc_dict,name2taxon,name2synonym):
+    '''
+
+    Args:
+      row: 
+      fdc_dict: 
+      name2taxon: 
+      name2synonym: 
+
+    Returns:
+
+    '''
     name = row['Name']
     if 'FDC-FK' in row and row['FDC-FK'] in fdc_dict:
         hier = fdc_dict[row['FDC-FK']]
@@ -484,6 +587,17 @@ def fdc_parent_search(row,fdc_dict,name2taxon,name2synonym):
 
 
 def extract_parent(name,hier,name2taxon,name2synonym):
+    '''
+
+    Args:
+      name: 
+      hier: 
+      name2taxon: 
+      name2synonym: 
+
+    Returns:
+
+    '''
     disp_name = utf8e(name)
     logging.info("extracting parent for %s",disp_name)
     parent_offset = find_immediate_parent(name,hier) 
@@ -492,11 +606,32 @@ def extract_parent(name,hier,name2taxon,name2synonym):
     return foo
 
 def find_immediate_parent(name,hier):
+    '''
+
+    Args:
+      name: 
+      hier: 
+
+    Returns:
+
+    '''
     for n,rank_field in enumerate(rank_list):
         if name == hier[rank_field]:
             return n+1
 
 def re_search_ranks(parent_index,hier,name2taxon,name2synonym,disp_name):
+    '''
+
+    Args:
+      parent_index: 
+      hier: 
+      name2taxon: 
+      name2synonym: 
+      disp_name: 
+
+    Returns:
+
+    '''
     for sub_key in rank_list[parent_index:]:
         logging.info("sub_key is %s",sub_key)
         next_parent = hier[sub_key]
@@ -517,6 +652,15 @@ def re_search_ranks(parent_index,hier,name2taxon,name2synonym,disp_name):
         return ''
 
 def fdc_search(name,fdc_dict):
+    '''
+
+    Args:
+      name: 
+      fdc_dict: 
+
+    Returns:
+
+    '''
     result =[]
     for fdc_id in fdc_dict:
         row = fdc_dict[fdc_id]
@@ -526,6 +670,14 @@ def fdc_search(name,fdc_dict):
     return result
 
 def init_fdc_set(fdc_dict):
+    '''
+
+    Args:
+      fdc_dict: 
+
+    Returns:
+
+    '''
     fset = set()
     for fdc_id in fdc_dict:
         for name in fdc_dict[fdc_id].values():
@@ -533,10 +685,28 @@ def init_fdc_set(fdc_dict):
     return fset
 
 def fdc_find(name,fset):
+    '''
+
+    Args:
+      name: 
+      fset: 
+
+    Returns:
+
+    '''
     return name in fset
 
 
 def validate_lineages(name,fdc_list):
+    '''
+
+    Args:
+      name: 
+      fdc_list: 
+
+    Returns:
+
+    '''
     myrank = None
     for (id,rank) in fdc_list:
         if myrank == None:
@@ -549,6 +719,14 @@ def validate_lineages(name,fdc_list):
 
 
 def get_dicts(names_file):
+    '''
+
+    Args:
+      names_file: 
+
+    Returns:
+
+    '''
     result = []
     line = names_file.readline()
     keys = extract_keys(line)
@@ -564,6 +742,14 @@ def get_dicts(names_file):
     return result
 
 def extract_keys(line):
+    '''
+
+    Args:
+      line: 
+
+    Returns:
+
+    '''
     strings = line.split(',')
     keys = []
     for s in strings:
@@ -573,6 +759,14 @@ def extract_keys(line):
     return keys
 
 def extract_values(line):
+    '''
+
+    Args:
+      line: 
+
+    Returns:
+
+    '''
     strings = line.split('"')
     if strings[0] != '':
         prefix_ids = strings[0].split(',')
@@ -608,6 +802,15 @@ def extract_values(line):
 
 
 def reverse_name_lookup(id,name_rows):
+    '''
+
+    Args:
+      id: 
+      name_rows: 
+
+    Returns:
+
+    '''
     for row in name_rows:
         if row['id'] == id:
             return row['name']
@@ -617,7 +820,14 @@ def reverse_name_lookup(id,name_rows):
 # formatting errors in log messages disappear,
 # but it seems to be effective.
 def utf8e(str):
-    """returns utf-8 encoded string from latin-1(?) argument"""
+    '''returns utf-8 encoded string from latin-1(?) argument
+
+    Args:
+      str: 
+
+    Returns:
+
+    '''
     return codecs.encode(str,'utf-8')
 
 

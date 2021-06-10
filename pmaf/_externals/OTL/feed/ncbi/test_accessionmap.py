@@ -3,13 +3,17 @@ import os
 import map_ncbi_accessions as mna
 
 class testAccessionMapping(unittest.TestCase):
+    ''' '''
 	def setUp(self):	
+		''' '''
 		pass
 
 	def tearDown(self):
+		''' '''
 		pass
 
 	def testDoesEutilCreatesOutputFile(self):
+		''' '''
 		accessionNumber = "AF025822"
 		tempfilename = "efetchtest.tmp"
 		batch = [accessionNumber]
@@ -21,6 +25,7 @@ class testAccessionMapping(unittest.TestCase):
 	# this probably shouldn't actually call NCBI, but it is only one
 	# accession and I haven't looked into mock objects enough yet
 	def testCorrectlyMapSingleAccession(self):
+		''' '''
 		accessionNumber = "AF025822"
 		taxonID = '67760'
 		strain='ME'

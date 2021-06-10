@@ -17,6 +17,7 @@ synfile = codecs.open(os.path.join(outdir, 'synonyms.tsv'), 'w', 'utf-8')
 life_id = 0
 
 def process():
+    ''' '''
     with open(infilename, 'r') as infile:
         emit("uid", "parent_uid", "name", "rank")
         emit(life_id, "", "life", "")
@@ -85,9 +86,29 @@ def process():
                     lineage[i] = None
 
 def emit(id, parentid, name, rank):
+    '''
+
+    Args:
+      id: 
+      parentid: 
+      name: 
+      rank: 
+
+    Returns:
+
+    '''
     taxfile.write("%s\t%s\t%s\t%s\n"%(id, parentid, name.strip(), rank))
 
 def emitsyn(syn, id):
+    '''
+
+    Args:
+      syn: 
+      id: 
+
+    Returns:
+
+    '''
     synfile.write("%s\t%s\n"%(syn.strip(),id))
 
 process()

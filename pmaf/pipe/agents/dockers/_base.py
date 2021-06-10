@@ -2,6 +2,7 @@ from ._metakit import DockerBackboneMetabase
 import numpy as np
 
 class DockerBase(DockerBackboneMetabase):
+    ''' '''
     def __init__(self, _data_dict, _valid_types, name=None, metadata=None, _transit=None, **kwargs):
         if isinstance(name,(str,int,np.integer,type(None))):
             tmp_name = name
@@ -58,9 +59,19 @@ class DockerBase(DockerBackboneMetabase):
         return repr_str
 
     def wrap_meta(self):
+        ''' '''
         return {'type':type(self).__name__,'metadata':self.__metadata,'name':self.__name}
 
     def get_subset(self,indices=None,exclude_missing=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          exclude_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if indices is None:
             target_indices = self.__index
         elif np.isscalar(indices):
@@ -76,6 +87,15 @@ class DockerBase(DockerBackboneMetabase):
         return type(self)(tmp_subset,name=self.name,metadata=self.metadata)
 
     def get_iterator(self,indices=None,exclude_missing=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          exclude_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if indices is None:
             target_indices = self.__index
         elif np.isscalar(indices):
@@ -87,16 +107,26 @@ class DockerBase(DockerBackboneMetabase):
         if exclude_missing:
             target_indices = np.asarray([ix for ix in target_indices if self.__data[ix] is not None])
         def iterator():
+            ''' '''
             for ix in target_indices:
                 yield ix, self.__data[ix]
         return iterator()
 
     @property
     def metadata(self):
+        ''' '''
         return self.__metadata
 
     @metadata.setter
     def metadata(self, value):
+        '''
+
+        Args:
+          value: 
+
+        Returns:
+
+        '''
         if isinstance(value,dict):
             self.__metadata = value
         elif value is None:
@@ -106,10 +136,19 @@ class DockerBase(DockerBackboneMetabase):
 
     @property
     def name(self):
+        ''' '''
         return self.__name
 
     @name.setter
     def name(self, value):
+        '''
+
+        Args:
+          value: 
+
+        Returns:
+
+        '''
         if isinstance(value,(str,int,type(None))):
             self.__name = value
         else:
@@ -117,32 +156,40 @@ class DockerBase(DockerBackboneMetabase):
 
     @property
     def singleton(self):
+        ''' '''
         return self.__singleton
 
     @property
     def empty(self):
+        ''' '''
         return self.count == 0
 
     @property
     def missing(self):
+        ''' '''
         return np.asarray([k for k,v in self.__data.items() if v is None],dtype=self.__index.dtype)
 
     @property
     def valid(self):
+        ''' '''
         return np.asarray([k for k,v in self.__data.items() if v is not None],dtype=self.__index.dtype)
 
     @property
     def data(self):
+        ''' '''
         return self.__data
 
     @property
     def count(self):
+        ''' '''
         return len(self.__data)
 
     @property
     def index(self):
+        ''' '''
         return self.__index
 
     @property
     def _transit(self):
+        ''' '''
         return self.__transit

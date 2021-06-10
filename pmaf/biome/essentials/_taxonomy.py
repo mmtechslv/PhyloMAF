@@ -10,16 +10,19 @@ from os import path
 import pandas as pd
 import numpy as np
 import biom
+from typing import Union, Sequence
 
 class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
-    def __init__(self, taxonomy, taxonomy_columns=None, **kwargs):
+    ''' '''
+    def __init__(self, taxonomy: Union[pd.DataFrame, pd.Series, str],
+                 taxonomy_columns:Union[str,int,Sequence[Union[int,str]]] = None, **kwargs):
         tmp_metadata = kwargs.pop('metadata',{})
         self.__avail_ranks = []
         self.__internal_taxonomy = None
         if isinstance(taxonomy,pd.DataFrame):
             if taxonomy.shape[0] > 0:
                 if taxonomy.shape[1]>1:
-                    if validate_ranks(taxonomy.columns.values.tolist(),VALID_RANKS):
+                    if validate_ranks(list(taxonomy.columns.values),VALID_RANKS):
                         tmp_taxonomy = taxonomy
                     else:
                         raise ValueError('Provided `taxonomy` Datafame has invalid ranks.')
@@ -57,6 +60,16 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
     @classmethod
     def from_csv(cls,filepath,taxonomy_columns=None,**kwargs):
+        '''
+
+        Args:
+          filepath: 
+          taxonomy_columns: (Default value = None)
+          **kwargs: 
+
+        Returns:
+
+        '''
         if taxonomy_columns is None:
             tmp_taxonomy = pd.read_csv(filepath, **kwargs)
         else:
@@ -70,6 +83,15 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
     @classmethod
     def from_biom(cls,filepath,**kwargs):
+        '''
+
+        Args:
+          filepath: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         taxonomy_frame, new_metadata = cls.__load_biom(filepath, **kwargs)
         tmp_metadata = kwargs.pop('metadata', {})
         tmp_metadata.update({'biom':new_metadata})
@@ -95,19 +117,49 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Biom file does not contain observation metadata.')
 
     def _remove_features_by_id(self, ids, **kwargs):
+        '''
+
+        Args:
+          ids: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_ids = np.asarray(ids,dtype=self.__internal_taxonomy.index.dtype)
         if len(tmp_ids)>0:
             self.__internal_taxonomy.drop(tmp_ids, inplace=True)
         return self._ratify_action('_remove_features_by_id', ids, **kwargs)
 
     def _merge_features_by_map(self, map_dict, done=False, **kwargs):
+        '''
+
+        Args:
+          map_dict: 
+          done: (Default value = False)
+          **kwargs: 
+
+        Returns:
+
+        '''
         if done:
             if len(map_dict)>0:
                 return self._ratify_action('_merge_features_by_map', map_dict, _annotations=self.__internal_taxonomy.loc[:,'lineage'].to_dict(), **kwargs)
         else:
             raise NotImplementedError
 
-    def drop_feature_by_id(self, ids, **kwargs):
+    def drop_feature_by_id(self, ids: Union[Sequence[Union[str,int]]], **kwargs):
+        '''Removeo features by feature indices.
+
+        Args:
+          ids: Feature indices
+          **kwargs: 
+          ids: Union[Sequence[Union[str: 
+          int]]]: 
+
+        Returns:
+
+        '''
         target_ids = np.asarray(ids)
         if self.xrid.isin(target_ids).sum() == len(target_ids):
             return self._remove_features_by_id(target_ids, **kwargs)
@@ -115,6 +167,15 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Invalid feature ids are provided.')
 
     def get_taxonomy_by_id(self, ids=None):
+        '''Get taxonomy DataFrame by feature indices.
+
+        Args:
+          ids: Either feature indices or None for all. (Default value = None)
+
+        Returns:
+          : pd.DataFrame with taxonomy data
+
+        '''
         if ids is None:
             target_ids = self.xrid
         else:
@@ -125,6 +186,19 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Invalid feature ids are provided.')
 
     def get_lineage_by_id(self, ids=None, missing_rank=False, desired_ranks=False, drop_ranks=False, **kwargs):
+        '''Get taxonomy lineages by feature indices.
+
+        Args:
+          ids: Either feature indices or None for all. (Default value = None)
+          missing_rank: If True will generate prefix like s__ or d__  (Default value = False)
+          desired_ranks: List of desired ranks to generate. If False then will generate all main ranks (Default value = False)
+          drop_ranks: List of ranks to drop from desired ranks. This parameter only useful if `missing_rank` is True (Default value = False)
+          **kwargs: 
+
+        Returns:
+          : Series with generated consensus lineages and corresponding IDs as Series index
+
+        '''
         if ids is None:
             target_ids = self.xrid
         else:
@@ -138,14 +212,42 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         else:
             raise ValueError('Invalid feature ids are provided.')
 
-    def find_features_by_pattern(self, pattern_str, case_sensitive=False, regex=False):  # Done
+    def find_features_by_pattern(self, pattern_str, case_sensitive=False, regex=False):
+        '''Searches for features with taxa that matches `pattern_str`
+
+        Args:
+          pattern_str: Pattern to search for
+          case_sensitive: Case sensitive mode (Default value = False)
+          regex: Use regular expressions (Default value = False)
+
+        Returns:
+
+        '''
         return self.__internal_taxonomy[self.__internal_taxonomy.loc[:, 'lineage'].str.contains(pattern_str, case=case_sensitive, regex=regex)].index.values
 
     def drop_features_without_taxa(self, **kwargs):
+        '''Remove features that do not contain taxonomy.
+
+        Args:
+          **kwargs: 
+
+        Returns:
+
+        '''
         ids_to_drop = self.find_features_without_taxa()
         return self._remove_features_by_id(ids_to_drop, **kwargs)
 
     def drop_features_without_ranks(self, ranks, any=False, **kwargs):  # Done
+        '''Remove features that do not contain `ranks`
+
+        Args:
+          ranks: Ranks to look for
+          any: If True removes feature with single occurrence of missing rank. If False all `ranks` must be missing. (Default value = False)
+          **kwargs: 
+
+        Returns:
+
+        '''
         target_ranks = np.asarray(ranks)
         if self.__internal_taxonomy.columns.isin(target_ranks).sum() == len(target_ranks):
             no_rank_mask = self.__internal_taxonomy.loc[:, ranks].isna()
@@ -156,6 +258,14 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Invalid ranks are provided.')
 
     def merge_duplicated_features(self, **kwargs):
+        '''Merge duplicated features
+
+        Args:
+          **kwargs: Passed to methods with similar task when in assembly.
+
+        Returns:
+
+        '''
         ret = {}
         groupby = self.__internal_taxonomy.groupby('lineage')
         if any([len(group) > 1 for group in groupby.groups.values()]):
@@ -169,7 +279,17 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             ret = dict(zip(group_indices, tmp_groups))
         return self._merge_features_by_map(ret,True, **kwargs)
 
-    def merge_features_by_rank(self, level, **kwargs):
+    def merge_features_by_rank(self, level: str, **kwargs):
+        '''Merge features by taxonomic rank/level
+
+        Args:
+          level: Taxonomic rank based on which merging will be applied.
+          **kwargs: Passed to methods with similar task when in assembly.
+          level: str: 
+
+        Returns:
+
+        '''
         ret = {}
         if not isinstance(level,str):
             raise TypeError('`rank` must have str type.')
@@ -192,9 +312,25 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         return self._merge_features_by_map(ret,True, **kwargs)
 
     def find_features_without_taxa(self):
+        '''Find features without taxa.'''
         return self.__internal_taxonomy.loc[self.__internal_taxonomy.loc[:, VALID_RANKS].
                                                agg(lambda rank: len(''.join(map(lambda x: (str(x or '')), rank))), axis=1) < 1].index.values
-    def get_subset(self, rids=None, *args, **kwargs):
+
+    def get_subset(self, rids:Union[Sequence,None] =None,
+                   *args, **kwargs):
+        '''Retrieves a subset of the RepTaxonomy
+
+        Args:
+          rids: (Default value = None) Feature indices to subset for.
+          rids:Union[Sequence: 
+          None]:  (Default value = None)
+          *args: 
+          **kwargs: 
+
+        Returns:
+          : New `RepTaxonomy`
+
+        '''
         if rids is None:
             target_rids = self.xrid
         else:
@@ -203,13 +339,44 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Invalid feature ids are provided.')
         return type(self)(taxonomy=self.__internal_taxonomy.loc[target_rids, 'lineage'], metadata=self.metadata, name=self.name)
 
-    def _export(self, taxlike='lineage', ascending=True, **kwargs):
+    def _export(self, taxlike: str ='lineage',
+                ascending: bool = True, **kwargs):
+        '''
+
+        Args:
+          taxlike: (Default value = 'lineage')
+          ascending: (Default value = True)
+          taxlike: str:  (Default value = 'lineage')
+          ascending: bool:  (Default value = True)
+          **kwargs: 
+
+        Returns:
+
+        '''
         if taxlike == 'lineage':
             return self.get_lineage_by_id(**kwargs).sort_values(ascending=ascending), kwargs
         else:
             raise NotImplemented
 
-    def export(self, output_fp, *args, _add_ext=False, sep=',', **kwargs):
+    def export(self, output_fp: str, *args,
+               _add_ext:bool = False,
+               sep:str = ',', **kwargs):
+        '''
+
+        Args:
+          output_fp: 
+          *args: 
+          _add_ext: (Default value = False)
+          sep: (Default value = ')
+          ': 
+          **kwargs: 
+          output_fp: str: 
+          _add_ext:bool:  (Default value = False)
+          sep:str:  (Default value = ')
+
+        Returns:
+
+        '''
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
             tmp_export.to_csv("{}.csv".format(output_fp), sep=sep)
@@ -217,10 +384,19 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             tmp_export.to_csv(output_fp, sep=sep)
 
     def copy(self):
+        '''Make a hard copy of current instance.'''
         return type(self)(taxonomy = self.__internal_taxonomy.loc[:,'lineage'], metadata = self.metadata,name=self.name)
 
     def __fix_taxon_names(self):
         def taxon_fixer(taxon):
+            '''
+
+            Args:
+              taxon: 
+
+            Returns:
+
+            '''
             if taxon is not None and pd.notna(taxon):
                 tmp_taxon_trimmed = taxon.lower().strip()
                 if len(tmp_taxon_trimmed)>0:
@@ -384,17 +560,21 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
     @property
     def avail_ranks(self):
+        '''List of available taxonomic ranks.'''
         return self.__avail_ranks
 
     @property
     def duplicated(self):
+        '''List of duplicated feature indices.'''
         return self.__internal_taxonomy.index[self.__internal_taxonomy['lineage'].duplicated(keep=False)]
 
     @property
     def data(self):
+        '''Actual data representation as pd.DataFrame'''
         return self.__internal_taxonomy
 
     @property
     def xrid(self):
+        '''Feature indices as pd.Index'''
         return self.__internal_taxonomy.index
 

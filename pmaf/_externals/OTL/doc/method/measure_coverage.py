@@ -13,6 +13,15 @@ import os, csv, sys
 home = '../..'
 
 def doit(tax_path, ids_path):
+    '''
+
+    Args:
+      tax_path: 
+      ids_path: 
+
+    Returns:
+
+    '''
 
     ott = Taxonomy.getRawTaxonomy(tax_path, 'ott')
 

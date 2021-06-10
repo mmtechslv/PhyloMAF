@@ -43,6 +43,7 @@ aweb_uid_column = header.index('aweb_uid')
 #     
 
 def process():
+    ''' '''
     emit("uid", "parent_uid", "name", "rank")
     emitsyns("name", "uid", {})
     id = 0
@@ -73,9 +74,30 @@ def process():
                     parentid = thisid
 
 def emit(id, parentid, name, rank):
+    '''
+
+    Args:
+      id: 
+      parentid: 
+      name: 
+      rank: 
+
+    Returns:
+
+    '''
     taxfile.write("%s\t%s\t%s\t%s\n"%(id, parentid, name.strip(), rank))
 
 def emitsyns(syns, id, seen):
+    '''
+
+    Args:
+      syns: 
+      id: 
+      seen: 
+
+    Returns:
+
+    '''
     if syns != '':
         for syn in syns.split(','):
             if not (syn in seen):

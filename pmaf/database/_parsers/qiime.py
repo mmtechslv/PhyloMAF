@@ -6,6 +6,14 @@ from pmaf.internal._extensions._cpython._pmafc_extension._helper import make_seq
 from pmaf.internal.io._seq import SequenceIO
 
 def read_qiime_taxonomy_map(taxonomy_tsv_fp):
+    '''
+
+    Args:
+      taxonomy_tsv_fp: 
+
+    Returns:
+
+    '''
     if os.path.exists(taxonomy_tsv_fp):
         with open(taxonomy_tsv_fp, 'r') as map_file:
             tmp_tax_map = pd.read_csv(map_file, sep='\t', index_col=0,header=None)
@@ -18,12 +26,28 @@ def read_qiime_taxonomy_map(taxonomy_tsv_fp):
         raise FileNotFoundError('Given file does not exists.')
 
 def parse_qiime_taxonomy_map(taxonomy_map_df):
+    '''
+
+    Args:
+      taxonomy_map_df: 
+
+    Returns:
+
+    '''
     if isinstance(taxonomy_map_df,pd.DataFrame):
         if not (taxonomy_map_df.empty or (taxonomy_map_df.shape[1] != 1)):
             taxonomy_map = taxonomy_map_df.iloc[:, 0]
             zip_list = list(chain(*taxonomy_map.map(lambda lineage: [e.strip().split('__')[0] for e in lineage.split(';') if ('__' in e)]).ravel().tolist()))
 
             def get_unique(zip_list):
+                '''
+
+                Args:
+                  zip_list: 
+
+                Returns:
+
+                '''
                 seen = set()
                 seen_add = seen.add
                 return [x for x in zip_list if not (x in seen or seen_add(x))]
@@ -31,6 +55,15 @@ def parse_qiime_taxonomy_map(taxonomy_map_df):
             found_levels = get_unique(zip_list)
 
             def allocator(lineage, levels):
+                '''
+
+                Args:
+                  lineage: 
+                  levels: 
+
+                Returns:
+
+                '''
                 taxa_dict = {e[0]: e[1] for e in [e.strip().split('__') for e in lineage.split(';') if ('__' in e)]}  # Anonymous function that explodes lineage into dictionary
                 taxa_dict_allowed = {rank: taxa_dict[rank] for rank in taxa_dict.keys() if rank in levels}  # Drops forbidden ranks
                 # Following loop sets unavailable ranks to '', which is necessary for generating taxonomy sheet
@@ -49,6 +82,16 @@ def parse_qiime_taxonomy_map(taxonomy_map_df):
         raise TypeError('`taxonomy_map_df` must be pandas DataFrame.')
 
 def parse_qiime_sequence_generator(sequence_fasta_fp,chunk_size,alignment):
+    '''
+
+    Args:
+      sequence_fasta_fp: 
+      chunk_size: 
+      alignment: 
+
+    Returns:
+
+    '''
     seqio = SequenceIO(sequence_fasta_fp, ftype='fasta', upper=True)
     max_seq_length = 0
     min_seq_length = 99999 # Assuming no marker sequence can be longer than this

@@ -1,6 +1,7 @@
 import sys, re
 
 def doit():
+    ''' '''
 
     alts = '|'.join(['set_parent', 'take', 'rename', 'clobberName',
                      'notCalled', 'Has_child', 'Whether_same',
@@ -29,6 +30,15 @@ def doit():
     print_item('TOTAL', total)
 
 def print_item(key, count):
+    '''
+
+    Args:
+      key: 
+      count: 
+
+    Returns:
+
+    '''
     print '%3s %s' % (count, key)
 
 doit()

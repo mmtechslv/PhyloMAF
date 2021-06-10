@@ -19,6 +19,15 @@ has_children = {}
 taxa_by_name = {}    # name -> records
 
 def process_worms(digest_path, out_path):
+    '''
+
+    Args:
+      digest_path: 
+      out_path: 
+
+    Returns:
+
+    '''
     names = sorted(os.listdir(digest_path))
     for name in names:
         if name.startswith('l'):
@@ -50,6 +59,14 @@ def process_worms(digest_path, out_path):
     # print 'unaccept_reasons', sorted(unaccept_reasons.values())
 
 def suppress(taxon):
+    '''
+
+    Args:
+      taxon: 
+
+    Returns:
+
+    '''
     # (id, parent_id, name, rank, flags) = taxon
     if taxon[0] in has_children:
         return False
@@ -69,6 +86,14 @@ def suppress(taxon):
         return False
 
 def grandparent_id(taxon):
+    '''
+
+    Args:
+      taxon: 
+
+    Returns:
+
+    '''
     parent_id = taxon[1]    # OTT form
     parent = taxa.get(parent_id)
     if parent == None: return None
@@ -76,6 +101,14 @@ def grandparent_id(taxon):
     return gp_id
 
 def process_links(inpath):
+    '''
+
+    Args:
+      inpath: 
+
+    Returns:
+
+    '''
     with open(inpath, 'r') as infile:
         reader = csv.reader(infile)
         reader.next()           # header row
@@ -91,6 +124,14 @@ def process_links(inpath):
 sub = re.compile('([A-Za-z]+) \\(([A-Za-z]+)\\)(.*)')
 
 def process_records(inpath):
+    '''
+
+    Args:
+      inpath: 
+
+    Returns:
+
+    '''
     with open(inpath, 'r') as infile:
         reader = csv.reader(infile)
         reader.next()           # header row
@@ -135,6 +176,16 @@ def process_records(inpath):
 unaccept_reasons = {}
 
 def record_to_taxon(row, rank, name):
+    '''
+
+    Args:
+      row: 
+      rank: 
+      name: 
+
+    Returns:
+
+    '''
     id = row[0]
 
     parent = parents.get(id)
@@ -167,6 +218,15 @@ def record_to_taxon(row, rank, name):
 #unassigned = '[unassigned] '
 
 def fix_name(name, rank):
+    '''
+
+    Args:
+      name: 
+      rank: 
+
+    Returns:
+
+    '''
     #if name.startswith(unassigned):
     #    name = name[len(unassigned):]
     m = sub.match(name)

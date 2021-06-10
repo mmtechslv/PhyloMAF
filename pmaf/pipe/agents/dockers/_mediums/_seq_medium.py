@@ -12,6 +12,7 @@ import numpy as np
 from collections import defaultdict
 
 class DockerSequenceMedium(DockerSequenceMetabase,DockerBase):
+    ''' '''
     _UNIT_TYPES = (str,type(None))
     def __init__(self, sequences, mode='DNA', aligned=None, **kwargs):
         if mode is not None:
@@ -114,13 +115,23 @@ class DockerSequenceMedium(DockerSequenceMetabase,DockerBase):
 
     @property
     def mode(self):
+        ''' '''
         return self.__mode
 
     @property
     def aligned(self):
+        ''' '''
         return self.__aligned
 
     def to_multiseq(self, indices=None):
+        '''
+
+        Args:
+          indices: (Default value = None)
+
+        Returns:
+
+        '''
         if indices is None:
             target_indices = self.index
         elif np.isscalar(indices):
@@ -143,6 +154,15 @@ class DockerSequenceMedium(DockerSequenceMetabase,DockerBase):
             return next(iter(tmp_sequences_dict.values())) if np.isscalar(indices) else tmp_sequences_dict
 
     def get_records(self, indices=None,exclude_missing=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          exclude_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if indices is None:
             target_indices = self.index
         elif np.isscalar(indices):
@@ -167,6 +187,15 @@ class DockerSequenceMedium(DockerSequenceMetabase,DockerBase):
             return next(iter(tmp_records_dict.values())) if np.isscalar(indices) else tmp_records_dict
 
     def get_stats(self, indices=None, exclude_missing=False):
+        '''
+
+        Args:
+          indices: (Default value = None)
+          exclude_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if indices is None:
             target_indices = self.index
         elif np.isscalar(indices):

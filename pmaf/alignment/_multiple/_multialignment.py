@@ -6,6 +6,7 @@ from skbio import TabularMSA
 from tempfile import NamedTemporaryFile
 
 class MultiSequenceAligner(MultiSequenceAlignerBackboneMetabase):
+    ''' '''
     def __init__(self, name=None, method='clustalw2',bin_fp=None):
         if isinstance(name,(str,type(None))):
             self.__name = name
@@ -32,6 +33,15 @@ class MultiSequenceAligner(MultiSequenceAlignerBackboneMetabase):
         return repr_str
 
     def align(self, input, **kwargs):
+        '''
+
+        Args:
+          input: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if isinstance(input, MultiSequenceMetabase):
             with NamedTemporaryFile(mode='w+') as tmp_fasta_io, NamedTemporaryFile(mode='r+') as tmp_aln_io:
                 packed_metadata = input.buckle_for_alignment()
@@ -56,25 +66,31 @@ class MultiSequenceAligner(MultiSequenceAlignerBackboneMetabase):
 
     @property
     def last_alignment(self):
+        ''' '''
         return self.__last_alignment
 
     @property
     def last_std_out(self):
+        ''' '''
         return self.__last_std_out
 
     @property
     def last_std_error(self):
+        ''' '''
         return self.__last_std_error
 
     @property
     def aligner(self):
+        ''' '''
         return self.__alinger_name
 
     @property
     def name(self):
+        ''' '''
         return self.__name
 
     @property
     def bin_filepath(self):
+        ''' '''
         return self.__bin_fp
 

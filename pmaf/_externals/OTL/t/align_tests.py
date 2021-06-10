@@ -12,6 +12,16 @@ blustery = 0
 # Test alignment heuristics in simple cases.
 
 def tst(noise, target, source):
+    '''
+
+    Args:
+      noise: 
+      target: 
+      source: 
+
+    Returns:
+
+    '''
     print '##', noise
     sep = Taxonomy.getRawTaxonomy('tax/skel/', 'ott')
     t = Taxonomy.getRawTaxonomy(target, 'target')
@@ -27,6 +37,17 @@ def tst(noise, target, source):
 # Copied from merge_tests.py
 
 def combine(sep, t, s, bluster):
+    '''
+
+    Args:
+      sep: 
+      t: 
+      s: 
+      bluster: 
+
+    Returns:
+
+    '''
     u = UnionTaxonomy.newTaxonomy('union')
     u.blustery = 0
     u.setSkeleton(sep)
@@ -48,14 +69,38 @@ def combine(sep, t, s, bluster):
     return u
 
 def debug_alignment(a):
+    '''
+
+    Args:
+      a: 
+
+    Returns:
+
+    '''
     for taxon in a.keySet():
         print taxon, a.getAnswer(taxon)
 
 def write_newick(taxy):
+    '''
+
+    Args:
+      taxy: 
+
+    Returns:
+
+    '''
     sys.stdout.write(newick(taxy))
     sys.stdout.write('\n')
 
 def newick(taxy):
+    '''
+
+    Args:
+      taxy: 
+
+    Returns:
+
+    '''
     return Newick.toNewick(taxy, Newick.USE_NAMES)
 
 

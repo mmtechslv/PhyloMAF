@@ -1,6 +1,11 @@
 pmaf.biome package
 ==================
 
+.. automodule:: pmaf.biome
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -10,11 +15,3 @@ Subpackages
    pmaf.biome.assembly
    pmaf.biome.essentials
    pmaf.biome.survey
-
-Module contents
----------------
-
-.. automodule:: pmaf.biome
-   :members:
-   :undoc-members:
-   :show-inheritance:

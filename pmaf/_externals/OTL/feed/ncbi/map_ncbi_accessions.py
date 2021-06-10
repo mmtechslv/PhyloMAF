@@ -36,6 +36,14 @@ parser.add_argument('-m','--maxbatches', type=int, help='the number of requests 
 # To-Do : this is hacky, should be some other data structure - nested dict?
 # dataframe?
 def getMappedAccessions(filename):
+    '''
+
+    Args:
+      filename: 
+
+    Returns:
+
+    '''
 	mappedfile = open(filename,"r")
 	map = {}
 	for line in mappedfile:
@@ -57,6 +65,15 @@ def getMappedAccessions(filename):
 # in the accession number)
 
 def getUnmappedAccessions(filename, map):
+    '''
+
+    Args:
+      filename: 
+      map: 
+
+    Returns:
+
+    '''
 	unmapped = []
 	unmappedfile = open(filename, 'r')
 	for line in unmappedfile:
@@ -76,6 +93,15 @@ def getUnmappedAccessions(filename, map):
 
 # Function to loop up a batch of accession ids
 def do_one_batch(batch,map):
+    '''
+
+    Args:
+      batch: 
+      map: 
+
+    Returns:
+
+    '''
 	#print batch
 	tempfilename = "efetch.tmp"
 	callEutils(tempfilename,batch)
@@ -121,6 +147,15 @@ def do_one_batch(batch,map):
 	return map
 
 def callEutils(tempfilename,batch):
+    '''
+
+    Args:
+      tempfilename: 
+      batch: 
+
+    Returns:
+
+    '''
 	# using rettype=native&retmode=xml in order to get strain info
 	command = ("wget -q -O " + tempfilename +
 			  " \"http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=" +
@@ -130,6 +165,14 @@ def callEutils(tempfilename,batch):
 	os.system(command)
 
 def main(args):
+    '''
+
+    Args:
+      args: 
+
+    Returns:
+
+    '''
 	map = getMappedAccessions(args.mappedfilename)
 	unmapped = getUnmappedAccessions(args.unmappedfilename,map)
 	

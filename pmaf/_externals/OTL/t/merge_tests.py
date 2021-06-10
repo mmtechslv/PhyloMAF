@@ -7,6 +7,16 @@ blustery = 0
 tests = []
 
 def tst(target, source, want):
+    '''
+
+    Args:
+      target: 
+      source: 
+      want: 
+
+    Returns:
+
+    '''
     global tests
     t = Taxonomy.getRawTaxonomy(target, 'target')
     s = Taxonomy.getRawTaxonomy(source, 'source')
@@ -14,6 +24,16 @@ def tst(target, source, want):
     tests.append((t, s, u, want))
 
 def combine(t, s, bluster):
+    '''
+
+    Args:
+      t: 
+      s: 
+      bluster: 
+
+    Returns:
+
+    '''
     u = UnionTaxonomy.newTaxonomy('union')
     u.blustery = 0
 
@@ -34,6 +54,7 @@ def combine(t, s, bluster):
     return u
 
 def done():
+    ''' '''
     print
     print '----------'
     redo = []
@@ -58,10 +79,26 @@ def done():
         
 
 def write_newick(taxy):
+    '''
+
+    Args:
+      taxy: 
+
+    Returns:
+
+    '''
     sys.stdout.write(newick(taxy))
     sys.stdout.write('\n')
 
 def newick(taxy):
+    '''
+
+    Args:
+      taxy: 
+
+    Returns:
+
+    '''
     return Newick.toNewick(taxy, Newick.USE_NAMES)
 
 if True:

@@ -11,6 +11,7 @@ cap = {}
 # Read old resources and captures files
 
 def explode():
+    ''' '''
 
     with open('old-metadata/resources.json', 'r') as infile:
         resources = json.load(infile)
@@ -28,6 +29,14 @@ def explode():
 
 # Turn 2014-01-30 into 20140130
 def squash_date(value):
+    '''
+
+    Args:
+      value: 
+
+    Returns:
+
+    '''
     if not (isinstance(value, str) or isinstance(value, unicode)):
         return value
     if (len(value) == 10 and
@@ -41,6 +50,14 @@ def squash_date(value):
         return value
 
 def convert(blob):
+    '''
+
+    Args:
+      blob: 
+
+    Returns:
+
+    '''
     series = res[blob["capture_of"]]
     props = {}
     if "ott_idspace" in series:
@@ -85,6 +102,7 @@ def convert(blob):
 local_root = 'properties'
 
 def write_properties():
+    ''' '''
 
     print 'writing to', os.path.join(local_root, '')
     for (name, blob) in cap.items():
@@ -103,6 +121,7 @@ def write_properties():
 # Use scp to copy to files server
 
 def write_to_server():
+    ''' '''
 
     # Cf. store-archive
     prefix = os.environ.get('SSH_PATH_PREFIX')
@@ -148,6 +167,7 @@ def write_to_server():
 # the sake of 'make' dependencies.
 
 def write_to_r():
+    ''' '''
 
     for (name, blob) in cap.items():
         dir = os.path.join(local_root, name)

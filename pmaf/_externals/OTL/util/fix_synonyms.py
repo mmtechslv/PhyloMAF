@@ -12,6 +12,7 @@ priorities = {'silva': 0,
               '': 999}
 
 def doit():
+    ''' '''
     things = []    # list of [flag, string, source]
     seen = {}     # maps (name, uid) to [flag, string, source]
     count = 0

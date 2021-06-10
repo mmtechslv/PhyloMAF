@@ -26,7 +26,14 @@ ROOT_ID = 1
 
 
 def startup(args):
-    """ """
+    '''
+
+    Args:
+      args: 
+
+    Returns:
+
+    '''
     pargs = vars(process_args())
     log_fname = pargs["log_file"]
     results_fname = pargs["taxonomy_file"]  # pargs.taxonomy_file ?
@@ -54,6 +61,7 @@ def startup(args):
 
 
 def process_args():
+    ''' '''
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("taxonomy_file",
@@ -71,6 +79,14 @@ MAXLENGTH = 50
 
 
 def get_one_taxon_children(taxon_id):
+    '''
+
+    Args:
+      taxon_id: 
+
+    Returns:
+
+    '''
     result = []
     offset = 0
     try:
@@ -92,6 +108,14 @@ def get_one_taxon_children(taxon_id):
 
 
 def get_one_taxon_synonyms(taxon_id):
+    '''
+
+    Args:
+      taxon_id: 
+
+    Returns:
+
+    '''
     result = []
     offset = 0
     wsdlSyns = WORMSPROXY.getAphiaSynonymsByID(taxon_id)
@@ -103,6 +127,15 @@ TESTPAUSE = 20
 
 
 def traverse_taxonomy(root_id, pickled):
+    '''
+
+    Args:
+      root_id: 
+      pickled: 
+
+    Returns:
+
+    '''
     from collections import deque
     from time import sleep
     if pickled:
@@ -156,6 +189,7 @@ def traverse_taxonomy(root_id, pickled):
 
 
 def make_root_taxon():
+    ''' '''
     return {"id": ROOT_ID,
             "parent": '',
             "name": 'Biota',
@@ -167,8 +201,16 @@ TAXON_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t%s\n"
 
 
 def write_taxonomy(fname, taxon_table):
-    """ Opens and writes lines in the taxonomy file corresponding to
-    each valid name"""
+    '''Opens and writes lines in the taxonomy file corresponding to
+    each valid name
+
+    Args:
+      fname: 
+      taxon_table: 
+
+    Returns:
+
+    '''
     try:
         taxonomy_file = codecs.open(fname, "w", "utf-8")
         taxonomy_file.write(TAXON_HEADER)
@@ -195,11 +237,18 @@ def write_taxonomy(fname, taxon_table):
             taxonomy_fname)
 
 def process_parens(taxon):
-    """subgenera are parenthesized; if this occurs in the name of a
+    '''subgenera are parenthesized; if this occurs in the name of a
        species or lower ranked taxon, strip out the subgenus reference;
        if the taxon is the subgenus, assume the parenthesized portion is
        the subgenus name, so strip out the genus name that preceeds it and
-       parens.  If it doesn't fit the pattern, fail."""
+       parens.  If it doesn't fit the pattern, fail.
+
+    Args:
+      taxon: 
+
+    Returns:
+
+    '''
     if 'rank' not in taxon:  # unfortunate edge case
         return taxon
     name = taxon['name']
@@ -226,13 +275,19 @@ SYNONYM_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t\n"
 
 
 def write_synonyms(synonyms_fname, synonyms):
-    """
-    Opens and writes lines in the synonyms file corresponding to
+    '''Opens and writes lines in the synonyms file corresponding to
     each name identified as a synonym (IF id != Current Name id)
     If the name is a homonym and authority information is
     available, it will appear in the third column, prefix by
     'authority', rather than by 'synonym'
-    """
+
+    Args:
+      synonyms_fname: 
+      synonyms: 
+
+    Returns:
+
+    '''
     try:
         synonyms_file = codecs.open(synonyms_fname, "w", "utf-8")
         synonyms_file.write(SYNONYM_HEADER)

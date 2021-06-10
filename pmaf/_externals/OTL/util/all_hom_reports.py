@@ -5,6 +5,15 @@ import os
 report_dir = 'report'
 
 def report(dir, idspace):
+    '''
+
+    Args:
+      dir: 
+      idspace: 
+
+    Returns:
+
+    '''
     tax = Taxonomy.getRawTaxonomy(os.path.join('tax', dir, ''), idspace)
     # tax.smush() 
     # HomonymReport.homonymDensityReport(tax, dir + '-density-report.csv')

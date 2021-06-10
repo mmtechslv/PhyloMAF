@@ -14,11 +14,15 @@ java_exec = "java {} -jar {}".format(javaflags,jython_jar_path)
 gate_str = "popen//python={0}//chdir={1}//env:PWD={1}//env:JYTHONPATH={2}".format(java_exec,local_ott_path,jythonpath_env)
 
 def make_ott_taxonomy(reference_taxonomy_path,new_taxonomy_path):
-    """
+    '''
+
     Args:
-        reference_taxonomy_path:
-        new_taxonomy_path:
-    """
+      reference_taxonomy_path: 
+      new_taxonomy_path: 
+
+    Returns:
+
+    '''
     ret = False
     reference_taxonomy_path = os.path.abspath(reference_taxonomy_path) if not os.path.isabs(reference_taxonomy_path) else reference_taxonomy_path
     new_taxonomy_path = os.path.abspath(new_taxonomy_path) if not os.path.isabs(new_taxonomy_path) else new_taxonomy_path
@@ -28,6 +32,14 @@ def make_ott_taxonomy(reference_taxonomy_path,new_taxonomy_path):
         if reference_taxonomy_path[-1] != '/' and new_taxonomy_path[-1] != '/':
             jython_channel_out = []
             def jython_receiver(message):
+                '''
+
+                Args:
+                  message: 
+
+                Returns:
+
+                '''
                 print(message)
                 jython_channel_out.append(message)
                 return
@@ -42,6 +54,7 @@ def make_ott_taxonomy(reference_taxonomy_path,new_taxonomy_path):
                                     from java.io import PrintStream, OutputStream
                                     oldOut = System.out
                                     class NoOutputStream(OutputStream):
+                                        ''' '''
                                         def write(self, b, off, len): pass
                                     System.setOut(PrintStream(NoOutputStream()))
                                     result = [] 

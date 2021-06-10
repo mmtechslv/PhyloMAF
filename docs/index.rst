@@ -1,16 +1,16 @@
-.. pmaf documentation master file, created by
-   sphinx-quickstart on Mon Apr 12 21:25:32 2021.
+.. PhyloMAF documentation master file, created by
+   sphinx-quickstart on Thu Jun 10 22:15:33 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pmaf's documentation!
-================================
+Welcome to PhyloMAF's documentation!
+====================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
    :caption: Contents:
 
-   pmaf
+   API Reference <api/pmaf>
 
 
 Indices and tables

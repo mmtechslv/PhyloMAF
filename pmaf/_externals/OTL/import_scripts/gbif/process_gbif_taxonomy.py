@@ -27,6 +27,15 @@ should also be ignored but do not need to be listed
 incertae_sedis_kingdom = 0
 
 def process_gbif(inpath, outdir):
+    '''
+
+    Args:
+      inpath: 
+      outdir: 
+
+    Returns:
+
+    '''
 
     col_acceptedNameUsageID = col['acceptedNameUsageID']
     col_taxonID = col['taxonID']

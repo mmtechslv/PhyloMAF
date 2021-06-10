@@ -8,6 +8,15 @@
 import sys, re
 
 def project_2016_gbif(inpath, outpath):
+    '''
+
+    Args:
+      inpath: 
+      outpath: 
+
+    Returns:
+
+    '''
     i = 0
     with open(inpath, 'r') as infile:
         with open(outpath, 'w') as outfile:
@@ -61,6 +70,14 @@ has_digit = re.compile(u".*[0-9].*")
 count = 0
 
 def canonical_name(name):
+    '''
+
+    Args:
+      name: 
+
+    Returns:
+
+    '''
     global count
     if ' phage ' in name or name.endswith(' phage'): return name
     if ' virus ' in name or name.endswith(' virus'): return name

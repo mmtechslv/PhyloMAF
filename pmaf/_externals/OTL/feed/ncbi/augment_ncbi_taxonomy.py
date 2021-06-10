@@ -35,6 +35,7 @@ DEFAULT_AUGMENTED_TAXONOMY_FILE = 'augmented_taxonomy.tsv'
 
 
 def process_args():
+    ''' '''
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('taxonomy', nargs='?', default=DEFAULT_TAXONOMY_FILE)
@@ -49,6 +50,14 @@ def process_args():
 
 
 def load_taxonomy(taxonomy_path):
+    '''
+
+    Args:
+      taxonomy_path: 
+
+    Returns:
+
+    '''
     result = {}
     with  open(taxonomy_path, 'r') as taxonomy_file:
         taxonomy_file.readline()  # read and toss headers
@@ -68,6 +77,14 @@ def load_taxonomy(taxonomy_path):
 
 
 def process_accessions(accession_path):
+    '''
+
+    Args:
+      accession_path: 
+
+    Returns:
+
+    '''
     result = {}
     with open(accession_path, 'r') as accession_file:
         for raw_line in accession_file:
@@ -90,6 +107,15 @@ STRAIN_WARNING = ("strain name %s matched nonsuffix/nonembed " +
 
 
 def augment_taxonomy(base_taxonomy, accessions):
+    '''
+
+    Args:
+      base_taxonomy: 
+      accessions: 
+
+    Returns:
+
+    '''
     result = base_taxonomy
     for item in accessions.keys():
         acc = accessions[item]
@@ -120,6 +146,15 @@ TAXON_TEMPLATE = "%s\t|\t%s\t|\t%s\t|\t%s\t|\t\n"
 
 
 def save_taxonomy(augmented_taxonomy, augmented_path):
+    '''
+
+    Args:
+      augmented_taxonomy: 
+      augmented_path: 
+
+    Returns:
+
+    '''
     with open(augmented_path, "w") as ofile:
         ofile.write(TAXON_HEADER)
         for id in augmented_taxonomy.keys():
@@ -136,6 +171,7 @@ def save_taxonomy(augmented_taxonomy, augmented_path):
 
 
 def startup():
+    ''' '''
     pargs = vars(process_args())
     taxonomy_path = pargs['taxonomy']
     accession_path = pargs['accession_map']

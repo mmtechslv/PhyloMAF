@@ -7,6 +7,7 @@ import numpy as np
 from pmaf.phylo.tree._tree import PhyloTree
 
 class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
+    ''' '''
     def __init__(self, tree, feature_ids=None, prune=False, annotation=None, copy=True, ignore_polytomy=False,**kwargs):
         super().__init__(**kwargs)
         if feature_ids is None:
@@ -61,6 +62,15 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         self.__annotations = tmp_annotation_adj
 
     def _remove_features_by_id(self, ids, **kwargs):
+        '''
+
+        Args:
+          ids: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_ids = np.asarray(ids).astype(self.__feature_ids.dtype)
         
         if len(tmp_ids)>0:
@@ -70,6 +80,16 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         return self._ratify_action('_remove_features_by_id', ids, **kwargs)
 
     def _merge_features_by_map(self, map_dict, _annotations=None, **kwargs):
+        '''
+
+        Args:
+          map_dict: 
+          _annotations: (Default value = None)
+          **kwargs: 
+
+        Returns:
+
+        '''
         new_tips = []
         for new_id, group in map_dict.items():
             tmp_new_name = str(new_id)
@@ -92,15 +112,26 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         return tmp_annotated_tree
 
     def get_annotated_tree(self):
+        ''' '''
         if len(self.__annotations) > 0:
             return self.__make_annotated_tree()
         else:
             raise RuntimeError('Annotations are not present.')
 
     def resolve_polytomy(self):
+        ''' '''
         self.__internal_tree.resolve_polytomy()
 
     def render_art(self,output_fp,annotated=False):
+        '''
+
+        Args:
+          output_fp: 
+          annotated: (Default value = False)
+
+        Returns:
+
+        '''
         if annotated:
             if len(self.__annotations)>0:
                 return self.__make_annotated_tree().render(output_fp)
@@ -110,6 +141,14 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             return self.__internal_tree.render(output_fp)
 
     def get_ascii_art(self,annotated=False):
+        '''
+
+        Args:
+          annotated: (Default value = False)
+
+        Returns:
+
+        '''
         if annotated:
             if len(self.__annotations)>0:
                 return self.__make_annotated_tree().get_ascii_art()
@@ -119,6 +158,16 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             return self.__internal_tree.get_ascii_art()
 
     def _export(self,rooted=False,annotated=False,**kwargs):
+        '''
+
+        Args:
+          rooted: (Default value = False)
+          annotated: (Default value = False)
+          **kwargs: 
+
+        Returns:
+
+        '''
         if annotated:
             if len(self.__annotations)>0:
                 return self.__make_annotated_tree().get_newick_str(root_node=rooted,quoted_nodes=True,**kwargs), kwargs
@@ -128,6 +177,16 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             return self.__internal_tree.get_newick_str(root_node=rooted,quoted_nodes=False,**kwargs), kwargs
 
     def export(self, output_fp, _add_ext=False, **kwargs):
+        '''
+
+        Args:
+          output_fp: 
+          _add_ext: (Default value = False)
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_export, _ = self._export(**kwargs)
         if _add_ext:
             tmp_filepath = "{}.tre".format(output_fp)
@@ -138,9 +197,20 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             output.write(tmp_export)
 
     def copy(self):
+        ''' '''
         return type(self)(tree=self.__internal_tree, feature_ids=self.__feature_ids, annotation=self.__annotations, copy=True, metadata = self.metadata,name=self.name)
 
     def get_subset(self, rids=None, *args, **kwargs):
+        '''
+
+        Args:
+          rids: (Default value = None)
+          *args: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if rids is None:
             target_rids = self.__feature_ids
         else:
@@ -152,18 +222,31 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         return type(self)(tree=tmp_tree, feature_ids=self.__feature_ids, annotation=self.__annotations, copy=True, metadata = self.metadata,name=self.name)
 
     def write(self, output_fp, mode='w',  **kwargs):
+        '''
+
+        Args:
+          output_fp: 
+          mode: (Default value = 'w')
+          **kwargs: 
+
+        Returns:
+
+        '''
         tmp_export,_ = self._export(**kwargs)
         with open(output_fp, mode) as output:
             output.write(tmp_export)
 
     @property
     def data(self):
+        ''' '''
         return self.__internal_tree
 
     @property
     def annotations(self):
+        ''' '''
         return self.__annotations
 
     @property
     def xrid(self):
+        ''' '''
         return pd.Index(self.__feature_ids).astype(self.__feature_ids_dtype)

@@ -11,6 +11,7 @@ import subprocess
 from pmaf.internal._shared import get_package_root
 
 class BranchestERABLE(BranchEstimatorBackboneMetabase):
+    ''' '''
     __ERABLE_BIN_FP = path.join(get_package_root(),'_externals','ERaBLE','erable')
     _cache_prefix = 'erable_'
     def __init__(self,cache_dir=None):
@@ -34,6 +35,14 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
         return repr_str
 
     def _make_input_matrix(self,multiseq):
+        '''
+
+        Args:
+          multiseq: 
+
+        Returns:
+
+        '''
         seq_names = multiseq.index
         dist = pd.DataFrame(index=seq_names, columns=seq_names, dtype='f')
         for sid_i, seq_i in multiseq.get_iter('skbio'):
@@ -53,6 +62,16 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
 
 
     def estimate(self, alignment, tree, **kwargs):
+        '''
+
+        Args:
+          alignment: 
+          tree: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if isinstance(alignment,MultiSequenceMetabase) and isinstance(tree,PhyloTreeMetabase):
             if alignment.is_alignment:
                 tmp_matrix_str = self._make_input_matrix(alignment)
@@ -80,13 +99,16 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
 
     @property
     def last_out(self):
+        ''' '''
         return self.__last_output
     @property
     def last_error(self):
+        ''' '''
         return self.__last_error
 
     @property
     def last_rates(self):
+        ''' '''
         return self.__last_rates
 
 

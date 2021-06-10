@@ -3,6 +3,14 @@ from pmaf.internal._constants import MAIN_RANKS, ITS
 from pmaf.internal._shared import get_rank_upto, generate_lineages_from_taxa
 
 def recap_taxonomy_sheet(master_taxonomy_sheet):
+    '''
+
+    Args:
+      master_taxonomy_sheet: 
+
+    Returns:
+
+    '''
     database_summary = {}
 
     master_taxonomy_sheet.loc[:, MAIN_RANKS] = master_taxonomy_sheet.loc[:, MAIN_RANKS].applymap(lambda x: None if (x == '') else x)
@@ -22,6 +30,14 @@ def recap_taxonomy_sheet(master_taxonomy_sheet):
     database_summary.update({'total-unique-taxa': str(total_unique_taxa)})
 
     def summarize_for_rank(rank):
+        '''
+
+        Args:
+          rank: 
+
+        Returns:
+
+        '''
         if rank in avail_ranks:
             total = master_taxonomy_sheet[master_taxonomy_sheet[rank].notna()][rank]
             duplicated = total.duplicated(keep=False)
@@ -52,12 +68,29 @@ def recap_taxonomy_sheet(master_taxonomy_sheet):
     return summary_series
 
 def recap_transformation(transformation_details):
+    '''
+
+    Args:
+      transformation_details: 
+
+    Returns:
+
+    '''
     tmp_summary = pd.Series()
     tmp_summary['avail-ranks'] =  '|'.join(transformation_details['avail-ranks'])
     tmp_summary['discarded-taxa'] = '|'.join([str(rid) for rid in transformation_details['removed-rids'].values.tolist()])
     return tmp_summary
 
 def recap_sequence_info(sequence_details={}, alignment_details={}):
+    '''
+
+    Args:
+      sequence_details: (Default value = {})
+      alignment_details: (Default value = {})
+
+    Returns:
+
+    '''
     tmp_sequence_summary = pd.Series()
     tmp_sequence_summary['max-sequence-length'] = str(sequence_details['sequence']) if len(sequence_details)>0 else 'N/A'
     tmp_sequence_summary['min-sequence-length'] = str(sequence_details['min_sequence']) if len(sequence_details) > 0 else 'N/A'
@@ -66,10 +99,27 @@ def recap_sequence_info(sequence_details={}, alignment_details={}):
     return tmp_sequence_summary
 
 def append_recaps(ref_recaps,new_recap_dict):
+    '''
+
+    Args:
+      ref_recaps: 
+      new_recap_dict: 
+
+    Returns:
+
+    '''
     new_recaps = pd.Series(new_recap_dict)
     return ref_recaps.append(new_recaps)
 
 def merge_recaps(*args):
+    '''
+
+    Args:
+      *args: 
+
+    Returns:
+
+    '''
     tmp_summary = args[0]
     for summary_element in args[1:]:
         tmp_summary = tmp_summary.append(summary_element)

@@ -4,6 +4,15 @@
 import sys
 
 def project_2013_gbif(inpath, outpath):
+    '''
+
+    Args:
+      inpath: 
+      outpath: 
+
+    Returns:
+
+    '''
     with open(inpath, 'r') as infile:
         with open(outpath, 'w') as outfile:
             for line in infile:

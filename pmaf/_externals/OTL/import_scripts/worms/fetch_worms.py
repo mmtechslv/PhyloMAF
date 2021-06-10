@@ -39,6 +39,18 @@ seen = {}
 
 # For phase I
 def fetch_worms(root, queuepath, outdir, chunk_size, chunk_count):
+    '''
+
+    Args:
+      root: 
+      queuepath: 
+      outdir: 
+      chunk_size: 
+      chunk_count: 
+
+    Returns:
+
+    '''
     queue = load_queue(queuepath, root)
     j = 0
     while len(queue) > 0 and j < chunk_count:
@@ -50,6 +62,15 @@ def fetch_worms(root, queuepath, outdir, chunk_size, chunk_count):
 # For phase II
 
 def fetch_worms_synonyms(outdir, chunk_count):
+    '''
+
+    Args:
+      outdir: 
+      chunk_count: 
+
+    Returns:
+
+    '''
     done = 0
     for name in sorted(os.listdir(outdir)):
         if done >= chunk_count: break
@@ -64,6 +85,15 @@ def fetch_worms_synonyms(outdir, chunk_count):
                 done += 1
 
 def save_chunk(chunk, outdir):
+    '''
+
+    Args:
+      chunk: 
+      outdir: 
+
+    Returns:
+
+    '''
     (aphias, links) = chunk
     if len(links) > 0:
         if not os.path.isdir(outdir):
@@ -82,6 +112,15 @@ def save_chunk(chunk, outdir):
         save_aphias(aphias, path)
 
 def save_aphias(aphias, path):
+    '''
+
+    Args:
+      aphias: 
+      path: 
+
+    Returns:
+
+    '''
     if len(aphias) > 0:
         print 'writing', path, len(aphias)
         with open(path, 'w') as outfile:
@@ -92,6 +131,14 @@ def save_aphias(aphias, path):
 
 # For phase II
 def load_aphias(inpath):
+    '''
+
+    Args:
+      inpath: 
+
+    Returns:
+
+    '''
     aphias = []
     with open(inpath, 'r') as infile:
         reader = csv.reader(infile)
@@ -101,6 +148,14 @@ def load_aphias(inpath):
     return aphias
 
 def fieldify(x):
+    '''
+
+    Args:
+      x: 
+
+    Returns:
+
+    '''
     if isinstance(x, unicode):
         return x.encode('utf-8')
     elif x is True:
@@ -111,6 +166,15 @@ def fieldify(x):
         return x
 
 def load_queue(queuepath, root):
+    '''
+
+    Args:
+      queuepath: 
+      root: 
+
+    Returns:
+
+    '''
     q = deque()
     if os.path.exists(queuepath):
         with open(queuepath, 'r') as infile:
@@ -125,6 +189,15 @@ def load_queue(queuepath, root):
     return q
 
 def save_queue(queue, queuepath):
+    '''
+
+    Args:
+      queue: 
+      queuepath: 
+
+    Returns:
+
+    '''
     print 'queued:', len(queue)
     with open(queuepath, 'w') as outfile:
         writer = csv.writer(outfile)
@@ -132,15 +205,35 @@ def save_queue(queue, queuepath):
             writer.writerow([id])
 
 def get_chunk(chunk_size, queue):
+    '''
+
+    Args:
+      chunk_size: 
+      queue: 
+
+    Returns:
+
+    '''
     record_count = [0]
     request_count = [0]
     aphias = []
     links = []
     def throttle():
+        ''' '''
         request_count[0] += 1
         if request_count[0] % REQUESTS_PER_SLEEP == 0:
             sleep(SECONDS_PER_SLEEP)
     def see(child, parent_id, rel):
+        '''
+
+        Args:
+          child: 
+          parent_id: 
+          rel: 
+
+        Returns:
+
+        '''
         if child.AphiaID in seen:
             if child.status != 'unaccepted':
                 parent_id2 = seen[child.AphiaID]
@@ -191,6 +284,14 @@ def get_chunk(chunk_size, queue):
     return (aphias, links)
 
 def synonymp(aphia):
+    '''
+
+    Args:
+      aphia: 
+
+    Returns:
+
+    '''
     return (aphia.valid_AphiaID != aphia.AphiaID and
             aphia.valid_AphiaID != None and
             aphia.valid_AphiaID > 0)
@@ -198,6 +299,14 @@ def synonymp(aphia):
 # Phase II
 
 def get_synonym_aphias(aphias):
+    '''
+
+    Args:
+      aphias: 
+
+    Returns:
+
+    '''
     status_column = digest_header.index('status')
     request_count = 0
     for taxon in aphias:
@@ -224,9 +333,25 @@ def get_synonym_aphias(aphias):
     return syn_aphias
 
 def sort_aphia(aphia_list):
+    '''
+
+    Args:
+      aphia_list: 
+
+    Returns:
+
+    '''
     return sorted(aphia_list, key=(lambda aphia: aphia.AphiaID))
 
 def digest(aphia_record):
+    '''
+
+    Args:
+      aphia_record: 
+
+    Returns:
+
+    '''
     return (aphia_record.AphiaID,
             aphia_record.scientificname,
             aphia_record.authority,
@@ -267,6 +392,14 @@ MAXLENGTH = 50
 
 
 def get_one_taxon_children(taxon_id):
+    '''
+
+    Args:
+      taxon_id: 
+
+    Returns:
+
+    '''
     result = []
     offset = 0
     try:
@@ -292,6 +425,14 @@ def get_one_taxon_children(taxon_id):
 
 
 def get_one_taxon_synonyms(taxon_id):
+    '''
+
+    Args:
+      taxon_id: 
+
+    Returns:
+
+    '''
     result = []
     offset = 0
     wsdlSyns = WORMSPROXY.getAphiaSynonymsByID(taxon_id)

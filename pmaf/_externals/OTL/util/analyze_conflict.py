@@ -21,6 +21,17 @@ from org.opentreeoflife.smasher import AlignmentByName
 from org.opentreeoflife.conflict import ConflictAnalysis
 
 def conflict(spec1, space1, spec2, space2):
+    '''
+
+    Args:
+      spec1: 
+      space1: 
+      spec2: 
+      space2: 
+
+    Returns:
+
+    '''
 
     # Reference tree
     ref = Taxonomy.getTaxonomy(spec1, space1)

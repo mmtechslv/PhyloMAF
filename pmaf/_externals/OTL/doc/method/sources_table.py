@@ -118,6 +118,14 @@ for plist in properties:
 
 
 def show_table_csv(table):
+    '''
+
+    Args:
+      table: 
+
+    Returns:
+
+    '''
     print
     print '```'
     writer = csv.writer(sys.stdout, lineterminator='  \n')
@@ -126,18 +134,42 @@ def show_table_csv(table):
     print '```'
 
 def show_table_html(table):
+    '''
+
+    Args:
+      table: 
+
+    Returns:
+
+    '''
     print '<table>'
     for row in table:
         do_row(row)
     print '</table>'
 
 def do_row(cells):
+    '''
+
+    Args:
+      cells: 
+
+    Returns:
+
+    '''
     print '  <tr>'
     for val in cells:
         cell(val)
     print '  </tr>'
 
 def cell(val):
+    '''
+
+    Args:
+      val: 
+
+    Returns:
+
+    '''
     print '    <td>'
     print '   ', val
     print '    </td>'

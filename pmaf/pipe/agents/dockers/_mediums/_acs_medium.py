@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 
 class DockerAccessionMedium(DockerAccessionMetabase,DockerBase):
+    ''' '''
     _UNIT_TYPES = (dict,type(None))
     def __init__(self, accessions, **kwargs):
         if isinstance(accessions, list):
@@ -45,6 +46,15 @@ class DockerAccessionMedium(DockerAccessionMetabase,DockerBase):
 
 
     def to_identifier_by_src(self, source, exclude_missing=False):
+        '''
+
+        Args:
+          source: 
+          exclude_missing: (Default value = False)
+
+        Returns:
+
+        '''
         if source not in self.__sources:
             raise ValueError('`source` was not found.')
         if exclude_missing:
@@ -70,4 +80,5 @@ class DockerAccessionMedium(DockerAccessionMetabase,DockerBase):
 
     @property
     def sources(self):
+        ''' '''
         return self.__sources

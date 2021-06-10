@@ -77,6 +77,7 @@ ncbi_assignments_list = [
 ]
 
 def checkem():
+    ''' '''
     for (ncbi_id, ott_id, name) in ncbi_assignments_list:
         print 'grep "^%s	" tax/ott2.8/taxonomy.tsv || echo No row with OTT id %s - %s' % (ott_id, ott_id, name)
         print 'grep "^%s	" tax/ncbi/taxonomy.tsv || echo No row with NCBI id %s - %s' % (ncbi_id, ncbi_id, name)

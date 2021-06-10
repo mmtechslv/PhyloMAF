@@ -1,6 +1,11 @@
 pmaf package
 ============
 
+.. automodule:: pmaf
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -9,18 +14,9 @@ Subpackages
 
    pmaf.alignment
    pmaf.biome
-   pmaf.classifier
    pmaf.database
    pmaf.internal
    pmaf.phylo
    pmaf.pipe
    pmaf.remote
    pmaf.sequence
-
-Module contents
----------------
-
-.. automodule:: pmaf
-   :members:
-   :undoc-members:
-   :show-inheritance:

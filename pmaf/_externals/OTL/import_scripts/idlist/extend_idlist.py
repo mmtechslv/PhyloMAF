@@ -8,6 +8,18 @@
 import sys, os, csv, json, argparse
 
 def extend_idlist(previous_path, ott_path, ott_name, props_path, out_path):
+    '''
+
+    Args:
+      previous_path: 
+      ott_path: 
+      ott_name: 
+      props_path: 
+      out_path: 
+
+    Returns:
+
+    '''
     if ott_path.endswith('/'): ott_path = ott_path[0:-1]
     previous_regs = os.path.join(previous_path, 'regs')
     names = previous_versions_list(previous_regs)
@@ -31,6 +43,18 @@ def extend_idlist(previous_path, ott_path, ott_name, props_path, out_path):
                   out_path)
 
 def do_one_taxonomy(ott_name, ott_path, info, registrations_by_id, ids_for_qid):
+    '''
+
+    Args:
+      ott_name: 
+      ott_path: 
+      info: 
+      registrations_by_id: 
+      ids_for_qid: 
+
+    Returns:
+
+    '''
 
     ott = read_taxonomy(ott_path)
 
@@ -118,6 +142,14 @@ def do_one_taxonomy(ott_name, ott_path, info, registrations_by_id, ids_for_qid):
     return new_regs
 
 def read_taxonomy(tax_path):
+    '''
+
+    Args:
+      tax_path: 
+
+    Returns:
+
+    '''
     # was: ott = Taxonomy.getRawTaxonomy(ott_path + '/', 'ott')
     tax = []
     path = os.path.join(tax_path, 'taxonomy.tsv')
@@ -163,6 +195,14 @@ def read_taxonomy(tax_path):
     return tax
 
 def parse_qid(qid_string):
+    '''
+
+    Args:
+      qid_string: 
+
+    Returns:
+
+    '''
     if qid_string.startswith('http'):
         return (qid_string, None)
     parts = qid_string.split(':', 1)
@@ -174,6 +214,14 @@ def parse_qid(qid_string):
         return (qid_string, None)
 
 def unparse_qid(qid):
+    '''
+
+    Args:
+      qid: 
+
+    Returns:
+
+    '''
     (prefix, n) = qid
     if n == None:
         return prefix
@@ -181,10 +229,26 @@ def unparse_qid(qid):
         return '%s:%s' % (qid)
 
 def sorted_taxa(ott):
+    '''
+
+    Args:
+      ott: 
+
+    Returns:
+
+    '''
     ott.sort(key=lambda (id, qids): id)
     return ott
 
 def index_registrations(registrations):
+    '''
+
+    Args:
+      registrations: 
+
+    Returns:
+
+    '''
     registrations_by_id = {}
     ids_for_qid = {}
     for reg in registrations:
@@ -205,14 +269,39 @@ def index_registrations(registrations):
 # Return [..., 'ott2.3.csv', ...]
 
 def previous_versions_list(previous_regs):
+    '''
+
+    Args:
+      previous_regs: 
+
+    Returns:
+
+    '''
     names = os.listdir(previous_regs)
     names = [name for name in names if name.startswith('ott') and name.endswith('.csv')]
     def sort_key(name):
+        '''
+
+        Args:
+          name: 
+
+        Returns:
+
+        '''
         (major, minor) = name[3:][0:-4].split('.')
         return (int(major), int(minor))
     return sorted(names, key=sort_key)
 
 def read_registrations(previous_regs, names):
+    '''
+
+    Args:
+      previous_regs: 
+      names: 
+
+    Returns:
+
+    '''
     regs = []
     for name in names:
         path = os.path.join(previous_regs, name)
@@ -226,6 +315,15 @@ def read_registrations(previous_regs, names):
     return regs
 
 def write_registrations(new_regs, csv_path):
+    '''
+
+    Args:
+      new_regs: 
+      csv_path: 
+
+    Returns:
+
+    '''
     print 'Writing %s registrations to %s' % (len(new_regs), csv_path)
     with open(csv_path, 'w') as outfile:
         writer = csv.writer(outfile)
@@ -236,6 +334,15 @@ def write_registrations(new_regs, csv_path):
 # as stored in properties file
 
 def get_sources_table(ott_name, props_path):
+    '''
+
+    Args:
+      ott_name: 
+      props_path: 
+
+    Returns:
+
+    '''
     with open(props_path, 'r') as infile:
         info = json.load(infile)
     sources = info["sources"]
@@ -245,6 +352,14 @@ def get_sources_table(ott_name, props_path):
     return sources
 
 def canonicalize(qid):
+    '''
+
+    Args:
+      qid: 
+
+    Returns:
+
+    '''
     (prefix, n) = qid
     if prefix == 'IF':
         return ('if', n)
@@ -252,6 +367,16 @@ def canonicalize(qid):
         return qid
 
 def write_indexes(registrations_by_id, ids_for_qid, out_path):
+    '''
+
+    Args:
+      registrations_by_id: 
+      ids_for_qid: 
+      out_path: 
+
+    Returns:
+
+    '''
 
     qid_path = os.path.join(out_path, 'by_qid.csv')
 

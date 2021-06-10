@@ -13,6 +13,7 @@ from pmaf.internal.io._seq import SequenceIO
 
 
 class NCBIMediator(MediatorBase,MediatorSequenceMetabase,MediatorTaxonomyMetabase,MediatorAccessionMetabase):
+    ''' '''
     SEQ_EXTRACT_METHODS = ['asis','consensus']
     def __init__(self,entrez,
                  seq_method='asis',
@@ -44,6 +45,14 @@ class NCBIMediator(MediatorBase,MediatorSequenceMetabase,MediatorTaxonomyMetabas
         return repr_str
 
     def verify_factor(self, factor):
+        '''
+
+        Args:
+          factor: 
+
+        Returns:
+
+        '''
         if isinstance(factor,FactorBackboneMetabase):
             gene_type = factor.factors.get('gene-type', None) == 'marker'
             molecule_type = factor.factors.get('molecule-type',None) in ['DNA','RNA']
@@ -54,6 +63,16 @@ class NCBIMediator(MediatorBase,MediatorSequenceMetabase,MediatorTaxonomyMetabas
             raise TypeError('`factor` has invalid type.')
 
     def get_sequence_by_identifier(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerIdentifierMetabase):
@@ -65,6 +84,16 @@ class NCBIMediator(MediatorBase,MediatorSequenceMetabase,MediatorTaxonomyMetabas
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def get_accession_by_identifier(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerIdentifierMetabase):
@@ -76,15 +105,55 @@ class NCBIMediator(MediatorBase,MediatorSequenceMetabase,MediatorTaxonomyMetabas
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def get_identifier_by_accession(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         raise NotImplementedError
 
     def get_identifier_by_sequence(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         raise NotImplementedError
 
     def get_taxonomy_by_identifier(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         raise NotImplementedError
 
     def get_identifier_by_taxonomy(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerTaxonomyMetabase):
@@ -181,4 +250,5 @@ class NCBIMediator(MediatorBase,MediatorSequenceMetabase,MediatorTaxonomyMetabas
 
     @property
     def state(self):
+        ''' '''
         return self.client.state

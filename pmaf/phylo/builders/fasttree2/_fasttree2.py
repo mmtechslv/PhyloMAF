@@ -7,6 +7,7 @@ import subprocess
 from pmaf.internal._shared import get_package_root
 
 class TreeBuilderFastTree2(TreeBuilderBackboneMetabase):
+    ''' '''
     __FASTTREE_BIN_FP =  path.join(get_package_root(),'_externals','FastTree2','fasttree')
     _cache_prefix = 'fasttree_'
     def __init__(self,cache_dir=None):
@@ -29,6 +30,15 @@ class TreeBuilderFastTree2(TreeBuilderBackboneMetabase):
         return repr_str
 
     def build(self, alignment, **kwargs):
+        '''
+
+        Args:
+          alignment: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if isinstance(alignment,MultiSequenceMetabase):
             if alignment.is_alignment:
                 tmp_aln_fp = NamedTemporaryFile(mode='r',dir=self.__cache_dir,delete=False)
@@ -49,9 +59,11 @@ class TreeBuilderFastTree2(TreeBuilderBackboneMetabase):
 
     @property
     def last_out(self):
+        ''' '''
         return self.__last_output
     @property
     def last_error(self):
+        ''' '''
         return self.__last_error
 
 

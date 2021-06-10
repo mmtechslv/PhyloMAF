@@ -7,6 +7,15 @@ import sys
 Dunno = None
 
 def proclaim(tax, prop):        # called make_claim in claim.py
+    '''
+
+    Args:
+      tax: 
+      prop: 
+
+    Returns:
+
+    '''
     attitude1 = prop.proclaim(tax, True)
     if attitude1:
         attitude2 = prop.check(tax, True)
@@ -24,15 +33,36 @@ def proclaim(tax, prop):        # called make_claim in claim.py
     return attitude2
 
 def taxon(name=None, ancestor=None, descendant=None, id=None):
+    '''
+
+    Args:
+      name: (Default value = None)
+      ancestor: (Default value = None)
+      descendant: (Default value = None)
+      id: (Default value = None)
+
+    Returns:
+
+    '''
     return _Designator(name, ancestor, descendant, id)
 
 class _Designator:
+    ''' '''
     def __init__(self, name, ancestor, descendant, id):
         self.name = name
         self.ancestor = ancestor
         self.descendant = descendant
         self.id = id
     def resolve_in(self, taxonomy, windy):
+        '''
+
+        Args:
+          taxonomy: 
+          windy: 
+
+        Returns:
+
+        '''
         if self.id != None:
             result = taxonomy.lookupId(self.id)
             if result == None and windy:
@@ -42,6 +72,7 @@ class _Designator:
             result = taxonomy.taxon(self.name, self.ancestor, self.descendant, windy)
         return result
     def stringify(self):
+        ''' '''
         return ("taxon('%s'%s%s%s)" %
                 (self.name,
                  (", '%s'" % self.ancestor) if (self.ancestor != None) else '',
@@ -56,14 +87,34 @@ class _Designator:
 #     taxonomy sources (curation/amendments.py and so on).
 
 def has_parent(child, parent, qid):
+    '''
+
+    Args:
+      child: 
+      parent: 
+      qid: 
+
+    Returns:
+
+    '''
     return _Has_parent(child, parent, qid)
 
 class _Has_parent:
+    ''' '''
     def __init__(self, child, parent, qid):
         self.child = child
         self.parent = parent
         self.qid = qid
     def check(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         c = self.child.resolve_in(tax, windy)
         p = self.parent.resolve_in(tax, windy)
         if c == None:
@@ -77,6 +128,15 @@ class _Has_parent:
             # could report on different cases
             return False
     def proclaim(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         c = self.child.resolve_in(tax, windy)
         p = self.parent.resolve_in(tax, windy)
         if c == None:
@@ -97,6 +157,7 @@ class _Has_parent:
             c.changeParent(p)
             return True
     def stringify(self):
+        ''' '''
         return ('has_parent(%s, %s, %s)' %
                 (self.child.stringify(),
                  self.parent.stringify(),
@@ -106,9 +167,21 @@ class _Has_parent:
 # Still pretty ugly, but should work for current OTT purposes.
 
 def synonym_of(syn, pri, kind, qid):
+    '''
+
+    Args:
+      syn: 
+      pri: 
+      kind: 
+      qid: 
+
+    Returns:
+
+    '''
     return _Synonym_of(syn, pri, kind, qid)
 
 class _Synonym_of:
+    ''' '''
     def __init__(self, syn, pri, kind, qid):
         if syn == None: print >>sys.stderr, '** Missing synonym taxon', qid
         if pri == None: print >>sys.stderr, '** Missing primary taxon', qid
@@ -117,6 +190,15 @@ class _Synonym_of:
         self.kind = kind
         self.qid = qid
     def check(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         s = self.synonym.resolve_in(tax, windy)
         p = self.primary.resolve_in(tax, windy)
         if p == None:
@@ -136,6 +218,15 @@ class _Synonym_of:
         else: 
             return True
     def proclaim(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         s = self.synonym.resolve_in(tax, False)
         p = self.primary.resolve_in(tax, False)
         # OK this is tricky.  Nodes p and s have have their own names,
@@ -173,6 +264,7 @@ class _Synonym_of:
                 p.synonym(synname, self.kind, self.qid)
             return True
     def stringify(self):
+        ''' '''
         return ('synonym_of(%s, %s, %s, %s)' %
                 (self.synonym.stringify(),
                  self.primary.stringify(),
@@ -184,14 +276,34 @@ class _Synonym_of:
 # I don't know whether this is a good idea, or even useful.
 
 def alias_of(syn, pri, qid):
+    '''
+
+    Args:
+      syn: 
+      pri: 
+      qid: 
+
+    Returns:
+
+    '''
     return _Alias_of(syn, pri, qid)
 
 class _Alias_of:
+    ''' '''
     def __init__(self, syn, pri, qid):
         self.primary = pri
         self.alias = syn
         self.qid = qid
     def check(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         p = self.primary.resolve_in(tax, windy)
         s = self.alias.resolve_in(tax, windy)
         if p == None:
@@ -209,6 +321,15 @@ class _Alias_of:
         else: 
             return True
     def proclaim(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         p = self.primary.resolve_in(tax, False)
         s = self.alias.resolve_in(tax, False)
         if p != None and s != None:
@@ -233,25 +354,54 @@ class _Alias_of:
                        (self.alias.name, self.primary.name, tax.getTag()))
             return False
     def stringify(self):
+        ''' '''
         return ('alias_of(%s, %s, %s, %s)' %
                 (self.alias.stringify(),
                  self.primary.stringify(),
                  self.qid))
 
 def is_extinct(taxon, qid):
+    '''
+
+    Args:
+      taxon: 
+      qid: 
+
+    Returns:
+
+    '''
     return _Is_extinct(taxon, qid)
 
 class _Is_extinct:
+    ''' '''
     def __init__(self, taxon, qid):
         self.taxon = taxon
         self.qid = qid
     def check(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         t = self.taxon.resolve_in(tax, windy)
         if t == None:
             return False
         else:
             return not t.isExtant()
     def proclaim(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         t = self.taxon.resolve_in(tax, windy)
         if t == None:
             return False
@@ -259,24 +409,53 @@ class _Is_extinct:
             t.extinct()
             return True
     def stringify(self):
+        ''' '''
         return ('is_extinct(%s, %s)' %
                 self.taxon.stringify(),
                 self.qid)
 
 def is_extant(taxon, qid):
+    '''
+
+    Args:
+      taxon: 
+      qid: 
+
+    Returns:
+
+    '''
     return _Is_extant(taxon, qid)
 
 class _Is_extant:
+    ''' '''
     def __init__(self, taxon, qid):
         self.taxon = taxon
         self.qid = qid
     def check(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         t = self.taxon.resolve_in(tax, windy)
         if t == None:
             return False
         else:
             return t.isExtant()
     def proclaim(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         t = self.taxon.resolve_in(tax, windy)
         if t == None:
             return False
@@ -284,14 +463,26 @@ class _Is_extant:
             t.extant()
             return True
     def stringify(self):
+        ''' '''
         return ('is_extant(%s, %s)' %
                 self.taxon.stringify(),
                 self.qid)
 
 def has_rank(taxon, rank, qid):
+    '''
+
+    Args:
+      taxon: 
+      rank: 
+      qid: 
+
+    Returns:
+
+    '''
     return _Has_rank(taxon, rank, qid)
 
 class _Has_rank:
+    ''' '''
     def __init__(self, taxon, rank, qid):
         self.taxon = taxon
         self.rank = Rank.getRank(rank)
@@ -299,6 +490,15 @@ class _Has_rank:
         if self.rank == None:
             print >>sys.stderr, '** Unrecognized rank:', rank
     def check(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         t = self.taxon.resolve_in(tax, windy)
         if t == None:
             return False
@@ -310,6 +510,15 @@ class _Has_rank:
             else:
                 return True
     def proclaim(self, tax, windy):
+        '''
+
+        Args:
+          tax: 
+          windy: 
+
+        Returns:
+
+        '''
         t = self.taxon.resolve_in(tax, windy)
         if t == None:
             return False
@@ -320,6 +529,7 @@ class _Has_rank:
                 t.rank = self.rank
                 return True
     def stringify(self):
+        ''' '''
         return ('has_rank(%s, %s)' %
                 self.taxon.stringify(),
                 self.qid)
@@ -333,6 +543,16 @@ class _Has_rank:
 _ids_used = {}
 
 def otc(id, issue=None, evidence=None):
+    '''
+
+    Args:
+      id: 
+      issue: (Default value = None)
+      evidence: (Default value = None)
+
+    Returns:
+
+    '''
     if id in _ids_used:
         print 'curation id %s already in use' % id
     _ids_used[id] = True

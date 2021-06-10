@@ -3,6 +3,14 @@ import os, sys, json
 # File name and property file munging.  Coordinates with Makefile.
 
 def issue_root(spec):
+    '''
+
+    Args:
+      spec: 
+
+    Returns:
+
+    '''
     root = os.path.join('r', spec)
     if os.path.isdir(root):
         return root
@@ -12,20 +20,63 @@ def issue_root(spec):
     print '** found neither %s nor %s' % (root, head)
 
 def resource_path(spec):
+    '''
+
+    Args:
+      spec: 
+
+    Returns:
+
+    '''
     return os.path.join(issue_root(spec), 'resource', '')
 
 def source_path(spec):
+    '''
+
+    Args:
+      spec: 
+
+    Returns:
+
+    '''
     return os.path.join(issue_root(spec), 'source', '')
 
 def properties_path(spec):
+    '''
+
+    Args:
+      spec: 
+
+    Returns:
+
+    '''
     return os.path.join(issue_root(spec), 'properties.json')
 
 def get_property(spec, selector):
+    '''
+
+    Args:
+      spec: 
+      selector: 
+
+    Returns:
+
+    '''
     with open(properties_path(spec), 'r') as infile:
         blob = json.load(infile)
     return blob[selector]
 
 def set_property(spec, selector, value):
+    '''
+
+    Args:
+      spec: 
+      selector: 
+      value: 
+
+    Returns:
+
+    '''
     props_path = properties_path(spec)
     with open(props_path, 'r') as infile:
         blob = json.load(infile)

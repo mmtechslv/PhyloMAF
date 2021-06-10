@@ -8,6 +8,7 @@ import numpy as np
 from collections import defaultdict
 
 class MediatorLocalSequenceMixin(MediatorLocalBase,MediatorSequenceMetabase):
+    ''' '''
     SEQ_EXTRACT_METHODS = ['refseq', 'consensus']
     SEQ_FILTER_METHODS = ['random','tab']
     def __init__(self, database,
@@ -62,6 +63,16 @@ class MediatorLocalSequenceMixin(MediatorLocalBase,MediatorSequenceMetabase):
                          seq_filter_value=seq_filter_value,**kwargs)
 
     def get_sequence_by_identifier(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerIdentifierMetabase):
@@ -73,6 +84,16 @@ class MediatorLocalSequenceMixin(MediatorLocalBase,MediatorSequenceMetabase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def get_identifier_by_sequence(self, docker, factor, **kwargs):
+        '''
+
+        Args:
+          docker: 
+          factor: 
+          **kwargs: 
+
+        Returns:
+
+        '''
         raise NotImplementedError
 
     def __retrieve_sequences_by_identifier(self, docker, **kwargs):
