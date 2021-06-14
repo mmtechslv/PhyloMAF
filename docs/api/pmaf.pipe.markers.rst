@@ -5,3 +5,4 @@ pmaf.pipe.markers package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:

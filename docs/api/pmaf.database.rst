@@ -5,6 +5,7 @@ pmaf.database package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 Subpackages
 -----------
@@ -14,3 +15,14 @@ Subpackages
 
    pmaf.database.helpers
    pmaf.database.manifest
+
+Submodules
+----------
+
+
+.. automodule:: pmaf.database.manager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :inherited-members:
+

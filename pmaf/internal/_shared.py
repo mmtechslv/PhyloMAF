@@ -181,7 +181,9 @@ def cols2ranks(cols,ref_ranks=None):
     return ranks[::-1]
 
 
-def get_rank_upto(ranks,ter_rank,include_terminal=False):
+def get_rank_upto(ranks: Sequence[str],
+                  ter_rank: str,
+                  include_terminal: bool = False) -> Sequence[str]:
     '''Generates list of ranks from `ranks` terminated at `ter_rank`
 
     Args:

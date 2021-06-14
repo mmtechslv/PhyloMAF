@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
-    ''' '''
+    """ """
     VALID_ESSENTIALS = (RepTaxonomy, FrequencyTable, SampleMetadata)
     def __init__(self, assembiles=None, *args, aggfunc='mean', groupby = 'label', **kwargs):
         if kwargs.get('_copyself',None) is not None:
@@ -148,42 +148,42 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         return sorted(dir(type(self)) + [type(essential).__name__ for essential in self.__controller.essentials])
 
     def _repr_appendage__(self):
-        ''' '''
+        """ """
         return {}
 
     def copy(self):
-        ''' '''
+        """ """
         copied_essentials = [essential.copy() for essential in  self.__controller.essentials]
         refs_assemblies = self.__assembiles
         return type(self)(_copyself={'_assemblies':refs_assemblies,'_essentials':copied_essentials},name=self.name,metadata=self.metadata)
 
     def to_assembly(self):
-        ''' '''
+        """ """
         return BiomeAssembly(self.__controller.essentials, copy=True, name=self.name, metadata=self.metadata)
 
     @property
     def essentials(self):
-        ''' '''
+        """ """
         return self.__controller.essentials
 
     @property
     def assemblies(self):
-        ''' '''
+        """ """
         return self.__assembiles
 
     @property
     def xrid(self):
-        ''' '''
+        """ """
         return pd.Index(self.__controller.xrid if self.__controller.xrid is not None else np.array([],dtype=object))
 
     @property
     def xsid(self):
-        ''' '''
+        """ """
         return pd.Index(self.__controller.xsid if self.__controller.xsid is not None else np.array([],dtype=object))
 
     @property
     def controller(self):
-        ''' '''
+        """ """
         return self.__controller
 
 

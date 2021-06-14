@@ -3,7 +3,7 @@ from pmaf.pipe.agents.mediators.local._base import MediatorLocalBase
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase
 from pmaf.pipe.agents.dockers._mediums._seq_medium import DockerSequenceMedium
 from pmaf.database._metakit import DatabaseSequenceMetabase
-from pmaf.alignment._multiple._metakit import MultiSequenceAlignerBackboneMetabase
+from pmaf.alignment.multiple._metakit import MultiSequenceAlignerBackboneMetabase
 import numpy as np
 from collections import defaultdict
 

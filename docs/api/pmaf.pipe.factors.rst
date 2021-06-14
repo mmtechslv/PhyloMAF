@@ -5,3 +5,4 @@ pmaf.pipe.factors package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:

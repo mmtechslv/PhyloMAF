@@ -5,6 +5,7 @@ pmaf.phylo.branchest package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 Subpackages
 -----------

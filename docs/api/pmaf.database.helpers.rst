@@ -5,3 +5,4 @@ pmaf.database.helpers package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:

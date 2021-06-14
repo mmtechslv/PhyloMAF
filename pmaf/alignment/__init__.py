@@ -1,1 +1,1 @@
-from ._multiple import MultiSequenceAligner
+from .multiple import MultiSequenceAligner

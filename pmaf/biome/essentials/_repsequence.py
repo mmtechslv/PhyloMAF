@@ -8,10 +8,23 @@ from pmaf.internal._extensions._cpython._pmafc_extension._helper import make_seq
 from pmaf.internal._shared import get_stats_for_sequence_record_df
 from pmaf.biome.essentials._base import EssentialBackboneBase
 from pmaf.sequence import MultiSequence,Nucleotide
+from typing import Union, Optional, TypeVar, Tuple, Callable, Any
+from pmaf.internal._typing import GenericIdentifier,Mapper
+
+T = TypeVar('T', bound='RepSequence')
 
 class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
-    ''' '''
-    def __init__(self,sequences,**kwargs):
+    """An `essential` class for handling feature sequence data."""
+    def __init__(self,
+                 sequences: Union[str, MultiSequence, pd.DataFrame, pd.Series],
+                 **kwargs: Any) -> None:
+        """Constructor for :class:`.RepSequence`
+
+        Args:
+            sequences: Sequence data
+            **kwargs: Compatibility
+
+        """
         super().__init__(**kwargs)
         tmp_sequences = []
         if isinstance(sequences,str):
@@ -30,49 +43,52 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         tmp_seq_record_df = pd.DataFrame.from_records(tmp_sequences,columns=['rid', 'sequence','length', 'tab','description'], index=['rid'])
         self.__sequence_df = pd.concat([tmp_seq_record_df[['sequence','description']],get_stats_for_sequence_record_df(tmp_seq_record_df)],axis=1)
 
-    def _remove_features_by_id(self, ids, **kwargs):
-        '''
+    def _remove_features_by_id(self,
+                               ids: GenericIdentifier,
+                               **kwargs: Any) -> Optional[GenericIdentifier]:
+        """Remove features by `ids` and ratify action.
 
-        Args:
-          ids: 
-          **kwargs: 
+		Args:
+			ids: Feature identifiers
+			**kwargs: Compatibility
 
-        Returns:
-
-        '''
+		"""
         tmp_ids = np.asarray(ids,dtype=self.__sequence_df.index.dtype)
         if len(tmp_ids)>0:
             self.__sequence_df.drop(tmp_ids, inplace=True)
         return self._ratify_action('_remove_features_by_id', ids, **kwargs)
 
-    def _merge_features_by_map(self, map_dict, **kwargs):
-        '''
+    def _merge_features_by_map(self,
+                               map_dict: Mapper,
+                               **kwargs: Any) -> Optional[Mapper]:
+        """Merge features and ratify action. THIS METHOD IS INCOMPLETE.
 
-        Args:
-          map_dict: 
-          **kwargs: 
+		Args:
+			map_dict: Map to use for merging
+			**kwargs: Compatibility
 
-        Returns:
-
-        '''
-        print('ASSUME ALIGNED SEQUENCES!')
+		"""
+        print('ASSUME ALIGNED SEQUENCES! :))') # TODO: This method must align sequences.
         return self._ratify_action('_merge_features_by_map', map_dict, **kwargs)
 
-    def copy(self):
-        ''' '''
+    def copy(self) -> T:
+        """Copy of the instance."""
         return type(self)(sequences=self.__sequence_df.loc[:,'sequence'], metadata = self.metadata,name=self.name)
 
-    def get_subset(self, rids=None, *args, **kwargs):
-        '''
+    def get_subset(self,
+                   rids:Optional[GenericIdentifier] = None,
+                   *args: Any,
+                   **kwargs: Any) -> T:
+        """Get subset of the :class:`.RepSequence`.
 
-        Args:
-          rids: (Default value = None)
-          *args: 
-          **kwargs: 
+		Args:
+			rids: Feature identifiers.
+			*args: Compatibility
+			**kwargs: Compatibility
 
-        Returns:
-
-        '''
+		Returns:
+			:class:`.RepSequence`
+		"""
         if rids is None:
             target_rids = self.xrid
         else:
@@ -81,37 +97,37 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError('Invalid feature ids are provided.')
         return type(self)(sequences=self.__sequence_df.loc[target_rids,'sequence'], metadata = self.metadata,name=self.name)
 
-    def to_multiseq(self):
-        ''' '''
+    def to_multiseq(self) -> MultiSequence:
+        """Creates an instance of :class:`~pmaf.sequence._multiple._multiple.MultiSequence` containing sequences.
+
+        Returns:
+            :class:`~pmaf.sequence._multiple._multiple.MultiSequence`
+        """
         tmp_sequences = []
         for ix, seq, desc in self.__sequence_df[:,['sequence','describtion']].itertuples():
             tmp_sequences.append(Nucleotide(seq,name=None, metadata={'description': desc}))
         return MultiSequence(tmp_sequences,name=self.name,metadata=self.metadata,internal_id='taxid')
 
-    def _export(self, *args, **kwargs):
-        '''
+    def _export(self,
+                *args,
+                **kwargs: Any) ->Tuple[MultiSequence, dict]:
+        """Present only for backward compatibility with other `essentials`. """
 
-        Args:
-          *args: 
-          **kwargs: 
-
-        Returns:
-
-        '''
         return self.to_multiseq(), kwargs
 
-    def export(self, output_fp, *args, _add_ext=False, **kwargs):
-        '''
+    def export(self,
+               output_fp: str,
+               *args,
+               _add_ext: bool = False,
+               **kwargs: Any) ->None:
+        """Exports the FASTA sequences into the specified file.
 
-        Args:
-          output_fp: 
-          *args: 
-          _add_ext: (Default value = False)
-          **kwargs: 
-
-        Returns:
-
-        '''
+		Args:
+			output_fp: Export filepath
+			*args: Compatibility
+			_add_ext: Add file extension or not.
+			**kwargs: Compatibility
+		"""
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
             tmp_export.write("{}.fasta".format(output_fp), **rkwarg)
@@ -119,11 +135,11 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
             tmp_export.write(output_fp, **rkwarg)
 
     @property
-    def data(self):
-        ''' '''
+    def data(self) -> pd.DataFrame:
+        """ :class:`pandas.DataFrame` with sequence data """
         return self.__sequence_df
 
     @property
-    def xrid(self):
-        ''' '''
+    def xrid(self) -> pd.Index:
+        """ Feature identifiers """
         return self.__sequence_df.index

@@ -34,12 +34,27 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
+    'sphinx_autodoc_typehints',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.autosummary',
     'sphinx_rtd_theme'
 ]
 
+# Napoleon Configs
 napoleon_google_docstring = True
-napoleon_use_param = False
+napoleon_use_param = True
 napoleon_use_ivar = True
+
+# InterSphinx Configs
+intersphinx_mapping = {
+    'biom': ('https://biom-format.org/', None),
+    'pandas': ('https://pandas.pydata.org/docs/', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'python': ('https://docs.python.org/3/', None)
+}
+
+# Autosummary Configs
+autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -66,4 +81,8 @@ html_static_path = ['_static']
 autoclass_content = 'both'
 # Prevents module path preffixes
 add_module_names = False
+# Group members
+autodoc_member_order = 'groupwise'
+# Autodoc options
+autodoc_default_options = {'inherited-member': True}
 

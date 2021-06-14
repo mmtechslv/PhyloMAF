@@ -5,3 +5,4 @@ pmaf.phylo.branchest.fasttree2 package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:

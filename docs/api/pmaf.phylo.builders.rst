@@ -5,6 +5,7 @@ pmaf.phylo.builders package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:
 
 Subpackages
 -----------

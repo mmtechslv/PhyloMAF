@@ -5,3 +5,4 @@ pmaf.biome.essentials package
    :members:
    :undoc-members:
    :show-inheritance:
+   :inherited-members:

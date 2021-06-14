@@ -3,7 +3,7 @@ from pmaf.database._core._base import DatabaseBase
 from pmaf.database._core._tax_base import DatabaseTaxonomyMixin
 from pmaf.database._core._phy_base import DatabasePhylogenyMixin
 from pmaf.database._core._acs_base import DatabaseAccessionMixin
-from pmaf.database._manager import DatabaseStorageManager
+from pmaf.database.manager import DatabaseStorageManager
 import pmaf.database._shared._assemblers as transformer
 import pmaf.database._shared._summarizers as summarizer
 import pandas as pd
