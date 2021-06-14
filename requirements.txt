@@ -1,0 +1,10 @@
+numpy~=1.18.1
+pandas~=1.1.5
+fuzzywuzzy~=0.17.0
+scikit-bio~=0.5.5
+ete3~=3.1.2
+pytest~=5.4.2
+urllib3~=1.25.8
+execnet~=1.7.1
+dateparser~=0.7.2
+cython~=0.29.17
