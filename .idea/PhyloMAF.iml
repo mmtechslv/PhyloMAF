@@ -9,7 +9,7 @@
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="$MODULE_DIR$/requirements.txt" />
-    <option name="removeUnused" value="true" />
+    <option name="versionSpecifier" value="Greater or equal (&gt;=x.y.z)" />
     <option name="modifyBaseFiles" value="true" />
   </component>
   <component name="PyDocumentationSettings">
