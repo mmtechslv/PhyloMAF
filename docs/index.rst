@@ -10,12 +10,19 @@ Welcome to PhyloMAF's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   API Reference <api/pmaf>
+..   API Reference <api/pmaf>
 
+API Reference
+====================================
+
+.. .. automodapi:: pmaf.biome
+   :inherited-members:
+   
+.. .. automodsumm:: pmaf.biome
+   :inherited-members:
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`

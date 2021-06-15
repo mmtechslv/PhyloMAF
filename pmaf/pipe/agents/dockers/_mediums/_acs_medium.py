@@ -1,6 +1,6 @@
 from pmaf.pipe.agents.dockers._metakit import DockerAccessionMetabase
 from pmaf.pipe.agents.dockers._base import DockerBase
-from ._id_medium import DockerIdentifierMedium
+from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium
 import pandas as pd
 import numpy as np
 

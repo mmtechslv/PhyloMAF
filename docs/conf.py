@@ -34,9 +34,16 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
-    'sphinx_autodoc_typehints',
     'sphinx.ext.intersphinx',
     'sphinx.ext.autosummary',
+    'sphinx.ext.autosectionlabel',
+    #'sphinx_automodapi.automodapi',
+    #'sphinx_automodapi.smart_resolver',
+    'autoapi.extension',
+    'sphinx.ext.coverage',
+    'sphinx.ext.inheritance_diagram',
+    #'sphinx.ext.autodoc.typehints',
+    #'sphinx_autodoc_typehints',
     'sphinx_rtd_theme'
 ]
 
@@ -76,13 +83,39 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
+# The name for this set of Sphinx documents.  If None, it defaults to
+# "<project> v<release> documentation".
+html_title = "PhyloMAF - Phylogenetic Microbiome Analysis Framework"
+# A shorter title for the navigation bar.  Default is the same as html_title.
+html_short_title = "PhyloMAF documentation"
+# The name of an image file (within the static path) to use as favicon of the
+# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+html_favicon = "favicon.ico"
+# If false, no module index is generated.
+html_use_modindex = True
+# Output file base name for HTML help builder.
+htmlhelp_basename = 'PhyloMAF-doc'
+# The name of an image file (relative to this directory) to place at the top of
+# the title page.
+latex_logo = "phylomaf_logo.png"
+# If true, '()' will be appended to :func: etc. cross-reference text.
+add_function_parentheses = True
+# If true, the current module name will be prepended to all description
+# unit titles (such as .. function::).
+add_module_names = False
 # This config enables processing of __init__ docstrings
 autoclass_content = 'both'
-# Prevents module path preffixes
-add_module_names = False
 # Group members
 autodoc_member_order = 'groupwise'
 # Autodoc options
-autodoc_default_options = {'inherited-member': True}
+autoapi_options = ['inherited-member', 'members', 'undoc-members', 'show-inheritance', 'show-module-summary', 'imported-members']
+autoapi_dirs = ['../pmaf']
+autoapi_ignore = ['*_externals*']
+autoapi_python_class_content = 'both'
+autoapi_member_order = 'groupwise'
+autodoc_typehints = 'description'
 
+# Automodapi Configs
+numpydoc_show_class_members = False
+automodsumm_inherited_members = True

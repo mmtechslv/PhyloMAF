@@ -1,23 +1,28 @@
 import warnings
-warnings.simplefilter('ignore', category=FutureWarning)
+
+warnings.simplefilter("ignore", category=FutureWarning)
 from pmaf.biome.essentials._metakit import EssentialFeatureMetabase
 import pandas as pd
 import numpy as np
 from pmaf.internal.io._seq import SequenceIO
-from pmaf.internal._extensions._cpython._pmafc_extension._helper import make_sequence_record_tuple
+from pmaf.internal._extensions._cpython._pmafc_extension._helper import (
+    make_sequence_record_tuple,
+)
 from pmaf.internal._shared import get_stats_for_sequence_record_df
 from pmaf.biome.essentials._base import EssentialBackboneBase
-from pmaf.sequence import MultiSequence,Nucleotide
-from typing import Union, Optional, TypeVar, Tuple, Callable, Any
-from pmaf.internal._typing import GenericIdentifier,Mapper
+from pmaf.sequence import MultiSequence, Nucleotide
+from typing import Union, Optional, Tuple, Any
+from pmaf.internal._typing import GenericIdentifier, Mapper
 
-T = TypeVar('T', bound='RepSequence')
 
 class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
     """An `essential` class for handling feature sequence data."""
-    def __init__(self,
-                 sequences: Union[str, MultiSequence, pd.DataFrame, pd.Series],
-                 **kwargs: Any) -> None:
+
+    def __init__(
+        self,
+        sequences: Union[str, MultiSequence, pd.DataFrame, pd.Series],
+        **kwargs: Any
+    ) -> None:
         """Constructor for :class:`.RepSequence`
 
         Args:
@@ -27,75 +32,101 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         """
         super().__init__(**kwargs)
         tmp_sequences = []
-        if isinstance(sequences,str):
-            seqio = SequenceIO(sequences,upper=True)
-            for rid,desc,seq in seqio.pull_parser(id=True,description=True,sequence=True):
-                tmp_sequences.append(make_sequence_record_tuple(rid, seq)+(desc,))
-        elif isinstance(sequences,MultiSequence):
+        if isinstance(sequences, str):
+            seqio = SequenceIO(sequences, upper=True)
+            seqio_gen = seqio.pull_parser(id=True, description=True, sequence=True)
+            for rid, desc, seq in seqio_gen:
+                seq_rec = make_sequence_record_tuple(rid, seq) + (desc,)
+                tmp_sequences.append(seq_rec)
+        elif isinstance(sequences, MultiSequence):
             for seq in sequences.sequences:
-                tmp_sequences.append(make_sequence_record_tuple(seq.name, str(seq.text))+('',))
-        elif isinstance(sequences,pd.DataFrame):
-            tmp_sequences = [make_sequence_record_tuple(rid, seq) + ('',) for rid, seq in sequences.loc[:,'sequence'].iteritems()]
+                seq_rec = make_sequence_record_tuple(seq.name, str(seq.text)) + ("",)
+                tmp_sequences.append(seq_rec)
+        elif isinstance(sequences, pd.DataFrame):
+            for rid, seq in sequences.loc[:, "sequence"].iteritems():
+                seq_rec = make_sequence_record_tuple(rid, seq) + ("",)
+                tmp_sequences.append(seq_rec)
         elif isinstance(sequences, pd.Series):
-            tmp_sequences = [make_sequence_record_tuple(rid, seq) + ('',) for rid, seq in sequences.iteritems()]
+            for rid, seq in sequences.iteritems():
+                seq_rec = make_sequence_record_tuple(rid, seq) + ("",)
+                tmp_sequences.append(seq_rec)
         else:
-            raise TypeError('`sequences` has unsupported type.')
-        tmp_seq_record_df = pd.DataFrame.from_records(tmp_sequences,columns=['rid', 'sequence','length', 'tab','description'], index=['rid'])
-        self.__sequence_df = pd.concat([tmp_seq_record_df[['sequence','description']],get_stats_for_sequence_record_df(tmp_seq_record_df)],axis=1)
+            raise TypeError("`sequences` has unsupported type.")
+        seq_record_df = pd.DataFrame.from_records(
+            tmp_sequences,
+            columns=["rid", "sequence", "length", "tab", "description"],
+            index=["rid"],
+        )
+        self.__sequence_df = pd.concat(
+            [
+                seq_record_df[["sequence", "description"]],
+                get_stats_for_sequence_record_df(seq_record_df),
+            ],
+            axis=1,
+        )
 
-    def _remove_features_by_id(self,
-                               ids: GenericIdentifier,
-                               **kwargs: Any) -> Optional[GenericIdentifier]:
+    def _remove_features_by_id(
+        self, ids: GenericIdentifier, **kwargs: Any
+    ) -> Optional[GenericIdentifier]:
         """Remove features by `ids` and ratify action.
 
-		Args:
-			ids: Feature identifiers
-			**kwargs: Compatibility
+        Args:
+                ids: Feature identifiers
+                **kwargs: Compatibility
 
-		"""
-        tmp_ids = np.asarray(ids,dtype=self.__sequence_df.index.dtype)
-        if len(tmp_ids)>0:
+        """
+        tmp_ids = np.asarray(ids, dtype=self.__sequence_df.index.dtype)
+        if len(tmp_ids) > 0:
             self.__sequence_df.drop(tmp_ids, inplace=True)
-        return self._ratify_action('_remove_features_by_id', ids, **kwargs)
+        return self._ratify_action("_remove_features_by_id", ids, **kwargs)
 
-    def _merge_features_by_map(self,
-                               map_dict: Mapper,
-                               **kwargs: Any) -> Optional[Mapper]:
+    def _merge_features_by_map(
+        self, map_dict: Mapper, **kwargs: Any
+    ) -> Optional[Mapper]:
         """Merge features and ratify action. THIS METHOD IS INCOMPLETE.
 
-		Args:
-			map_dict: Map to use for merging
-			**kwargs: Compatibility
+        Args:
+                map_dict: Map to use for merging
+                **kwargs: Compatibility
 
-		"""
-        print('ASSUME ALIGNED SEQUENCES! :))') # TODO: This method must align sequences.
-        return self._ratify_action('_merge_features_by_map', map_dict, **kwargs)
+        """
+        print(
+            "ASSUME ALIGNED SEQUENCES! :))"
+        )  # TODO: This method must align sequences.
+        return self._ratify_action("_merge_features_by_map", map_dict, **kwargs)
 
-    def copy(self) -> T:
+    def copy(self) -> 'RepSequence':
         """Copy of the instance."""
-        return type(self)(sequences=self.__sequence_df.loc[:,'sequence'], metadata = self.metadata,name=self.name)
+        return type(self)(
+            sequences=self.__sequence_df.loc[:, "sequence"],
+            metadata=self.metadata,
+            name=self.name,
+        )
 
-    def get_subset(self,
-                   rids:Optional[GenericIdentifier] = None,
-                   *args: Any,
-                   **kwargs: Any) -> T:
+    def get_subset(
+        self, rids: Optional[GenericIdentifier] = None, *args: Any, **kwargs: Any
+    ) -> 'RepSequence':
         """Get subset of the :class:`.RepSequence`.
 
-		Args:
-			rids: Feature identifiers.
-			*args: Compatibility
-			**kwargs: Compatibility
+        Args:
+                rids: Feature identifiers.
+                *args: Compatibility
+                **kwargs: Compatibility
 
-		Returns:
-			:class:`.RepSequence`
-		"""
+        Returns:
+                :class:`.RepSequence`
+        """
         if rids is None:
             target_rids = self.xrid
         else:
             target_rids = np.asarray(rids).astype(self.__sequence_df.index.dtype)
         if not self.xrid.isin(target_rids).sum() == len(target_rids):
-            raise ValueError('Invalid feature ids are provided.')
-        return type(self)(sequences=self.__sequence_df.loc[target_rids,'sequence'], metadata = self.metadata,name=self.name)
+            raise ValueError("Invalid feature ids are provided.")
+        return type(self)(
+            sequences=self.__sequence_df.loc[target_rids, "sequence"],
+            metadata=self.metadata,
+            name=self.name,
+        )
 
     def to_multiseq(self) -> MultiSequence:
         """Creates an instance of :class:`~pmaf.sequence._multiple._multiple.MultiSequence` containing sequences.
@@ -104,30 +135,32 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
             :class:`~pmaf.sequence._multiple._multiple.MultiSequence`
         """
         tmp_sequences = []
-        for ix, seq, desc in self.__sequence_df[:,['sequence','describtion']].itertuples():
-            tmp_sequences.append(Nucleotide(seq,name=None, metadata={'description': desc}))
-        return MultiSequence(tmp_sequences,name=self.name,metadata=self.metadata,internal_id='taxid')
+        for ix, seq, desc in self.__sequence_df[
+            :, ["sequence", "describtion"]
+        ].itertuples():
+            tmp_sequences.append(
+                Nucleotide(seq, name=None, metadata={"description": desc})
+            )
+        return MultiSequence(
+            tmp_sequences, name=self.name, metadata=self.metadata, internal_id="taxid"
+        )
 
-    def _export(self,
-                *args,
-                **kwargs: Any) ->Tuple[MultiSequence, dict]:
-        """Present only for backward compatibility with other `essentials`. """
+    def _export(self, *args, **kwargs: Any) -> Tuple[MultiSequence, dict]:
+        """Present only for backward compatibility with other `essentials`."""
 
         return self.to_multiseq(), kwargs
 
-    def export(self,
-               output_fp: str,
-               *args,
-               _add_ext: bool = False,
-               **kwargs: Any) ->None:
+    def export(
+        self, output_fp: str, *args, _add_ext: bool = False, **kwargs: Any
+    ) -> None:
         """Exports the FASTA sequences into the specified file.
 
-		Args:
-			output_fp: Export filepath
-			*args: Compatibility
-			_add_ext: Add file extension or not.
-			**kwargs: Compatibility
-		"""
+        Args:
+                output_fp: Export filepath
+                *args: Compatibility
+                _add_ext: Add file extension or not.
+                **kwargs: Compatibility
+        """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
             tmp_export.write("{}.fasta".format(output_fp), **rkwarg)
@@ -136,10 +169,10 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
 
     @property
     def data(self) -> pd.DataFrame:
-        """ :class:`pandas.DataFrame` with sequence data """
+        """:class:`pandas.DataFrame` with sequence data"""
         return self.__sequence_df
 
     @property
     def xrid(self) -> pd.Index:
-        """ Feature identifiers """
+        """Feature identifiers"""
         return self.__sequence_df.index

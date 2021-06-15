@@ -1,11 +1,12 @@
 from abc import abstractmethod
-from pmaf.biome._metakit import BiomeFeatureMetabase,BiomeSampleMetabase
+from pmaf.biome._metakit import BiomeFeatureMetabase, BiomeSampleMetabase
+
 
 class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
     """ """
 
     @abstractmethod
-    def export(self, output_dir, *args,**kwargs):
+    def export(self, output_dir, *args, **kwargs):
         """
 
         Args:
@@ -44,7 +45,7 @@ class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
         pass
 
     @abstractmethod
-    def to_otu_table(self, *args,**kwargs):
+    def to_otu_table(self, *args, **kwargs):
         """
 
         Args:

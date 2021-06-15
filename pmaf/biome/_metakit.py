@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Union, Sequence, TypeVar, Any, Optional, Type
-from pmaf.internal._typing import GenericIdentifier
+from typing import Optional
+from numpy.typing import DTypeLike
 
 class BiomeBackboneMetabase(ABC):
     """ """
@@ -64,7 +64,7 @@ class BiomeFeatureMetabase(BiomeBackboneMetabase):
     """ """
 
     def get_feature_ids(self,
-                        dtype: Union[str, Type, None] = None):
+                        dtype: Optional[DTypeLike] = None):
         """This function and its sample twin is a rescue method to fix RepPhylogeny index problem.
 
         Args:
@@ -90,7 +90,7 @@ class BiomeSampleMetabase(BiomeBackboneMetabase):
     """ """
 
     def get_sample_ids(self,
-                       dtype: Union[str, Type, None] = None):
+                       dtype: Optional[DTypeLike] = None):
         """This function and its sample twin is a rescue method to fix RepPhylogeny index problem.
 
         Args:
