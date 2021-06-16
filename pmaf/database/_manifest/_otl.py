@@ -3,7 +3,7 @@ from pmaf.database._core._base import DatabaseBase
 from pmaf.database._core._tax_base import DatabaseTaxonomyMixin
 from pmaf.database._core._phy_base import DatabasePhylogenyMixin
 from pmaf.database._core._acs_base import DatabaseAccessionMixin
-from pmaf.database.manager import DatabaseStorageManager
+from pmaf.database._manager import DatabaseStorageManager
 import pmaf.database._shared._assemblers as transformer
 import pmaf.database._shared._summarizers as summarizer
 import pandas as pd
@@ -192,7 +192,7 @@ class DatabaseOTL(DatabaseTaxonomyMixin,DatabasePhylogenyMixin,DatabaseAccession
 
     @classmethod
     def __process_tree(cls,storage_manager,tree_newick_fp,index_mapper):
-        from pmaf.database._parsers.phylo import read_newick_tree
+        from pmaf.database._parsers._phylo import read_newick_tree
         from ete3 import Tree
         import re
         regex_mrca_tags = re.compile('mrcaott[0-9]+ott[0-9]+')

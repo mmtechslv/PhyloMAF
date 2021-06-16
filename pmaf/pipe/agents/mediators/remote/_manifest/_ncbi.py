@@ -7,7 +7,7 @@ from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium
 from pmaf.pipe.agents.dockers._mediums._acs_medium import DockerAccessionMedium
 from pmaf.pipe.agents.dockers._mediums._seq_medium import DockerSequenceMedium
 from pmaf.internal._shared import sort_ranks
-from pmaf.alignment.multiple._metakit import MultiSequenceAlignerBackboneMetabase
+from pmaf.alignment._multiple._metakit import MultiSequenceAlignerBackboneMetabase
 from pmaf.internal._constants import ITS
 from pmaf.internal.io._seq import SequenceIO
 

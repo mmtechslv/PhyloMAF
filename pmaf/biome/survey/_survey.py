@@ -42,14 +42,14 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         groupby: Union[str, Tuple[str, str], Dict[Union[int, str], str]] = "label",
         **kwargs: Any
     ):
-        """This class performs merging/pooling of multiple independent studies
+        """This class performs merging/pooling of _multiple independent studies
         or instances of :class:`~pmaf.biome.essentials.EssentialBackboneBase` (essentials) into single
         instance of :class:`~pmaf.biome.survey._assembly.BiomeAssembly` -like class :class:`~pmaf.biome.survey._survey.BiomeSurvey`.
 
         Args:
             assembiles: *essentials* to pool.
             *args: Unpacked *essentials* to pool. (Convenience)
-            aggfunc: Aggregation method. Parameter take multiple variations of
+            aggfunc: Aggregation method. Parameter take _multiple variations of
                 aggregation approach. If `str` or `Callable` then `aggfunc` will be
                 applied to both axes(feature and sample) and any *essentials*
                 regardless of its type. To apply aggregation for each axis separately
@@ -66,7 +66,7 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
                 among instances of *assemblies*. Lastly, when using approach like
                 Dict[axis, Dict[*essential-type*,*agg-func*]] using `None` for one of
                 *essential-type* keys will assume that it refers to all *remaining-types*.
-            groupby: Grouping method. Parameters take multiple variations
+            groupby: Grouping method. Parameters take _multiple variations
                 similar to `aggfunc`. Variations are same as `aggfunc` with exception
                 that values can be either `label` for both feature-axis or sample-axis
                 like *groupby='label'* or *groupby=(`label`, `label`)* , or *taxonomy*

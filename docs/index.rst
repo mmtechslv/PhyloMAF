@@ -9,20 +9,15 @@ Welcome to PhyloMAF's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-..   API Reference <api/pmaf>
-
-API Reference
-====================================
-
-.. .. automodapi:: pmaf.biome
-   :inherited-members:
    
-.. .. automodsumm:: pmaf.biome
-   :inherited-members:
+   Recent Changes <changes>
+
+   API Reference <autoapi/pmaf/index>
+    
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
 * :ref:`modindex`
+

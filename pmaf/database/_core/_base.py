@@ -1,7 +1,7 @@
 import warnings
 warnings.simplefilter('ignore', category=FutureWarning)
 from pmaf.database._metakit import DatabaseBackboneMetabase
-from pmaf.database.manager import DatabaseStorageManager
+from pmaf.database._manager import DatabaseStorageManager
 from pmaf.internal._shared import get_rank_upto
 from pmaf.database._shared._common import to_mode
 import numpy as np

@@ -1,3 +1,2 @@
-from ._sequence import Nucleotide
-from ._multiple import MultiSequence
-from ._multiple import MultiSequenceStream
+from ._sequence import * # noqa: F401,F403
+from ._multiple import * # noqa: F401,F403

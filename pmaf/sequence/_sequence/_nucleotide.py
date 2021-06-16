@@ -203,7 +203,7 @@ class Nucleotide(NucleotideMetabase):
                 if tmp_name is None:
                     tmp_name = sid
             else:
-                raise ValueError('`sequence` must contain only one sequence. For multiple sequence reads use MultiSequence.')
+                raise ValueError('`sequence` must contain only one sequence. For _multiple sequence reads use MultiSequence.')
         return cls(tmp_sequence_str,name=tmp_name,metadata=tmp_metadata,mode=mode,**kwargs)
 
     @property

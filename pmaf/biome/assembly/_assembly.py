@@ -34,7 +34,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         """Constructor for :class:`.BiomeAssembly`
 
         Args:
-                essentials: Single or multiple instances of `essentials`
+                essentials: Single or _multiple instances of `essentials`
                 *args: Instances of `essentials`
                 curb: Set limiting instance of `essentials` that will be used to
                     subset remaining essentials to identical axes.

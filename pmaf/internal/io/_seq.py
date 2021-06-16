@@ -26,7 +26,7 @@ class SequenceIO(FileIOBackboneMetabase):
         if ftype == 'auto':
             tmp_file_formats = {sniff(tmp_src)[0] for tmp_src in tmp_sources}
             if len(tmp_file_formats)>1:
-                raise ValueError('`seqsrc` contain files of multiple types.')
+                raise ValueError('`seqsrc` contain files of _multiple types.')
             else:
                 tmp_file_format = tmp_file_formats.pop()
             if tmp_file_format not in ['fasta','fastq']:

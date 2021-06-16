@@ -3,7 +3,7 @@ from pmaf.database._core._base import DatabaseBase
 from pmaf.database._core._tax_base import DatabaseTaxonomyMixin
 from pmaf.database._core._seq_base import DatabaseSequenceMixin
 from pmaf.database._core._acs_base import DatabaseAccessionMixin
-from pmaf.database.manager import DatabaseStorageManager
+from pmaf.database._manager import DatabaseStorageManager
 import pmaf.database._shared._assemblers as transformer
 import pmaf.database._shared._summarizers as summarizer
 
@@ -57,7 +57,7 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
 
     @classmethod
     def __process_tax_acs_map(cls, storage_manager, taxonomy_map_csv_fp):
-        from pmaf.database._parsers.qiime import read_qiime_taxonomy_map, parse_qiime_taxonomy_map
+        from pmaf.database._parsers._qiime import read_qiime_taxonomy_map, parse_qiime_taxonomy_map
         def produce_taxonomy_prior(tmp_taxonomy_prior, index_mapper):
             '''
 
@@ -141,7 +141,7 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
 
     @classmethod
     def __process_sequence(cls,storage_manager, index_mapper, removed_rids, prior_recap, sequence_fasta_fp, chunksize):
-        from pmaf.database._parsers.qiime import parse_qiime_sequence_generator
+        from pmaf.database._parsers._qiime import parse_qiime_sequence_generator
         def produce_sequence_representative(sequence_fasta_fp, index_mapper, dropped_taxa, chunksize):
             '''
 

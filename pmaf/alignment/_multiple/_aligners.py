@@ -1,6 +1,6 @@
 from pmaf.sequence._metakit import MultiSequenceMetabase
 from pmaf.sequence._multiple._multiple import MultiSequence
-from pmaf.alignment.multiple._metakit import MultiSequenceAlignerBackboneMetabase
+from pmaf.alignment._multiple._metakit import MultiSequenceAlignerBackboneMetabase
 from . import _defined_aligners as aligners
 from skbio import TabularMSA
 from tempfile import NamedTemporaryFile

@@ -1,1 +1,3 @@
-from ._inventory._factor_16S import Factor16S
+from ._inventory import Factor16S
+
+__all__ = ['Factor16S']
