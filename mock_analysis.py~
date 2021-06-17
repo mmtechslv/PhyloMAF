@@ -1,0 +1,40 @@
+from pmaf.biome import essentials
+from pmaf.biome import assembly
+from pmaf.biome import survey
+from pmaf.pipe.specs import SpecTI,SpecIT,ForgeSpec,SpecTSPBP
+from pmaf.pipe.agents.mediators.local import LocalMediator
+from pmaf.database import DatabaseGreengenes
+from pmaf.pipe.factors import Factor16S
+from pmaf.phylo.branchest import BranchestFastTree2
+from pmaf.database import DatabaseGreengenes
+from os import path
+from collections import defaultdict
+
+database_gg = DatabaseGreengenes('/home/mmtechslv/akasha/PhyloMAF_Master/Local/Store/hdf5/greengenes_138_97.hdf5')
+
+ROOT_MOCK_DIR = "/home/mmtechslv/akasha/Mockrobiota/"
+
+databases = ['gg', 'silva']
+datasets = ['mock-2', 'mock-3', 'mock-4', 'mock-5']
+
+biome_list = []
+for dataset in datasets:
+    for database in databases:
+        otu_table_fp = path.join(ROOT_MOCK_DIR, dataset, database, 'expected-taxonomy.tsv')
+        if database == 'gg':
+            biome_tax = essentials.RepTaxonomy(otu_table_fp, index_col=False, taxonomy_columns=0, sep='\t')
+        else:
+            biome_tax = essentials.RepTaxonomy(otu_table_fp, index_col=False, taxonomy_columns=0, taxonomy_notation='silva', order_ranks=['k','p','c','o','f','g','s'], sep='\t')
+        biome_freq = essentials.FrequencyTable(otu_table_fp, index_col=False, skipcols=0, sep='\t')
+        biome_list.append(assembly.BiomeAssembly(biome_tax,biome_freq, name='{} - {}'.format(dataset, database)))
+
+ 
+
+original_otu_table_fp = 'DATA/original.csv'
+original_dada2_tax_fp = 'DATA/original_dada2_gg.tsv'
+
+
+
+
+ogtax_df = original_tax.data.drop(columns='lineage')
+odtax_df = original_dada2_tax.data.drop(columns='lineage')

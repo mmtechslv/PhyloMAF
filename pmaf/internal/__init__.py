@@ -1,6 +1,6 @@
-import _shared as SharedMethods
+from . import _shared as SharedMethods
 
-import _constants as Consts
-import _extensions as Extensions
+from . import _constants as Consts
+from . import _extensions as Extensions
 
 __all__ = ['SharedMethods', 'Consts', 'Extensions', 'io']

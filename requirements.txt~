@@ -1,0 +1,10 @@
+execnet
+biom_format
+Cython
+fuzzywuzzy
+pandas
+dateparser
+numpy
+pytest
+tables
+urllib3
