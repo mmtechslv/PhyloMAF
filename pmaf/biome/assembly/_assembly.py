@@ -16,7 +16,7 @@ from functools import reduce
 import pandas as pd
 from os import path
 from typing import Union, Sequence, Any, Optional, List
-from pmaf.internal._typing import GenericIdentifier
+from pmaf.internal._typing import AnyGenericIdentifier
 
 
 class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
@@ -208,8 +208,8 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
     def get_subset(
         self,
-        rids: Optional[GenericIdentifier] = None,
-        sids: Optional[GenericIdentifier] = None,
+        rids: Optional[AnyGenericIdentifier] = None,
+        sids: Optional[AnyGenericIdentifier] = None,
         **kwargs
     ) -> "BiomeAssembly":
         """Get subset of the :class:`.BiomeAssembly`.
@@ -256,8 +256,8 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
     def __make_otu_table(
         self,
-        rids: Optional[GenericIdentifier] = None,
-        sids: Optional[GenericIdentifier] = None,
+        rids: Optional[AnyGenericIdentifier] = None,
+        sids: Optional[AnyGenericIdentifier] = None,
         taxonomy_column_name: str = "Taxonomy",
         **kwargs: Any
     ) -> pd.DataFrame:
@@ -377,7 +377,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         return self.__controller.essentials
 
     @property
-    def xrid(self) -> GenericIdentifier:
+    def xrid(self) -> AnyGenericIdentifier:
         """Feature identifiers"""
         return pd.Index(
             self.__controller.xrid
@@ -386,7 +386,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         )
 
     @property
-    def xsid(self) -> GenericIdentifier:
+    def xsid(self) -> AnyGenericIdentifier:
         """Sample identifiers"""
         return pd.Index(
             self.__controller.xsid

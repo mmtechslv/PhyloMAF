@@ -2,26 +2,24 @@ import execnet
 import os
 
 
-def make_ott_taxonomy(
-    reference_taxonomy_path: str, new_taxonomy_path: str, otl_reftax_src: str
-) -> bool:
+def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) -> bool:
     """Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life clades.
 
     Args:
-        reference_taxonomy_path: Path to reference taxonomy directory. `
-            Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
+        reftax_path: Path to reference taxonomy directory.
+            `Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
             Run Make to compile OTT Jython files.
-        new_taxonomy_path: Path to output taxonomy directory.
-        otl_reftax_src: Path to OTL reference-taxonomy tool('smasher')'s source code.
+        newtax_path: Path to output taxonomy directory.
+        reftax_src_path: Path to OTL reference-taxonomy tool('smasher')'s source code.
             `Link to repo <https://github.com/OpenTreeOfLife/reference-taxonomy>`_
     Returns:
         Result status
 
     """
 
-    if not os.path.isdir(otl_reftax_src):
+    if not os.path.isdir(reftax_src_path):
         raise NotADirectoryError("Parameter `otl_reftax_src` must be a directory.")
-    local_ott_path = os.path.abspath(otl_reftax_src)
+    local_ott_path = os.path.abspath(reftax_src_path)
     jython_jar_path = local_ott_path + "/lib/jython-standalone-2.7.0.jar"
     sys_path_suffix_list = ["", "/util", "/lib", "/lib/json-simple-1.1.1.jar"]
     sys_path_list = [local_ott_path + suffix for suffix in sys_path_suffix_list]
@@ -35,23 +33,19 @@ def make_ott_taxonomy(
     )
 
     ret = False
-    reference_taxonomy_path = (
-        os.path.abspath(reference_taxonomy_path)
-        if not os.path.isabs(reference_taxonomy_path)
-        else reference_taxonomy_path
+    reftax_path = (
+        os.path.abspath(reftax_path) if not os.path.isabs(reftax_path) else reftax_path
     )
-    new_taxonomy_path = (
-        os.path.abspath(new_taxonomy_path)
-        if not os.path.isabs(new_taxonomy_path)
-        else new_taxonomy_path
+    newtax_path = (
+        os.path.abspath(newtax_path) if not os.path.isabs(newtax_path) else newtax_path
     )
-    if not os.path.isdir(new_taxonomy_path):
-        os.mkdir(new_taxonomy_path)
-    if not os.path.isdir(reference_taxonomy_path):
+    if not os.path.isdir(newtax_path):
+        os.mkdir(newtax_path)
+    if not os.path.isdir(reftax_path):
         raise NotADirectoryError(
             "Parameter `reference_taxonomy_path` must be a directory."
         )
-    if reference_taxonomy_path[-1] != "/" and new_taxonomy_path[-1] != "/":
+    if reftax_path[-1] != "/" and newtax_path[-1] != "/":
         jython_channel_out = []
 
         def jython_receiver(message):
@@ -98,7 +92,7 @@ def make_ott_taxonomy(
                                 channel.send('Newick tree was successfully saved.')
                                 channel.send('End of ReAssembly')
                                 """.format(
-                sys_path_list_repr, reference_taxonomy_path, new_taxonomy_path
+                sys_path_list_repr, reftax_path, newtax_path
             )
         )
         jython_channel.setcallback(jython_receiver)

@@ -13,7 +13,7 @@ from pmaf.biome.essentials._base import EssentialBackboneBase
 from pmaf.sequence._sequence._nucleotide import Nucleotide
 from pmaf.sequence._multiple._multiple import MultiSequence
 from typing import Union, Optional, Tuple, Any
-from pmaf.internal._typing import GenericIdentifier, Mapper
+from pmaf.internal._typing import AnyGenericIdentifier, Mapper
 
 
 class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
@@ -67,8 +67,8 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         )
 
     def _remove_features_by_id(
-        self, ids: GenericIdentifier, **kwargs: Any
-    ) -> Optional[GenericIdentifier]:
+        self, ids: AnyGenericIdentifier, **kwargs: Any
+    ) -> Optional[AnyGenericIdentifier]:
         """Remove features by `ids` and ratify action.
 
         Args:
@@ -105,7 +105,7 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         )
 
     def get_subset(
-        self, rids: Optional[GenericIdentifier] = None, *args: Any, **kwargs: Any
+        self, rids: Optional[AnyGenericIdentifier] = None, *args: Any, **kwargs: Any
     ) -> 'RepSequence':
         """Get subset of the :class:`.RepSequence`.
 

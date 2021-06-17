@@ -336,12 +336,12 @@ def generate_lineages_from_taxa(
     missing_rank: bool = False,
     desired_ranks: Union[Sequence[str], bool] = False,
     drop_ranks: Union[Sequence[str], bool] = False,
-):  # missing_rank - if True will include rank preffix(such as "s__") even if rank is missing or among drop_ranks; desired_ranks - list of desired ranks; drop_ranks - list of undesired ranks that should be removed, this parameter is useless if missing_rank is set to False
+):  # missing_rank - if True will include rank preffix(such as `s__`) even if rank is missing or among drop_ranks; desired_ranks - list of desired ranks; drop_ranks - list of undesired ranks that should be removed, this parameter is useless if missing_rank is set to False
     """Generate consensus lineages in QIIME convention format from taxonomy
     dataframe like `FeatureTable._internal_taxonomy`
 
       in_taxa: pandas DataFrame like `FeatureTable._internal_taxonomy`
-      missing_rank: If True will generate prefix like s__ or d__  (Default value = False)
+      missing_rank: If True will generate prefix like `s__` or `d__`  (Default value = False)
       desired_ranks: List of desired ranks to generate. If False then will generate all main ranks (Default value = False)
       drop_ranks: List of ranks to drop from desired ranks. This parameter only useful if `missing_rank` is True (Default value = False):
 

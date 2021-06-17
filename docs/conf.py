@@ -32,25 +32,26 @@ release = "1.0"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx_rtd_theme",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
     "sphinx.ext.autosummary",
-    "sphinx.ext.autosectionlabel",
+    'sphinx.ext.extlinks',
+    #"sphinx.ext.autosectionlabel",
     #'sphinx_automodapi.automodapi',
     #'sphinx_automodapi.smart_resolver',
-    "autoapi.extension",
-    "sphinx.ext.coverage",
-    #'sphinx.ext.autodoc.typehints',
+    #"autoapi.extension",
+    #"sphinx.ext.coverage",
+    'sphinx.ext.autodoc.typehints',
     #'sphinx_autodoc_typehints',
-    "sphinx-prompt",
-    "sphinx_copybutton",
-    "sphinx_last_updated_by_git",
+    #"sphinx-prompt",
+    #"sphinx_copybutton",
+    #"sphinx_last_updated_by_git",
     'sphinx_git',
     'hoverxref.extension',
-    'sphinxcontrib.bibtex',
-    "sphinx_rtd_theme",
+    'sphinxcontrib.bibtex'
 ]
 
 # Napoleon Configs
@@ -121,9 +122,10 @@ autoapi_options = [
     "undoc-members",
     "show-inheritance",
     "show-module-summary",
-    "imported-members",
+    "imported-members"
 ]
 autoapi_dirs = ["../pmaf"]
+autoapi_root = 'api'
 autoapi_ignore = ["*_externals*", "*tests*"]
 autoapi_python_class_content = "both"
 autoapi_member_order = "groupwise"
@@ -150,3 +152,8 @@ bibtex_bibfiles = ['refs.bib']
 #Autosectionlabel configs
 autosectionlabel_maxdepth = 1
 autosectionlabel_prefix_document = True
+
+# RTD Theme Configs
+html_theme_options = {'titles_only': True,
+                      'prev_next_buttons_location': 'both'}
+

@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 import biom
 from typing import Union, Sequence, Tuple, Callable, Any, Optional
-from pmaf.internal._typing import GenericIdentifier, Mapper
+from pmaf.internal._typing import AnyGenericIdentifier, Mapper
 
 
 class FrequencyTable(
@@ -163,8 +163,8 @@ class FrequencyTable(
         return self._ratify_action("_rename_samples_by_map", map_like, **kwargs)
 
     def _remove_features_by_id(
-        self, ids: GenericIdentifier, **kwargs
-    ) -> Union[None, GenericIdentifier, dict]:
+        self, ids: AnyGenericIdentifier, **kwargs
+    ) -> Union[None, AnyGenericIdentifier, dict]:
         """Remove feature by id and ratify action.
 
         Args:
@@ -202,8 +202,8 @@ class FrequencyTable(
         )
 
     def _remove_samples_by_id(
-        self, ids: GenericIdentifier, **kwargs
-    ) -> Union[None, GenericIdentifier, dict]:
+        self, ids: AnyGenericIdentifier, **kwargs
+    ) -> Union[None, AnyGenericIdentifier, dict]:
         """Remove samples by id and ratify action.
 
         Args:
@@ -256,7 +256,7 @@ class FrequencyTable(
         """
         self.__internal_frequency.fillna(value, inplace=True)
 
-    def drop_features_by_id(self, ids: GenericIdentifier) -> Union[None, np.ndarray]:
+    def drop_features_by_id(self, ids: AnyGenericIdentifier) -> Union[None, np.ndarray]:
         """Drop features by `ids`
 
         Args:
@@ -300,7 +300,7 @@ class FrequencyTable(
         if self.is_buckled:
             return target_ids
 
-    def drop_samples_by_id(self, ids: GenericIdentifier) -> Optional[np.ndarray]:
+    def drop_samples_by_id(self, ids: AnyGenericIdentifier) -> Optional[np.ndarray]:
         """Drop samples by `ids`.
 
         Args:
@@ -371,8 +371,8 @@ class FrequencyTable(
 
     def get_subset(
         self,
-        rids: Optional[GenericIdentifier] = None,
-        sids: Optional[GenericIdentifier] = None,
+        rids: Optional[AnyGenericIdentifier] = None,
+        sids: Optional[AnyGenericIdentifier] = None,
         *args,
         **kwargs
     ) -> 'FrequencyTable':

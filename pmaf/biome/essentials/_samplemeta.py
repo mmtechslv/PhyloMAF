@@ -9,7 +9,7 @@ import numpy as np
 from collections import defaultdict
 import biom
 from typing import Union, Optional, Tuple, Callable, Any
-from pmaf.internal._typing import GenericIdentifier, Mapper
+from pmaf.internal._typing import AnyGenericIdentifier, Mapper
 
 
 class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
@@ -128,8 +128,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         return self._ratify_action("_rename_samples_by_map", map_like, **kwargs)
 
     def _remove_samples_by_id(
-        self, ids: GenericIdentifier, **kwargs
-    ) -> Optional[GenericIdentifier]:
+        self, ids: AnyGenericIdentifier, **kwargs
+    ) -> Optional[AnyGenericIdentifier]:
         """Remove samples by sample ids and ratify action.
 
         Args:
@@ -193,8 +193,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             raise TypeError("Invalid `mapper` type.")
 
     def drop_sample_by_id(
-        self, ids: GenericIdentifier, **kwargs
-    ) -> Optional[GenericIdentifier]:
+        self, ids: AnyGenericIdentifier, **kwargs
+    ) -> Optional[AnyGenericIdentifier]:
         """Drop samples by sample identifiers.
 
         Args:
@@ -209,8 +209,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
 
     def get_variables_by_id(
         self,
-        ids: Optional[GenericIdentifier] = None,
-        variables: Optional[GenericIdentifier] = None,
+        ids: Optional[AnyGenericIdentifier] = None,
+        variables: Optional[AnyGenericIdentifier] = None,
     ) -> Union[pd.Series, pd.DataFrame, str, int]:
         """Get sample metadata by sample identifiers and variables.
 
@@ -279,7 +279,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             name=self.name,
         )
 
-    def get_subset(self, sids: GenericIdentifier = None, *args, **kwargs) -> 'SampleMetadata':
+    def get_subset(self, sids: AnyGenericIdentifier = None, *args, **kwargs) -> 'SampleMetadata':
         """Get subset of the :class:`.SampleMetadata`.
 
         Args:

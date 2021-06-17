@@ -9,7 +9,7 @@ from pmaf.phylo.tree._tree import PhyloTree
 from pmaf.phylo.tree._backends import TreeEte3Base
 from io import StringIO
 from typing import Union, Optional, Tuple, Any
-from pmaf.internal._typing import GenericIdentifier, Mapper
+from pmaf.internal._typing import AnyGenericIdentifier, Mapper
 
 
 class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
@@ -18,7 +18,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     def __init__(
         self,
         tree: Union[PhyloTree, TreeEte3Base, StringIO, str],
-        feature_ids: Optional[GenericIdentifier] = None,
+        feature_ids: Optional[AnyGenericIdentifier] = None,
         prune: bool = False,
         annotation: Union[dict, pd.Series, None] = None,
         copy: bool = True,
@@ -101,8 +101,8 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         self.__annotations = tmp_annotation_adj
 
     def _remove_features_by_id(
-        self, ids: GenericIdentifier, **kwargs: Any
-    ) -> Optional[GenericIdentifier]:
+        self, ids: AnyGenericIdentifier, **kwargs: Any
+    ) -> Optional[AnyGenericIdentifier]:
         """Remove features by feature ids and ratify action.
 
         Args:
@@ -279,7 +279,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         )
 
     def get_subset(
-        self, rids: Optional[GenericIdentifier] = None, *args, **kwargs: Any
+        self, rids: Optional[AnyGenericIdentifier] = None, *args, **kwargs: Any
     ) -> "RepPhylogeny":
         """Get subset of the :class:`.RepPhylogeny`.
 
@@ -332,6 +332,6 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         return self.__annotations
 
     @property
-    def xrid(self) -> GenericIdentifier:
+    def xrid(self) -> AnyGenericIdentifier:
         """Feature identifiers"""
         return pd.Index(self.__feature_ids).astype(self.__feature_ids_dtype)

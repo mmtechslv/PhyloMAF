@@ -1,7 +1,7 @@
 from ._metakit import EssentialBackboneMetabase, EssentialControllerBackboneMetabse
 from pmaf.biome._base import BiomeBackboneBase
 from typing import Union, Any, Optional
-from pmaf.internal._typing import GenericIdentifier
+from pmaf.internal._typing import AnyGenericIdentifier
 
 
 class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):
@@ -35,7 +35,7 @@ class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):
         _reflectin: bool = False,
         rlog: bool = False,
         **kwargs: Any
-    ) -> Union[dict, GenericIdentifier, None]:
+    ) -> Union[dict, AnyGenericIdentifier, None]:
         """Ratify the action. This method perform reflection process handled
            by :class:`~pmaf.biome.essentials._controller.EssentialsController`.
 

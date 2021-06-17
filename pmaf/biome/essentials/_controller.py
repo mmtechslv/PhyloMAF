@@ -6,7 +6,7 @@ from pmaf.biome.essentials._metakit import (
 )
 import numpy as np
 from typing import List, Any, Optional
-from pmaf.internal._typing import GenericIdentifier
+from pmaf.internal._typing import AnyGenericIdentifier
 
 
 class EssentialsController(EssentialControllerBackboneMetabse):
@@ -246,11 +246,11 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         return self.__essentials
 
     @property
-    def xrid(self) -> GenericIdentifier:
+    def xrid(self) -> AnyGenericIdentifier:
         """Feature axis of controlled essentials."""
         return self.__feature_ids
 
     @property
-    def xsid(self) -> GenericIdentifier:
+    def xsid(self) -> AnyGenericIdentifier:
         """Sample axis of controlled essentials."""
         return self.__sample_ids

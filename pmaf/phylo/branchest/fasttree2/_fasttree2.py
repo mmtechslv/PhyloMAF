@@ -5,7 +5,7 @@ from os import path
 from pmaf.phylo.tree._metakit import PhyloTreeMetabase
 from pmaf.phylo.tree._tree import PhyloTree
 import subprocess
-from typing import Optional
+from typing import Optional, Any
 
 
 class BranchestFastTree2(BranchEstimatorBackboneMetabase):
@@ -16,7 +16,7 @@ class BranchestFastTree2(BranchEstimatorBackboneMetabase):
     def __init__(
         self, bin_fp: Optional[str] = "fasttree", cache_dir: Optional[str] = None
     ):
-        """FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. :cite:`priceFastTreeApproximatelyMaximumLikelihood2010`
+        """FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. :cite:t:`priceFastTreeApproximatelyMaximumLikelihood2010`
 
         Args:
             bin_fp: Path to 'fasttree' executable or None for default.

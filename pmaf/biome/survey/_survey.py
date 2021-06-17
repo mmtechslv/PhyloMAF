@@ -19,7 +19,7 @@ from ._shared import (
 import numpy as np
 import pandas as pd
 from typing import Union, Sequence, Any, Optional, Tuple, List, Dict
-from pmaf.internal._typing import GenericIdentifier, AggFunc
+from pmaf.internal._typing import AnyGenericIdentifier, AggFunc
 
 
 class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
@@ -331,7 +331,7 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         return tuple(self.__assembiles)
 
     @property
-    def xrid(self) -> GenericIdentifier:
+    def xrid(self) -> AnyGenericIdentifier:
         """Feature identifiers"""
         return pd.Index(
             self.__controller.xrid
@@ -340,7 +340,7 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         )
 
     @property
-    def xsid(self) -> GenericIdentifier:
+    def xsid(self) -> AnyGenericIdentifier:
         """Sample identifiers"""
         return pd.Index(
             self.__controller.xsid

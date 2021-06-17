@@ -24,7 +24,7 @@ import pandas as pd
 import numpy as np
 import biom
 from typing import Union, Sequence, Tuple, Any, Optional
-from pmaf.internal._typing import GenericIdentifier, Mapper
+from pmaf.internal._typing import AnyGenericIdentifier, Mapper
 
 
 class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
@@ -181,8 +181,8 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError("Biom file does not contain observation metadata.")
 
     def _remove_features_by_id(
-        self, ids: GenericIdentifier, **kwargs: Any
-    ) -> Optional[GenericIdentifier]:
+        self, ids: AnyGenericIdentifier, **kwargs: Any
+    ) -> Optional[AnyGenericIdentifier]:
         """Remove features by features ids and ratify action.
 
         Args:
@@ -217,8 +217,8 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             )
 
     def drop_feature_by_id(
-        self, ids: GenericIdentifier, **kwargs: Any
-    ) -> Optional[GenericIdentifier]:
+        self, ids: AnyGenericIdentifier, **kwargs: Any
+    ) -> Optional[AnyGenericIdentifier]:
         """Remove features by feature `ids`.
 
         Args:
@@ -232,7 +232,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             raise ValueError("Invalid feature ids are provided.")
 
     def get_taxonomy_by_id(
-        self, ids: Optional[GenericIdentifier] = None
+        self, ids: Optional[AnyGenericIdentifier] = None
     ) -> pd.DataFrame:
         """Get taxonomy :class:`~pandas.DataFrame` by feature `ids`.
 
@@ -254,7 +254,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
     def get_lineage_by_id(
         self,
-        ids: Optional[GenericIdentifier] = None,
+        ids: Optional[AnyGenericIdentifier] = None,
         missing_rank: bool = False,
         desired_ranks: Union[bool, Sequence[str]] = False,
         drop_ranks: Union[bool, Sequence[str]] = False,
@@ -318,14 +318,14 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             )
         ].index.values
 
-    def drop_features_without_taxa(self, **kwargs: Any) -> Optional[GenericIdentifier]:
+    def drop_features_without_taxa(self, **kwargs: Any) -> Optional[AnyGenericIdentifier]:
         """Remove features that do not contain taxonomy."""
         ids_to_drop = self.find_features_without_taxa()
         return self._remove_features_by_id(ids_to_drop, **kwargs)
 
     def drop_features_without_ranks(
         self, ranks: Sequence[str], any: bool = False, **kwargs: Any
-    ) -> Optional[GenericIdentifier]:  # Done
+    ) -> Optional[AnyGenericIdentifier]:  # Done
         """Remove features that do not contain `ranks`
 
         Args:
@@ -415,7 +415,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         ].index.values
 
     def get_subset(
-        self, rids: Optional[GenericIdentifier] = None, *args, **kwargs: Any
+        self, rids: Optional[AnyGenericIdentifier] = None, *args, **kwargs: Any
     ) -> "RepTaxonomy":
         """Get subset of the :class:`.RepTaxonomy`.
 
