@@ -3,21 +3,17 @@ import os
 
 
 def make_ott_taxonomy(
-        reference_taxonomy_path: str,
-        new_taxonomy_path: str,
-        otl_reftax_src: str,
-        jython_jar_src: str,
-        json_simple_jar_src: str
+    reference_taxonomy_path: str, new_taxonomy_path: str, otl_reftax_src: str
 ) -> bool:
     """Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life clades.
 
     Args:
-        reference_taxonomy_path: Path to reference taxonomy directory. `Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
+        reference_taxonomy_path: Path to reference taxonomy directory. `
+            Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
+            Run Make to compile OTT Jython files.
         new_taxonomy_path: Path to output taxonomy directory.
-        otl_reftax_src: Path to OTL reference-taxonomy tool('smasher')'s source code. `Link to repo <https://github.com/OpenTreeOfLife/reference-taxonomy>`_
-        jython_jar_src: Path to 'jython-standalone-[version].jar' file. `Download Jython Standalone <https://www.jython.org/download.html>`_
-        json_simple_jar_src: Path to 'json_simple-[version].jar' file. `Download Json Simple <https://code.google.com/archive/p/json-simple/downloads>`_
-
+        otl_reftax_src: Path to OTL reference-taxonomy tool('smasher')'s source code.
+            `Link to repo <https://github.com/OpenTreeOfLife/reference-taxonomy>`_
     Returns:
         Result status
 
@@ -25,15 +21,10 @@ def make_ott_taxonomy(
 
     if not os.path.isdir(otl_reftax_src):
         raise NotADirectoryError("Parameter `otl_reftax_src` must be a directory.")
-    if not os.path.isfile(jython_jar_src):
-        raise FileNotFoundError('File `jython_jar_src` was not found. ')
-    if not os.path.isfile(json_simple_jar_src):
-        raise FileNotFoundError('File `json_simple_jar_src` was not found. ')
     local_ott_path = os.path.abspath(otl_reftax_src)
-    jython_jar_path = os.path.abspath(jython_jar_src) #local_ott_path + "/lib/jython-standalone-2.7.0.jar"
-    json_simple_jar_path = os.path.abspath(json_simple_jar_src)
-    sys_path_suffix_list = ["", "/util", "/lib"]
-    sys_path_list = [local_ott_path + suffix for suffix in sys_path_suffix_list] + [json_simple_jar_path, jython_jar_path]
+    jython_jar_path = local_ott_path + "/lib/jython-standalone-2.7.0.jar"
+    sys_path_suffix_list = ["", "/util", "/lib", "/lib/json-simple-1.1.1.jar"]
+    sys_path_list = [local_ott_path + suffix for suffix in sys_path_suffix_list]
     jythonpath_env = ":".join(sys_path_list)
     sys_path_list_repr = repr(sys_path_list)
     javaflags = "-Xmx14G"
@@ -42,7 +33,6 @@ def make_ott_taxonomy(
     gate_str = "popen//python={0}//chdir={1}//env:PWD={1}//env:JYTHONPATH={2}".format(
         java_exec, local_ott_path, jythonpath_env
     )
-    print(gate_str)
 
     ret = False
     reference_taxonomy_path = (
@@ -58,7 +48,9 @@ def make_ott_taxonomy(
     if not os.path.isdir(new_taxonomy_path):
         os.mkdir(new_taxonomy_path)
     if not os.path.isdir(reference_taxonomy_path):
-        raise NotADirectoryError('Parameter `reference_taxonomy_path` must be a directory.')
+        raise NotADirectoryError(
+            "Parameter `reference_taxonomy_path` must be a directory."
+        )
     if reference_taxonomy_path[-1] != "/" and new_taxonomy_path[-1] != "/":
         jython_channel_out = []
 
