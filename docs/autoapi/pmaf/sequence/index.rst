@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.MultiSequenceMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence.MultiSequence
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: buckle_for_alignment(self)
@@ -135,9 +132,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.MultiSequenceStreamBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence.MultiSequenceStream
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: accession_numbers(self)
@@ -220,9 +214,6 @@ Classes
 .. py:class:: Nucleotide(sequence, name=None, metadata=None, mode='DNA', **kwargs)
 
    Bases: :class:`pmaf.sequence._metakit.NucleotideMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.sequence.Nucleotide
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

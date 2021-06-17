@@ -24,9 +24,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._metakit.SpecificationBackboneMetabase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: factor(self)
@@ -70,9 +67,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.specs._metakit.SpecificationBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._metakit.SpecificationCompositeMetabase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: specs(self)
@@ -83,9 +77,6 @@ Classes
 .. py:class:: SpecificationPrimitiveMetabase(*args, **kwargs)
 
    Bases: :class:`pmaf.pipe.specs._metakit.SpecificationBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._metakit.SpecificationPrimitiveMetabase
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

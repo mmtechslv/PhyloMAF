@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._base.DockerBase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: count(self)

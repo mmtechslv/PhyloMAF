@@ -18,29 +18,37 @@ Classes
 
 
 
-.. py:class:: TreeBuilderFastTree2(cache_dir=None)
+.. py:class:: TreeBuilderFastTree2(bin_fp: Optional[str] = 'fasttree', cache_dir: Optional[str] = None)
 
    Bases: :class:`pmaf.phylo.builders._metakit.TreeBuilderBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.phylo.builders.fasttree2._fasttree2.TreeBuilderFastTree2
-      :parts: 1
+   Phylogenetic *de-novo* tree builder
 
-   Initialize self.  See help(type(self)) for accurate signature.
+   FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. :cite:`priceFastTreeApproximatelyMaximumLikelihood2010`
 
-   .. method:: build(self, alignment, **kwargs)
+   :param bin_fp: Path to 'fasttree' executable or None for default.
+   :param cache_dir: Cache directory to use or None for seamless caching.
 
-      :param alignment:
-      :param \*\*kwargs:
+   .. method:: build(self, alignment: MultiSequenceMetabase, **kwargs: Any) -> PhyloTree
 
-      Returns:
+      Constructs a *de-novo* phylogenetic tree from MSA(param `alignment`).
+
+      :param alignment: MSA alignment of representative sequences
+      :param \*\*kwargs: Compatibility
+
+      :returns: Phylogenetic tree with estimated branches
 
 
    .. method:: last_error(self)
       :property:
 
+      Latest Error
+
 
    .. method:: last_out(self)
       :property:
+
+      Latest Output
 
 
 

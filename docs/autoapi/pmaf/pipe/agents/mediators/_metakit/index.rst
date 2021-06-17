@@ -26,9 +26,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators._metakit.MediatorBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators._metakit.MediatorAccessionMetabase
-      :parts: 1
-
    .. method:: get_accession_by_identifier(self, docker, factor, **kwargs)
       :abstractmethod:
 
@@ -53,9 +50,6 @@ Classes
 .. py:class:: MediatorBackboneMetabase
 
    Bases: :class:`abc.ABC`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators._metakit.MediatorBackboneMetabase
-      :parts: 1
 
    .. method:: client(self)
       :property:
@@ -91,9 +85,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators._metakit.MediatorBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators._metakit.MediatorPhylogenyMetabase
-      :parts: 1
-
    .. method:: get_identifier_by_phylogeny(self, docker, factor, **kwargs)
       :abstractmethod:
 
@@ -119,9 +110,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators._metakit.MediatorBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators._metakit.MediatorSequenceMetabase
-      :parts: 1
-
    .. method:: get_identifier_by_sequence(self, docker, factor, **kwargs)
       :abstractmethod:
 
@@ -146,9 +134,6 @@ Classes
 .. py:class:: MediatorTaxonomyMetabase
 
    Bases: :class:`pmaf.pipe.agents.mediators._metakit.MediatorBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators._metakit.MediatorTaxonomyMetabase
-      :parts: 1
 
    .. method:: get_identifier_by_taxonomy(self, docker, factor, **kwargs)
       :abstractmethod:

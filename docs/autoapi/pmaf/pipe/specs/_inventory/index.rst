@@ -38,9 +38,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.specs._inventory._primitive._base.SpecificationPrimitiveBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecIA
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: inlet(self)
@@ -62,9 +59,6 @@ Functions
 .. py:class:: SpecIP(mediator, factor, **kwargs)
 
    Bases: :class:`pmaf.pipe.specs._inventory._primitive._base.SpecificationPrimitiveBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecIP
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -88,9 +82,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.specs._inventory._primitive._base.SpecificationPrimitiveBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecIS
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: inlet(self)
@@ -112,9 +103,6 @@ Functions
 .. py:class:: SpecIT(mediator, factor, **kwargs)
 
    Bases: :class:`pmaf.pipe.specs._inventory._primitive._base.SpecificationPrimitiveBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecIT
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -138,9 +126,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.specs._inventory._primitive._base.SpecificationPrimitiveBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecTI
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: inlet(self)
@@ -163,9 +148,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.specs._inventory._composite._base.SpecificationCompositeBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecTP
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
@@ -173,18 +155,12 @@ Functions
 
    Bases: :class:`pmaf.pipe.specs._inventory._composite._base.SpecificationCompositeBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecTS
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 
 .. py:class:: SpecTSBP(*args, tree_builder, **kwargs)
 
    Bases: :class:`pmaf.pipe.specs._inventory._composite._base.SpecificationCompositeBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecTSBP
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -196,9 +172,6 @@ Functions
 .. py:class:: SpecTSPBP(*args, branch_estimator, **kwargs)
 
    Bases: :class:`pmaf.pipe.specs._inventory._composite._base.SpecificationCompositeBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory.SpecTSPBP
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

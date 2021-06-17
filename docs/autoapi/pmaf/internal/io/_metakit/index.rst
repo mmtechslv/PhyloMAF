@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.internal.io._metakit.FileIOBackboneMetabase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: src(self)

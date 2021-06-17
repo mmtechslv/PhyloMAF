@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._tree.RepPhylogeny
-      :parts: 1
-
    An `essential` class for handling phylogeny data.
 
    Constructor for :class:`.RepPhylogeny`

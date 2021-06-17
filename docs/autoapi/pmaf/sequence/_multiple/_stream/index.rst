@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.MultiSequenceStreamBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._multiple._stream.MultiSequenceStream
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: accession_numbers(self)

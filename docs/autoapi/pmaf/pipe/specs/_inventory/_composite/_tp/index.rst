@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.specs._inventory._composite._base.SpecificationCompositeBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory._composite._tp.SpecTP
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
 

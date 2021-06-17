@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators._metakit.MediatorBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators._base.MediatorBase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: client(self)

@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators.local._base.MediatorLocalBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorSequenceMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.local._components._seq_mixin.MediatorLocalSequenceMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: SEQ_EXTRACT_METHODS

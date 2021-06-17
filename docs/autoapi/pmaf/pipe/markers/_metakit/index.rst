@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.markers._metakit.MarkerBackboneMetabase
-      :parts: 1
-
    .. method:: compute(self)
       :abstractmethod:
 

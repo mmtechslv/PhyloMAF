@@ -26,9 +26,6 @@ Classes
 
    Bases: :class:`pmaf.database._core._tax_base.DatabaseTaxonomyMixin`, :class:`pmaf.database._core._seq_base.DatabaseSequenceMixin`, :class:`pmaf.database._core._phy_base.DatabasePhylogenyMixin`, :class:`pmaf.database._core._acs_base.DatabaseAccessionMixin`, :class:`pmaf.database._core._base.DatabaseBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._manifest.DatabaseGTDB
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: DATABASE_NAME
@@ -65,9 +62,6 @@ Classes
 .. py:class:: DatabaseGreengenes(*args, **kwargs)
 
    Bases: :class:`pmaf.database._core._tax_base.DatabaseTaxonomyMixin`, :class:`pmaf.database._core._seq_base.DatabaseSequenceMixin`, :class:`pmaf.database._core._phy_base.DatabasePhylogenyMixin`, :class:`pmaf.database._core._acs_base.DatabaseAccessionMixin`, :class:`pmaf.database._core._base.DatabaseBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.database._manifest.DatabaseGreengenes
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -106,9 +100,6 @@ Classes
 
    Bases: :class:`pmaf.database._core._tax_base.DatabaseTaxonomyMixin`, :class:`pmaf.database._core._phy_base.DatabasePhylogenyMixin`, :class:`pmaf.database._core._acs_base.DatabaseAccessionMixin`, :class:`pmaf.database._core._base.DatabaseBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._manifest.DatabaseOTL
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: DATABASE_NAME
@@ -144,9 +135,6 @@ Classes
 .. py:class:: DatabaseSILVA(*args, **kwargs)
 
    Bases: :class:`pmaf.database._core._tax_base.DatabaseTaxonomyMixin`, :class:`pmaf.database._core._seq_base.DatabaseSequenceMixin`, :class:`pmaf.database._core._phy_base.DatabasePhylogenyMixin`, :class:`pmaf.database._core._acs_base.DatabaseAccessionMixin`, :class:`pmaf.database._core._base.DatabaseBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.database._manifest.DatabaseSILVA
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -184,9 +172,6 @@ Classes
 .. py:class:: DatabaseUNITE(*args, **kwargs)
 
    Bases: :class:`pmaf.database._core._tax_base.DatabaseTaxonomyMixin`, :class:`pmaf.database._core._seq_base.DatabaseSequenceMixin`, :class:`pmaf.database._core._acs_base.DatabaseAccessionMixin`, :class:`pmaf.database._core._base.DatabaseBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.database._manifest.DatabaseUNITE
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

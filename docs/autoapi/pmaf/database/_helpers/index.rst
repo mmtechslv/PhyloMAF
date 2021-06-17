@@ -30,11 +30,17 @@ Functions
    Returns:
 
 
-.. function:: ott_maker(reference_taxonomy_path, new_taxonomy_path)
+.. function:: ott_maker(reference_taxonomy_path: str, new_taxonomy_path: str, otl_reftax_src: str) -> bool
 
-   :param reference_taxonomy_path:
-   :param new_taxonomy_path:
+   Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life clades.
 
-   Returns:
+   :param reference_taxonomy_path: Path to reference taxonomy directory. `
+                                   Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
+                                   Run Make to compile OTT Jython files.
+   :param new_taxonomy_path: Path to output taxonomy directory.
+   :param otl_reftax_src: Path to OTL reference-taxonomy tool('smasher')'s source code.
+                          `Link to repo <https://github.com/OpenTreeOfLife/reference-taxonomy>`_
+
+   :returns: Result status
 
 

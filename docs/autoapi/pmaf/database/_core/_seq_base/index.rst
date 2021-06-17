@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.database._metakit.DatabaseSequenceMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._core._seq_base.DatabaseSequenceMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_alignment_by_rid(self, ids=None, iterator=True, like='multiseq', chunksize=300)

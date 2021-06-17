@@ -45,9 +45,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerAccessionMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.DockerAccessionMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: sources(self)
@@ -67,9 +64,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerIdentifierMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.DockerIdentifierMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: to_array(self, indices=None, exclude_missing=False, unique=False)
@@ -85,9 +79,6 @@ Functions
 .. py:class:: DockerPhylogenyMedium(trees, ignore_tips=False, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerPhylogenyMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.DockerPhylogenyMedium
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -120,9 +111,6 @@ Functions
 .. py:class:: DockerSequenceMedium(sequences, mode='DNA', aligned=None, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerSequenceMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.DockerSequenceMedium
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -162,9 +150,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerTaxonomyMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.DockerTaxonomyMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_avail_ranks(self, indices=None)
@@ -187,9 +172,6 @@ Functions
 .. py:class:: Miner(*args, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.miners._base.MinerBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.Miner
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -237,9 +219,6 @@ Functions
 .. py:class:: NCBIMediator(entrez, seq_method='asis', seq_aligner=None, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.mediators._base.MediatorBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorSequenceMetabase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorTaxonomyMetabase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorAccessionMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.NCBIMediator
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

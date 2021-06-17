@@ -30,9 +30,6 @@ Functions
 
    Bases: :class:`pmaf.remote._entrez._metakit.EntrezBackboneMetabase`, :class:`pmaf.remote._entrez._base_blocks.IdiomaticBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.remote._entrez._base.EntrezBase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: check_init(self)

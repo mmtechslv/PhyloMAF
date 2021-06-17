@@ -2,13 +2,13 @@ import warnings
 warnings.simplefilter('ignore', category=FutureWarning)
 from skbio import TabularMSA
 from skbio.sequence import GrammaredSequence
-from io import StringIO,IOBase
+from io import StringIO, IOBase
 from shutil import copyfileobj
 import copy
 import numpy as np
 from pmaf.internal.io._seq import SequenceIO
 from pmaf.sequence._sequence._nucleotide import Nucleotide
-from pmaf.sequence._metakit import MultiSequenceMetabase,NucleotideMetabase
+from pmaf.sequence._metakit import MultiSequenceMetabase, NucleotideMetabase
 from pmaf.sequence._shared import validate_seq_mode
 
 class MultiSequence(MultiSequenceMetabase):

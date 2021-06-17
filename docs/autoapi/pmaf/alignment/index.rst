@@ -20,9 +20,6 @@ Classes
 
    Bases: :class:`pmaf.alignment._multiple._metakit.MultiSequenceAlignerBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.alignment.MultiSequenceAligner
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: align(self, input, **kwargs)

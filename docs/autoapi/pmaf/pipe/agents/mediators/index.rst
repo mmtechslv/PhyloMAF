@@ -38,9 +38,6 @@ Functions
 
    Bases: :class:`pmaf.pipe.agents.mediators._base.MediatorBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorSequenceMetabase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorTaxonomyMetabase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorAccessionMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.NCBIMediator
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: SEQ_EXTRACT_METHODS

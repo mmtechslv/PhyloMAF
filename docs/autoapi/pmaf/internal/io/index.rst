@@ -20,9 +20,6 @@ Classes
 
    Bases: :class:`pmaf.internal.io._metakit.FileIOBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.internal.io.SequenceIO
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: pull_parser(self, parser='simple', **kwargs)

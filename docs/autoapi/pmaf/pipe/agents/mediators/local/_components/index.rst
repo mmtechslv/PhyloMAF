@@ -25,9 +25,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators.local._base.MediatorLocalBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorAccessionMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.local._components.MediatorLocalAccessionMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: ACS_FILTER_METHODS
@@ -59,9 +56,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators.local._base.MediatorLocalBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorPhylogenyMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.local._components.MediatorLocalPhylogenyMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: PHYLO_EXTRACT_METHODS
@@ -92,9 +86,6 @@ Classes
 .. py:class:: MediatorLocalSequenceMixin(database, seq_method='refseq', seq_subs=False, seq_aligner=None, seq_force_align=False, seq_refrep='tid', seq_filter_method=None, seq_filter_value=None, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.mediators.local._base.MediatorLocalBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorSequenceMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.local._components.MediatorLocalSequenceMixin
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -131,9 +122,6 @@ Classes
 .. py:class:: MediatorLocalTaxonomyMixin(database, tax_rank_tolerance=None, tax_corr_method='lineage', tax_fuzzy_cutoff=95, tax_fuzzy_mode=False, tax_format=None, tax_refrep='tid', **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.mediators.local._base.MediatorLocalBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorTaxonomyMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.local._components.MediatorLocalTaxonomyMixin
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

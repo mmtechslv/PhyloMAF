@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.mediators.local._base.MediatorLocalBase`, :class:`pmaf.pipe.agents.mediators._metakit.MediatorAccessionMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.mediators.local._components._acs_mixin.MediatorLocalAccessionMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. attribute:: ACS_FILTER_METHODS

@@ -18,56 +18,17 @@ Functions
    pmaf.database._helpers._ott_maker.make_ott_taxonomy
 
 
-.. data:: gate_str
-   
+.. function:: make_ott_taxonomy(reference_taxonomy_path: str, new_taxonomy_path: str, otl_reftax_src: str) -> bool
 
-   
+   Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life clades.
 
-.. data:: java_exec
-   
+   :param reference_taxonomy_path: Path to reference taxonomy directory. `
+                                   Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
+                                   Run Make to compile OTT Jython files.
+   :param new_taxonomy_path: Path to output taxonomy directory.
+   :param otl_reftax_src: Path to OTL reference-taxonomy tool('smasher')'s source code.
+                          `Link to repo <https://github.com/OpenTreeOfLife/reference-taxonomy>`_
 
-   
-
-.. data:: javaflags
-   :annotation: = -Xmx14G
-
-   
-
-.. data:: jython_jar_path
-   
-
-   
-
-.. data:: jythonpath_env
-   
-
-   
-
-.. data:: local_ott_path
-   
-
-   
-
-.. data:: sys_path_list
-   
-
-   
-
-.. data:: sys_path_list_repr
-   
-
-   
-
-.. data:: sys_path_suffix_list
-   :annotation: = ['', '/util', '/lib', '/lib/json-simple-1.1.1.jar']
-
-   
-
-.. function:: make_ott_taxonomy(reference_taxonomy_path, new_taxonomy_path)
-
-   :param reference_taxonomy_path:
-   :param new_taxonomy_path:
-
-   Returns:
+   :returns: Result status
 
 

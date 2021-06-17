@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerTaxonomyMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums._tax_medium.DockerTaxonomyMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_avail_ranks(self, indices=None)

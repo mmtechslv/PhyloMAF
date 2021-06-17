@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.NucleotideMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._sequence._nucleotide.Nucleotide
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: buckle_by_uid(self, uid)

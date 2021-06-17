@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome._metakit.BiomeBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome._base.BiomeBackboneBase
-      :parts: 1
-
    Base class for all biome classes.
 
    Constructor for `essentials` base

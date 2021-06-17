@@ -20,9 +20,6 @@ Classes
 
    Bases: :class:`pmaf.phylo.tree._metakit.PhyloTreeMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.phylo.tree.PhyloTree
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: annotate_nodes_by_map(self, node_mapping, only_tips=False)

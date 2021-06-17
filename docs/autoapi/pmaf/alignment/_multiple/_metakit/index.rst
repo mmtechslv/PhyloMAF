@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.alignment._multiple._metakit.MultiSequenceAlignerBackboneMetabase
-      :parts: 1
-
    .. method:: align(self, input, **kwargs)
       :abstractmethod:
 

@@ -10,7 +10,8 @@ from pmaf.internal._extensions._cpython._pmafc_extension._helper import (
 )
 from pmaf.internal._shared import get_stats_for_sequence_record_df
 from pmaf.biome.essentials._base import EssentialBackboneBase
-from pmaf.sequence import MultiSequence, Nucleotide
+from pmaf.sequence._sequence._nucleotide import Nucleotide
+from pmaf.sequence._multiple._multiple import MultiSequence
 from typing import Union, Optional, Tuple, Any
 from pmaf.internal._typing import GenericIdentifier, Mapper
 

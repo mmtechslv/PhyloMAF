@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerIdentifierMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums._id_medium.DockerIdentifierMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: to_array(self, indices=None, exclude_missing=False, unique=False)

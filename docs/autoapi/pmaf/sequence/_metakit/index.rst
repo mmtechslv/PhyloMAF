@@ -25,9 +25,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.SequenceBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._metakit.MultiSequenceMetabase
-      :parts: 1
-
    .. method:: buckle_for_alignment(self)
       :abstractmethod:
 
@@ -104,9 +101,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._metakit.MultiSequenceStreamBackboneMetabase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: accession_numbers(self)
@@ -177,9 +171,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.SequenceBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._metakit.NucleotideMetabase
-      :parts: 1
-
    .. method:: buckle_by_uid(self, tmp_uid)
       :abstractmethod:
 
@@ -237,9 +228,6 @@ Classes
 .. py:class:: SequenceBackboneMetabase
 
    Bases: :class:`abc.ABC`
-
-   .. autoapi-inheritance-diagram:: pmaf.sequence._metakit.SequenceBackboneMetabase
-      :parts: 1
 
    .. method:: get_string_as(self, **kwargs)
       :abstractmethod:

@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.miners._metakit.MinerBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.miners._base.MinerBase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: factor(self)

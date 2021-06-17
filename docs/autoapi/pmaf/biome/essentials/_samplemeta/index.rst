@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialSampleMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._samplemeta.SampleMetadata
-      :parts: 1
-
    An `essential` class for handling sample metadata.
 
    Constructor for :class:`.SampleMetadata`

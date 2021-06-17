@@ -13,6 +13,7 @@ Welcome to PhyloMAF's documentation!
    Recent Changes <changes>
 
    API Reference <autoapi/pmaf/index>
+   Bibliography <bibliography>
     
 
 Indices and tables

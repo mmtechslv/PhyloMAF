@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.specs._base.SpecificationBase`, :class:`pmaf.pipe.specs._metakit.SpecificationPrimitiveMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.specs._inventory._primitive._base.SpecificationPrimitiveBase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: factor(self)

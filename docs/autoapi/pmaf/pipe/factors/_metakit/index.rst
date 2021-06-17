@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.factors._metakit.FactorBackboneMetabase
-      :parts: 1
-
    .. method:: externals(self)
       :property:
 

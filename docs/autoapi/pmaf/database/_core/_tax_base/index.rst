@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.database._metakit.DatabaseTaxonomyMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._core._tax_base.DatabaseTaxonomyMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_lineage_by_rid(self, ids=None, missing_rank=False, desired_ranks=False, drop_ranks=False)

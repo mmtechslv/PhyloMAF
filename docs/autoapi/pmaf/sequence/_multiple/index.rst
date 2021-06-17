@@ -23,9 +23,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.MultiSequenceMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._multiple.MultiSequence
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: buckle_for_alignment(self)
@@ -135,9 +132,6 @@ Classes
 .. py:class:: MultiSequenceStream(filepath=None, expected_rows=1000, mode='DNA', aligned=False, name=None, compressor=False)
 
    Bases: :class:`pmaf.sequence._metakit.MultiSequenceStreamBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.sequence._multiple.MultiSequenceStream
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

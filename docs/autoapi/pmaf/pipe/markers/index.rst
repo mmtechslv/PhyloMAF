@@ -20,9 +20,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.markers._metakit.MarkerBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.markers.Marker
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: compute(self)

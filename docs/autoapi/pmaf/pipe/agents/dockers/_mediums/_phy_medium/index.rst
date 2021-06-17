@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerPhylogenyMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums._phy_medium.DockerPhylogenyMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_node_names(self, indices=None, dtype=None, include_missing=False)

@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`, :class:`pmaf.biome.essentials._metakit.EssentialSampleMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._frequency.FrequencyTable
-      :parts: 1
-
    An essential class for handling frequency data.
 
    Constructor for :class:`.FrequencyTable`

@@ -22,7 +22,4 @@ Classes
 
    Bases: :class:`pmaf.pipe.factors._metakit.FactorBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.factors._base.FactorBase
-      :parts: 1
-
 

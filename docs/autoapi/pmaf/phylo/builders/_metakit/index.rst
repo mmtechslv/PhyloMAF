@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.phylo.builders._metakit.TreeBuilderBackboneMetabase
-      :parts: 1
-
    .. method:: build(self, multiseq, **kwargs)
       :abstractmethod:
 

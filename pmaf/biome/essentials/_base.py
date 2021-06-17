@@ -1,7 +1,7 @@
 from ._metakit import EssentialBackboneMetabase, EssentialControllerBackboneMetabse
 from pmaf.biome._base import BiomeBackboneBase
-from typing import Union, Any
-from pmaf.internal._typing import GenericIdentifier, Optional
+from typing import Union, Any, Optional
+from pmaf.internal._typing import GenericIdentifier
 
 
 class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):

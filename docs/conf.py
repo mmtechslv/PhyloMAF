@@ -42,14 +42,14 @@ extensions = [
     #'sphinx_automodapi.smart_resolver',
     "autoapi.extension",
     "sphinx.ext.coverage",
-    "sphinx.ext.inheritance_diagram",
     #'sphinx.ext.autodoc.typehints',
     #'sphinx_autodoc_typehints',
     "sphinx-prompt",
     "sphinx_copybutton",
     "sphinx_last_updated_by_git",
     'sphinx_git',
-    "hoverxref.extension",
+    'hoverxref.extension',
+    'sphinxcontrib.bibtex',
     "sphinx_rtd_theme",
 ]
 
@@ -120,7 +120,6 @@ autoapi_options = [
     "members",
     "undoc-members",
     "show-inheritance",
-    'show-inheritance-diagram',
     "show-module-summary",
     "imported-members",
 ]
@@ -144,3 +143,10 @@ hoverxref_role_types = {
     "mod": "tooltip",  # for Python Sphinx Domain
     "class": "tooltip",  # for Python Sphinx Domain
 }
+
+# Bibtex Configuration
+bibtex_bibfiles = ['refs.bib']
+
+#Autosectionlabel configs
+autosectionlabel_maxdepth = 1
+autosectionlabel_prefix_document = True

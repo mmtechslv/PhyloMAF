@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._metakit.EssentialControllerBackboneMetabse`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._controller.EssentialsController
-      :parts: 1
-
    Controller for `essentials` working in hand with :class:`~pmaf.biome.assembly.BiomeAssembly`.
 
    Controller constructor

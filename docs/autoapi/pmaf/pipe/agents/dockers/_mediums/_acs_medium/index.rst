@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerAccessionMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums._acs_medium.DockerAccessionMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: sources(self)

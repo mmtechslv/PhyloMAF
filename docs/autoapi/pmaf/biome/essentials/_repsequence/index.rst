@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._repsequence.RepSequence
-      :parts: 1
-
    An `essential` class for handling feature sequence data.
 
    Constructor for :class:`.RepSequence`

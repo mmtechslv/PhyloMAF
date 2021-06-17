@@ -23,8 +23,8 @@ from os import path
 import pandas as pd
 import numpy as np
 import biom
-from typing import Union, Sequence, Tuple, Any
-from pmaf.internal._typing import GenericIdentifier, Mapper, Optional
+from typing import Union, Sequence, Tuple, Any, Optional
+from pmaf.internal._typing import GenericIdentifier, Mapper
 
 
 class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):

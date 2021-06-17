@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.sequence._metakit.MultiSequenceMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.sequence._multiple._multiple.MultiSequence
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: buckle_for_alignment(self)

@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome._metakit.BiomeFeatureMetabase`, :class:`pmaf.biome._metakit.BiomeSampleMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.survey._metakit.BiomeSurveyBackboneMetabase
-      :parts: 1
-
    .. method:: assemblies(self)
       :property:
 

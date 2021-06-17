@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.remote._entrez._metakit.EntrezBackboneMetabase
-      :parts: 1
-
    .. method:: get_taxid_by_query(self, query)
       :abstractmethod:
 

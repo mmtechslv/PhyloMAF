@@ -5,8 +5,8 @@ from pmaf.biome.essentials._metakit import (
     EssentialBackboneMetabase,
 )
 import numpy as np
-from typing import List, Any
-from pmaf.internal._typing import GenericIdentifier, Optional
+from typing import List, Any, Optional
+from pmaf.internal._typing import GenericIdentifier
 
 
 class EssentialsController(EssentialControllerBackboneMetabse):

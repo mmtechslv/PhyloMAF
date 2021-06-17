@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.database._metakit.DatabasePhylogenyMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._core._phy_base.DatabasePhylogenyMixin
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: infer_topology_by_rid(self, ids)

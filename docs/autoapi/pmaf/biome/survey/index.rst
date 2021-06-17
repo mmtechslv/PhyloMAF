@@ -20,9 +20,6 @@ Classes
 
    Bases: :class:`pmaf.biome._base.BiomeBackboneBase`, :class:`pmaf.biome.survey._metakit.BiomeSurveyBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.survey.BiomeSurvey
-      :parts: 1
-
    Assembly-like Survey class for merging instances of :class:`~pmaf.biome.assembly._assembly.BiomeAssembly`
 
    This class performs merging/pooling of _multiple independent studies

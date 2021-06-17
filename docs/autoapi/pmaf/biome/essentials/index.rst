@@ -33,9 +33,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`, :class:`pmaf.biome.essentials._metakit.EssentialSampleMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials.FrequencyTable
-      :parts: 1
-
    An essential class for handling frequency data.
 
    Constructor for :class:`.FrequencyTable`
@@ -183,9 +180,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials.RepPhylogeny
-      :parts: 1
-
    An `essential` class for handling phylogeny data.
 
    Constructor for :class:`.RepPhylogeny`
@@ -287,9 +281,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials.RepSequence
-      :parts: 1
-
    An `essential` class for handling feature sequence data.
 
    Constructor for :class:`.RepSequence`
@@ -346,9 +337,6 @@ Classes
 .. py:class:: RepTaxonomy(taxonomy: Union[pd.DataFrame, pd.Series, str], taxonomy_columns: Union[str, int, Sequence[Union[int, str]]] = None, **kwargs: Any)
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials.RepTaxonomy
-      :parts: 1
 
    An `essential` class for handling taxonomy data.
 
@@ -516,9 +504,6 @@ Classes
 .. py:class:: SampleMetadata(samples: Union[pd.DataFrame, str], axis: Union[int, str] = 1, index_col: Union[str, int] = 0, **kwargs: Any)
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialSampleMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials.SampleMetadata
-      :parts: 1
 
    An `essential` class for handling sample metadata.
 

@@ -46,9 +46,6 @@ Classes
 
    Bases: :class:`pmaf.biome._base.BiomeBackboneBase`, :class:`pmaf.biome.assembly._metakit.BiomeAssemblyBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.BiomeAssembly
-      :parts: 1
-
    Assembly class for interconnecting and containing `essentials`
 
    Constructor for :class:`.BiomeAssembly`
@@ -151,9 +148,6 @@ Classes
 
    Bases: :class:`pmaf.biome._base.BiomeBackboneBase`, :class:`pmaf.biome.survey._metakit.BiomeSurveyBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.BiomeSurvey
-      :parts: 1
-
    Assembly-like Survey class for merging instances of :class:`~pmaf.biome.assembly._assembly.BiomeAssembly`
 
    This class performs merging/pooling of _multiple independent studies
@@ -236,9 +230,6 @@ Classes
 .. py:class:: FrequencyTable(frequency: Union[pd.DataFrame, str], skipcols: Union[Sequence[Union[str, int]], str, int] = None, allow_nan: bool = False, **kwargs)
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`, :class:`pmaf.biome.essentials._metakit.EssentialSampleMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.FrequencyTable
-      :parts: 1
 
    An essential class for handling frequency data.
 
@@ -387,9 +378,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.RepPhylogeny
-      :parts: 1
-
    An `essential` class for handling phylogeny data.
 
    Constructor for :class:`.RepPhylogeny`
@@ -491,9 +479,6 @@ Classes
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.RepSequence
-      :parts: 1
-
    An `essential` class for handling feature sequence data.
 
    Constructor for :class:`.RepSequence`
@@ -550,9 +535,6 @@ Classes
 .. py:class:: RepTaxonomy(taxonomy: Union[pd.DataFrame, pd.Series, str], taxonomy_columns: Union[str, int, Sequence[Union[int, str]]] = None, **kwargs: Any)
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.RepTaxonomy
-      :parts: 1
 
    An `essential` class for handling taxonomy data.
 
@@ -720,9 +702,6 @@ Classes
 .. py:class:: SampleMetadata(samples: Union[pd.DataFrame, str], axis: Union[int, str] = 1, index_col: Union[str, int] = 0, **kwargs: Any)
 
    Bases: :class:`pmaf.biome.essentials._base.EssentialBackboneBase`, :class:`pmaf.biome.essentials._metakit.EssentialSampleMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.SampleMetadata
-      :parts: 1
 
    An `essential` class for handling sample metadata.
 

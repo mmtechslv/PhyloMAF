@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.miners._metakit.MinerBackboneMetabase
-      :parts: 1
-
    .. method:: factor(self)
       :property:
 

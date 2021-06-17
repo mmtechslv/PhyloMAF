@@ -1,6 +1,6 @@
 from ._metakit import BiomeBackboneMetabase, BiomeFeatureMetabase, BiomeSampleMetabase
-from typing import Any
-from pmaf.internal._typing import Optional, Shape
+from typing import Any, Optional
+from pmaf.internal._typing import Shape
 
 
 class BiomeBackboneBase(BiomeBackboneMetabase):

@@ -20,9 +20,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.factors._base.FactorBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.factors.Factor16S
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: externals(self)

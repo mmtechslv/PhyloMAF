@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.phylo.tree._metakit.PhyloTreeMetabase
-      :parts: 1
-
    .. method:: annotate_nodes_by_map(self, node_mapping, only_tips)
       :abstractmethod:
 

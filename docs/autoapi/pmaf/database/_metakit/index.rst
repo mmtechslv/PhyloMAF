@@ -26,9 +26,6 @@ Classes
 
    Bases: :class:`pmaf.database._metakit.DatabaseBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._metakit.DatabaseAccessionMetabase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_accession_by_rid(self, ids, **kwargs)
@@ -53,9 +50,6 @@ Classes
 .. py:class:: DatabaseBackboneMetabase(storage_hdf5_fp, **kwargs)
 
    Bases: :class:`abc.ABC`
-
-   .. autoapi-inheritance-diagram:: pmaf.database._metakit.DatabaseBackboneMetabase
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -185,9 +179,6 @@ Classes
 
    Bases: :class:`pmaf.database._metakit.DatabaseBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._metakit.DatabasePhylogenyMetabase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: infer_topology_by_rid(self, ids)
@@ -226,9 +217,6 @@ Classes
 .. py:class:: DatabaseSequenceMetabase(storage_hdf5_fp, **kwargs)
 
    Bases: :class:`pmaf.database._metakit.DatabaseBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.database._metakit.DatabaseSequenceMetabase
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -272,9 +260,6 @@ Classes
 .. py:class:: DatabaseTaxonomyMetabase(storage_hdf5_fp, **kwargs)
 
    Bases: :class:`pmaf.database._metakit.DatabaseBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.database._metakit.DatabaseTaxonomyMetabase
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

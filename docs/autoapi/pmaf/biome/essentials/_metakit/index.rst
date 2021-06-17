@@ -25,9 +25,6 @@ Classes
 
    Bases: :class:`pmaf.biome._metakit.BiomeBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._metakit.EssentialBackboneMetabase
-      :parts: 1
-
    .. method:: _repr_appendage__(self)
 
 
@@ -70,9 +67,6 @@ Classes
 .. py:class:: EssentialControllerBackboneMetabse
 
    Bases: :class:`abc.ABC`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._metakit.EssentialControllerBackboneMetabse
-      :parts: 1
 
    .. method:: count(self)
       :property:
@@ -126,15 +120,9 @@ Classes
 
    Bases: :class:`pmaf.biome._metakit.BiomeFeatureMetabase`, :class:`pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._metakit.EssentialFeatureMetabase
-      :parts: 1
-
 
 .. py:class:: EssentialSampleMetabase
 
    Bases: :class:`pmaf.biome._metakit.BiomeSampleMetabase`, :class:`pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.biome.essentials._metakit.EssentialSampleMetabase
-      :parts: 1
 
 

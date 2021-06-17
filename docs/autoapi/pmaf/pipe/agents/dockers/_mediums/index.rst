@@ -26,9 +26,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerAccessionMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums.DockerAccessionMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: sources(self)
@@ -48,9 +45,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerIdentifierMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums.DockerIdentifierMedium
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: to_array(self, indices=None, exclude_missing=False, unique=False)
@@ -66,9 +60,6 @@ Classes
 .. py:class:: DockerPhylogenyMedium(trees, ignore_tips=False, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerPhylogenyMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums.DockerPhylogenyMedium
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -101,9 +92,6 @@ Classes
 .. py:class:: DockerSequenceMedium(sequences, mode='DNA', aligned=None, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerSequenceMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums.DockerSequenceMedium
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 
@@ -142,9 +130,6 @@ Classes
 .. py:class:: DockerTaxonomyMedium(taxonomy, **kwargs)
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerTaxonomyMetabase`, :class:`pmaf.pipe.agents.dockers._base.DockerBase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._mediums.DockerTaxonomyMedium
-      :parts: 1
 
    Initialize self.  See help(type(self)) for accurate signature.
 

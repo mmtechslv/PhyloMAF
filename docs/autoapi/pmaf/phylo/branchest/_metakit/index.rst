@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`abc.ABC`
 
-   .. autoapi-inheritance-diagram:: pmaf.phylo.branchest._metakit.BranchEstimatorBackboneMetabase
-      :parts: 1
-
    .. method:: estimate(self, multiseq, tree, **kwargs)
       :abstractmethod:
 

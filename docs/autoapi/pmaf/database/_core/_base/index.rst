@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.database._metakit.DatabaseBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.database._core._base.DatabaseBase
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: avail_ranks(self)

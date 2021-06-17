@@ -27,9 +27,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._metakit.DockerAccessionMetabase
-      :parts: 1
-
    Interface for DockerAccession.
 
    .. method:: sources(self)
@@ -51,9 +48,6 @@ Classes
 .. py:class:: DockerBackboneMetabase
 
    Bases: :class:`abc.ABC`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase
-      :parts: 1
 
    Base interface for all Docker classes.
 
@@ -142,9 +136,6 @@ Classes
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._metakit.DockerIdentifierMetabase
-      :parts: 1
-
    Interface for DockerIdentifiers.
 
    .. method:: to_array(self, indices, exclude_missing)
@@ -162,9 +153,6 @@ Classes
 .. py:class:: DockerPhylogenyMetabase
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._metakit.DockerPhylogenyMetabase
-      :parts: 1
 
    Interface for DockerPhylogeny.
 
@@ -190,9 +178,6 @@ Classes
 .. py:class:: DockerSequenceMetabase
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._metakit.DockerSequenceMetabase
-      :parts: 1
 
    Interface for DockerSequence.
 
@@ -244,9 +229,6 @@ Classes
 .. py:class:: DockerTaxonomyMetabase
 
    Bases: :class:`pmaf.pipe.agents.dockers._metakit.DockerBackboneMetabase`
-
-   .. autoapi-inheritance-diagram:: pmaf.pipe.agents.dockers._metakit.DockerTaxonomyMetabase
-      :parts: 1
 
    Interface for DockerTaxonomy.
 

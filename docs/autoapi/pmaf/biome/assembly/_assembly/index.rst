@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.biome._base.BiomeBackboneBase`, :class:`pmaf.biome.assembly._metakit.BiomeAssemblyBackboneMetabase`
 
-   .. autoapi-inheritance-diagram:: pmaf.biome.assembly._assembly.BiomeAssembly
-      :parts: 1
-
    Assembly class for interconnecting and containing `essentials`
 
    Constructor for :class:`.BiomeAssembly`

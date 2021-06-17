@@ -22,9 +22,6 @@ Classes
 
    Bases: :class:`pmaf.remote._entrez._base.EntrezBase`
 
-   .. autoapi-inheritance-diagram:: pmaf.remote._entrez.Entrez
-      :parts: 1
-
    Initialize self.  See help(type(self)) for accurate signature.
 
    .. method:: get_chromosome_id_by_genome_id(self, genome_id)
