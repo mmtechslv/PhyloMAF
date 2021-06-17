@@ -29,22 +29,20 @@ def make_ott_taxonomy(
         raise FileNotFoundError('File `jython_jar_src` was not found. ')
     if not os.path.isfile(json_simple_jar_src):
         raise FileNotFoundError('File `json_simple_jar_src` was not found. ')
-    local_ott_path = (
-        os.path.abspath(otl_reftax_src)  # os.path.join(get_package_root(), '_externals', 'OTL')
-    )
+    local_ott_path = os.path.abspath(otl_reftax_src)
     jython_jar_path = os.path.abspath(jython_jar_src) #local_ott_path + "/lib/jython-standalone-2.7.0.jar"
     json_simple_jar_path = os.path.abspath(json_simple_jar_src)
     sys_path_suffix_list = ["", "/util", "/lib"]
     sys_path_list = [local_ott_path + suffix for suffix in sys_path_suffix_list] + [json_simple_jar_path, jython_jar_path]
     jythonpath_env = ":".join(sys_path_list)
     sys_path_list_repr = repr(sys_path_list)
-    print(sys_path_list_repr)
     javaflags = "-Xmx14G"
     java_exec = "java {} -jar {}".format(javaflags, jython_jar_path)
 
     gate_str = "popen//python={0}//chdir={1}//env:PWD={1}//env:JYTHONPATH={2}".format(
         java_exec, local_ott_path, jythonpath_env
     )
+    print(gate_str)
 
     ret = False
     reference_taxonomy_path = (
