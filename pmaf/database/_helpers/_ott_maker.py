@@ -57,67 +57,60 @@ def make_ott_taxonomy(
     )
     if not os.path.isdir(new_taxonomy_path):
         os.mkdir(new_taxonomy_path)
-    if os.path.isdir(reference_taxonomy_path):
-        if reference_taxonomy_path[-1] != "/" and new_taxonomy_path[-1] != "/":
-            jython_channel_out = []
+    if not os.path.isdir(reference_taxonomy_path):
+        raise NotADirectoryError('Parameter `reference_taxonomy_path` must be a directory.')
+    if reference_taxonomy_path[-1] != "/" and new_taxonomy_path[-1] != "/":
+        jython_channel_out = []
 
-            def jython_receiver(message):
-                """
+        def jython_receiver(message):
+            print(message)
+            jython_channel_out.append(message)
+            return
 
-                Args:
-                  message:
-
-                Returns:
-
-                """
-                print(message)
-                jython_channel_out.append(message)
-                return
-
-            gw = execnet.makegateway(gate_str)
-            jython_channel = gw.remote_exec(
-                """
-                                    channel.send('Preparing for ReAssembly')
-                                    import sys
-                                    sys.path.extend({0})
-                                    from org.opentreeoflife.taxa import Taxonomy
-                                    from org.opentreeoflife.taxa import Newick
-                                    from java.lang import System 
-                                    from java.io import PrintStream, OutputStream
-                                    oldOut = System.out
-                                    class NoOutputStream(OutputStream):
-                                        ''' '''
-                                        def write(self, b, off, len): pass
-                                    System.setOut(PrintStream(NoOutputStream()))
-                                    result = [] 
-                                    ott_path = '{1}/'
-                                    output_path = '{2}/'
-                                    tree_path = output_path + 'ott_tree.tre' 
-                                    channel.send('Loading OpenTreeOfLife Taxonomy')
-                                    ott_tax_all = Taxonomy.getTaxonomy(ott_path, 'ott_full')
-                                    channel.send('OTL taxonomy is loaded')
-                                    ott_tax = ott_tax_all.selectVisible('life')
-                                    channel.send('Hidden nodes are removed.')
-                                    metazoa = ott_tax.taxon('Metazoa', 'life')
-                                    insecta = ott_tax.taxon('Insecta', 'life')
-                                    metazoa_pruned = metazoa.prune()
-                                    channel.send('Metazoa Removal: '+('Success' if metazoa_pruned else 'Failed'))
-                                    insecta_pruned = insecta.prune()
-                                    channel.send('Insecta Removal: '+('Success' if insecta_pruned else 'Failed'))
-                                    ott_tax.dump(output_path, '|')
-                                    channel.send('Taxonomy was successfully saved.')
-                                    tree_string = ott_tax.toNewick(Newick.USE_IDS)
-                                    tree_nw = Taxonomy.openw(tree_path)
-                                    tree_nw.print(tree_string)
-                                    tree_nw.close()
-                                    channel.send('Newick tree was successfully saved.')
-                                    channel.send('End of ReAssembly')
-                                    """.format(
-                    sys_path_list_repr, reference_taxonomy_path, new_taxonomy_path
-                )
+        gw = execnet.makegateway(gate_str)
+        jython_channel = gw.remote_exec(
+            """
+                                channel.send('Preparing for ReAssembly')
+                                import sys
+                                sys.path.extend({0})
+                                from org.opentreeoflife.taxa import Taxonomy
+                                from org.opentreeoflife.taxa import Newick
+                                from java.lang import System 
+                                from java.io import PrintStream, OutputStream
+                                oldOut = System.out
+                                class NoOutputStream(OutputStream):
+                                    ''' '''
+                                    def write(self, b, off, len): pass
+                                System.setOut(PrintStream(NoOutputStream()))
+                                result = [] 
+                                ott_path = '{1}/'
+                                output_path = '{2}/'
+                                tree_path = output_path + 'ott_tree.tre' 
+                                channel.send('Loading OpenTreeOfLife Taxonomy')
+                                ott_tax_all = Taxonomy.getTaxonomy(ott_path, 'ott_full')
+                                channel.send('OTL taxonomy is loaded')
+                                ott_tax = ott_tax_all.selectVisible('life')
+                                channel.send('Hidden nodes are removed.')
+                                metazoa = ott_tax.taxon('Metazoa', 'life')
+                                insecta = ott_tax.taxon('Insecta', 'life')
+                                metazoa_pruned = metazoa.prune()
+                                channel.send('Metazoa Removal: '+('Success' if metazoa_pruned else 'Failed'))
+                                insecta_pruned = insecta.prune()
+                                channel.send('Insecta Removal: '+('Success' if insecta_pruned else 'Failed'))
+                                ott_tax.dump(output_path, '|')
+                                channel.send('Taxonomy was successfully saved.')
+                                tree_string = ott_tax.toNewick(Newick.USE_IDS)
+                                tree_nw = Taxonomy.openw(tree_path)
+                                tree_nw.print(tree_string)
+                                tree_nw.close()
+                                channel.send('Newick tree was successfully saved.')
+                                channel.send('End of ReAssembly')
+                                """.format(
+                sys_path_list_repr, reference_taxonomy_path, new_taxonomy_path
             )
-            jython_channel.setcallback(jython_receiver)
-            jython_channel.waitclose()
-            gw.exit()
-            ret = jython_channel_out
+        )
+        jython_channel.setcallback(jython_receiver)
+        jython_channel.waitclose()
+        gw.exit()
+        ret = jython_channel_out
     return ret
