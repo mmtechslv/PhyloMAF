@@ -13,8 +13,9 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../"))
+sys.path.insert(0, os.path.abspath("../.."))
 
+import pmaf
 
 # -- Project information -----------------------------------------------------
 
@@ -35,20 +36,17 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
+    'sphinx.ext.doctest',
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
     "sphinx.ext.autosummary",
     'sphinx.ext.extlinks',
     #"sphinx.ext.autosectionlabel",
-    #'sphinx_automodapi.automodapi',
-    #'sphinx_automodapi.smart_resolver',
-    #"autoapi.extension",
     #"sphinx.ext.coverage",
     'sphinx.ext.autodoc.typehints',
     #'sphinx_autodoc_typehints',
-    #"sphinx-prompt",
-    #"sphinx_copybutton",
-    #"sphinx_last_updated_by_git",
+    "sphinx-prompt",
+    "sphinx_copybutton",
     'sphinx_git',
     'hoverxref.extension',
     'sphinxcontrib.bibtex'
@@ -56,6 +54,7 @@ extensions = [
 
 # Napoleon Configs
 napoleon_google_docstring = True
+napoleon_include_init_with_doc = False
 napoleon_use_param = True
 napoleon_use_ivar = True
 
@@ -76,7 +75,7 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "tests"]
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -112,30 +111,11 @@ add_function_parentheses = True
 # unit titles (such as .. function::).
 add_module_names = False
 # This config enables processing of __init__ docstrings
-autoclass_content = "both"
+autoclass_content = "init"
 # Group members
 autodoc_member_order = "groupwise"
-# Autodoc options
-autoapi_options = [
-    "inherited-member",
-    "members",
-    "undoc-members",
-    "show-inheritance",
-    "show-module-summary",
-    "imported-members"
-]
-autoapi_dirs = ["../pmaf"]
-autoapi_root = 'api'
-autoapi_ignore = ["*_externals*", "*tests*"]
-autoapi_python_class_content = "both"
-autoapi_member_order = "groupwise"
-autodoc_typehints = "description"
-autoapi_add_toctree_entry = False # Add TOC manually
-autoapi_keep_files = True # Keep the source files after build.
-
-# Automodapi Configs
-numpydoc_show_class_members = False
-automodsumm_inherited_members = True
+# Autodoc Typehints
+autodoc_typehints = 'description'
 
 # Configurations for sphinx-hoverxref
 hoverxref_role_types = {
@@ -157,3 +137,11 @@ autosectionlabel_prefix_document = True
 html_theme_options = {'titles_only': True,
                       'prev_next_buttons_location': 'both'}
 
+def skip(app, what, name, obj, would_skip, options):
+    if name == "__init__":
+        return True
+    return would_skip
+
+def setup(app):
+    app.connect("autodoc-skip-member", skip)
+    

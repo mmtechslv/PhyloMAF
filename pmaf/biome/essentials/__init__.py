@@ -1,6 +1,7 @@
 """
 Essentials (:mod:`pmaf.biome.essentials`)
 =========================================
+
 .. currentmodule:: pmaf.biome.essentials
 
 This is primary module that contain `essentials` that work with biome data such as OTU-tables, :mod:`biom` files, representative OTU phylogeny, sequence, taxonomy etc.

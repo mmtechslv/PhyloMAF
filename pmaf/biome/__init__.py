@@ -1,15 +1,46 @@
-"""
-Module to work with microbiome data
+r"""
+Module Biome  (:mod:`pmaf.biome`)
 ===================================
 
-Module :mod:`~pmaf.biome` is responsible for processing and analysis of following types
-data:
+.. currentmodule:: pmaf.biome
 
-* OTU/ASV Taxonomydasdsa
-* OTU-tables with frequency/count data
-* Representative sequences of OTUs
-* Representative phylogenetic tree of OTUs
-* Sample metadata
+This Module :mod:`~pmaf.biome` is responsible for processing and analysis of data
+like OTU/ASV Taxonomy, OTU-tables with frequency/count data, Representative sequences
+of OTUs, Representative phylogenetic tree of OTUs and Sample metadata
+
+Classes
+-------
+
+.. autosummary::
+   :toctree: generated
+
+   RepTaxonomy
+   RepSequence
+   RepPhylogeny
+   FrequencyTable
+   SampleMetadata
+   BiomeSurvey
+   BiomeAssembly
+
+Components
+----------
+.. autosummary::
+
+   assembly
+   essentials
+   survey
+
+
+Examples
+--------
+New sequences are created with optional metadata and positional metadata.
+Metadata is stored as a Python ``dict``, while positional metadata is stored as
+a pandas ``DataFrame``.
+
+>>> from skbio import DNA, RNA
+>>> d = DNA('ACCGGGTA', metadata={'id':"my-sequence", 'description':"GFP"},
+...          positional_metadata={'quality':[22, 25, 22, 18, 23, 25, 25, 25]})
+>>> d
 
 """
 

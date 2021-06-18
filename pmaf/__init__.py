@@ -1,3 +1,26 @@
+r"""
+PhyloMAF  (:mod:`pmaf`)
+===================================
+
+.. currentmodule:: pmaf
+
+PhyloMaf Desc
+
+Modules
+----------
+.. autosummary::
+   :toctree: generated
+
+   biome
+   database
+   pipe
+   sequence
+   alignment
+   phylo
+   remote
+
+"""
+
 import warnings as __warnings_
 import tables as __tables_
 import sys as __sys_

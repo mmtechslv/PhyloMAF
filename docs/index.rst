@@ -8,11 +8,11 @@ Welcome to PhyloMAF's documentation!
 
 .. toctree::
    :maxdepth: 2
-   
-   API Reference <api/index>
-   Glossary <glossary>
-   Bibliography <bibliography>
-   Recent Changes <changes>
+
+   api
+   glossary
+   bibliography
+   changes
     
 
 Indices and tables
