@@ -21,12 +21,12 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
 
         Args:
             ids: Target :term:`tids`. Use None for all :term:`tids`
-            subs: If True :term:`subordinates` will be included. Default is False.
+            subs: If True :term:`subs` will be included. Default is False.
             iterator: If True return a generator object. Default is True.
 
         Returns:
-            If `iterator` is True: Returns a :class:`Generator` that yields (:term:`tid`, dict)
-            if `iterator` is False: Returns a dictionary where keys are :term:`tid` and values are dict with accession numbers.
+            If `iterator` is True: Returns a :class:`Generator` that yields (:term:`tid<tids>`, dict)
+            if `iterator` is False: Returns a dictionary where keys are :term:`tid<tids>` and values are dict with accession numbers.
 
         """
         if self.storage_manager.state == 1:

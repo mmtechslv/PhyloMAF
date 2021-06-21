@@ -1,0 +1,21 @@
+API Reference
+=============
+
+.. currentmodule:: pmaf
+
+PhyloMaf Description
+
+
+Modules
+-------
+
+.. autosummary::
+   :toctree: generated
+
+   biome
+   database
+   pipe
+   sequence
+   alignment
+   phylo
+   remote

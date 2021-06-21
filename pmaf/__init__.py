@@ -8,16 +8,17 @@ PhyloMaf Desc
 
 Modules
 ----------
-.. autosummary::
-   :toctree: generated
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
 
-   biome
-   database
-   pipe
-   sequence
-   alignment
-   phylo
-   remote
+   biome/index
+   database/index
+   pipe/index
+   sequence/index
+   alignment/index
+   phylo/index
+   remote/index
 
 """
 

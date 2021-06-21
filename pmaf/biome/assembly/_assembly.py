@@ -19,6 +19,7 @@ from typing import Union, Sequence, Any, Optional, List
 from pmaf.internal._typing import AnyGenericIdentifier
 
 
+
 class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     """Assembly class for interconnecting and containing `essentials`"""
 
@@ -30,17 +31,22 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         copy: bool = True,
         **kwargs: Any
     ) -> None:
-
         """Constructor for :class:`.BiomeAssembly`
 
-        Args:
-                essentials: Single or _multiple instances of `essentials`
-                *args: Instances of `essentials`
-                curb: Set limiting instance of `essentials` that will be used to
-                    subset remaining essentials to identical axes.
-                    If set tp 'intersect' intersection will be used as limiter.
-                copy: Whether to copy `essentials` or not.
-                **kwargs: Compatibility.
+        Parameters
+        ----------
+        essentials:
+            Single or _multiple instances of `essentials`
+        args
+            Instances of `essentials`
+        curb
+            Set limiting instance of `essentials` that will be used to
+            subset remaining essentials to identical axes.
+            If set tp 'intersect' intersection will be used as limiter.
+        copy
+            Whether to copy `essentials` or not.
+        kwargs
+            Compatibility
 
         """
         if essentials is not None:
@@ -121,10 +127,10 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         """Provides attribute lookup for installed `essentials`.
 
         Args:
-                attribute: Class name of the `essential`.
+            attribute: Class name of the `essential`.
 
         Returns:
-                Instance of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
+            Instance of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
 
         """
         for essential in self.__controller.essentials:
@@ -158,10 +164,19 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     ) -> None:
         """Add instance of `essentials` to the current instance of :class:`.BiomeAssembly`
 
-        Args:
-                *args: Instances of `essentials` to add.
-                curb: Can be either `intersect` or None.
-                copy: Whether to copy essentials or not.
+        Parameters
+        ----------
+        *args :
+            Instances of `essentials` to add.
+        curb :
+            Can be either `intersect` or None.
+        copy :
+            Whether to copy essentials or not.
+        *args: EssentialBackboneMetabase :
+
+        Returns
+        -------
+            None
 
         """
         tmp_essentials = []
@@ -214,13 +229,18 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     ) -> "BiomeAssembly":
         """Get subset of the :class:`.BiomeAssembly`.
 
-        Args:
-                rids: Feature Identifiers
-                sids: Sample Identifiers
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        rids
+            Feature Identifiers
+        sids
+            Sample Identifiers
+        **kwargs
+            Compatibility
 
-        Returns:
-                Instance of :class:`.BiomeAssembly`.
+        Returns
+        -------
+            Instance of class:`.BiomeAssembly`.
 
         """
         if rids is None:
@@ -263,14 +283,19 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     ) -> pd.DataFrame:
         """Create an OTU-table :class:`~pandas.DataFrame`
 
-        Args:
-                rids: Feature identifiers.
-                sids: Sample identifiers
-                taxonomy_column_name: Taxonomy column to create.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        rids
+            Feature identifiers.
+        sids
+            Sample identifiers
+        taxonomy_column_name
+            Taxonomy column to create.
+        kwargs
+            Compatibility
 
         Returns:
-                :class:`~pandas.DataFrame` of OTU-table
+            :class:`~pandas.DataFrame` of OTU-table
 
         """
         if not self.__controller.has_essential_by_types(RepTaxonomy, FrequencyTable):
@@ -305,12 +330,17 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     def to_otu_table(self, *args: Any, **kwargs: Any) -> pd.DataFrame:
         """Crate an OTU-table :class:`~pandas.DataFrame`
 
-        Args:
-                *args: Compatibility.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        *args
+            Compatibility.
+        **kwargs
+            Compatibility
 
-        Returns:
-                :class:`~pandas.DataFrame` of OTU-table
+
+        Returns
+        -------
+            class:`~pandas.DataFrame` of OTU-table
 
         """
         return self.__make_otu_table(*args, **kwargs)[0]
@@ -320,11 +350,20 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     ) -> None:
         """Write OTU-table to the file.
 
-        Args:
-          output_fp: Output filepath
-          *args: Compatibility
-          sep: Delimiter
-          **kwargs: Compatibility
+        Parameters
+        ----------
+        output_fp :
+            Output filepath
+        *args :
+            Compatibility
+        sep :
+            Delimiter
+        **kwargs :
+            Compatibility
+
+        Returns
+        -------
+            None
 
         """
         tmp_otu_table = self.__make_otu_table(*args, **kwargs)
@@ -340,12 +379,33 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     ) -> None:
         """Export data from assembly to the directory.
 
-        Args:
-                output_dir: Export directory path.
-                prefix: Prefix for output files.
-                as_otu_table: Create OTU-table from :class:`~pmaf.biome.essentials._frequency.FrequncyTable` and  :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
-                sep: Delimiter
-                **kwargs: Compatibility.
+        Parameters
+        ----------
+        output_dir :
+            Export directory path.
+        prefix :
+            Prefix for output files.
+        as_otu_table :
+            Create OTU-table from :class:`~pmaf.biome.essentials._frequency.FrequncyTable` and  :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
+        sep :
+            Delimiter
+        **kwargs :
+            Compatibility.
+        output_dir: str :
+
+        prefix: Optional[str] :
+             (Default value = None)
+        as_otu_table: bool :
+             (Default value = False)
+        sep: str :
+             (Default value = ")
+        " :
+
+        **kwargs: Any :
+
+
+        Returns
+        -------
 
         """
         for essential in self.__controller.essentials:

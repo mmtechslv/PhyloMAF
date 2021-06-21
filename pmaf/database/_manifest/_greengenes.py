@@ -46,16 +46,16 @@ class DatabaseGreengenes(
         """Factory method to build new database `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file.
 
         Args:
-          storage_hdf5_fp: Output path for `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file
-          taxonomy_map_csv_fp: Path to taxonomy file
-          tree_newick_fp: Path to Newick tree file
-          sequence_fasta_fp: Path to FASTA sequences file
-          sequence_alignment_fasta_fp: Path to FASTA alignment file
-          stamp_dict: Dictionary with metadata that will be stamped to the database
-          force: Force output file overwrite
-          chunksize: Sequence/Alignment data processing chunk size. Longer chunks are
-            faster to process but require more memory.
-          **kwargs: Compatibility.
+            storage_hdf5_fp: Output path for `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file
+            taxonomy_map_csv_fp: Path to taxonomy file
+            tree_newick_fp: Path to Newick tree file
+            sequence_fasta_fp: Path to FASTA sequences file
+            sequence_alignment_fasta_fp: Path to FASTA alignment file
+            stamp_dict: Dictionary with metadata that will be stamped to the database
+            force: Force output file overwrite
+            chunksize: Sequence/Alignment data processing chunk size. Longer chunks are
+                faster to process but require more memory.
+            **kwargs: Compatibility.
 
         Returns:
             None if file was created successfully.

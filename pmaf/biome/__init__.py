@@ -8,28 +8,6 @@ This Module :mod:`~pmaf.biome` is responsible for processing and analysis of dat
 like OTU/ASV Taxonomy, OTU-tables with frequency/count data, Representative sequences
 of OTUs, Representative phylogenetic tree of OTUs and Sample metadata
 
-Classes
--------
-
-.. autosummary::
-   :toctree: generated
-
-   RepTaxonomy
-   RepSequence
-   RepPhylogeny
-   FrequencyTable
-   SampleMetadata
-   BiomeSurvey
-   BiomeAssembly
-
-Components
-----------
-.. autosummary::
-
-   assembly
-   essentials
-   survey
-
 
 Examples
 --------
