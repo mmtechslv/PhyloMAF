@@ -24,12 +24,16 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> None:
         """Constructor for :class:`.SampleMetadata`
 
-        Args:
-                samples: Data containing sample metadata
-                axis: Sample index axis. Using 0/`index` sets rows as sample indices while 1/`columns` sets columns as indices.
-                index_col: Which row/column to use as index.
-                **kwargs: Passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
-
+        Parameters
+        ----------
+        samples
+            Data containing sample metadata
+        axis
+            Sample index axis. Using 0/`index` sets rows as sample indices while 1/`columns` sets columns as indices.
+        index_col
+             Which row/column to use as index.
+        kwargs
+            Passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
         """
         tmp_sample = None
         tmp_metadata = kwargs.pop("metadata", {})
@@ -70,16 +74,20 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         super().__init__(metadata=tmp_metadata, **kwargs)
 
     @classmethod
-    def from_csv(cls, filepath: str, **kwargs: Any) -> 'SampleMetadata':
-        """Factory method to construct a :class:`.SampleMetadata` from CSV file.
+    def from_csv(cls, filepath: str, **kwargs: Any) -> "SampleMetadata":
+        """Factory method to construct a :class:`.SampleMetadata` from CSV
+        file.
 
-        Args:
-                filepath (str): Path to .csv file.
-                **kwargs: Passed to the constructor.
+        Parameters
+        ----------
+        filepath
+            Path to .csv file.
+        **kwargs
+            Passed to the constructor.
 
-        Returns:
-                Instance of :class:`.SampleMetadata`
-
+        Returns
+        -------
+            Instance of class:`.SampleMetadata`
         """
         tmp_sample = pd.read_csv(filepath, **kwargs)
         tmp_metadata = kwargs.pop("metadata", {})
@@ -87,15 +95,20 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         return cls(samples=tmp_sample, metadata=tmp_metadata, **kwargs)
 
     @classmethod
-    def from_biom(cls, filepath: str, **kwargs) -> 'SampleMetadata':
-        """Factory method to construct a :class:`.SampleMetadata` from :mod:`biom` file.
+    def from_biom(cls, filepath: str, **kwargs) -> "SampleMetadata":
+        """Factory method to construct a :class:`.SampleMetadata` from
+        :mod:`biom` file.
 
-        Args:
-                filepath: (str): Path to :mod:`biom` file.
-                **kwargs: Passed to the constructor.
+        Parameters
+        ----------
+        filepath
+             Path to :mod:`biom` file.
+        **kwargs
+            Passed to the constructor.
 
-        Returns:
-                Instance of :class:`.SampleMetadata`
+        Returns
+        -------
+            Instance of class:`.SampleMetadata`
         """
         samples_frame, new_metadata = cls.__load_biom(filepath, **kwargs)
         tmp_metadata = kwargs.pop("metadata", {})
@@ -106,9 +119,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     def __load_biom(cls, filepath: str, **kwargs: Any) -> Tuple[pd.DataFrame, dict]:
         """Actual private method to process :mod:`biom` file.
 
-        Args:
-                filepath: :mod:`biom` file path.
-                **kwargs:  Compatibility.
+        Parameters
+        ----------
+        filepath
+             :mod:`biom` file path.
+        kwargs
+            Compatibility
+
+        Returns
+        -------
         """
         biom_file = biom.load_table(filepath)
         if biom_file.metadata(axis="sample") is not None:
@@ -120,9 +139,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     def _rename_samples_by_map(self, map_like: Mapper, **kwargs) -> Optional[Mapper]:
         """Rename sample names by map and ratify action.
 
-        Args:
-                map_like: Mapper to use for renaming.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        map_like
+            Mapper to use for renaming.
+        **kwargs
+            Compatibility
+
+        Returns
+        -------
         """
         self.__internal_samples.rename(mapper=map_like, axis=0, inplace=True)
         return self._ratify_action("_rename_samples_by_map", map_like, **kwargs)
@@ -132,10 +157,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> Optional[AnyGenericIdentifier]:
         """Remove samples by sample ids and ratify action.
 
-        Args:
-                ids: Sample identifiers
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        ids
+            Sample identifiers
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_samples.index.dtype)
         if len(tmp_ids) > 0:
@@ -151,12 +181,19 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> Optional[Mapper]:
         """Merge samples and ratify action.
 
-        Args:
-                map_dict: Map to use for merging
-                aggfunc: Aggregation function
-                variable: Compatibility
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        map_dict
+            Map to use for merging
+        aggfunc
+            Aggregation function
+        variable
+            Compatibility
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
@@ -175,9 +212,13 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     def rename_samples(self, mapper: Mapper) -> None:
         """Rename sample names by `mapper`
 
-        Args:
-                mapper: Dict-like mapper use for renaming.
+        Parameters
+        ----------
+        mapper
+            Dict-like mapper use for renaming.
 
+        Returns
+        -------
         """
         if isinstance(mapper, dict) or callable(mapper):
             if isinstance(mapper, dict):
@@ -197,9 +238,16 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> Optional[AnyGenericIdentifier]:
         """Drop samples by sample identifiers.
 
-        Args:
-                ids: Identifiers to remove
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        ids
+            Identifiers to remove
+        **kwargs
+            Compatibility
+
+
+        Returns
+        -------
         """
         target_ids = np.asarray(ids)
         if self.xsid.isin(target_ids).sum() == len(target_ids):
@@ -214,13 +262,16 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> Union[pd.Series, pd.DataFrame, str, int]:
         """Get sample metadata by sample identifiers and variables.
 
-        Args:
-                ids: Sample identifiers
-                variables: Metadata varibles
+        Parameters
+        ----------
+        ids
+            Sample identifiers
+        variables
+            Metadata varibles
 
-        Returns:
-                :class:`~pandas.DataFrame`
-
+        Returns
+        -------
+            class:`~pandas.DataFrame`
         """
         if ids is None:
             target_ids = self.xsid
@@ -247,11 +298,19 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> Optional[Mapper]:
         """Merge samples by `variable`.
 
-        Args:
-                variable: Sample metadata variable.
-                aggfunc: Aggregation function that will be applied to both :class:`.SampleMetadata` instance and ratified to other `essentials` if contained in :class:`~pmaf.biome.assembly.BiomeAssembly` instance.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        variable
+            Sample metadata variable.
+        aggfunc
+            Aggregation function that will be applied to both :class:`.SampleMetadata`
+            instance and ratified to other `essentials`
+            if contained in :class:`~pmaf.biome.assembly.BiomeAssembly` instance.
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         ret = {}
         if variable not in self.__internal_samples.columns:
@@ -270,7 +329,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             ret, aggfunc=aggfunc, variable=variable, **kwargs
         )
 
-    def copy(self) -> 'SampleMetadata':
+    def copy(self) -> "SampleMetadata":
         """Copy of the instance."""
         return type(self)(
             samples=self.__internal_samples.copy(),
@@ -279,16 +338,21 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             name=self.name,
         )
 
-    def get_subset(self, sids: AnyGenericIdentifier = None, *args, **kwargs) -> 'SampleMetadata':
+    def get_subset(
+        self, sids: AnyGenericIdentifier = None, *args, **kwargs
+    ) -> "SampleMetadata":
         """Get subset of the :class:`.SampleMetadata`.
 
-        Args:
-                sids: Sample Identifiers
-                *args: Compatibility
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        sids
+            Sample Identifiers
+        *args
+            Compatibility
 
-        Returns:
-                 Instance of :class:`.SampleMetadata`.
+        Returns
+        -------
+            Instance of class:`.SampleMetadata`.
         """
         if sids is None:
             target_sids = self.xsid
@@ -312,12 +376,21 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
     ) -> None:
         """Exports the sample metadata content into the specified file.
 
-        Args:
-                output_fp: Export filepath
-                *args: Compatibility
-                _add_ext: Add file extension or not.
-                sep: Delimiter
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        output_fp
+            Export filepath
+        *args
+            Compatibility
+        _add_ext
+            Add file extension or not.
+        sep
+            Delimiter
+        **kwargs
+            Compatibility
+
+        Returns
+        -------
         """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
@@ -327,15 +400,15 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
 
     @property
     def variables(self) -> np.ndarray:
-        """Sample metadata variables"""
+        """Sample metadata variables."""
         return self.__internal_samples.columns.values
 
     @property
     def data(self) -> pd.DataFrame:
-        """Sample metadata"""
+        """Sample metadata."""
         return self.__internal_samples
 
     @property
     def xsid(self) -> pd.Index:
-        """Sample identifiers"""
+        """Sample identifiers."""
         return self.__internal_samples.index

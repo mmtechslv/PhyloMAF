@@ -19,14 +19,27 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
     ]:
         """Get accession numbers from the database.
 
-        Args:
-            ids: Target :term:`tids`. Use None for all :term:`tids`
-            subs: If True :term:`subs` will be included. Default is False.
-            iterator: If True return a generator object. Default is True.
+        Parameters
+        ----------
+        ids :
+            Target :term:`tids`. Use None for all :term:`tids`
+        subs :
+            If True :term:`subs` will be included. Default is False.
+        iterator :
+            If True return a generator object. Default is True.
+        ids: Optional[AnyGenericIdentifier] :
+             (Default value = None)
+        subs: bool :
+             (Default value = False)
+        iterator: bool :
+             (Default value = True)
 
-        Returns:
-            If `iterator` is True: Returns a :class:`Generator` that yields (:term:`tid<tids>`, dict)
-            if `iterator` is False: Returns a dictionary where keys are :term:`tid<tids>` and values are dict with accession numbers.
+        Returns
+        -------
+        If `iterator` is True
+            Returns a :class:`Generator` that yields (:term:`tid<tids>`, dict)
+        if `iterator` is False
+            Returns a dictionary where keys are :term:`tid<tids>` and values are dict with accession numbers.
 
         """
         if self.storage_manager.state == 1:
@@ -51,11 +64,15 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
     def get_accession_by_rid(self, ids=None, iterator=False):
         """
 
-        Args:
-          ids: (Default value = None)
-          iterator: (Default value = False)
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        iterator :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
         """
         if self.storage_manager.state == 1:
@@ -79,10 +96,13 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
     def _retrieve_accs_by_id(self, repseq_ids):
         """
 
-        Args:
-          repseq_ids:
+        Parameters
+        ----------
+        repseq_ids :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if len(repseq_ids) > 0:

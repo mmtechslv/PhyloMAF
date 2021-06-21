@@ -1,169 +1,216 @@
 from abc import ABC, abstractmethod
 
 class MediatorBackboneMetabase(ABC):
-    ''' '''
+    """ """
 
     @abstractmethod
     def verify_factor(self,factor):
-        '''
+        """
 
-        Args:
-          factor: 
+        Parameters
+        ----------
+        factor :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def reconfig(self,name,value):
-        '''
+        """
 
-        Args:
-          name: 
-          value: 
+        Parameters
+        ----------
+        name :
+            
+        value :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @property
     @abstractmethod
     def state(self):
-        ''' '''
+        """ """
         pass
 
     @property
     @abstractmethod
     def client(self):
-        ''' '''
+        """ """
         pass
 
     @property
     @abstractmethod
     def configs(self):
-        ''' '''
+        """ """
         pass
 
 class MediatorAccessionMetabase(MediatorBackboneMetabase):
-    ''' '''
+    """ """
 
     @abstractmethod
     def get_accession_by_identifier(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_identifier_by_accession(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
 
 class MediatorSequenceMetabase(MediatorBackboneMetabase):
-    ''' '''
+    """ """
     @abstractmethod
     def get_sequence_by_identifier(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_identifier_by_sequence(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
 class MediatorPhylogenyMetabase(MediatorBackboneMetabase):
-    ''' '''
+    """ """
     @abstractmethod
     def get_phylogeny_by_identifier(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_identifier_by_phylogeny(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
 class MediatorTaxonomyMetabase(MediatorBackboneMetabase):
-    ''' '''
+    """ """
     @abstractmethod
     def get_taxonomy_by_identifier(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_identifier_by_taxonomy(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass

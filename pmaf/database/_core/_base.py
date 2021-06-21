@@ -10,7 +10,7 @@ from collections import defaultdict
 from functools import reduce
 
 class DatabaseBase(DatabaseBackboneMetabase):
-    ''' '''
+    """ """
     def __init__(self, storage_hdf5_fp):
         self.__storage_manager = DatabaseStorageManager(storage_hdf5_fp,self.name)
         if self.__storage_manager.state != 1:
@@ -34,17 +34,23 @@ class DatabaseBase(DatabaseBackboneMetabase):
         return repr_str
 
     def take_tids_by_rank(self, levels=None, iterator=False, flatten=False, mode='dict'):
-        '''
+        """
 
-        Args:
-          levels: (Default value = None)
-          iterator: (Default value = False)
-          flatten: (Default value = False)
-          mode: (Default value = 'dict')
+        Parameters
+        ----------
+        levels :
+            (Default value = None)
+        iterator :
+            (Default value = False)
+        flatten :
+            (Default value = False)
+        mode :
+            (Default value = 'dict')
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if levels is None:
                 target_rank_levels = np.asarray(self.avail_ranks)
@@ -56,7 +62,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
                 map2tid = self.storage_manager.retrieve_data_by_element('map-rep2tid')
 
                 def map_generator():
-                    ''' '''
+                    """ """
                     for rank in target_rank_levels:
                         tids = map2tid.loc[:, rank].drop_duplicates()
                         yield rank, tids[tids > 0].values
@@ -83,17 +89,23 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError('Storage is closed.')
 
     def take_rids_by_rank(self, levels=None, iterator=False, flatten=False, mode='dict'):
-        '''
+        """
 
-        Args:
-          levels: (Default value = None)
-          iterator: (Default value = False)
-          flatten: (Default value = False)
-          mode: (Default value = 'dict')
+        Parameters
+        ----------
+        levels :
+            (Default value = None)
+        iterator :
+            (Default value = False)
+        flatten :
+            (Default value = False)
+        mode :
+            (Default value = 'dict')
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if levels is None:
                 target_rank_levels = np.asarray(self.avail_ranks)
@@ -105,7 +117,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
                 map2tid = self.storage_manager.retrieve_data_by_element('map-rep2tid')
 
                 def map_generator():
-                    ''' '''
+                    """ """
                     tmp_reps = set()
                     for rank in target_rank_levels:
                         groupby = map2tid.groupby(rank)
@@ -136,17 +148,23 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError('Storage is closed.')
 
     def find_sub_tids_by_tid(self, ids=None, ter_rank=None, flatten=False, mode='frame'):
-        '''
+        """
 
-        Args:
-          ids: (Default value = None)
-          ter_rank: (Default value = None)
-          flatten: (Default value = False)
-          mode: (Default value = 'frame')
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        ter_rank :
+            (Default value = None)
+        flatten :
+            (Default value = False)
+        mode :
+            (Default value = 'frame')
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if not ((ter_rank in self.avail_ranks) or (ter_rank is None)):
                 raise ValueError('Invalid `ter_rank` value is provided.')
@@ -201,18 +219,25 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError('Storage is closed.')
 
     def find_rid_by_tid(self, ids=None, subs=False, iterator=False, flatten=False, mode='frame'):
-        '''
+        """
 
-        Args:
-          ids: (Default value = None)
-          subs: (Default value = False)
-          iterator: (Default value = False)
-          flatten: (Default value = False)
-          mode: (Default value = 'frame')
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        subs :
+            (Default value = False)
+        iterator :
+            (Default value = False)
+        flatten :
+            (Default value = False)
+        mode :
+            (Default value = 'frame')
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if ids is None:
                 target_ids = self.xtid.values
@@ -224,7 +249,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
                 map2tid = self.storage_manager.retrieve_data_by_element('map-rep2tid')
 
                 def map_generator():
-                    ''' '''
+                    """ """
                     if not subs:
                         partial_map = map2tid[map2tid['tid'].isin(target_ids)]
                         tid_rid_gps = partial_map.groupby('tid', sort=False).groups
@@ -267,18 +292,25 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError('Storage is closed.')
 
     def find_tid_by_rid(self, ids=None, levels=None, flatten=False, method='legal', mode='frame'):
-        '''
+        """
 
-        Args:
-          ids: (Default value = None)
-          levels: (Default value = None)
-          flatten: (Default value = False)
-          method: (Default value = 'legal')
-          mode: (Default value = 'frame')
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        levels :
+            (Default value = None)
+        flatten :
+            (Default value = False)
+        method :
+            (Default value = 'legal')
+        mode :
+            (Default value = 'frame')
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if ids is None:
                 target_ids = self.xrid.values
@@ -334,16 +366,21 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError('Storage is closed.')
 
     def get_stats_by_rid(self, ids=None, include=None, exclude=None):
-        '''
+        """
 
-        Args:
-          ids: (Default value = None)
-          include: (Default value = None)
-          exclude: (Default value = None)
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        include :
+            (Default value = None)
+        exclude :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if ids is None:
                 target_ids = self.xrid.values
@@ -401,16 +438,21 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError('Storage is closed.')
 
     def get_stats_by_tid(self, ids=None, include=None, exclude=None):
-        '''
+        """
 
-        Args:
-          ids: (Default value = None)
-          include: (Default value = None)
-          exclude: (Default value = None)
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        include :
+            (Default value = None)
+        exclude :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.storage_manager.state == 1:
             if ids is None:
                 target_ids = self.xtid.values
@@ -469,12 +511,12 @@ class DatabaseBase(DatabaseBackboneMetabase):
 
 
     def close(self):
-        '''Closes local client by shutting down storage manager.'''
+        """Closes local client by shutting down storage manager."""
         self.__storage_manager.shutdown()
 
     @property
     def xtid(self):
-        ''' '''
+        """ """
         if self.__storage_manager.state == 1:
             return self.__storage_manager.taxon_ids
         else:
@@ -482,7 +524,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
 
     @property
     def xrid(self):
-        ''' '''
+        """ """
         if self.__storage_manager.state == 1:
             return self.__storage_manager.repseq_ids
         else:
@@ -490,7 +532,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
 
     @property
     def stamp(self):
-        ''' '''
+        """ """
         if self.__storage_manager.state == 1:
             return self.__storage_manager.retrieve_data_by_element('metadata-db-stamp')
         else:
@@ -498,12 +540,12 @@ class DatabaseBase(DatabaseBackboneMetabase):
 
     @property
     def state(self):
-        ''' '''
+        """ """
         return True if self.__storage_manager.state == 1 else False
 
     @property
     def summary(self):
-        ''' '''
+        """ """
         if self.__storage_manager.state == 1:
             return self.__storage_manager.summary
         else:
@@ -511,7 +553,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
 
     @property
     def novel_tids(self):
-        ''' '''
+        """ """
         if self.__storage_manager.state == 1:
             return self.__novel_tids
         else:
@@ -519,12 +561,12 @@ class DatabaseBase(DatabaseBackboneMetabase):
 
     @property
     def storage_manager(self):
-        ''' '''
+        """ """
         return self.__storage_manager
 
     @property
     def avail_ranks(self):
-        ''' '''
+        """ """
         return self.__avail_ranks
 
 

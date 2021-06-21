@@ -7,7 +7,7 @@ import numpy as np
 from collections import defaultdict
 
 class MediatorLocalAccessionMixin(MediatorLocalBase,MediatorAccessionMetabase):
-    ''' '''
+    """ """
     ACS_FILTER_METHODS = ['random','first']
     def __init__(self, database,
                  acs_refrep='tid',
@@ -40,16 +40,21 @@ class MediatorLocalAccessionMixin(MediatorLocalBase,MediatorAccessionMetabase):
                          acs_filter_value=acs_filter_value, **kwargs)
 
     def get_accession_by_identifier(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerIdentifierMetabase):
@@ -106,14 +111,19 @@ class MediatorLocalAccessionMixin(MediatorLocalBase,MediatorAccessionMetabase):
 
 
     def get_identifier_by_accession(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         raise NotImplementedError

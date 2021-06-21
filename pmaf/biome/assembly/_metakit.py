@@ -9,12 +9,17 @@ class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
     def export(self, output_dir, *args, **kwargs):
         """
 
-        Args:
-          output_dir:
-          *args:
-          **kwargs:
+        Parameters
+        ----------
+        output_dir :
+            
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -23,11 +28,15 @@ class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
     def get_subset(self, *args, **kwargs):
         """
 
-        Args:
-          *args:
-          **kwargs:
+        Parameters
+        ----------
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -36,10 +45,13 @@ class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
     def add_essentials(self, *args):
         """
 
-        Args:
-          *args:
+        Parameters
+        ----------
+        *args :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -48,11 +60,15 @@ class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
     def to_otu_table(self, *args, **kwargs):
         """
 
-        Args:
-          *args:
-          **kwargs:
+        Parameters
+        ----------
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -61,12 +77,17 @@ class BiomeAssemblyBackboneMetabase(BiomeFeatureMetabase, BiomeSampleMetabase):
     def write_otu_table(self, output_fp, *args, **kwargs):
         """
 
-        Args:
-          output_fp:
-          *args:
-          **kwargs:
+        Parameters
+        ----------
+        output_fp :
+            
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass

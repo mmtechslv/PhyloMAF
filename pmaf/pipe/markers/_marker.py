@@ -4,7 +4,7 @@ from pmaf.pipe.agents.dockers._metakit import DockerBackboneMetabase
 from datetime import datetime
 
 class Marker(MarkerBackboneMetabase):
-    ''' '''
+    """ """
     def __init__(self, input, name=None, metadata=None):
         if input is not None:
             if not isinstance(input,DockerBackboneMetabase):
@@ -53,14 +53,17 @@ class Marker(MarkerBackboneMetabase):
         return repr_str
 
     def embed_specs(self, *args):
-        '''
+        """
 
-        Args:
-          *args: 
+        Parameters
+        ----------
+        *args :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         for spec in args:
             if isinstance(spec,SpecificationBackboneMetabase):
                 if self.__task_pointer is None:
@@ -140,7 +143,7 @@ class Marker(MarkerBackboneMetabase):
             return None
 
     def next(self):
-        ''' '''
+        """ """
         if len(self.__tasks)>0:
             if len(self.__get_pending())>0:
                 return self.__next()
@@ -150,7 +153,7 @@ class Marker(MarkerBackboneMetabase):
             raise RuntimeError('Marker is not initiated.')
 
     def compute(self):
-        ''' '''
+        """ """
         if len(self.__tasks) > 0:
             tmp_product = None
             while len(self.__get_pending()) > 0:
@@ -160,47 +163,47 @@ class Marker(MarkerBackboneMetabase):
             raise RuntimeError('Marker is not initiated.')
 
     def get_outputs(self):
-        ''' '''
+        """ """
         return [self.__tasks[ix]['results'][0] for ix in self.__get_finished()]
 
     @property
     def tasks(self):
-        ''' '''
+        """ """
         return self.__tasks
 
     @property
     def name(self):
-        ''' '''
+        """ """
         return self.__name
 
     @property
     def metadata(self):
-        ''' '''
+        """ """
         return self.__metadata
 
     @property
     def inlet(self):
-        ''' '''
+        """ """
         return self.__inlet
 
     @property
     def outlet(self):
-        ''' '''
+        """ """
         return self.__outlet
 
     @property
     def input(self):
-        ''' '''
+        """ """
         return self.__input
 
     @property
     def output(self):
-        ''' '''
+        """ """
         return self.__output
 
     @property
     def upcoming(self):
-        ''' '''
+        """ """
         if len(self.__tasks)>0:
             return self.__tasks[self.__task_pointer]['request']['name']
         else:

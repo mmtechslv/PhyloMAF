@@ -48,10 +48,16 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
     def _make_input_matrix(self, multiseq: MultiSequenceMetabase) -> str:
         """Creates hamming distance matrix from `multiseq` sequence alignment.
 
-        Args:
-          multiseq: Aligned representative sequences.
+        Parameters
+        ----------
+        multiseq :
+            Aligned representative sequences.
+        multiseq: MultiSequenceMetabase :
+            
 
-        Returns:
+        Returns
+        -------
+        
             Input string for ERaBLE executive.
 
         """
@@ -79,12 +85,24 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
     ) -> PhyloTree:
         """Estimate branches of on fixed tree topology(param `tree`) using MSA of representative sequences(param `alignment`)
 
-        Args:
-            alignment: MSA alignment of representative sequences
-            tree: Phylogenetic tree topology.
-            **kwargs: Compatibility
+        Parameters
+        ----------
+        alignment :
+            MSA alignment of representative sequences
+        tree :
+            Phylogenetic tree topology.
+        **kwargs :
+            Compatibility
+        alignment: MultiSequenceMetabase :
+            
+        tree: PhyloTree :
+            
+        **kwargs: Any :
+            
 
-        Returns:
+        Returns
+        -------
+        
             Phylogenetic tree with estimated branches
 
         """

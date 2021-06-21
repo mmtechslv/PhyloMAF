@@ -19,7 +19,6 @@ from typing import Union, Sequence, Any, Optional, List
 from pmaf.internal._typing import AnyGenericIdentifier
 
 
-
 class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
     """Assembly class for interconnecting and containing `essentials`"""
 
@@ -166,17 +165,12 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
         Parameters
         ----------
-        *args :
+        *args
             Instances of `essentials` to add.
-        curb :
+        curb
             Can be either `intersect` or None.
-        copy :
+        copy
             Whether to copy essentials or not.
-        *args: EssentialBackboneMetabase :
-
-        Returns
-        -------
-            None
 
         """
         tmp_essentials = []
@@ -240,7 +234,8 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
         Returns
         -------
-            Instance of class:`.BiomeAssembly`.
+            Subset instance of :class:`.BiomeAssembly`
+
 
         """
         if rids is None:
@@ -337,10 +332,10 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         **kwargs
             Compatibility
 
-
         Returns
         -------
-            class:`~pandas.DataFrame` of OTU-table
+
+            :class:`~pandas.DataFrame` of OTU-table
 
         """
         return self.__make_otu_table(*args, **kwargs)[0]
@@ -352,18 +347,14 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
         Parameters
         ----------
-        output_fp :
+        output_fp
             Output filepath
-        *args :
+        *args
             Compatibility
-        sep :
+        sep
             Delimiter
-        **kwargs :
+        **kwargs
             Compatibility
-
-        Returns
-        -------
-            None
 
         """
         tmp_otu_table = self.__make_otu_table(*args, **kwargs)
@@ -381,31 +372,17 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
         Parameters
         ----------
-        output_dir :
+        output_dir
             Export directory path.
-        prefix :
+        prefix
             Prefix for output files.
-        as_otu_table :
+        as_otu_table
             Create OTU-table from :class:`~pmaf.biome.essentials._frequency.FrequncyTable` and  :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
-        sep :
+        sep
             Delimiter
-        **kwargs :
+        **kwargs
             Compatibility.
-        output_dir: str :
 
-        prefix: Optional[str] :
-             (Default value = None)
-        as_otu_table: bool :
-             (Default value = False)
-        sep: str :
-             (Default value = ")
-        " :
-
-        **kwargs: Any :
-
-
-        Returns
-        -------
 
         """
         for essential in self.__controller.essentials:

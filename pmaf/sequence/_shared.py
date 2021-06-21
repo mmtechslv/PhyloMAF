@@ -3,14 +3,17 @@ warnings.simplefilter('ignore', category=FutureWarning)
 from skbio.sequence import DNA,RNA,Protein,Sequence
 
 def sniff_mode(sequence_str):
-    '''
+    """
 
-    Args:
-      sequence_str: 
+    Parameters
+    ----------
+    sequence_str :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if isinstance(sequence_str,str):
         if len(sequence_str)>0:
             try:
@@ -33,14 +36,17 @@ def sniff_mode(sequence_str):
         raise TypeError('`sequence_str` must be string.')
 
 def mode_as_skbio(mode):
-    '''
+    """
 
-    Args:
-      mode: 
+    Parameters
+    ----------
+    mode :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     ret = False
     if isinstance(mode,str):
         mode_str = mode.lower()
@@ -59,14 +65,17 @@ def mode_as_skbio(mode):
     return ret
 
 def mode_as_str(mode_skbio):
-    '''
+    """
 
-    Args:
-      mode_skbio: 
+    Parameters
+    ----------
+    mode_skbio :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     ret = False
     if mode_skbio == DNA:
         ret = 'dna'
@@ -81,14 +90,17 @@ def mode_as_str(mode_skbio):
     return ret
 
 def mode_is_nucleotide(mode):
-    '''
+    """
 
-    Args:
-      mode: 
+    Parameters
+    ----------
+    mode :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     ret = False
     if isinstance(mode,str):
         mode_str = mode.lower()
@@ -99,14 +111,17 @@ def mode_is_nucleotide(mode):
     return ret
 
 def validate_seq_mode(mode_str):
-    '''
+    """
 
-    Args:
-      mode_str: 
+    Parameters
+    ----------
+    mode_str :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     ret = False
     mode_str = mode_str.lower()
     if mode_str == 'dna':
@@ -118,13 +133,17 @@ def validate_seq_mode(mode_str):
     return ret
 
 def validate_seq_grammar(seq_str,mode_str):
-    '''
+    """
 
-    Args:
-      seq_str: 
-      mode_str: 
+    Parameters
+    ----------
+    seq_str :
+        
+    mode_str :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     return True

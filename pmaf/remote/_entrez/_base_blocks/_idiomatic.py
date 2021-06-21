@@ -9,10 +9,13 @@ class IdiomaticBase():
     def _get_top_chromosome_id(self,chromosome_raw):
         """
 
-        Args:
-          chromosome_raw:
+        Parameters
+        ----------
+        chromosome_raw :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = False
@@ -23,10 +26,13 @@ class IdiomaticBase():
     def _get_top_genome_id(self,genome_raw):
         """
 
-        Args:
-          genome_raw:
+        Parameters
+        ----------
+        genome_raw :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = False
@@ -37,10 +43,13 @@ class IdiomaticBase():
     def _get_top_taxid(self,tax_raw):
         """
 
-        Args:
-          tax_raw:
+        Parameters
+        ----------
+        tax_raw :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = False
@@ -51,11 +60,15 @@ class IdiomaticBase():
     def filter_genes_from_future_table(self,seq_raw_io,gene):
         """
 
-        Args:
-          seq_raw_io:
-          gene:
+        Parameters
+        ----------
+        seq_raw_io :
+            
+        gene :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = False

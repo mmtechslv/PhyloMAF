@@ -10,20 +10,24 @@ from collections import defaultdict
 from pmaf.internal._shared import chunk_generator
 
 class Miner(MinerBase):
-    ''' '''
+    """ """
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
 
     def yield_taxonomy_by_identifier(self, docker, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if isinstance(docker,DockerIdentifierMetabase):
             if isinstance(self.mediator,MediatorTaxonomyMetabase):
                 yield from self.__yield_taxonomy_by_identifier(docker, **kwargs)
@@ -33,15 +37,19 @@ class Miner(MinerBase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def yield_phylogeny_by_identifier(self, docker, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if isinstance(docker, DockerIdentifierMetabase):
             if isinstance(self.mediator, MediatorPhylogenyMetabase):
                 yield from self.__yield_phylogeny_by_identifier(docker, **kwargs)
@@ -51,15 +59,19 @@ class Miner(MinerBase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def yield_sequence_by_identifier(self, docker, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if isinstance(docker, DockerIdentifierMetabase):
             if isinstance(self.mediator, MediatorSequenceMetabase):
                 yield from self.__yield_sequence_by_identifier(docker, **kwargs)
@@ -69,15 +81,19 @@ class Miner(MinerBase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def yield_accession_by_identifier(self, docker, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if isinstance(docker, DockerIdentifierMetabase):
             if isinstance(self.mediator, MediatorAccessionMetabase):
                 yield from self.__yield_accession_by_identifier(docker, **kwargs)
@@ -87,15 +103,19 @@ class Miner(MinerBase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def yield_identifier_by_docker(self, docker, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.verify_docker(docker):
             if isinstance(docker, DockerAccessionMetabase):
                 yield from self.__yield_identifier_by_accession(docker, **kwargs)
@@ -147,14 +167,17 @@ class Miner(MinerBase):
                 tmp_docker_type = type(docker)
                 tmp_outlet = outlet
                 def chunk_products(**kwargs):
-                    '''
+                    """
 
-                    Args:
-                      **kwargs: 
+                    Parameters
+                    ----------
+                    **kwargs :
+                        
 
-                    Returns:
+                    Returns
+                    -------
 
-                    '''
+                    """
                     chunk_i = 0
                     for tmp_chunk in tmp_chunks_gen:
                         chunk_name = str(chunk_i) if tmp_docker_name is None else "{}-{}".format(tmp_docker_name,str(chunk_i))
@@ -168,14 +191,17 @@ class Miner(MinerBase):
 
     def __process_recursive_by_docker_for_method(self, method, docker_container, outlet, **kwargs):
         def nested_parser(docker):
-            '''
+            """
 
-            Args:
-              docker: 
+            Parameters
+            ----------
+            docker :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             if docker.singleton:
                 return method(docker,**kwargs)
             else:

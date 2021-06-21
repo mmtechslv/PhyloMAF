@@ -118,10 +118,13 @@ class MultiSequence(MultiSequenceMetabase):
     def to_skbio_msa(self, indices=None):
         """
 
-        Args:
-          indices: (Default value = None)
+        Parameters
+        ----------
+        indices :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
         """
         if self.__aligned:
@@ -143,10 +146,13 @@ class MultiSequence(MultiSequenceMetabase):
     def get_consensus(self, indices=None):
         """
 
-        Args:
-          indices: (Default value = None)
+        Parameters
+        ----------
+        indices :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
         """
         if self.__aligned:
@@ -163,10 +169,13 @@ class MultiSequence(MultiSequenceMetabase):
     def get_subset(self, indices=None):
         """
 
-        Args:
-          indices: (Default value = None)
+        Parameters
+        ----------
+        indices :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
         """
         return type(self)(
@@ -203,10 +212,13 @@ class MultiSequence(MultiSequenceMetabase):
     def restore_buckle(self, buckled_pack):
         """
 
-        Args:
-          buckled_pack:
+        Parameters
+        ----------
+        buckled_pack :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if self.__buckled:
@@ -224,10 +236,13 @@ class MultiSequence(MultiSequenceMetabase):
     def get_iter(self, method="asis"):
         """
 
-        Args:
-          method: (Default value = 'asis')
+        Parameters
+        ----------
+        method :
+            (Default value = 'asis')
 
-        Returns:
+        Returns
+        -------
 
         """
 
@@ -252,12 +267,17 @@ class MultiSequence(MultiSequenceMetabase):
     def write(self, file, mode="w", **kwargs):
         """
 
-        Args:
-          file:
-          mode: (Default value = 'w')
-          **kwargs:
+        Parameters
+        ----------
+        file :
+            
+        mode :
+            (Default value = 'w')
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         buffer_io = self.__make_fasta_io(**kwargs)
@@ -273,10 +293,13 @@ class MultiSequence(MultiSequenceMetabase):
     def get_string_as(self, **kwargs):
         """
 
-        Args:
-          **kwargs:
+        Parameters
+        ----------
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         buffer_io = self.__make_fasta_io(**kwargs)
@@ -295,12 +318,17 @@ class MultiSequence(MultiSequenceMetabase):
     def from_buckled(cls, sequences, buckled_pack, **kwargs):
         """
 
-        Args:
-          sequences:
-          buckled_pack:
-          **kwargs:
+        Parameters
+        ----------
+        sequences :
+            
+        buckled_pack :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if not isinstance(buckled_pack, dict):

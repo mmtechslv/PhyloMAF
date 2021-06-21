@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogenyMixin,DatabaseAccessionMixin,DatabaseBase):
-    ''' '''
+    """ """
     DATABASE_NAME = 'GTDP'
     INVALID_TAXA = None
     def __init__(self,*args,**kwargs):
@@ -20,22 +20,33 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
 
     @classmethod
     def build_database_storage(cls, storage_hdf5_fp,taxonomy_map_csv_fp, tree_newick_fp, sequence_fasta_fp, metadata_csv_fp, stamp_dict, force=False, chunksize=500, **kwargs):
-        '''
+        """
 
-        Args:
-          storage_hdf5_fp: 
-          taxonomy_map_csv_fp: 
-          tree_newick_fp: 
-          sequence_fasta_fp: 
-          metadata_csv_fp: 
-          stamp_dict: 
-          force: (Default value = False)
-          chunksize: (Default value = 500)
-          **kwargs: 
+        Parameters
+        ----------
+        storage_hdf5_fp :
+            
+        taxonomy_map_csv_fp :
+            
+        tree_newick_fp :
+            
+        sequence_fasta_fp :
+            
+        metadata_csv_fp :
+            
+        stamp_dict :
+            
+        force :
+            (Default value = False)
+        chunksize :
+            (Default value = 500)
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if path.exists(storage_hdf5_fp) and not force:
             raise ValueError('Storage file exists.')
         if isinstance(taxonomy_map_csv_fp,(list,tuple)):
@@ -85,51 +96,64 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
     def __process_tax_map(cls, storage_manager, taxonomy_map_csv_fp, valid_ids):
         from pmaf.database._parsers._qiime import read_qiime_taxonomy_map, parse_qiime_taxonomy_map
         def produce_taxonomy_prior(tmp_taxonomy_prior, index_mapper):
-            '''
+            """
 
-            Args:
-              tmp_taxonomy_prior: 
-              index_mapper: 
+            Parameters
+            ----------
+            tmp_taxonomy_prior :
+                
+            index_mapper :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield transformer.reindex_frame(tmp_taxonomy_prior, index_mapper)
 
         def produce_taxonomy_sheet(taxonomy_sheet):
-            '''
+            """
 
-            Args:
-              taxonomy_sheet: 
+            Parameters
+            ----------
+            taxonomy_sheet :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield taxonomy_sheet
 
         def produce_metadata_db_history(transformation_details):
-            '''
+            """
 
-            Args:
-              transformation_details: 
+            Parameters
+            ----------
+            transformation_details :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield transformation_details['changes']
 
         def produce_map_rep2tid(transformation_details):
-            '''
+            """
 
-            Args:
-              transformation_details: 
+            Parameters
+            ----------
+            transformation_details :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield transformation_details['map-rep2tid']
 
@@ -150,16 +174,21 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
     @classmethod
     def __process_acs(cls, storage_manager, metadata_csv_fp, index_mapper, dropped_taxa):
         def produce_sequence_accession(valid_metadata, index_mapper, dropped_taxa):
-            '''
+            """
 
-            Args:
-              valid_metadata: 
-              index_mapper: 
-              dropped_taxa: 
+            Parameters
+            ----------
+            valid_metadata :
+                
+            index_mapper :
+                
+            dropped_taxa :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             id_to_drop = valid_metadata.index[valid_metadata.index.isin(dropped_taxa)]
             tmp_gtdp_acs = index_mapper.drop(index=dropped_taxa, errors='ignore').reset_index(name='nrids').set_index('nrids')
@@ -178,52 +207,65 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
         from ete3 import Tree
 
         def produce_tree_prior(merged_tree):
-            '''
+            """
 
-            Args:
-              merged_tree: 
+            Parameters
+            ----------
+            merged_tree :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield merged_tree.write(format=2)
 
         def produce_tree_parsed(tree_newick_string, index_mapper):
-            '''
+            """
 
-            Args:
-              tree_newick_string: 
-              index_mapper: 
+            Parameters
+            ----------
+            tree_newick_string :
+                
+            index_mapper :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             tmp_tree = Tree(tree_newick_string, format=2)
             yield transformer.reparse_tree(tmp_tree, index_mapper)
 
         def produce_tree_object(tree_newick_string):
-            '''
+            """
 
-            Args:
-              tree_newick_string: 
+            Parameters
+            ----------
+            tree_newick_string :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield Tree(tree_newick_string, format=2,quoted_node_names=True)
 
         def produce_map_tree(tree_object):
-            '''
+            """
 
-            Args:
-              tree_object: 
+            Parameters
+            ----------
+            tree_object :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             tmp_rebuilded_tree = transformer.rebuild_phylo(tree_object)
             yield transformer.make_tree_map(tmp_rebuilded_tree)
@@ -243,17 +285,23 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
     def __process_sequence(cls,storage_manager, index_mapper, removed_rids, prior_recap, sequence_fasta_fp, chunksize):
         from pmaf.database._parsers._qiime import parse_qiime_sequence_generator
         def produce_sequence_representative(sequence_fasta_fp, index_mapper, dropped_taxa, chunksize):
-            '''
+            """
 
-            Args:
-              sequence_fasta_fp: 
-              index_mapper: 
-              dropped_taxa: 
-              chunksize: 
+            Parameters
+            ----------
+            sequence_fasta_fp :
+                
+            index_mapper :
+                
+            dropped_taxa :
+                
+            chunksize :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             sequence_parser = parse_qiime_sequence_generator(sequence_fasta_fp, chunksize, False)
             preparse_info, first_chunk = next(sequence_parser)
             yield preparse_info.copy()
@@ -273,26 +321,32 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
     @classmethod
     def __process_interxmaps(cls, storage_manager):
         def produce_map_interx_taxon(interx_maker_result):
-            '''
+            """
 
-            Args:
-              interx_maker_result: 
+            Parameters
+            ----------
+            interx_maker_result :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield interx_maker_result['map-interx-taxon']
 
         def produce_map_interx_repseq(interx_maker_result):
-            '''
+            """
 
-            Args:
-              interx_maker_result: 
+            Parameters
+            ----------
+            interx_maker_result :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield interx_maker_result['map-interx-repseq']
 
@@ -303,7 +357,7 @@ class DatabaseGTDB(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabasePhylogeny
 
     @property
     def name(self):
-        ''' '''
+        """ """
         return self.DATABASE_NAME
 
 

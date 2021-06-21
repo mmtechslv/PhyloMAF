@@ -7,26 +7,34 @@ from ._base_blocks import IdiomaticBase
 from ._metakit import EntrezBackboneMetabase
 
 def control_request_runtime(method_pass):
-    '''
+    """
 
-    Args:
-      method_pass: 
+    Parameters
+    ----------
+    method_pass :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     @metawrapper(method_pass)
     def wrapper(instance_self,*args,**kwargs):
-        '''
+        """
 
-        Args:
-          instance_self: 
-          *args: 
-          **kwargs: 
+        Parameters
+        ----------
+        instance_self :
+            
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         attempt_counter = instance_self._get_attempts()
         retry = True
         method_pass_ret = False
@@ -61,7 +69,7 @@ def control_request_runtime(method_pass):
 
 
 class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
-    ''' '''
+    """ """
     def __init__(self,email,api_key = None,tool='PhyloMAF'):
         super().__init__()
         self._BioEntrez = None
@@ -94,7 +102,7 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
         return repr_str
 
     def _init_entrez(self):
-        ''' '''
+        """ """
         self._BioEntrez = Entrez
         self._BioEntrez.email = self._email
         self._BioEntrez.tool = self._tool_name
@@ -104,73 +112,83 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
         return
 
     def check_init(self):
-        ''' '''
+        """ """
         ret = False
         if self._init_state:
             ret = True
         return ret
 
     def _get_attempts(self):
-        ''' '''
+        """ """
         return self._attempts
 
     def _set_last_runtime(self,runtime):
-        '''
+        """
 
-        Args:
-          runtime: 
+        Parameters
+        ----------
+        runtime :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         self.__last_runtime = runtime
         return
 
     def _get_last_runtime(self):
-        ''' '''
+        """ """
         return self.__last_runtime
 
     def _reset_request_counter(self,):
-        ''' '''
+        """ """
         self.__request_counter = 0
         return
 
     def _get_request_count(self):
-        ''' '''
+        """ """
         return self.__request_counter
 
     def _next_request(self):
-        ''' '''
+        """ """
         self.__request_counter = self.__request_counter + 1
         return
 
     def _add_request_log(self,method_name):
-        '''
+        """
 
-        Args:
-          method_name: 
+        Parameters
+        ----------
+        method_name :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         self.__request_logs.append({'Request':method_name,'Cumulative Runtime': self.__last_runtime,'Request Count':self.__request_counter})
         return
 
     def get_request_logs(self):
-        ''' '''
+        """ """
         return self.__request_logs
 
     @control_request_runtime
     def _request_sequence_feature_table_by_acc_id(self,accession_id,handle=False):
-        '''
+        """
 
-        Args:
-          accession_id: 
-          handle: (Default value = False)
+        Parameters
+        ----------
+        accession_id :
+            
+        handle :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         efetch_handle = self._BioEntrez.efetch(db='nuccore', id=accession_id, rettype='ft', retmode='text')
         if handle:
             return efetch_handle
@@ -179,66 +197,81 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
 
     @control_request_runtime
     def _request_chromosomes_by_genome_id(self,genome_id):
-        '''
+        """
 
-        Args:
-          genome_id: 
+        Parameters
+        ----------
+        genome_id :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         with self._BioEntrez.elink(dbfrom='genome', db='nuccore', id=genome_id, idtype='acc',term='gene+in+chromosome[prop]') as elink_handle:
             elink_record = self._BioEntrez.read(elink_handle)
         return elink_record
 
     @control_request_runtime
     def _request_genomes_by_taxid(self,taxid):
-        '''
+        """
 
-        Args:
-          taxid: 
+        Parameters
+        ----------
+        taxid :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         with self._BioEntrez.elink(dbfrom='taxonomy', db='genome', id=taxid) as elink_handle:
             elink_record = self._BioEntrez.read(elink_handle)
         return elink_record
 
     @control_request_runtime
     def _request_taxid_by_query(self,query):
-        '''
+        """
 
-        Args:
-          query: 
+        Parameters
+        ----------
+        query :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         with self._BioEntrez.esearch(db='taxonomy', retmax=self._retmax, term=query) as esearch_handle:
             esearch_record = self._BioEntrez.read(esearch_handle)
         return esearch_record
 
     @control_request_runtime
     def _request_sequence_fasta(self,acc_id, start, end, strand):
-        '''
+        """
 
-        Args:
-          acc_id: 
-          start: 
-          end: 
-          strand: 
+        Parameters
+        ----------
+        acc_id :
+            
+        start :
+            
+        end :
+            
+        strand :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         with self._BioEntrez.efetch(db='nuccore', id=acc_id, rettype='fasta', retmode='text', strand=str(strand),seq_start=str(start), seq_stop=str(end)) as efetch_handle:
             efetch_record = efetch_handle.read()
         return efetch_record
 
     @property
     def state(self):
-        ''' '''
+        """ """
         return self.check_init()
 
 

@@ -32,10 +32,13 @@ class BiomeBackboneMetabase(ABC):
     def metadata(self, value):
         """
 
-        Args:
-          value:
+        Parameters
+        ----------
+        value :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -51,10 +54,13 @@ class BiomeBackboneMetabase(ABC):
     def name(self,value):
         """
 
-        Args:
-          value:
+        Parameters
+        ----------
+        value :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -67,11 +73,17 @@ class BiomeFeatureMetabase(BiomeBackboneMetabase):
                         dtype: Optional[DTypeLike] = None):
         """This function and its sample twin is a rescue method to fix RepPhylogeny index problem.
 
-        Args:
-            dtype: Type to cast into
+        Parameters
+        ----------
+        dtype :
+            Type to cast into
+        dtype: Optional[DTypeLike] :
+             (Default value = None)
 
-        Returns:
-            :class:`~numpy.ndarray` of type `dtype`
+        Returns
+        -------
+        
+            class:`~numpy.ndarray` of type `dtype`
 
         """
         if dtype is None:
@@ -93,11 +105,17 @@ class BiomeSampleMetabase(BiomeBackboneMetabase):
                        dtype: Optional[DTypeLike] = None):
         """This function and its sample twin is a rescue method to fix RepPhylogeny index problem.
 
-        Args:
-            dtype: Type to cast into
+        Parameters
+        ----------
+        dtype :
+            Type to cast into
+        dtype: Optional[DTypeLike] :
+             (Default value = None)
 
-        Returns:
-            :class:`~numpy.ndarray` of type `dtype`
+        Returns
+        -------
+        
+            class:`~numpy.ndarray` of type `dtype`
 
         """
         if dtype is None:

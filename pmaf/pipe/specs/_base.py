@@ -1,7 +1,7 @@
 from ._metakit import SpecificationBackboneMetabase
 
 class SpecificationBase(SpecificationBackboneMetabase):
-    ''' '''
+    """ """
 
     def __repr__(self):
         class_name = self.__class__.__name__
@@ -13,16 +13,21 @@ class SpecificationBase(SpecificationBackboneMetabase):
         return repr_str
 
     def fetch(self, data, *args, **kwargs):
-        '''
+        """
 
-        Args:
-          data: 
-          *args: 
-          **kwargs: 
+        Parameters
+        ----------
+        data :
+            
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         product = None
         next_args = (data, *args)
         next_kwargs = kwargs

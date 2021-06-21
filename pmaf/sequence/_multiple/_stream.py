@@ -198,10 +198,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def close(self, copy_filepath=None):
         """
 
-        Args:
-          copy_filepath: (Default value = None)
+        Parameters
+        ----------
+        copy_filepath :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
         """
         tmp_instance_dict = {
@@ -230,10 +233,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def get_sequence_by_acc(self, acc_number):
         """
 
-        Args:
-          acc_number:
+        Parameters
+        ----------
+        acc_number :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = None
@@ -244,10 +250,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def get_multiseq_by_accs(self, acc_numbers):
         """
 
-        Args:
-          acc_numbers:
+        Parameters
+        ----------
+        acc_numbers :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = None
@@ -273,11 +282,15 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def write_all_to_fasta(self, fasta_fp, write_in_chunks=100):
         """
 
-        Args:
-          fasta_fp:
-          write_in_chunks: (Default value = 100)
+        Parameters
+        ----------
+        fasta_fp :
+            
+        write_in_chunks :
+            (Default value = 100)
 
-        Returns:
+        Returns
+        -------
 
         """
         if not os.path.exists(fasta_fp):
@@ -323,10 +336,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _get_sequence_by_acc_id(self, accid):
         """
 
-        Args:
-          accid:
+        Parameters
+        ----------
+        accid :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         seqid = self._accid_to_seqid(accid)
@@ -339,10 +355,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _accid_to_seqid(self, accid):
         """
 
-        Args:
-          accid:
+        Parameters
+        ----------
+        accid :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         return self._stream_map[accid]
@@ -350,10 +369,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _retrieve_seq_by_seqid(self, seqid):
         """
 
-        Args:
-          seqid:
+        Parameters
+        ----------
+        seqid :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         tmp_seq_bytes = self._stream_storer.get_node(self._default_seqs_node_path)[
@@ -364,10 +386,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _retrieve_meta_by_seqid(self, seqid):
         """
 
-        Args:
-          seqid:
+        Parameters
+        ----------
+        seqid :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         tmp_meta_bytes = self._stream_storer.get_node(self._default_meta_node_path)[
@@ -378,10 +403,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def append_sequence(self, sequence):
         """
 
-        Args:
-          sequence:
+        Parameters
+        ----------
+        sequence :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if isinstance(sequence, NucleotideMetabase):
@@ -407,10 +435,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _append_sequence(self, sequence_instance):
         """
 
-        Args:
-          sequence_instance:
+        Parameters
+        ----------
+        sequence_instance :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         tmp_metadata = sequence_instance.buckle_for_uid(self._name)
@@ -428,10 +459,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def extend_multiseq(self, multiseq):
         """
 
-        Args:
-          multiseq:
+        Parameters
+        ----------
+        multiseq :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if isinstance(multiseq, MultiSequenceMetabase):
@@ -456,10 +490,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _append_multiseq(self, multiseq):
         """
 
-        Args:
-          multiseq:
+        Parameters
+        ----------
+        multiseq :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         for sequence in multiseq.sequences:
@@ -469,13 +506,19 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def append_string(self, name, mode, sequence_str, metadata_dict={}):
         """
 
-        Args:
-          name:
-          mode:
-          sequence_str:
-          metadata_dict: (Default value = {})
+        Parameters
+        ----------
+        name :
+            
+        mode :
+            
+        sequence_str :
+            
+        metadata_dict :
+            (Default value = {})
 
-        Returns:
+        Returns
+        -------
 
         """
         if (
@@ -504,12 +547,17 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _append_sequence_str(self, seq_name, sequence_str, metadata_dict):
         """
 
-        Args:
-          seq_name:
-          sequence_str:
-          metadata_dict:
+        Parameters
+        ----------
+        seq_name :
+            
+        sequence_str :
+            
+        metadata_dict :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         seqid = self._insert_seq_vlarray(sequence_str)
@@ -525,10 +573,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _insert_seq_vlarray(self, seq_data):
         """
 
-        Args:
-          seq_data:
+        Parameters
+        ----------
+        seq_data :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         self._last_seq_length = len(seq_data)
@@ -541,10 +592,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _insert_meta_vlarray(self, metadata):
         """
 
-        Args:
-          metadata:
+        Parameters
+        ----------
+        metadata :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         metadata_bytes = pickle.dumps(metadata)
@@ -556,10 +610,13 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
     def _verify_sequence(self, seq_str):
         """
 
-        Args:
-          seq_str:
+        Parameters
+        ----------
+        seq_str :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         ret = True

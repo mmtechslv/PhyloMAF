@@ -2,15 +2,19 @@ from ._base import SpecificationCompositeBase
 from pmaf.pipe.specs._metakit import SpecificationBackboneMetabase
 
 def ForgeSpec(name,*inters):
-    '''
+    """
 
-    Args:
-      name: 
-      *inters: 
+    Parameters
+    ----------
+    name :
+        
+    *inters :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if isinstance(name,str):
         if not len(name)>0:
             raise ValueError('`name` is invalid.')

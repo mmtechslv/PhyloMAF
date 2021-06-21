@@ -6,19 +6,25 @@ import pandas as pd
 from pmaf.internal._shared import sort_ranks
 
 class DatabaseTaxonomyMixin(DatabaseTaxonomyMetabase):
-    ''' '''
+    """ """
     def get_lineage_by_tid(self, ids = None, missing_rank=False, desired_ranks=False, drop_ranks=False):
-        '''Generates lineages for taxon ids
+        """Generates lineages for taxon ids
 
-        Args:
-          ids: (Default value = None)
-          missing_rank: (Default value = False)
-          desired_ranks: (Default value = False)
-          drop_ranks: (Default value = False)
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        missing_rank :
+            (Default value = False)
+        desired_ranks :
+            (Default value = False)
+        drop_ranks :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if ids is None:
             return generate_lineages_from_taxa(self.storage_manager.retrieve_data_by_element('taxonomy-sheet'), missing_rank, desired_ranks, drop_ranks)
         else:
@@ -32,17 +38,23 @@ class DatabaseTaxonomyMixin(DatabaseTaxonomyMetabase):
                 raise ValueError('Invalid taxon ids provided.')
 
     def get_lineage_by_rid(self, ids = None, missing_rank=False, desired_ranks=False, drop_ranks=False):
-        '''Generates lineages for taxon ids
+        """Generates lineages for taxon ids
 
-        Args:
-          ids: (Default value = None)
-          missing_rank: (Default value = False)
-          desired_ranks: (Default value = False)
-          drop_ranks: (Default value = False)
+        Parameters
+        ----------
+        ids :
+            (Default value = None)
+        missing_rank :
+            (Default value = False)
+        desired_ranks :
+            (Default value = False)
+        drop_ranks :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         tmp_unver_map2tid = self.find_tid_by_rid(ids, levels='tid', method='asis', mode='frame')
         tmp_focus_map2tid = tmp_unver_map2tid[~tmp_unver_map2tid.index.duplicated()]
         tmp_rid_tax_sheet = pd.DataFrame(index=tmp_focus_map2tid.index, columns=explode_element_columns(self.storage_manager.summary, 'taxonomy-sheet'))
@@ -57,16 +69,21 @@ class DatabaseTaxonomyMixin(DatabaseTaxonomyMetabase):
         return  tmp_rid_tax_lin.loc[tmp_unver_map2tid.index]
 
     def get_taxonomy_by_tid(self, ids = None, levels = None):
-        '''Return taxonomy dataframe for given TaxonIDs or all if id=None
+        """Return taxonomy dataframe for given TaxonIDs or all if id=None
 
-        Args:
-          ids: List of TaxonIDs or None (Default value = None)
-          levels: Default value
+        Parameters
+        ----------
+        ids :
+            List of TaxonIDs or None (Default value = None)
+        levels :
+            Default value
 
-        Returns:
-          
+        Returns
+        -------
+        type
+            
 
-        '''
+        """
         if levels is None:
             target_ranks = np.asarray(self.avail_ranks)
         elif isinstance(levels, str):
@@ -93,17 +110,23 @@ class DatabaseTaxonomyMixin(DatabaseTaxonomyMetabase):
             return product.loc[:, target_ranks[0]]
 
     def get_taxonomy_by_rid(self, ids = None, levels = None, tax_format=None):
-        '''Return taxonomy dataframe for given TaxonIDs or all if id=None
+        """Return taxonomy dataframe for given TaxonIDs or all if id=None
 
-        Args:
-          ids: List of TaxonIDs or None (Default value = None)
-          levels: Default value
-          tax_format: Default value
+        Parameters
+        ----------
+        ids :
+            List of TaxonIDs or None (Default value = None)
+        levels :
+            Default value
+        tax_format :
+            Default value
 
-        Returns:
-          
+        Returns
+        -------
+        type
+            
 
-        '''
+        """
         if isinstance(tax_format, str):
             if not verify_tax_format(tax_format):
                 raise ValueError('`tax_format` has invalid format.')
@@ -148,16 +171,21 @@ class DatabaseTaxonomyMixin(DatabaseTaxonomyMetabase):
             return product.loc[target_ids]
 
     def get_taxonomy_by_rank(self, levels):
-        '''
+        """
 
-        Args:
-          level: 
-          ids: 
-          levels: 
+        Parameters
+        ----------
+        level :
+            
+        ids :
+            
+        levels :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if levels is None:
             target_ranks = np.asarray(self.avail_ranks)
         elif isinstance(levels, str):

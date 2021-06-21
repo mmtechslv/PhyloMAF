@@ -12,11 +12,17 @@ from typing import Generator, Tuple, Union
 def read_qiime_taxonomy_map(taxonomy_tsv_fp: str) -> pd.Series:
     """Reads taxonomy file in QIIME/Greengenes notation.
 
-    Args:
-      taxonomy_tsv_fp: Path to QIIME/Greengenes formatted taxonomy map.
+    Parameters
+    ----------
+    taxonomy_tsv_fp :
+        Path to QIIME/Greengenes formatted taxonomy map.
+    taxonomy_tsv_fp: str :
+        
 
-    Returns:
-        :class:`~pandas.Series` of taxonomy map.
+    Returns
+    -------
+    
+        class:`~pandas.Series` of taxonomy map.
 
     """
     if os.path.exists(taxonomy_tsv_fp):
@@ -35,11 +41,17 @@ def parse_qiime_taxonomy_map(taxonomy_map_df: pd.DataFrame) -> pd.DataFrame:
     """Parse taxonomy :class:`~pandas.DataFrame` in QIIME/Greengenes notation.
     Result produce class:`~pandas.DataFrame` where taxa are reorganized into ordered but unvalidated ranks.
 
-    Args:
-        taxonomy_map_df: :class:`~pandas.DataFrame` with taxonomy data.
+    Parameters
+    ----------
+    taxonomy_map_df :
+        :class:`~pandas.DataFrame` with taxonomy data.
+    taxonomy_map_df: pd.DataFrame :
+        
 
-    Returns:
-        Taxonomy sheet of type :class:`~pandas.DataFrame`
+    Returns
+    -------
+    Taxonomy sheet of type
+        class:`~pandas.DataFrame`
 
     """
     if not isinstance(taxonomy_map_df, pd.DataFrame):
@@ -60,7 +72,17 @@ def parse_qiime_taxonomy_map(taxonomy_map_df: pd.DataFrame) -> pd.DataFrame:
     )
 
     def get_unique(zip_list):
-        """Get unique values."""
+        """Get unique values.
+
+        Parameters
+        ----------
+        zip_list :
+            
+
+        Returns
+        -------
+
+        """
         seen = set()
         seen_add = seen.add
         return [x for x in zip_list if not (x in seen or seen_add(x))]
@@ -68,6 +90,19 @@ def parse_qiime_taxonomy_map(taxonomy_map_df: pd.DataFrame) -> pd.DataFrame:
     found_levels = get_unique(zip_list)
 
     def allocator(lineage, levels):  # TODO: No need for vectorization, make a Cython
+        """
+
+        Parameters
+        ----------
+        lineage :
+            
+        levels :
+            
+
+        Returns
+        -------
+
+        """
         #  function instead or think about something else.
         """Function to parse individual taxonomic consensus lineage in
         QIIME/Greengenes notation. Vectorization in this case does not provide speed
@@ -111,14 +146,23 @@ def parse_qiime_sequence_generator(
 ) -> Generator[Union[Tuple[dict, pd.DataFrame], pd.DataFrame], None, None]:
     """Parser for sequence/alignment data in FASTA format provided in QIIME-styled databases.
 
-    Args:
-        sequence_fasta_fp: Sequence data in FASTA format
-        chunk_size: Chunk size to generate chunk :class:`~pandas.DataFrame`.
-        alignment: True if MSA are supplied.
+    Parameters
+    ----------
+    sequence_fasta_fp :
+        Sequence data in FASTA format
+    chunk_size :
+        Chunk size to generate chunk :class:`~pandas.DataFrame`.
+    alignment :
+        True if MSA are supplied.
+    sequence_fasta_fp: str :
+        
+    chunk_size: int :
+        
+    alignment: bool :
+        
 
-    Yields:
-        First round: (Metadata :class:`dict`, Chunk :class:`~pandas.DataFrame`)
-        Other rounds: Chunk :class:`~pandas.DataFrame`
+    Returns
+    -------
 
     """
     seqio = SequenceIO(sequence_fasta_fp, ftype="fasta", upper=True)

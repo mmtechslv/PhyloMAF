@@ -45,19 +45,49 @@ class DatabaseGreengenes(
     ) -> None:
         """Factory method to build new database `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file.
 
-        Args:
-            storage_hdf5_fp: Output path for `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file
-            taxonomy_map_csv_fp: Path to taxonomy file
-            tree_newick_fp: Path to Newick tree file
-            sequence_fasta_fp: Path to FASTA sequences file
-            sequence_alignment_fasta_fp: Path to FASTA alignment file
-            stamp_dict: Dictionary with metadata that will be stamped to the database
-            force: Force output file overwrite
-            chunksize: Sequence/Alignment data processing chunk size. Longer chunks are
-                faster to process but require more memory.
-            **kwargs: Compatibility.
+        Parameters
+        ----------
+        storage_hdf5_fp :
+            Output path for `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file
+        taxonomy_map_csv_fp :
+            Path to taxonomy file
+        tree_newick_fp :
+            Path to Newick tree file
+        sequence_fasta_fp :
+            Path to FASTA sequences file
+        sequence_alignment_fasta_fp :
+            Path to FASTA alignment file
+        stamp_dict :
+            Dictionary with metadata that will be stamped to the database
+        force :
+            Force output file overwrite
+        chunksize :
+            Sequence/Alignment data processing chunk size. Longer chunks are
+            faster to process but require more memory.
+        **kwargs :
+            Compatibility.
+        storage_hdf5_fp: str :
+            
+        taxonomy_map_csv_fp: str :
+            
+        tree_newick_fp: str :
+            
+        sequence_fasta_fp: str :
+            
+        sequence_alignment_fasta_fp: str :
+            
+        stamp_dict: dict :
+            
+        force: bool :
+             (Default value = False)
+        chunksize: int :
+             (Default value = 500)
+        **kwargs: Any :
+            
 
-        Returns:
+        Returns
+        -------
+        
             None if file was created successfully.
 
         """
@@ -131,17 +161,51 @@ class DatabaseGreengenes(
         )
 
         def produce_taxonomy_prior(tmp_taxonomy_prior, index_mapper):
-            """The *taxonomy-prior* storage element producer function."""
+            """The *taxonomy-prior* storage element producer function.
+
+            Parameters
+            ----------
+            tmp_taxonomy_prior :
+                
+            index_mapper :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield transformer.reindex_frame(tmp_taxonomy_prior, index_mapper)
 
         def produce_taxonomy_sheet(taxonomy_sheet):
-            """The *taxonomy-sheet* storage element producer function."""
+            """The *taxonomy-sheet* storage element producer function.
+
+            Parameters
+            ----------
+            taxonomy_sheet :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield taxonomy_sheet
 
         def produce_sequence_accession(index_mapper, dropped_taxa):
-            """The *sequence-accession* storage element producer function."""
+            """The *sequence-accession* storage element producer function.
+
+            Parameters
+            ----------
+            index_mapper :
+                
+            dropped_taxa :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             tmp_accessions = (
                 index_mapper.drop(index=dropped_taxa, errors="ignore")
@@ -152,12 +216,32 @@ class DatabaseGreengenes(
             yield tmp_accessions
 
         def produce_metadata_db_history(transformation_details):
-            """The *metadata-db-history* storage element producer function."""
+            """The *metadata-db-history* storage element producer function.
+
+            Parameters
+            ----------
+            transformation_details :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield transformation_details["changes"]
 
         def produce_map_rep2tid(transformation_details):
-            """The *map-rep2tid* storage element producer function."""
+            """The *map-rep2tid* storage element producer function.
+
+            Parameters
+            ----------
+            transformation_details :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield transformation_details["map-rep2tid"]
 
@@ -225,23 +309,65 @@ class DatabaseGreengenes(
         from ete3 import Tree
 
         def produce_tree_prior(tree_newick_fp):
-            """The *tree-prior* storage element producer function."""
+            """The *tree-prior* storage element producer function.
+
+            Parameters
+            ----------
+            tree_newick_fp :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield read_newick_tree(tree_newick_fp)
 
         def produce_tree_parsed(tree_newick_string, index_mapper):
-            """The *tree-parsed* storage element producer function."""
+            """The *tree-parsed* storage element producer function.
+
+            Parameters
+            ----------
+            tree_newick_string :
+                
+            index_mapper :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             tmp_tree = Tree(tree_newick_string, format=0)
             yield transformer.reparse_tree(tmp_tree, index_mapper)
 
         def produce_tree_object(tree_newick_string):
-            """The *tree-object* storage element producer function."""
+            """The *tree-object* storage element producer function.
+
+            Parameters
+            ----------
+            tree_newick_string :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield Tree(tree_newick_string, format=2, quoted_node_names=True)
 
         def produce_map_tree(tree_object):
-            """The *map-tree* storage element producer function."""
+            """The *map-tree* storage element producer function.
+
+            Parameters
+            ----------
+            tree_object :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             tmp_rebuilded_tree = transformer.rebuild_phylo(tree_object)
             yield transformer.make_tree_map(tmp_rebuilded_tree)
@@ -290,7 +416,23 @@ class DatabaseGreengenes(
         def produce_sequence_representative(
             sequence_fasta_fp, index_mapper, dropped_taxa, chunksize
         ):
-            """The *sequence-representative* storage element producer function."""
+            """The *sequence-representative* storage element producer function.
+
+            Parameters
+            ----------
+            sequence_fasta_fp :
+                
+            index_mapper :
+                
+            dropped_taxa :
+                
+            chunksize :
+                
+
+            Returns
+            -------
+
+            """
             sequence_parser = parse_qiime_sequence_generator(
                 sequence_fasta_fp, chunksize, False
             )
@@ -309,7 +451,23 @@ class DatabaseGreengenes(
         def produce_sequence_aligned(
             sequence_alignment_fasta_fp, index_mapper, dropped_taxa, chunksize
         ):
-            """The *sequence-aligned* storage element producer function."""
+            """The *sequence-aligned* storage element producer function.
+
+            Parameters
+            ----------
+            sequence_alignment_fasta_fp :
+                
+            index_mapper :
+                
+            dropped_taxa :
+                
+            chunksize :
+                
+
+            Returns
+            -------
+
+            """
             sequence_parser = parse_qiime_sequence_generator(
                 sequence_alignment_fasta_fp, chunksize, True
             )
@@ -358,12 +516,32 @@ class DatabaseGreengenes(
         """
 
         def produce_map_interx_taxon(interx_maker_result):
-            """The *map-interx-taxon* storage element producer function."""
+            """The *map-interx-taxon* storage element producer function.
+
+            Parameters
+            ----------
+            interx_maker_result :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield interx_maker_result["map-interx-taxon"]
 
         def produce_map_interx_repseq(interx_maker_result):
-            """The *map-interx-repseq storage element producer function."""
+            """The *map-interx-repseq storage element producer function.
+
+            Parameters
+            ----------
+            interx_maker_result :
+                
+
+            Returns
+            -------
+
+            """
             yield None, None
             yield interx_maker_result["map-interx-repseq"]
 

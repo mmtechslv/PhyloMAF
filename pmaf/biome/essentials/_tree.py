@@ -27,16 +27,22 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> None:
         """Constructor for :class:`.RepPhylogeny`
 
-        Args:
-            tree: Phylogeny data
-            feature_ids: Target feature identifiers
-            prune: Whether to prune for `feature_ids`
-            annotation: Annotations for tips
-            copy: Whether to copy the original tree.
-                May require long time if tree is large.
-            ignore_polytomy: Whether to resolve tree polytomy or not.
-            **kwargs: Compatibility
-
+        Parameters
+        ----------
+        tree
+            Phylogeny data
+        feature_ids
+            Target feature identifiers
+        prune
+            Whether to prune for `feature_ids`
+        annotation
+            Annotations for tips
+        copy
+            Whether to copy the original tree. May require long time if tree is large.
+        ignore_polytomy
+            Whether to resolve tree polytomy or not.
+        kwargs
+            Compatibility
         """
         super().__init__(**kwargs)
         if feature_ids is None:
@@ -105,10 +111,15 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> Optional[AnyGenericIdentifier]:
         """Remove features by feature ids and ratify action.
 
-        Args:
-            ids: Feature identifiers
-            **kwargs: Compatibility
+        Parameters
+        ----------
+        ids
+            Feature identifiers
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_ids = np.asarray(ids).astype(self.__feature_ids.dtype)
 
@@ -126,14 +137,17 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         _annotations: Union[dict, pd.Series, None] = None,
         **kwargs: Any
     ) -> Optional[Mapper]:
-        """
+        """Merge features by map..
 
-        Args:
-            map_dict:Map to use for merging
-            _annotations: New annotations to passed to
-                `essential` class :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
-            **kwargs: Compatibility
-
+        Parameters
+        ----------
+        map_dict
+            Map to use for merging
+        _annotations
+            New annotations to passed to
+            `essential` class :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
+        **kwargs
+            Compatibility
         """
         new_tips = []
         for new_id, group in map_dict.items():
@@ -161,7 +175,6 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Returns:
             Annotated tree of class :class:`~pmaf.phylo.tree._tree.PhyloTree`
-
         """
         tmp_annotated_tree = self.__internal_tree.copy()
         tmp_annotated_tree.annotate_nodes_by_map(self.__annotations, only_tips=True)
@@ -169,11 +182,12 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         return tmp_annotated_tree
 
     def get_annotated_tree(self) -> PhyloTree:
-        """Retrieves annotated tree
+        """Retrieves annotated tree.
 
-        Returns:
-            Annotated tree of class :class:`~pmaf.phylo.tree.PhyloTree`
-
+        Returns
+        -------
+        Annotated tree of class
+            class:`~pmaf.phylo.tree.PhyloTree`
         """
         if len(self.__annotations) > 0:
             return self.__make_annotated_tree()
@@ -187,12 +201,14 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     def render_art(self, output_fp: str, annotated: bool = False) -> Any:
         """Renders tree into file.
 
-        Args:
-            output_fp: File to render into. File format depends on the extension.
-                For example, .pdf will produce PDF file and
-                while .png will produce PNG file.
-            annotated: Whether to create tree with annotated tips or not.
-
+        Parameters
+        ----------
+        output_fp
+            File to render into. File format depends on the extension.
+            For example, .pdf will produce PDF file and
+            while .png will produce PNG file.
+        annotated
+            Whether to create tree with annotated tips or not.
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -205,12 +221,16 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     def get_ascii_art(self, annotated: bool = False) -> str:
         """Creates ASCII art of the tree.
 
-        Args:
-          annotated: Whether to create tree with annotated tips or not.
+        Parameters
+        ----------
+        annotated :
+            Whether to create tree with annotated tips or not.
+        annotated: bool :
+             (Default value = False)
 
-        Returns:
+        Returns
+        -------
             String with ASCII art
-
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -225,11 +245,14 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> Tuple[str, dict]:
         """Creates the Newick formatted tree for export.
 
-        Args:
-          rooted: Whether to create rooted tree or not.
-          annotated: Whether to create tree with annotated tips or not.
-          **kwargs: Compatibility.
-
+        Parameters
+        ----------
+        rooted :
+            Whether to create rooted tree or not.
+        annotated :
+            Whether to create tree with annotated tips or not.
+        **kwargs :
+            Compatibility.
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -252,11 +275,14 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     def export(self, output_fp: str, _add_ext: bool = False, **kwargs: Any) -> None:
         """Exports the Newick formatted phylogenetic tree into specified file.
 
-        Args:
-          output_fp: Export filepath
-          _add_ext: Add file extension or not.
-          **kwargs: Compatibility
-
+        Parameters
+        ----------
+        output_fp :
+            Export filepath
+        _add_ext :
+            Add file extension or not.
+        **kwargs :
+            Compatibility
         """
         tmp_export, _ = self._export(**kwargs)
         if _add_ext:
@@ -283,13 +309,18 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> "RepPhylogeny":
         """Get subset of the :class:`.RepPhylogeny`.
 
-        Args:
-                rids: Feature Identifiers
-                *args: Compatibility
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        rids :
+            Feature Identifiers
+        *args :
+            Compatibility
+        **kwargs :
+            Compatibility
 
-        Returns:
-                 Instance of :class:`.RepPhylogeny`.
+        Returns
+        -------
+            Instance of class:`.RepPhylogeny`.
         """
         if rids is None:
             target_rids = self.__feature_ids
@@ -311,27 +342,31 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     def write(self, output_fp: str, mode: str = "w", **kwargs: Any) -> None:
         """Writes the Newick tree into specified file.
 
-        Args:
-            output_fp: Output filepath
-            mode: File write mode.
-            **kwargs: Compatibility
-
+        Parameters
+        ----------
+        output_fp :
+            Output filepath
+        mode :
+            File write mode.
+        **kwargs :
+            Compatibility
         """
+
         tmp_export, _ = self._export(**kwargs)
         with open(output_fp, mode) as output:
             output.write(tmp_export)
 
     @property
     def data(self) -> PhyloTree:
-        """Phylogenetic Tree"""
+        """Phylogenetic Tree."""
         return self.__internal_tree
 
     @property
     def annotations(self) -> dict:
-        """Tip Annotations"""
+        """Tip Annotations."""
         return self.__annotations
 
     @property
     def xrid(self) -> AnyGenericIdentifier:
-        """Feature identifiers"""
+        """Feature identifiers."""
         return pd.Index(self.__feature_ids).astype(self.__feature_ids_dtype)

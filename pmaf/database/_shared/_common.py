@@ -30,28 +30,34 @@ DATABASE_HDF5_STRUCT = {    'root-tree':'/tre', # Path
 }
 
 def get_element_mode(element_key):
-    '''
+    """
 
-    Args:
-      element_key: 
+    Parameters
+    ----------
+    element_key :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if element_key in ['tree-prior', 'tree-parsed', 'tree-object']:
         return 1
     else:
         return 2
 
 def get_element_type(element_key):
-    '''
+    """
 
-    Args:
-      element_key: 
+    Parameters
+    ----------
+    element_key :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if get_element_mode(element_key) == 2:
         if element_key in ['map-interx-taxon','map-interx-repseq','map-tree']:
             return 'fixed'
@@ -61,14 +67,17 @@ def get_element_type(element_key):
         return False
 
 def get_element_index_type(element_key):
-    '''
+    """
 
-    Args:
-      element_key: 
+    Parameters
+    ----------
+    element_key :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if element_key in ['taxonomy-prior','sequence-representative','sequence-aligned','sequence-accession','map-rep2tid', 'stat-reps']:
         return 'map-interx-repseq'
     elif element_key in ['taxonomy-sheet','map-repseq','stat-taxs']:
@@ -77,14 +86,17 @@ def get_element_index_type(element_key):
         return None
 
 def filter_interx_elements(element_key_list):
-    '''
+    """
 
-    Args:
-      element_key_list: 
+    Parameters
+    ----------
+    element_key_list :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     tmp_element_list = []
     for element in element_key_list:
         if element in ['taxonomy-prior','sequence-representative','sequence-aligned','sequence-accession','map-rep2tid','taxonomy-sheet','stat-reps','stat-reps']:
@@ -93,15 +105,19 @@ def filter_interx_elements(element_key_list):
 
 
 def filter_elements_by(startswith, exclude=[]):
-    '''
+    """
 
-    Args:
-      startswith: 
-      exclude: (Default value = [])
+    Parameters
+    ----------
+    startswith :
+        
+    exclude :
+        (Default value = [])
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     tmp_element_list = []
     for key in DATABASE_HDF5_STRUCT.keys():
         if key.startswith(startswith) and key not in exclude:
@@ -109,29 +125,36 @@ def filter_elements_by(startswith, exclude=[]):
     return tmp_element_list
 
 def missing_to_none(target_pd_data):
-    '''
+    """
 
-    Args:
-      target_pd_data: 
+    Parameters
+    ----------
+    target_pd_data :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if isinstance(target_pd_data,pd.DataFrame):
         return target_pd_data.applymap(lambda x: None if (x == '' or pd.isna(x)) else x)
     else:
         return target_pd_data.map(lambda x: None if (x == '' or pd.isna(x)) else x)
 
 def explode_element_columns(db_summary,element_key):
-    '''
+    """
 
-    Args:
-      db_summary: 
-      element_key: 
+    Parameters
+    ----------
+    db_summary :
+        
+    element_key :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     tmp_element_col_label = "columns-{}".format(element_key)
     if tmp_element_col_label in db_summary.index:
         return db_summary.loc[tmp_element_col_label].split('|')
@@ -139,16 +162,21 @@ def explode_element_columns(db_summary,element_key):
         return []
 
 def to_mode(result_obj,mode='array',order=None):
-    '''
+    """
 
-    Args:
-      result_obj: 
-      mode: (Default value = 'array')
-      order: (Default value = None)
+    Parameters
+    ----------
+    result_obj :
+        
+    mode :
+        (Default value = 'array')
+    order :
+        (Default value = None)
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     if mode == 'array':
         if isinstance(result_obj, (pd.DataFrame, pd.Series)):
             if order is None:
@@ -257,14 +285,17 @@ def to_mode(result_obj,mode='array',order=None):
         raise ValueError('Invalid `mode` is requested.')
 
 def verify_tax_format(tax_format):
-    '''
+    """
 
-    Args:
-      tax_format: 
+    Parameters
+    ----------
+    tax_format :
+        
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     valid_placeholders = ['tid', 'tax']
     target_placeholders = [fmt[1] for fmt in Formatter().parse(tax_format) if fmt[1] is not None]
     return all([ph in valid_placeholders for ph in target_placeholders])

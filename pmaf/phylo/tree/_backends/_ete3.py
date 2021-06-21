@@ -1,7 +1,7 @@
 import ete3
 
 class TreeEte3Base():
-    ''' '''
+    """ """
     def __init__(self,tree,src='newick',copy=False):
         if src == 'newick-fp':
             self._tree = ete3.PhyloTree(tree, quoted_node_names=True, format=1)
@@ -19,103 +19,127 @@ class TreeEte3Base():
             raise TypeError('`tree` has invalid type.')
 
     def write_newick(self,tree_fp, tree_format=1,root_node=False, output_format='newick', quoted_nodes=False,**kwargs):
-        '''
+        """
 
-        Args:
-          tree_fp: 
-          tree_format: (Default value = 1)
-          root_node: (Default value = False)
-          output_format: (Default value = 'newick')
-          quoted_nodes: (Default value = False)
-          **kwargs: 
+        Parameters
+        ----------
+        tree_fp :
+            
+        tree_format :
+            (Default value = 1)
+        root_node :
+            (Default value = False)
+        output_format :
+            (Default value = 'newick')
+        quoted_nodes :
+            (Default value = False)
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if output_format == 'newick':
             return self._tree.write(format=tree_format, outfile=tree_fp,format_root_node=root_node,quoted_node_names=quoted_nodes)
         else:
             raise NotImplementedError
 
     def get_string(self,tree_format=1,root_node=False, output_format='newick',quoted_nodes=False,**kwargs):
-        '''
+        """
 
-        Args:
-          tree_format: (Default value = 1)
-          root_node: (Default value = False)
-          output_format: (Default value = 'newick')
-          quoted_nodes: (Default value = False)
-          **kwargs: 
+        Parameters
+        ----------
+        tree_format :
+            (Default value = 1)
+        root_node :
+            (Default value = False)
+        output_format :
+            (Default value = 'newick')
+        quoted_nodes :
+            (Default value = False)
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if output_format == 'newick':
             return self._tree.write(format=tree_format, format_root_node=root_node,quoted_node_names=quoted_nodes)
         else:
             raise NotImplementedError
 
     def ladderize(self):
-        ''' '''
+        """ """
         self._tree.ladderize()
 
     def unroot(self):
-        ''' '''
+        """ """
         self._tree.unroot()
 
     def sort(self):
-        ''' '''
+        """ """
         self._tree.sort_descendants()
 
     def prune_for_ids(self, node_ids):
-        '''
+        """
 
-        Args:
-          node_ids: 
+        Parameters
+        ----------
+        node_ids :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         ret = False
         if type(node_ids) == set:
             ret = self._tree.prune(list(node_ids), preserve_branch_length=True)
         return ret
 
     def copy(self):
-        ''' '''
+        """ """
         return TreeEte3Base(self._tree,src='object',copy=True)
 
     def get_ascii_art(self):
-        ''' '''
+        """ """
         ret = self._tree.get_ascii(show_internal=False)
         return ret
 
     def resolve_polytomy(self):
-        ''' '''
+        """ """
         return self._tree.resolve_polytomy()
 
     def make_tree_art(self, tree_art_file_path):
-        '''
+        """
 
-        Args:
-          tree_art_file_path: 
+        Parameters
+        ----------
+        tree_art_file_path :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         tree_style = ete3.TreeStyle()
         tree_style.show_leaf_name = False
         tree_style.show_branch_length = True
         tree_style.show_branch_support = False
         def custom_layout(node):
-            '''
+            """
 
-            Args:
-              node: 
+            Parameters
+            ----------
+            node :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             node_face = ete3.TextFace(node.name, tight_text=False)
             ete3.add_face_to_node(node_face, node, column=0, position="branch-right")
         tree_style.layout_fn = custom_layout
@@ -123,81 +147,103 @@ class TreeEte3Base():
         return ret
 
     def get_tips(self, names=False):
-        '''
+        """
 
-        Args:
-          names: (Default value = False)
+        Parameters
+        ----------
+        names :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return tuple([node.name if names else node for node in self._tree.traverse() if node.is_leaf()])
 
     def get_nodes(self,names=False):
-        '''
+        """
 
-        Args:
-          names: (Default value = False)
+        Parameters
+        ----------
+        names :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return tuple([node.name if names else node for node in self._tree.traverse()])
 
     def get_internal_nodes(self,names=False):
-        '''
+        """
 
-        Args:
-          names: (Default value = False)
+        Parameters
+        ----------
+        names :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return tuple([node.name if names else node for node in self._tree.traverse() if not node.is_leaf()])
 
     def find_node_by_name(self,node_name):
-        '''
+        """
 
-        Args:
-          node_name: 
+        Parameters
+        ----------
+        node_name :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return next(self._tree.iter_search_nodes(name=node_name))
 
     def get_mcra_node_for_nodes(self,nodes):
-        '''
+        """
 
-        Args:
-          nodes: 
+        Parameters
+        ----------
+        nodes :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return self._tree.get_common_ancestor(nodes)
 
     def detach_node(self,node):
-        '''
+        """
 
-        Args:
-          node: 
+        Parameters
+        ----------
+        node :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return node.detach()
 
     def add_str_node_names(self, map_dict,only_tips):
-        '''
+        """
 
-        Args:
-          map_dict: 
-          only_tips: 
+        Parameters
+        ----------
+        map_dict :
+            
+        only_tips :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         for node in self._tree.traverse():
             if node.name in map_dict.keys():
                 if only_tips:
@@ -209,29 +255,36 @@ class TreeEte3Base():
 
     @staticmethod
     def get_node_copy(node):
-        '''
+        """
 
-        Args:
-          node: 
+        Parameters
+        ----------
+        node :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         tmp_node = ete3.PhyloTree()
         for feature in node.features:
             tmp_node.add_feature(feature, getattr(node, feature))
         return tmp_node
 
     def replace_node_names(self,map_dict,only_tips):
-        '''
+        """
 
-        Args:
-          map_dict: 
-          only_tips: 
+        Parameters
+        ----------
+        map_dict :
+            
+        only_tips :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         for node in self._tree.traverse():
             if node.name in map_dict.keys():
                 if only_tips:
@@ -242,18 +295,18 @@ class TreeEte3Base():
         return
 
     def count(self):
-        ''' '''
+        """ """
         return len(self._tree)
 
 
     @property
     def engine(self):
-        ''' '''
+        """ """
         return self._tree
 
     @property
     def name(self):
-        ''' '''
+        """ """
         return 'ETE3'
 
 

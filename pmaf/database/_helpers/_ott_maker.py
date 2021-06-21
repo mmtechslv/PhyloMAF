@@ -5,14 +5,26 @@ import os
 def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) -> bool:
     """Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life clades.
 
-    Args:
-        reftax_path: Path to reference taxonomy directory.
-            `Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
-            Run Make to compile OTT Jython files.
-        newtax_path: Path to output taxonomy directory.
-        reftax_src_path: Path to OTL reference-taxonomy tool('smasher')'s source code.
-            `Link to repo <https://github.com/OpenTreeOfLife/reference-taxonomy>`_
-    Returns:
+    Parameters
+    ----------
+    reftax_path :
+        Path to reference taxonomy directory.
+        `Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
+        Run Make to compile OTT Jython files.
+    newtax_path :
+        Path to output taxonomy directory.
+    reftax_src_path :
+        Path to OTL reference-taxonomy tool('smasher')'s source code.
+    reftax_path: str :
+        
+    newtax_path: str :
+        
+    reftax_src_path: str :
+        
+
+    Returns
+    -------
+    
         Result status
 
     """
@@ -49,6 +61,17 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
         jython_channel_out = []
 
         def jython_receiver(message):
+            """
+
+            Parameters
+            ----------
+            message :
+                
+
+            Returns
+            -------
+
+            """
             print(message)
             jython_channel_out.append(message)
             return
@@ -65,7 +88,7 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
                                 from java.io import PrintStream, OutputStream
                                 oldOut = System.out
                                 class NoOutputStream(OutputStream):
-                                    ''' '''
+                                    """ """
                                     def write(self, b, off, len): pass
                                 System.setOut(PrintStream(NoOutputStream()))
                                 result = [] 

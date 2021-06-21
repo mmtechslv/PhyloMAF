@@ -15,23 +15,32 @@ from pmaf.database._shared._summarizers import merge_recaps
 def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kwargs):
     """
 
-    Args:
-      storage_manager:
-      stamp_data:
-      prior_recap:
-      **kwargs:
+    Parameters
+    ----------
+    storage_manager :
+        
+    stamp_data :
+        
+    prior_recap :
+        
+    **kwargs :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
 
     def produce_metadata_db_summary(final_recap):
         """
 
-        Args:
-          final_recap:
+        Parameters
+        ----------
+        final_recap :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         yield None, None
@@ -72,10 +81,13 @@ def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kw
 def make_interxmaps(storage_manager):
     """
 
-    Args:
-      storage_manager:
+    Parameters
+    ----------
+    storage_manager :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     if storage_manager.state == -1:
@@ -95,11 +107,15 @@ def make_interxmaps(storage_manager):
             def make_interxmap(target_elements, storage_manager):
                 """
 
-                Args:
-                  target_elements:
-                  storage_manager:
+                Parameters
+                ----------
+                target_elements :
+                    
+                storage_manager :
+                    
 
-                Returns:
+                Returns
+                -------
 
                 """
                 first_element = target_elements[0]
@@ -139,11 +155,15 @@ def make_interxmaps(storage_manager):
 def reparse_tree(tree_object, index_mapper):
     """
 
-    Args:
-      tree_object:
-      index_mapper:
+    Parameters
+    ----------
+    tree_object :
+        
+    index_mapper :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     nodes_with_names = [node for node in tree_object.iter_leaves() if node.name != ""]
@@ -166,10 +186,13 @@ def reparse_tree(tree_object, index_mapper):
 def rebuild_phylo(tree_object):
     """
 
-    Args:
-      tree_object:
+    Parameters
+    ----------
+    tree_object :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     nodes_with_no_names = tree_object.iter_search_nodes(name="")
@@ -195,10 +218,13 @@ def rebuild_phylo(tree_object):
 def make_tree_map(tree_object):
     """
 
-    Args:
-      tree_object:
+    Parameters
+    ----------
+    tree_object :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     uid_map_list = []
@@ -217,12 +243,17 @@ def make_tree_map(tree_object):
 def reconstruct_taxonomy(master_taxonomy_sheet_df, index_mapper, reject_taxa=None):
     """
 
-    Args:
-      master_taxonomy_sheet_df:
-      index_mapper:
-      reject_taxa: (Default value = None)
+    Parameters
+    ----------
+    master_taxonomy_sheet_df :
+        
+    index_mapper :
+        
+    reject_taxa :
+        (Default value = None)
 
-    Returns:
+    Returns
+    -------
 
     """
     if reject_taxa is None:
@@ -244,10 +275,13 @@ def reconstruct_taxonomy(master_taxonomy_sheet_df, index_mapper, reject_taxa=Non
     def correct_taxa(taxon):
         """
 
-        Args:
-          taxon:
+        Parameters
+        ----------
+        taxon :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if taxon is not None:
@@ -374,10 +408,13 @@ def reconstruct_taxonomy(master_taxonomy_sheet_df, index_mapper, reject_taxa=Non
 def make_rid_index_mapper(rids_index):
     """
 
-    Args:
-      rids_index:
+    Parameters
+    ----------
+    rids_index :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     return (
@@ -391,11 +428,15 @@ def make_rid_index_mapper(rids_index):
 def reindex_frame(target_df, index_mapper):
     """
 
-    Args:
-      target_df:
-      index_mapper:
+    Parameters
+    ----------
+    target_df :
+        
+    index_mapper :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     return target_df.rename(index=index_mapper)
@@ -404,10 +445,13 @@ def reindex_frame(target_df, index_mapper):
 def make_column_details(storage_manager):
     """
 
-    Args:
-      storage_manager:
+    Parameters
+    ----------
+    storage_manager :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     tmp_column_summary = pd.Series()
@@ -429,11 +473,15 @@ def make_column_details(storage_manager):
 def produce_rep_stats(storage_manager, chunksize):
     """
 
-    Args:
-      storage_manager:
-      chunksize:
+    Parameters
+    ----------
+    storage_manager :
+        
+    chunksize :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     total_repseqs = storage_manager.get_index_by_element(
@@ -454,11 +502,15 @@ def produce_rep_stats(storage_manager, chunksize):
 def produce_tax_stats(storage_manager, novel_tids):
     """
 
-    Args:
-      storage_manager:
-      novel_tids:
+    Parameters
+    ----------
+    storage_manager :
+        
+    novel_tids :
+        
 
-    Returns:
+    Returns
+    -------
 
     """
     map2tid = storage_manager.retrieve_data_by_element("map-rep2tid")
@@ -484,11 +536,15 @@ def produce_tax_stats(storage_manager, novel_tids):
 def make_repseq_map_generator(transformation_details, chunksize=500):
     """
 
-    Args:
-      transformation_details:
-      chunksize: (Default value = 500)
+    Parameters
+    ----------
+    transformation_details :
+        
+    chunksize :
+        (Default value = 500)
 
-    Returns:
+    Returns
+    -------
 
     """
     tid_index = (

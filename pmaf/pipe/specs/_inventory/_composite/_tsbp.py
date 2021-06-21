@@ -6,7 +6,7 @@ from pmaf.pipe.agents.dockers._mediums._phy_medium import DockerPhylogenyMedium
 from pmaf.pipe.agents.dockers._mediums._seq_medium import DockerSequenceMedium
 
 class SpecTSBP(SpecificationCompositeBase):
-    ''' '''
+    """ """
     def __init__(self, *args, tree_builder,  **kwargs):
         if not isinstance(tree_builder,TreeBuilderBackboneMetabase):
             raise TypeError('`tree_builder` has invalid type.')
@@ -39,7 +39,7 @@ class SpecTSBP(SpecificationCompositeBase):
 
     @property
     def outlet(self):
-        ''' '''
+        """ """
         return DockerPhylogenyMedium
 
 

@@ -9,7 +9,7 @@ import copy
 from numpy import isscalar
 
 class Nucleotide(NucleotideMetabase):
-    ''' '''
+    """ """
     def __init__(self,sequence,name=None,metadata=None,mode='DNA',**kwargs):
         if name is None or isscalar(name):
             tmp_name = name
@@ -63,14 +63,17 @@ class Nucleotide(NucleotideMetabase):
         return repr_str
 
     def buckle_by_uid(self,uid):
-        '''
+        """
 
-        Args:
-          uid: 
+        Parameters
+        ----------
+        uid :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if not self.__buckled:
             packed_metadata = {'master-metadata': self.__metadata, '__name': self.__name}
             self.__name = uid
@@ -81,21 +84,24 @@ class Nucleotide(NucleotideMetabase):
             raise RuntimeError('Nucleotide instance is already buckled.')
 
     def unbuckle_uid(self):
-        ''' '''
+        """ """
         if self.__buckled:
             return self.__sequence.metadata['id']
         else:
             raise RuntimeError('Nucleotide instance is not buckled.')
 
     def restore_buckle(self,buckled_pack):
-        '''
+        """
 
-        Args:
-          buckled_pack: 
+        Parameters
+        ----------
+        buckled_pack :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.__buckled:
             if isinstance(buckled_pack,dict):
                 if len(buckled_pack) > 0:
@@ -110,30 +116,39 @@ class Nucleotide(NucleotideMetabase):
             raise RuntimeError('Nucleotide instance is not buckled.')
 
     def get_string_as(self, format='fasta', **kwargs):
-        '''
+        """
 
-        Args:
-          format: (Default value = 'fasta')
-          **kwargs: 
+        Parameters
+        ----------
+        format :
+            (Default value = 'fasta')
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         with StringIO() as tmp_buffer_io:
             self.__write_by_handle(tmp_buffer_io,format=format,**kwargs)
             return tmp_buffer_io.getvalue()
 
     def write(self, file, format='fasta', **kwargs):
-        '''
+        """
 
-        Args:
-          file: 
-          format: (Default value = 'fasta')
-          **kwargs: 
+        Parameters
+        ----------
+        file :
+            
+        format :
+            (Default value = 'fasta')
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         self.__write_by_handle(file,format=format,**kwargs)
 
     def __write_by_handle(self,file, format, mode='w',**kwargs):
@@ -161,28 +176,35 @@ class Nucleotide(NucleotideMetabase):
         self.__sequence.metadata = {'id':self.__name}
 
     def complement(self):
-        ''' '''
+        """ """
         seq_complement = str(self.__sequence.complement())
         return type(self)(seq_complement, name=self.__name, metadata=self.__metadata, mode=self.__mode)
 
     def copy(self):
-        ''' '''
+        """ """
         return copy.deepcopy(self)
 
     @classmethod
     def read(cls, file, name=None, metadata=None, mode='DNA', **kwargs):
-        '''
+        """
 
-        Args:
-          file: 
-          name: (Default value = None)
-          metadata: (Default value = None)
-          mode: (Default value = 'DNA')
-          **kwargs: 
+        Parameters
+        ----------
+        file :
+            
+        name :
+            (Default value = None)
+        metadata :
+            (Default value = None)
+        mode :
+            (Default value = 'DNA')
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if isinstance(name, (str, int, type(None))):
             tmp_name = name
         else:
@@ -208,40 +230,40 @@ class Nucleotide(NucleotideMetabase):
 
     @property
     def skbio(self):
-        ''' '''
+        """ """
         return self.__sequence
 
     @property
     def text(self):
-        ''' '''
+        """ """
         return str(self.__sequence)
 
     @property
     def metadata(self):
-        ''' '''
+        """ """
         return self.__metadata
 
     @property
     def mode(self):
-        ''' '''
+        """ """
         return self.__mode
 
     @property
     def skbio_mode(self):
-        ''' '''
+        """ """
         return self.__skbio_mode
 
     @property
     def length(self):
-        ''' '''
+        """ """
         return len(self.__sequence)
 
     @property
     def name(self):
-        ''' '''
+        """ """
         return self.__name
 
     @property
     def is_buckled(self):
-        ''' '''
+        """ """
         return self.__buckled

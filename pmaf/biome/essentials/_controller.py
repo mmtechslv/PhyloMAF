@@ -10,15 +10,18 @@ from pmaf.internal._typing import AnyGenericIdentifier
 
 
 class EssentialsController(EssentialControllerBackboneMetabse):
-    """Controller for `essentials` working in hand with :class:`~pmaf.biome.assembly.BiomeAssembly`."""
+    """Controller for `essentials` working in hand with
+    :class:`~pmaf.biome.assembly.BiomeAssembly`."""
 
     def __init__(self, remount: bool = False, **kwargs) -> None:
+        """Controller constructor.
 
-        """Controller constructor
-
-        Args:
-            remount:  Force remount
-            **kwargs: Compatibility
+        Parameters
+        ----------
+        remount
+            Force remount
+        **kwargs
+            Compatibility
         """
         self.__essentials = []
         self.__feature_ids = None
@@ -28,9 +31,13 @@ class EssentialsController(EssentialControllerBackboneMetabse):
     def insert_essential(self, essential: EssentialBackboneMetabase) -> None:
         """Add instance of `essentials` to the controller.
 
-        Args:
-          essential: Instance of :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
+        Parameters
+        ----------
+        essential
+            Instance of :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
 
+        Returns
+        -------
         """
         if isinstance(essential, EssentialBackboneMetabase):
             if not essential.is_mounted or self.__remount:
@@ -48,14 +55,19 @@ class EssentialsController(EssentialControllerBackboneMetabse):
     ) -> bool:
         """Validates the essentials instance.
 
-        Args:
-          essential: Instance of :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase` to validate.
-          check_axis: Whether to check if axes are compatible with active essential instances.
-          check_mount: Whether to check if the instance is already mounted
+        Parameters
+        ----------
+        essential
+            Instance of :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase` to validate.
+        check_axis
+            Whether to check if axes are compatible with active essential instances.
+        check_mount
+            Whether to check if the instance is already mounted
 
-        Returns:
-          bool: Result of validation.
-
+        Returns
+        -------
+        bool
+            Result of validation.
         """
         ret = False
         if isinstance(essential, EssentialBackboneMetabase):
@@ -93,10 +105,13 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         return ret
 
     def __append_essential(self, essential: EssentialBackboneMetabase) -> None:
-        """Logic behind adding the instance of :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase`.
+        """Logic behind adding the instance of
+        :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase`.
 
-        Args:
-            essential: Instance to append
+        Parameters
+        ----------
+        essential
+            Instance to append
         """
         if type(essential) in {type(est) for est in self.__essentials}:
             raise RuntimeError("`essential` of same type is already present.")
@@ -136,7 +151,7 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             raise RuntimeError("`essential` did not pass controls.")
 
     def __reinitialize(self) -> None:
-        """(Re)initialize the current controller instance"""
+        """(Re)initialize the current controller instance."""
         tmp_feature_ids = None
         tmp_sample_ids = None
         for essential in self.__essentials:
@@ -158,18 +173,24 @@ class EssentialsController(EssentialControllerBackboneMetabse):
     def reflect_action(
         self, source: EssentialBackboneMetabase, method: str, value: Any, **kwargs
     ) -> dict:
+        """Reflect or mirror the action to controlled instances of
+        `essentials`.
 
-        """Reflect or mirror the action to controlled instances of `essentials`.
+        Parameters
+        ----------
+        source
+            Instance of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase` where the action is coming from.
+        method
+            Name of the method to be reflected.
+        value
+            Value to be passed to mirroring functions. Eg. ids to be removed.
+        **kwargs
+            Remaining parameters passed to mirroring function.
 
-        Args:
-            source: Instance of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase` where the action is coming from.
-            method: Name of the method to be reflected.
-            value: Value to be passed to mirroring functions. Eg. ids to be removed.
-            **kwargs: Remaining parameters passed to mirroring function.
+        Returns
+        -------
 
-        Returns:
             Dictionary with results for each `essential`
-
         """
         if not self.__essentials:
             raise RuntimeError("Controller has not been initialized yet.")
@@ -186,7 +207,8 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         return tmp_rets
 
     def __buckle_essentials(self) -> None:
-        """Buckle all controlled essentials so that no other change is made during mirroring."""
+        """Buckle all controlled essentials so that no other change is made
+        during mirroring."""
         for essential in self.__essentials:
             essential._buckle()
 
@@ -196,14 +218,18 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             essential._unbuckle()
 
     def has_essential_by_types(self, *args) -> bool:
-        """Helper function that checks if `essentials` in `*args` are controlled via current :class:`.EssentialsController` instance.
+        """Helper function that checks if `essentials` in `*args` are
+        controlled via current :class:`.EssentialsController` instance.
 
-        Args:
-            *args: Unpacked elements of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
+        Parameters
+        ----------
+        *args
+            Unpacked elements of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
 
-        Returns:
+        Returns
+        -------
+
             Check result.
-
         """
         ret = []
         for arg in args:
@@ -215,12 +241,15 @@ class EssentialsController(EssentialControllerBackboneMetabse):
     def take_essential_by_type(self, type: Any) -> Optional[EssentialBackboneMetabase]:
         """Get controlled essential by type.
 
-        Args:
-             type: Class of `essential` to retrieve.
+        Parameters
+        ----------
+        type
+            Class of `essential` to retrieve.
 
-        Returns:
+        Returns
+        -------
+
             Instance of `essential`
-
         """
         ret = None
         for essential in self.__essentials:

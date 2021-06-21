@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 class DockerTaxonomyMedium(DockerTaxonomyMetabase,DockerBase):
-    ''' '''
+    """ """
     _UNIT_TYPES = (dict,type(None))
     def __init__(self, taxonomy, **kwargs):
         tmp_avail_ranks_fdf = None
@@ -68,16 +68,21 @@ class DockerTaxonomyMedium(DockerTaxonomyMetabase,DockerBase):
 
 
     def to_dataframe(self, indices=None, ranks=None, exclude_missing=False):
-        '''
+        """
 
-        Args:
-          indices: (Default value = None)
-          ranks: (Default value = None)
-          exclude_missing: (Default value = False)
+        Parameters
+        ----------
+        indices :
+            (Default value = None)
+        ranks :
+            (Default value = None)
+        exclude_missing :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if indices is None:
             target_indices = self.index
         elif np.isscalar(indices):
@@ -108,14 +113,17 @@ class DockerTaxonomyMedium(DockerTaxonomyMetabase,DockerBase):
             return {ix: self.data[ix].to_dataframe(ranks=ranks, exclude_missing=False) for ix in target_indices}
 
     def get_avail_ranks(self,indices=None):
-        '''
+        """
 
-        Args:
-          indices: (Default value = None)
+        Parameters
+        ----------
+        indices :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self.singleton:
             return self.__avail_ranks
         else:

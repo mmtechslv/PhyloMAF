@@ -67,11 +67,15 @@ class SequenceIO(FileIOBackboneMetabase):
     def pull_parser(self,parser='simple',**kwargs):
         """
 
-        Args:
-          parser: (Default value = 'simple')
-          **kwargs:
+        Parameters
+        ----------
+        parser :
+            (Default value = 'simple')
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if parser == 'simple':

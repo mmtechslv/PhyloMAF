@@ -23,7 +23,8 @@ from pmaf.internal._typing import AnyGenericIdentifier, AggFunc
 
 
 class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
-    """Assembly-like Survey class for merging instances of :class:`~pmaf.biome.assembly._assembly.BiomeAssembly`"""
+    """Assembly-like Survey class for merging instances of
+    :class:`~pmaf.biome.assembly._assembly.BiomeAssembly`"""
 
     _SUPPORTED_ESSENTIALS = (RepTaxonomy, FrequencyTable, SampleMetadata)
 
@@ -43,36 +44,44 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         **kwargs: Any
     ):
         """This class performs merging/pooling of _multiple independent studies
-        or instances of :class:`~pmaf.biome.essentials.EssentialBackboneBase` (essentials) into single
-        instance of :class:`~pmaf.biome.survey._assembly.BiomeAssembly` -like class :class:`~pmaf.biome.survey._survey.BiomeSurvey`.
+        or instances of :class:`~pmaf.biome.essentials.EssentialBackboneBase`
+        (essentials) into single instance of
+        :class:`~pmaf.biome.survey._assembly.BiomeAssembly` -like class
+        :class:`~pmaf.biome.survey._survey.BiomeSurvey`.
 
-        Args:
-            assembiles: *essentials* to pool.
-            *args: Unpacked *essentials* to pool. (Convenience)
-            aggfunc: Aggregation method. Parameter take _multiple variations of
-                aggregation approach. If `str` or `Callable` then `aggfunc` will be
-                applied to both axes(feature and sample) and any *essentials*
-                regardless of its type. To apply aggregation for each axis separately
-                use `tuple` (for example,  *aggfunc=('sum', 'mean'))* where first
-                aggregation method refers to feature axis and second to sample axis.
-                To apply more complex aggregation use Dict type, where keys refer to axis
-                like *0/feature* for feature axis or *1/sample* for sample axis. Values
-                of the dictionary can refer to two approaches. First is when values are
-                simply `str` or `Callable`, which is similar to using `tuple`. Second,
-                is when using values with type `Dict` where dictionary values are
-                `str` or `Callable` refer to aggregating function and keys are types or
-                class of *essentials* (must have base abstract class :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase` ).
-                Using this method each type of *essential* will be processed differently
-                among instances of *assemblies*. Lastly, when using approach like
-                Dict[axis, Dict[*essential-type*,*agg-func*]] using `None` for one of
-                *essential-type* keys will assume that it refers to all *remaining-types*.
-            groupby: Grouping method. Parameters take _multiple variations
-                similar to `aggfunc`. Variations are same as `aggfunc` with exception
-                that values can be either `label` for both feature-axis or sample-axis
-                like *groupby='label'* or *groupby=(`label`, `label`)* , or *taxonomy*
-                for feature-axis only. Grouping by *taxonomy* will merge features with
-                same consensus lineage.
-            **kwargs: Compatibility
+        Parameters
+        ----------
+        assembiles
+            *essentials* to pool.
+        *args
+            Unpacked *essentials* to pool. (Convenience)
+        aggfunc
+            Aggregation method. Parameter take _multiple variations of
+            aggregation approach. If `str` or `Callable` then `aggfunc` will be
+            applied to both axes(feature and sample) and any *essentials*
+            regardless of its type. To apply aggregation for each axis separately
+            use `tuple` (for example,  *aggfunc=('sum', 'mean'))* where first
+            aggregation method refers to feature axis and second to sample axis.
+            To apply more complex aggregation use Dict type, where keys refer to axis
+            like *0/feature* for feature axis or *1/sample* for sample axis. Values
+            of the dictionary can refer to two approaches. First is when values are
+            simply `str` or `Callable`, which is similar to using `tuple`. Second,
+            is when using values with type `Dict` where dictionary values are
+            `str` or `Callable` refer to aggregating function and keys are types or
+            class of *essentials* (must have base abstract class :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase` ).
+            Using this method each type of *essential* will be processed differently
+            among instances of *assemblies*. Lastly, when using approach like
+            Dict[axis, Dict[*essential-type*,*agg-func*]] using `None` for one of
+            *essential-type* keys will assume that it refers to all *remaining-types*.
+        groupby
+            Grouping method. Parameters take _multiple variations
+            similar to `aggfunc`. Variations are same as `aggfunc` with exception
+            that values can be either `label` for both feature-axis or sample-axis
+            like *groupby='label'* or *groupby=(`label`, `label`)* , or *taxonomy*
+            for feature-axis only. Grouping by *taxonomy* will merge features with
+            same consensus lineage.
+        **kwargs
+            Compatibility
         """
         if kwargs.get("_copyself", None) is not None:
             copy_data = kwargs.pop("_copyself")
@@ -273,12 +282,14 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
     def __getattr__(self, attribute: str) -> EssentialBackboneMetabase:
         """Provides attribute lookup for installed *essentials*.
 
-        Args:
-            attribute: Class name of the *essential*.
+        Parameters
+        ----------
+        attribute
+            Class name of the *essential*.
 
-        Returns:
+        Returns
+        -------
             Instance of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
-
         """
         for essential in self.__controller.essentials:
             if attribute == type(essential).__name__:
@@ -286,14 +297,16 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         super().__getattribute__(attribute)
 
     def __dir__(self):
-        """Provides list of installed *essential* class names for built-in :func:`dir` method()"""
+        """Provides list of installed *essential* class names for built-in
+        :func:`dir` method()"""
         return sorted(
             dir(type(self))
             + [type(essential).__name__ for essential in self.__controller.essentials]
         )
 
     def _repr_appendage__(self):
-        """Helper for `__repr__` method of class :class:`~pmaf.biome.BiomeBackboneBase`"""
+        """Helper for `__repr__` method of class
+        :class:`~pmaf.biome.BiomeBackboneBase`"""
         return {}
 
     def copy(self) -> "BiomeSurvey":
@@ -312,7 +325,8 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
         )
 
     def to_assembly(self) -> BiomeAssembly:
-        """Converts to the :class:`~pmaf.biome.assembly._assembly.BiomeAssembly` instance."""
+        """Converts to the
+        :class:`~pmaf.biome.assembly._assembly.BiomeAssembly` instance."""
         return BiomeAssembly(
             self.__controller.essentials,
             copy=True,
@@ -327,12 +341,12 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
 
     @property
     def assemblies(self) -> Tuple[BiomeAssembly]:
-        """Tuple of surveyed assemblies"""
+        """Tuple of surveyed assemblies."""
         return tuple(self.__assembiles)
 
     @property
     def xrid(self) -> AnyGenericIdentifier:
-        """Feature identifiers"""
+        """Feature identifiers."""
         return pd.Index(
             self.__controller.xrid
             if self.__controller.xrid is not None
@@ -341,7 +355,7 @@ class BiomeSurvey(BiomeBackboneBase, BiomeSurveyBackboneMetabase):
 
     @property
     def xsid(self) -> AnyGenericIdentifier:
-        """Sample identifiers"""
+        """Sample identifiers."""
         return pd.Index(
             self.__controller.xsid
             if self.__controller.xsid is not None

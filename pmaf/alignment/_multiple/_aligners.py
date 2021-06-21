@@ -35,11 +35,15 @@ class MultiSequenceAligner(MultiSequenceAlignerBackboneMetabase):
     def align(self, input, **kwargs):
         """
 
-        Args:
-          input:
-          **kwargs:
+        Parameters
+        ----------
+        input :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         if isinstance(input, MultiSequenceMetabase):

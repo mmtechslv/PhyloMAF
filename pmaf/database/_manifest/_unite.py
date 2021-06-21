@@ -8,7 +8,7 @@ import pmaf.database._shared._assemblers as transformer
 import pmaf.database._shared._summarizers as summarizer
 
 class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessionMixin,DatabaseBase):
-    ''' '''
+    """ """
     DATABASE_NAME = 'UNITE'
     INVALID_TAXA = 'unidentified'
     def __init__(self,*args,**kwargs):
@@ -16,20 +16,29 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
 
     @classmethod
     def build_database_storage(cls, storage_hdf5_fp,taxonomy_map_csv_fp, sequence_fasta_fp, stamp_dict, force=False, chunksize=500, **kwargs):
-        '''
+        """
 
-        Args:
-          storage_hdf5_fp: 
-          taxonomy_map_csv_fp: 
-          sequence_fasta_fp: 
-          stamp_dict: 
-          force: (Default value = False)
-          chunksize: (Default value = 500)
-          **kwargs: 
+        Parameters
+        ----------
+        storage_hdf5_fp :
+            
+        taxonomy_map_csv_fp :
+            
+        sequence_fasta_fp :
+            
+        stamp_dict :
+            
+        force :
+            (Default value = False)
+        chunksize :
+            (Default value = 500)
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if path.exists(storage_hdf5_fp) and not force:
             raise ValueError('Storage file exists.')
         if not path.isfile(taxonomy_map_csv_fp):
@@ -59,40 +68,51 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
     def __process_tax_acs_map(cls, storage_manager, taxonomy_map_csv_fp):
         from pmaf.database._parsers._qiime import read_qiime_taxonomy_map, parse_qiime_taxonomy_map
         def produce_taxonomy_prior(tmp_taxonomy_prior, index_mapper):
-            '''
+            """
 
-            Args:
-              tmp_taxonomy_prior: 
-              index_mapper: 
+            Parameters
+            ----------
+            tmp_taxonomy_prior :
+                
+            index_mapper :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield transformer.reindex_frame(tmp_taxonomy_prior, index_mapper)
 
         def produce_taxonomy_sheet(taxonomy_sheet):
-            '''
+            """
 
-            Args:
-              taxonomy_sheet: 
+            Parameters
+            ----------
+            taxonomy_sheet :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield taxonomy_sheet
 
         def produce_sequence_accession(index_mapper, dropped_taxa):
-            '''
+            """
 
-            Args:
-              index_mapper: 
-              dropped_taxa: 
+            Parameters
+            ----------
+            index_mapper :
+                
+            dropped_taxa :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             tmp_accessions = index_mapper.drop(index=dropped_taxa, errors='ignore').reset_index(name='nrids').set_index('nrids')
             tmp_accessions.columns = ['unite']
@@ -101,26 +121,32 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
             yield tmp_accessions
 
         def produce_metadata_db_history(transformation_details):
-            '''
+            """
 
-            Args:
-              transformation_details: 
+            Parameters
+            ----------
+            transformation_details :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield transformation_details['changes']
 
         def produce_map_rep2tid(transformation_details):
-            '''
+            """
 
-            Args:
-              transformation_details: 
+            Parameters
+            ----------
+            transformation_details :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield transformation_details['map-rep2tid']
 
@@ -143,17 +169,23 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
     def __process_sequence(cls,storage_manager, index_mapper, removed_rids, prior_recap, sequence_fasta_fp, chunksize):
         from pmaf.database._parsers._qiime import parse_qiime_sequence_generator
         def produce_sequence_representative(sequence_fasta_fp, index_mapper, dropped_taxa, chunksize):
-            '''
+            """
 
-            Args:
-              sequence_fasta_fp: 
-              index_mapper: 
-              dropped_taxa: 
-              chunksize: 
+            Parameters
+            ----------
+            sequence_fasta_fp :
+                
+            index_mapper :
+                
+            dropped_taxa :
+                
+            chunksize :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             sequence_parser = parse_qiime_sequence_generator(sequence_fasta_fp, chunksize, False)
             preparse_info, first_chunk = next(sequence_parser)
             yield preparse_info.copy()
@@ -173,26 +205,32 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
     @classmethod
     def __process_interxmaps(cls, storage_manager):
         def produce_map_interx_taxon(interx_maker_result):
-            '''
+            """
 
-            Args:
-              interx_maker_result: 
+            Parameters
+            ----------
+            interx_maker_result :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield interx_maker_result['map-interx-taxon']
 
         def produce_map_interx_repseq(interx_maker_result):
-            '''
+            """
 
-            Args:
-              interx_maker_result: 
+            Parameters
+            ----------
+            interx_maker_result :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             yield None, None
             yield interx_maker_result['map-interx-repseq']
 
@@ -203,7 +241,7 @@ class DatabaseUNITE(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseAccessio
 
     @property
     def name(self):
-        ''' '''
+        """ """
         return self.DATABASE_NAME
 
 

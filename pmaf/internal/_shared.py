@@ -20,17 +20,21 @@ from typing import Union, Sequence, Optional
 
 
 def get_package_root():
-    """ """
+    """ Get root path of `pmaf` package. """
     return str(Path(__file__).parent.parent)
 
 
 def to_array(data):
-    """
+    """Transform `data` to :class:`numpy.ndarray`
 
-    Args:
-      data:
+    Parameters
+    ----------
+    data: List-like
+        Anything that can be transformed to array.
 
-    Returns:
+    Returns
+    -------
+    An array with data.
 
     """
     if np.isscalar(data):
@@ -41,13 +45,18 @@ def to_array(data):
         return np.asarray([])
 
 
-def get_stats_for_sequence_record_df(sequence_record_df):
-    """
+def get_stats_for_sequence_record_df(sequence_record_df: pd.DataFrame) -> pd.DataFrame:
+    """Retrieve stats for :class:`pandas.DataFrame` with  sequence records
 
-    Args:
-      sequence_record_df:
+    Parameters
+    ----------
+    sequence_record_df
+        Sequence record dataframe where cols/keys are 'sequence', 'length', 'tab'
 
-    Returns:
+    Returns
+    -------
+        :class:`pandas.DataFrame` with sequence stats.
+
 
     """
     reps_ex_columns = list(IUPAC_AMBIGUOUS.keys())
@@ -68,14 +77,7 @@ def get_stats_for_sequence_record_df(sequence_record_df):
     )
 
     def process_rep(rep_series):
-        """
-
-        Args:
-          rep_series:
-
-        Returns:
-
-        """
+        """Generate stats for representative sequences."""
         complexity_level = 0
         abase_count = []
         for b, bb in IUPAC_AMBIGUOUS.items():
@@ -117,13 +119,19 @@ def get_stats_for_sequence_record_df(sequence_record_df):
 
 
 def chunk_generator(iterable, chunksize):
-    """
+    """Convert iterable to chunk generator
 
-    Args:
-      iterable:
-      chunksize:
+    Parameters
+    ----------
+    iterable
+        Iterable to chunkify
+    chunksize
+        Size of chunks
 
-    Returns:
+    Returns
+    -------
+    Generator
+        Chunk generator
 
     """
     iterator = iter(iterable)
@@ -137,15 +145,7 @@ def chunk_generator(iterable, chunksize):
 
 
 def get_datetime(datetime_str, format=None):
-    """
-
-    Args:
-      datetime_str:
-      format: (Default value = None)
-
-    Returns:
-
-    """
+    """Helper func"""
     if format is not None:
         ret = dateparser.parse(datetime_str, date_formats=format)
     else:
@@ -158,14 +158,17 @@ def get_datetime(datetime_str, format=None):
 def validate_ranks(ranks: Sequence[str], ref_ranks: Optional[Sequence[str]] = None):
     """Validate the ranks based on ref_ranks.
 
-    Args:
-      ranks(list or tuple): Target ranks to validate
-      ref_ranks(None or list or tuple): Reference ranks to use. Default to None or MAIN_RANKS
-      ranks: Sequence[str]:
-      ref_ranks:Sequence[str]:  (Default value = None)
+    Parameters
+    ----------
+    ranks
+        Target ranks to validate
+    ref_ranks
+        Reference ranks to use. Default to None or MAIN_RANKS
 
-    Returns:
-      None or bool: Validation result.
+    Returns
+    -------
+    None or bool
+        Validation result.
 
     """
     if ref_ranks:
@@ -181,12 +184,17 @@ def extract_valid_ranks(
 ):
     """Extract real rank values from list-like ranks
 
-    Args:
-      ranks(list or tuple): Target ranks to extract from.
-      ref_ranks(None or list or tuple, optional): Ref ranks to use. Default to None or MAIN_RANKS
+    Parameters
+    ----------
+    ranks
+        Target ranks to extract from.
+    ref_ranks
+        Ref ranks to use. Default to None or MAIN_RANKS
 
-    Returns:
-      None or bool: Extracted ranks
+    Returns
+    -------
+    None or bool
+        Extracted ranks
 
     """
     if ref_ranks:
@@ -204,12 +212,17 @@ def cols2ranks(
 ) -> Sequence[str]:
     """Transform columns to ranks based on order.
 
-    Args:
-      cols(list or tuple): Original column values.
-      ref_ranks(None or list or tuple, optional): Reference ranks to use. Default to None or VALID_RANKS
+    Parameters
+    ----------
+    cols
+        Original column values.
+    ref_ranks
+        Reference ranks to use. Default to None or VALID_RANKS
 
-    Returns:
-      list: Transformed ranks
+    Returns
+    -------
+    list
+        Transformed ranks
 
     """
     if ref_ranks:
@@ -229,13 +242,20 @@ def get_rank_upto(
 ) -> Sequence[str]:
     """Generates list of ranks from `ranks` terminated at `ter_rank`
 
-    Args:
-      ranks(list): List of ranks
-      ter_rank(str): Terminal rank
-      include_terminal: (Default value = False)
+    Parameters
+    ----------
+    ranks
+        List of ranks
+    ter_rank
+        Terminal rank
+    include_terminal
+        Include terminal/last rank or not
 
-    Returns:
-      list: List of ranks
+
+    Returns
+    -------
+    list
+        List of ranks
 
     """
     ret = []
@@ -252,12 +272,18 @@ def get_rank_upto(
 
 
 def sort_ranks(ranks):
-    """
+    """Sort ranks by MAIN_RANKS order.
 
-    Args:
-      ranks:
+    Parameters
+    ----------
+    ranks
+        Ranks to sort
 
-    Returns:
+
+    Returns
+    -------
+
+        Sorted ranks
 
     """
     ret = False
@@ -270,11 +296,15 @@ def sort_ranks(ranks):
 def ensure_list(var):
     """Makes sure that `var` is a list
 
-    Args:
-      var(list like): List like object
+    Parameters
+    ----------
+    var
+        List like object
 
-    Returns:
-      list: `var` as list
+    Returns
+    -------
+    list
+        `var` as list
 
     """
     return var if type(var) is list else [var]
@@ -284,12 +314,17 @@ def is_table_taxa_alike(feature_table1, feature_table2):
     """This method checks if `feature_table2` instance contains same taxonomy as
     `feature_table1`
 
-    Args:
-      feature_table1(pmaf._feature.FeatureTable): First FeatureTable
-      feature_table2(pmaf._feature.FeatureTable): Second FeatureTable
+    Parameters
+    ----------
+    feature_table1
+        First FeatureTable
+    feature_table2
+        Second FeatureTable
 
-    Returns:
-      bool: True if taxonomies are same. False otherwise
+    Returns
+    -------
+    bool
+        True if taxonomies are same. False otherwise
 
     """
     feature_table1_lineage_sorted = (
@@ -311,15 +346,20 @@ def indentify_taxon_notation(taxon_string):
 
     Examples:
 
-    Args:
-      taxon_string(str): String with taxonomy/lineage to test
+    Parameters
+    ----------
+    taxon_string : str
+        String with taxonomy/lineage to test
 
-    Returns:
-      str: 'greengenes' or 'sintax' or 'silva'
-
+    Returns
+    -------
+    str
+        'greengenes' or 'sintax' or 'silva'
+    Examples
+    -------
     >>> test_taxon_string = 'c__Bacilli; o__Lactobacillales; f__Lactobacillaceae; g__Lactobacillus; s__Lactobacillusbrevis'
-        >>> print(indentify_taxon_notation(test_taxon_string))
-        'greengenes'
+    >>> print(indentify_taxon_notation(test_taxon_string))
+    >>> 'greengenes'
     """
     if jRegexGG.search(taxon_string):
         return "greengenes"
@@ -331,22 +371,34 @@ def indentify_taxon_notation(taxon_string):
         return False
 
 
+# missing_rank - if True will include rank preffix(such as `s__`) even if rank is
+# missing or among drop_ranks; desired_ranks - list of desired ranks; drop_ranks
+# - list of undesired ranks that should be removed, this parameter is useless if
+# missing_rank is set to False
 def generate_lineages_from_taxa(
     in_taxa: pd.DataFrame,
     missing_rank: bool = False,
     desired_ranks: Union[Sequence[str], bool] = False,
     drop_ranks: Union[Sequence[str], bool] = False,
-):  # missing_rank - if True will include rank preffix(such as `s__`) even if rank is missing or among drop_ranks; desired_ranks - list of desired ranks; drop_ranks - list of undesired ranks that should be removed, this parameter is useless if missing_rank is set to False
+):
     """Generate consensus lineages in QIIME convention format from taxonomy
-    dataframe like `FeatureTable._internal_taxonomy`
 
-      in_taxa: pandas DataFrame like `FeatureTable._internal_taxonomy`
-      missing_rank: If True will generate prefix like `s__` or `d__`  (Default value = False)
-      desired_ranks: List of desired ranks to generate. If False then will generate all main ranks (Default value = False)
-      drop_ranks: List of ranks to drop from desired ranks. This parameter only useful if `missing_rank` is True (Default value = False):
+    Parameters
+    ----------
+    in_taxa
+        pandas DataFrame like `FeatureTable._internal_taxonomy`
+    missing_rank
+        If True will generate prefix like `s__` or `d__`
+    desired_ranks
+        List of desired ranks to generate. If False then will generate all main ranks
+    drop_ranks
+        List of ranks to drop from desired ranks. This parameter only useful if `missing_rank` is True
 
-    Returns:
+    Returns
+    -------
+    :class:`pandas.Series`
         Series with generated consensus lineages and corresponding IDs as Series index
+
     """
     if desired_ranks and not all(e in VALID_RANKS for e in desired_ranks):
         print(
@@ -373,13 +425,18 @@ def cut_lineages(in_lineages, levels):
     """Supplementary function for cutting ranks both ends of lineages with
     Greengenes convention
 
-    Args:
-      in_lineages(pandas.Series): pandas Series of lineages and IDs as index
-      levels(int): Level to cut. 1 will cut from the beginning of the string.
-    Negative sign will reverse algorithm and will cut from the end.
+    Parameters
+    ----------
+    in_lineages
+        pandas Series of lineages and IDs as index
+    levels
+        Level to cut. 1 will cut from the beginning of the string.
+        Negative sign will reverse algorithm and will cut from the end.
 
-    Returns:
-      pandas.Series: New lineages
+    Returns
+    -------
+    :class:`pandas.Series`
+        New lineages
 
     """
     lineages = list(in_lineages.values)
@@ -406,11 +463,15 @@ def ensure_new_dir(dir_name):
     reads counter prefix in directory name and creates new directory with
     increment
 
-    Args:
-      dir_name(str): Directory name to check
+    Parameters
+    ----------
+    dir_name
+        Directory name to check
 
-    Returns:
-      str|bool: Path to new directory or False.
+    Returns
+    -------
+    str|bool
+        Path to new directory or False.
 
     """
     new_path_result = False
@@ -443,14 +504,19 @@ def ensure_new_dir(dir_name):
 def read_csv(file_path, sep=",", quote='"'):
     """Reads CSV/TSV file and returns content as list
 
-    Args:
-      file_path(str): Path to CSV/TSV the file
-      sep(str, optional): Delimiter of CSV/TSV file (Default value = ')
-      quote(str, optional): Quoting of CSV/TSV file (Default value = '"')
-      ':
+    Parameters
+    ----------
+    file_path
+        Path to CSV/TSV the file
+    sep
+        Delimiter of CSV/TSV file (Default value = ')
+    quote
+        Quoting of CSV/TSV file (Default value = '"')
 
-    Returns:
-      list: Content of the CSV/TSV file
+    Returns
+    -------
+    list
+        Content of the CSV/TSV file
 
     """
     file_content = []
@@ -464,18 +530,18 @@ def read_csv(file_path, sep=",", quote='"'):
 def write_csv(iContent, file_path, sep=",", quote='"'):
     """Writes content to CSV/TSV file
 
-    Args:
-      iContent(list): Content to write
-      file_path(str): Path to CSV/TSV the file
-      sep(str, optional): Delimiter of CSV/TSV file (Default value = ')
-      quote(str, optional): Quoting of CSV/TSV file (Default value = '"')
-      ':
-
-    Returns:
-      bool: True if write was successful. False otherwise
+    Parameters
+    ----------
+    iContent
+        Content to write
+    file_path
+        Path to CSV/TSV the file
+    sep
+        Delimiter of CSV/TSV file (Default value = ')
+    quote
+        Quoting of CSV/TSV file (Default value = '"')
 
     """
     with open(file_path, "w") as write_file:
         file_writer = csv.writer(write_file, delimiter=sep, quotechar=quote)
         return file_writer.writerows(iContent)
-    return False

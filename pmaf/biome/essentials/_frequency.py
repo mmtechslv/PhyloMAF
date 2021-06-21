@@ -29,11 +29,16 @@ class FrequencyTable(
     ):
         """Constructor for :class:`.FrequencyTable`
 
-        Args:
-                frequency: Data containing frequency data.
-                skipcols: Columns to skip when processing data.
-                allow_nan: Allow NA/NaN values or raise an error.
-                **kwargs: Remaining parameters passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
+        Parameters
+        ----------
+        frequency
+            Data containing frequency data.
+        skipcols
+             Columns to skip when processing data.
+        allow_nan
+            Allow NA/NaN values or raise an error.
+        kwargs
+            Remaining parameters passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
         """
         self.__internal_frequency = None
         tmp_skipcols = np.asarray([])
@@ -106,15 +111,22 @@ class FrequencyTable(
         super().__init__(metadata=tmp_metadata, **kwargs)
 
     @classmethod
-    def from_biom(cls, filepath: str, **kwargs) -> 'FrequencyTable':
-        """Factory method to construct a :class:`.FrequencyTable` from :mod:`biom` file.
+    def from_biom(cls, filepath: str, **kwargs) -> "FrequencyTable":
+        """Factory method to construct a :class:`.FrequencyTable` from
+        :mod:`biom` file.
 
-        Args:
-                filepath(str): Path to :mod:`biom` file.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        filepath
+            Path to :mod:`biom` file.
+        **kwargs
+            Compatibility
 
-        Returns:
-                Instance of :class:`.FrequencyTable`
+
+        Returns
+        -------
+
+            Instance of class:`.FrequencyTable`
         """
         frequency_frame, new_metadata = cls.__load_biom(filepath, **kwargs)
         tmp_metadata = kwargs.pop("metadata", {})
@@ -122,15 +134,21 @@ class FrequencyTable(
         return cls(frequency=frequency_frame, metadata=tmp_metadata, **kwargs)
 
     @classmethod
-    def from_csv(cls, filepath: str, **kwargs) -> 'FrequencyTable':
-        """Factory method to construct a :class:`.FrequencyTable` from CSV file.
+    def from_csv(cls, filepath: str, **kwargs) -> "FrequencyTable":
+        """Factory method to construct a :class:`.FrequencyTable` from CSV
+        file.
 
-        Args:
-                filepath(str): Path to .csv file.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        filepath
+            Path to .csv file.
+        **kwargs
+            Compatibility
 
-        Returns:
-                Instance of :class:`.FrequencyTable`
+        Returns
+        -------
+
+            Instance of class:`.FrequencyTable`
         """
         tmp_frequency = pd.read_csv(filepath, **kwargs)
         tmp_metadata = kwargs.pop("metadata", {})
@@ -141,10 +159,12 @@ class FrequencyTable(
     def __load_biom(cls, filepath: str, **kwargs) -> Tuple[pd.DataFrame, dict]:
         """Actual private method to process :mod:`biom` file.
 
-        Args:
-                filepath: :mod:`biom` file path.
-                **kwargs: Compatibility
-
+        Parameters
+        ----------
+        filepath
+            :mod:`biom` file path.
+        kwargs
+            Compatibility
         """
         biom_file = biom.load_table(filepath)
         return biom_file.to_dataframe(dense=True), {}
@@ -154,10 +174,16 @@ class FrequencyTable(
     ) -> Union[None, Mapper, dict]:
         """Rename sample names by map and ratify action.
 
-        Args:
-                map_like: Mapper to use for renaming
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        map_like
+            Mapper to use for renaming
+        **kwargs
+            Compatibility
 
+
+        Returns
+        -------
         """
         self.__internal_frequency.rename(mapper=map_like, axis=1, inplace=True)
         return self._ratify_action("_rename_samples_by_map", map_like, **kwargs)
@@ -167,10 +193,17 @@ class FrequencyTable(
     ) -> Union[None, AnyGenericIdentifier, dict]:
         """Remove feature by id and ratify action.
 
-        Args:
-                ids: Feature identifiers.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        ids :
+            Feature identifiers.
+        **kwargs :
+            Compatibility
+        ids: AnyGenericIdentifier :
 
+
+        Returns
+        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_frequency.index.dtype)
         if len(tmp_ids) > 0:
@@ -182,11 +215,17 @@ class FrequencyTable(
     ) -> Union[None, Mapper]:
         """Merge features by map with aggfunc and ratify action.
 
-        Args:
-                map_dict: Feature-wise map to use for merging
-                aggfunc: Aggregation function
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        map_dict
+            Feature-wise map to use for merging
+        aggfunc
+            Aggregation function
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
@@ -206,10 +245,15 @@ class FrequencyTable(
     ) -> Union[None, AnyGenericIdentifier, dict]:
         """Remove samples by id and ratify action.
 
-        Args:
-                ids: Feature identifiers
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        ids
+            Feature identifiers
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_frequency.columns.dtype)
         if len(tmp_ids) > 0:
@@ -222,11 +266,17 @@ class FrequencyTable(
 
         """Merge samples by map with aggfunc and ratify action.
 
-        Args:
-                map_dict: Sample-wise map to use for merging
-                aggfunc: Aggregation function
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        map_dict
+            Sample-wise map to use for merging
+        aggfunc
+            Aggregation function
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
@@ -250,18 +300,28 @@ class FrequencyTable(
     def replace_nan_with(self, value: Any) -> None:
         """Replace NaN values with `value`.
 
-        Args:
-                value: Value to replace NaN's.
+        Parameters
+        ----------
+        value
+            Value to replace NaN's.
 
+
+        Returns
+        -------
         """
         self.__internal_frequency.fillna(value, inplace=True)
 
     def drop_features_by_id(self, ids: AnyGenericIdentifier) -> Union[None, np.ndarray]:
         """Drop features by `ids`
 
-        Args:
-                ids: Feature identifiers
+        Parameters
+        ----------
+        ids
+            Feature identifiers
 
+
+        Returns
+        -------
         """
         target_ids = np.asarray(ids)
         if self.__internal_frequency.index.isin(target_ids).sum() == len(target_ids):
@@ -272,11 +332,15 @@ class FrequencyTable(
             raise ValueError("Invalid _feature ids are provided.")
 
     def rename_samples(self, mapper: Mapper) -> None:
-        """Rename sample names
+        """Rename sample names.
 
-        Args:
-                mapper: Rename samples by map
+        Parameters
+        ----------
+        mapper
+            Rename samples by map
 
+        Returns
+        -------
         """
         if isinstance(mapper, dict) or callable(mapper):
             if isinstance(mapper, dict):
@@ -292,7 +356,10 @@ class FrequencyTable(
             raise TypeError("Invalid `mapper` type.")
 
     def drop_features_without_counts(self) -> Optional[np.ndarray]:
-        """Drop features that has no counts. Typically required after dropping samples."""
+        """Drop features that has no counts.
+
+        Typically required after dropping samples.
+        """
         target_ids = self.__internal_frequency.index[
             self.__internal_frequency.sum(axis=1) == 0
         ].values
@@ -303,9 +370,13 @@ class FrequencyTable(
     def drop_samples_by_id(self, ids: AnyGenericIdentifier) -> Optional[np.ndarray]:
         """Drop samples by `ids`.
 
-        Args:
-                ids: Sample identifiers
+        Parameters
+        ----------
+        ids
+            Sample identifiers
 
+        Returns
+        -------
         """
         target_ids = np.asarray(ids)
         if self.__internal_frequency.columns.isin(target_ids).sum() == len(target_ids):
@@ -324,11 +395,17 @@ class FrequencyTable(
     ) -> Optional[Mapper]:
         """Merge features by `mapping`.
 
-        Args:
-                mapping: Map with values as feature identifiers to be aggregated.
-                aggfunc: Aggregation function to apply
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        mapping
+            Map with values as feature identifiers to be aggregated.
+        aggfunc
+            Aggregation function to apply
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         if isinstance(mapping, (dict, pd.Series)):
             tmp_ids = sorted(
@@ -346,11 +423,17 @@ class FrequencyTable(
     ) -> Optional[Mapper]:
         """Merge samples by `mapping`
 
-        Args:
-                mapping: Map with values as sample identifiers to be aggregated.
-                aggfunc: Aggregation function to apply
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        mapping
+            Map with values as sample identifiers to be aggregated.
+        aggfunc
+            Aggregation function to apply
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         if isinstance(mapping, (dict, pd.Series)):
             tmp_ids = sorted(
@@ -363,7 +446,7 @@ class FrequencyTable(
         else:
             raise TypeError("`mapping` can be `dict` or `pd.Series`")
 
-    def copy(self) -> 'FrequencyTable':
+    def copy(self) -> "FrequencyTable":
         """Copy of the instance."""
         return type(self)(
             frequency=self.__internal_frequency, metadata=self.metadata, name=self.name
@@ -375,18 +458,24 @@ class FrequencyTable(
         sids: Optional[AnyGenericIdentifier] = None,
         *args,
         **kwargs
-    ) -> 'FrequencyTable':
+    ) -> "FrequencyTable":
         """Get subset of the :class:`.FrequencyTable`.
 
-        Args:
-                rids: Feature Identifiers
-                sids: Sample Identifiers
-                *args:Compatibility
-                **kwargs:Compatibility
+        Parameters
+        ----------
+        rids :
+            Feature Identifiers
+        sids :
+            Sample Identifiers
+        *args :
+            Compatibility
+        **kwargs :
+            Compatibility
 
-        Returns:
-                Instance of :class:`.FrequencyTable`.
+        Returns
+        -------
 
+            Instance of class:`.FrequencyTable`.
         """
         if rids is None:
             target_rids = self.xrid
@@ -412,13 +501,16 @@ class FrequencyTable(
     def _export(
         self, sortby: str = "counts", ascending: bool = True, **kwargs
     ) -> Tuple[pd.DataFrame, dict]:
-        """Creates frequency table for export
+        """Creates frequency table for export.
 
-        Args:
-                sortby: Apply sorting on ['counts']
-                ascending: Sorting
-                **kwargs: Compatibility
-
+        Parameters
+        ----------
+        sortby
+            Apply sorting on ['counts']
+        ascending
+            Sorting
+        **kwargs
+            Compatibility
         """
         if sortby == "counts":
             return (
@@ -433,16 +525,20 @@ class FrequencyTable(
     def export(
         self, output_fp: str, *args, _add_ext: bool = False, sep: str = ",", **kwargs
     ) -> None:  # TODO: Improve
-
         """Exports the sample metadata content into the specified file.
 
-        Args:
-                output_fp(str): Export filepath.
-                *args: Compatibility
-                _add_ext: Add file extension or not.
-                sep: Delimiter
-                **kwargs: Compatibility
-
+        Parameters
+        ----------
+        output_fp
+            Export filepath.
+        args
+            Compatibility
+        _add_ext
+            Add file extension or not.
+        sep
+            Delimiter
+        kwargs
+            Compatibility
         """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:

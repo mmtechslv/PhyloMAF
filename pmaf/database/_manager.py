@@ -8,7 +8,7 @@ from pmaf.database._shared._common import *
 
 
 class DatabaseStorageManager:
-    ''' '''
+    """ """
     def __init__(self, hdf5_filepath, storage_name, force_new=False):
         self._storer = None
         self._storer_state = False
@@ -63,20 +63,24 @@ class DatabaseStorageManager:
         return
 
     def initiate_memory_cache(self,level=1):
-        '''Load various elements based on `level` from storage to the memory for rapid data access.
+        """Load various elements based on `level` from storage to the memory for rapid data access.
 
-        Args:
-          level: Level of data caching.
-        Levels:
-        - Level 1: Only loads inter index map to the memory. # Run by default
-        - Level 2: Additionally load taxonomy-sheet to the memory
-        - Level 3: Additionally load all map-elements to the memory
-        - Level 4: Additionally load all tree-instance to the memory
+        Parameters
+        ----------
+        level :
+            Level of data caching.
+            Levels:
+            - Level 1: Only loads inter index map to the memory. # Run by default
+            - Level 2: Additionally load taxonomy-sheet to the memory
+            - Level 3: Additionally load all map-elements to the memory
+            - Level 4: Additionally load all tree-instance to the memory
 
-        Returns:
-          : True level until which data was cached.
+        Returns
+        -------
+        
+            True level until which data was cached.
 
-        '''
+        """
         ret = False
         if self._init_state==1:
             tmp_storer = pd.HDFStore(self._hdf5_filepath, mode='r')
@@ -107,15 +111,19 @@ class DatabaseStorageManager:
 
     @staticmethod
     def validate_storage(hdf5_filepath,storage_name):
-        '''
+        """
 
-        Args:
-          hdf5_filepath: 
-          storage_name: 
+        Parameters
+        ----------
+        hdf5_filepath :
+            
+        storage_name :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         ret = False
         try:
             tmp_storer = tables.open_file(hdf5_filepath, mode='r')
@@ -138,7 +146,7 @@ class DatabaseStorageManager:
         return ret
 
     def shutdown(self):
-        ''' '''
+        """ """
         try:
             self.__close_storer()
             self._db_info_cache = None
@@ -256,23 +264,32 @@ class DatabaseStorageManager:
         return
 
     def commit_to_storage(self,element_key,product_generator):
-        '''This is a primary function that commit changes to the storage.
+        """This is a primary function that commit changes to the storage.
 
-        Args:
-          element_key: element key to which product product must be put.
-          product_generator: Primary generator that yields output that can be put into storage element.
-          product_generator: Primary generator that yields output that can be put into storage element.
-        All product generators and must follow following output rules.
-          For `sequence-master` and `sequence-aligned`: Generator must first yield `product_inits`, `product_generator_first_chunk`. `product_inits` contain data such as `expectedrows` or `min_itemsize`, which are required if product processes file in chunks.
-        Next generator must yield `product_product_chunk`
-          For all others: Generator must first yield `product_inits`, `None`
-        Next generator must yield `product_product`
-          Note: Not all product generators are processed same way. For more details, view product documentation.
+        Parameters
+        ----------
+        element_key :
+            element key to which product product must be put.
+        product_generator :
+            Primary generator that yields output that can be put into storage element.
+        product_generator :
+            Primary generator that yields output that can be put into storage element.
+            All product generators and must follow following output rules.
+        For `sequence-master` and `sequence-aligned` :
+            Generator must first yield `product_inits`, `product_generator_first_chunk`. `product_inits` contain data such as `expectedrows` or `min_itemsize`, which are required if product processes file in chunks.
+            Next generator must yield `product_product_chunk`
+        For all others :
+            Generator must first yield `product_inits`, `None`
+            Next generator must yield `product_product`
+        Note :
+            Not all product generators are processed same way. For more details, view product documentation.
 
-        Returns:
-          : Last result from generator if success. Otherwise RuntimeError is raised.
+        Returns
+        -------
+        
+            Last result from generator if success. Otherwise RuntimeError is raised.
 
-        '''
+        """
         if self._init_state == -1 :
             print('Starting to process [{}]'.format(element_key))
             last_product = self.__put_to_storage(element_key,product_generator)
@@ -354,15 +371,18 @@ class DatabaseStorageManager:
         return ret
 
     def imprint_database(self,stamp_dict):
-        '''This is the final function that user local constructor must call. This function will add signature to the local and will lock it so that no changes can be performed.
+        """This is the final function that user local constructor must call. This function will add signature to the local and will lock it so that no changes can be performed.
         Locking is performed only stamp presence check via storage manager.
 
-        Args:
-          stamp_dict: 
+        Parameters
+        ----------
+        stamp_dict :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self._init_state == -1:
             if not (self._db_info_cache['map-interx-taxon'] and self._db_info_cache['map-interx-repseq']):
                 raise ValueError("Cannot imprint local without `map-interx-taxon` and `map-interx-repseq` elements.")
@@ -412,15 +432,19 @@ class DatabaseStorageManager:
         return ret
 
     def get_index_by_element(self,element_key,condition=None):
-        '''
+        """
 
-        Args:
-          element_key: 
-          condition: (Default value = None)
+        Parameters
+        ----------
+        element_key :
+            
+        condition :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self._init_state:
             if self._db_info_cache[element_key] or self._init_state == -1:
                 if get_element_mode(element_key) == 2:
@@ -440,25 +464,33 @@ class DatabaseStorageManager:
             raise RuntimeError("Storage manager must be initiated.")
 
     def retrieve_data_by_element(self,element_key,columns=None,chunksize=None):
-        '''
+        """
 
-        Args:
-          element_key: 
-          columns: (Default value = None)
-          chunksize: (Default value = None)
+        Parameters
+        ----------
+        element_key :
+            
+        columns :
+            (Default value = None)
+        chunksize :
+            (Default value = None)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         def fixed_product_generator(chunk_iter):
-            '''
+            """
 
-            Args:
-              chunk_iter: 
+            Parameters
+            ----------
+            chunk_iter :
+                
 
-            Returns:
+            Returns
+            -------
 
-            '''
+            """
             for product_chunk in chunk_iter:
                 yield self.__fix_table(element_key, product_chunk)
         if self._init_state:
@@ -491,15 +523,19 @@ class DatabaseStorageManager:
             raise RuntimeError("Storage manager must be initiated.")
 
     def get_element_data_by_ids(self, element_key, ids):
-        '''
+        """
 
-        Args:
-          element_key: 
-          ids: 
+        Parameters
+        ----------
+        element_key :
+            
+        ids :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if self._init_state:
             if self._db_info_cache[element_key]:
                 target_ids = np.asarray(ids)
@@ -523,16 +559,21 @@ class DatabaseStorageManager:
             raise RuntimeError("Storage manager must be initiated.")
 
     def compress_storage(self, complevel=9, complib='blosc', overwrite=False):
-        '''
+        """
 
-        Args:
-          complevel: (Default value = 9)
-          complib: (Default value = 'blosc')
-          overwrite: (Default value = False)
+        Parameters
+        ----------
+        complevel :
+            (Default value = 9)
+        complib :
+            (Default value = 'blosc')
+        overwrite :
+            (Default value = False)
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         ret = False
         if self._init_state:
             if path.exists(self._hdf5_filepath) and isinstance(complevel, int):
@@ -577,66 +618,66 @@ class DatabaseStorageManager:
 
     @property
     def state(self):
-        ''' '''
+        """ """
         return self._init_state
 
     @property
     def active_elements(self):
-        ''' '''
+        """ """
         return self._db_info_cache[self._db_info_cache == True].index.tolist()
 
     @property
     def element_state(self):
-        ''' '''
+        """ """
         return self._db_info_cache
 
     @property
     def summary(self):
-        ''' '''
+        """ """
         return self._db_summary
 
     @property
     def taxon_ids(self):
-        ''' '''
+        """ """
         return self._interxmap_cache['map-interx-taxon'].index
 
     @property
     def repseq_ids(self):
-        ''' '''
+        """ """
         return self._interxmap_cache['map-interx-repseq'].index
 
     @property
     def storage_name(self):
-        ''' '''
+        """ """
         return self._storage_name
 
     @property
     def hdf5_filepath(self):
-        ''' '''
+        """ """
         return path.abspath(self._hdf5_filepath)
 
     @property
     def has_repseq(self):
-        ''' '''
+        """ """
         return self._db_info_cache['sequence-representative']
 
     @property
     def has_align(self):
-        ''' '''
+        """ """
         return self._db_info_cache['sequence-aligned']
 
     @property
     def has_accs(self):
-        ''' '''
+        """ """
         return self._db_info_cache['sequence-accession']
 
     @property
     def has_tree(self):
-        ''' '''
+        """ """
         return self._db_info_cache['tree-parsed']
 
     @property
     def has_tax(self):
-        ''' '''
+        """ """
         return self._db_info_cache['taxonomy-sheet']
 

@@ -12,18 +12,23 @@ def mergeRepTaxonmy(
     essentials_map: Dict[Type[AnyBiomeEssential], Dict[str, AnyBiomeEssential]],
     aggfunc_dict: Dict[Type[AnyBiomeEssential], int],
 ) -> RepTaxonomy:
-    """Function that merges data of `essentials` of type :class:`~pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
+    """Function that merges data of `essentials` of type
+    :class:`~pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-    Args:
-        feature_groupby: Group feature axis by: `index`, `label` or `taxonomy`
-        features_map: Produced `features_map` by :meth:`.parse_assembly_maps` function
-        essentials_map: Complete map of `essentials` to be merged.
-        aggfunc_dict: Map that provide aggregation instructions.
+    Parameters
+    ----------
+    feature_groupby
+        Group feature axis by: `index`, `label` or `taxonomy`
+    features_map
+        Produced `features_map` by :meth:`.parse_assembly_maps` function
+    essentials_map
+        Complete map of `essentials` to be merged.
+    aggfunc_dict
+        Map that provide aggregation instructions.
 
-    Returns:
-        Aggregated :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
-
-
+    Returns
+    -------
+        Aggregated class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
     """
     if feature_groupby == "taxonomy":
         new_tax_lineages = features_map.loc[:, "index"].reset_index().set_index("index")
@@ -62,19 +67,27 @@ def mergeFrequencyTable(
     essentials_map: Dict[Type[AnyBiomeEssential], Dict[str, AnyBiomeEssential]],
     aggfunc_dict: Dict[Type[AnyBiomeEssential], int],
 ) -> FrequencyTable:
-    """Function that merges data of `essentials` of type :class:`~pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
+    """Function that merges data of `essentials` of type
+    :class:`~pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
 
-    Args:
-        feature_groupby: Group feature axis by: `index`, `label` or `taxonomy`
-        sample_groupby: Group sample axis by `index`, `label`
-        features_map: Produced `features_map` by :meth:`.parse_assembly_maps` function
-        samples_map: Produced `samples_map` by :meth:`.parse_assembly_maps` function
-        essentials_map: Complete map of `essentials` to be merged.
-        aggfunc_dict: Map that provide aggregation instructions.
+    Parameters
+    ----------
+    feature_groupby
+        Group feature axis by: `index`, `label` or `taxonomy`
+    sample_groupby
+        Group sample axis by `index`, `label`
+    features_map
+        Produced `features_map` by :meth:`.parse_assembly_maps` function
+    samples_map
+        Produced `samples_map` by :meth:`.parse_assembly_maps` function
+    essentials_map
+        Complete map of `essentials` to be merged.
+    aggfunc_dict
+        Map that provide aggregation instructions.
 
-    Returns:
-        Aggregated :class:`~pmaf.biome.essentials._frequency.FrequencyTable`
-
+    Returns
+    -------
+        Aggregated class:`~pmaf.biome.essentials._frequency.FrequencyTable`
     """
     if feature_groupby == "taxonomy" and sample_groupby in ["index", "label"]:
         feature_groups = features_map.reset_index(drop=True).set_index("index")
@@ -151,17 +164,23 @@ def mergeSampleMetadata(
     essentials_map: Dict[Type[AnyBiomeEssential], Dict[str, AnyBiomeEssential]],
     aggfunc_dict: Dict[Type[AnyBiomeEssential], int],
 ) -> SampleMetadata:
-    """Function that merges data of `essentials` of type :class:`~pmaf.biome.essentials._metakit.EssentialSampleMetabase`
+    """Function that merges data of `essentials` of type
+    :class:`~pmaf.biome.essentials._metakit.EssentialSampleMetabase`
 
-    Args:
-        sample_groupby: Group sample axis by `index`, `label`
-        samples_map: Produced `samples_map` by :meth:`.parse_assembly_maps` function
-        essentials_map: Complete map of `essentials` to be merged.
-        aggfunc_dict: Map that provide aggregation instructions.
+    Parameters
+    ----------
+    sample_groupby
+        Group sample axis by `index`, `label`
+    samples_map
+        Produced `samples_map` by :meth:`.parse_assembly_maps` function
+    essentials_map
+        Complete map of `essentials` to be merged.
+    aggfunc_dict
+        Map that provide aggregation instructions.
 
-    Returns:
-        Aggregated :class:`~pmaf.biome.essentials._samplemeta.SampleMetadata`
-
+    Returns
+    -------
+        Aggregated class:`~pmaf.biome.essentials._samplemeta.SampleMetadata`
     """
     if sample_groupby in ["index", "label"]:
         sample_groups = samples_map.reset_index(drop=True).set_index("index")
@@ -207,16 +226,24 @@ def mergeSampleMetadata(
 def parse_assembly_maps(
     feature_groupby: str, sample_groupby: str, assembly_map: Dict[str, AnyBiomeAssembly]
 ) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    """Function that rearranges `essentials` within `assemblies` in `assembly_map`, into feature and sample axis.
+    """Function that rearranges `essentials` within `assemblies` in
+    `assembly_map`, into feature and sample axis.
 
-    Args:
-        feature_groupby: Group feature axis by: `index`, `label` or `taxonomy`
-        sample_groupby: Group sample axis by `index`, `label`
-        assembly_map: Map where keys are `assembly`-labels and values are `assembly` instances.
+    Parameters
+    ----------
+    feature_groupby
+        Group feature axis by: `index`, `label` or `taxonomy`
+    sample_groupby
+        Group sample axis by `index`, `label`
+    assembly_map
+        Map where keys are `assembly`-labels and values are `assembly` instances.
 
-    Returns:
-        - A map where keys are `assembly`-labels and values are `essentials` of type :class:`~pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
-        - A map where keys are `assembly`-labels and values are `essentials` of type :class:`~pmaf.biome.essentials._metakit.EssentialSampleMetabase`
+    Returns
+    -------
+        - A map where keys are `assembly`-labels and values are `essentials` of type
+            class:`~pmaf.biome.essentials._metakit.EssentialFeatureMetabase`
+        - A map where keys are `assembly`-labels and values are `essentials` of type
+            class:`~pmaf.biome.essentials._metakit.EssentialSampleMetabase`
     """
     if feature_groupby in ["index", "label"]:
         features_set = set()

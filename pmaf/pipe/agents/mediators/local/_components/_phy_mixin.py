@@ -5,7 +5,7 @@ from pmaf.pipe.agents.dockers._mediums._phy_medium import DockerPhylogenyMedium
 from pmaf.database._metakit import DatabasePhylogenyMetabase
 
 class MediatorLocalPhylogenyMixin(MediatorLocalBase,MediatorPhylogenyMetabase):
-    ''' '''
+    """ """
     PHYLO_EXTRACT_METHODS = ['infer','prune']
     def __init__(self,database,
                  phy_method='infer',
@@ -33,16 +33,21 @@ class MediatorLocalPhylogenyMixin(MediatorLocalBase,MediatorPhylogenyMetabase):
                          phy_refrep=phy_refrep,**kwargs)
 
     def get_phylogeny_by_identifier(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         if not self.verify_factor(factor):
             raise ValueError('`factor` is invalid.')
         if isinstance(docker, DockerIdentifierMetabase):
@@ -54,16 +59,21 @@ class MediatorLocalPhylogenyMixin(MediatorLocalBase,MediatorPhylogenyMetabase):
             raise TypeError('`docker` must be instance of DockerIdentifierMetabase.')
 
     def get_identifier_by_phylogeny(self, docker, factor, **kwargs):
-        '''
+        """
 
-        Args:
-          docker: 
-          factor: 
-          **kwargs: 
+        Parameters
+        ----------
+        docker :
+            
+        factor :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         raise NotImplementedError
 
     def __retrieve_phylogeny_by_identifier(self,docker,**kwargs):

@@ -7,7 +7,7 @@ from pmaf.pipe.agents.dockers._mediums._acs_medium import DockerAccessionMedium
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase,DockerBackboneMetabase
 
 class SpecIA(SpecificationPrimitiveBase):
-    ''' '''
+    """ """
     def __init__(self, mediator, factor, **kwargs):
         if not isinstance(mediator, MediatorAccessionMetabase):
             raise TypeError('`mediator` must be instance of MediatorAccessionMetabase.')
@@ -40,22 +40,25 @@ class SpecIA(SpecificationPrimitiveBase):
         return accessions, args, kwargs
 
     def verify_docker(self, docker):
-        '''
+        """
 
-        Args:
-          docker: 
+        Parameters
+        ----------
+        docker :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         return self.miner.verify_docker(docker) and isinstance(docker, DockerIdentifierMetabase)
 
     @property
     def inlet(self):
-        ''' '''
+        """ """
         return DockerIdentifierMedium
 
     @property
     def outlet(self):
-        ''' '''
+        """ """
         return DockerAccessionMedium

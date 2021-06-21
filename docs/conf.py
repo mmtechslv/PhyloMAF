@@ -13,7 +13,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../.."))
+sys.path.insert(0, os.path.abspath("../"))
 
 
 # -- Project information -----------------------------------------------------
@@ -35,23 +35,24 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    'sphinx.ext.doctest',
+    "sphinx.ext.doctest",
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
     "sphinx.ext.autosummary",
-    'sphinx.ext.extlinks',
-    'autoapi.extension',
-    'sphinx.ext.autodoc.typehints',
+    "sphinx.ext.extlinks",
+    # 'autoapi.extension',
+    "sphinx.ext.autodoc.typehints",
     #'sphinx_autodoc_typehints',
-    "sphinx-prompt",
-    "sphinx_copybutton",
-    'sphinx_git',
-    'hoverxref.extension',
-    'sphinxcontrib.bibtex'
+    # "sphinx-prompt",
+    # "sphinx_copybutton",
+    # 'sphinx_git',
+    "hoverxref.extension",
+    "sphinxcontrib.bibtex",
 ]
 
 # Napoleon Configs
 napoleon_google_docstring = True
+napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
 napoleon_use_param = True
 napoleon_use_ivar = True
@@ -81,7 +82,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "alabaster"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -112,32 +113,32 @@ add_module_names = False
 autoclass_content = "both"
 # Group members
 autodoc_member_order = "groupwise"
-# Autodoc options
-autoapi_options = [
-    "inherited-member",
-    "members",
-    "undoc-members",
-    "show-inheritance",
-    "show-module-summary",
-    "imported-members"
-]
-autoapi_dirs = ["../pmaf"]
-autoapi_root = 'api'
-autoapi_ignore = ["*tests*"]
-autoapi_python_class_content = "both"
-autoapi_member_order = "groupwise"
-autodoc_typehints = "description"
-autoapi_python_use_implicit_namespaces = False
-autoapi_add_toctree_entry = False # Add TOC manually
-autoapi_keep_files = True # Keep the source files after build.
-autoapi_generate_api_docs = True # Turn off after first build
+# AutoAPI configurations
+# autoapi_options = [
+#     "inherited-member",
+#     "members",
+#     "undoc-members",
+#     "show-inheritance",
+#     "show-module-summary",
+#     "imported-members"
+# ]
+# autoapi_dirs = ["../pmaf"]
+# autoapi_root = 'api'
+# autoapi_ignore = ["*tests*"]
+# autoapi_python_class_content = "both"
+# autoapi_member_order = "groupwise"
+# autodoc_typehints = "description"
+# autoapi_python_use_implicit_namespaces = False
+# autoapi_add_toctree_entry = False # Add TOC manually
+# autoapi_keep_files = True # Keep the source files after build.
+# autoapi_generate_api_docs = True # Turn off after first build
 
 # Automodapi Configs
 # numpydoc_show_class_members = False
 # automodsumm_inherited_members = True
 
 # Autodoc Typehints
-autodoc_typehints = 'description'
+autodoc_typehints = "description"
 
 # Configurations for sphinx-hoverxref
 hoverxref_role_types = {
@@ -149,21 +150,19 @@ hoverxref_role_types = {
 }
 
 # Bibtex Configuration
-bibtex_bibfiles = ['refs.bib']
+bibtex_bibfiles = ["refs.bib"]
 
-#Autosectionlabel configs
+# Autosectionlabel configs
 autosectionlabel_maxdepth = 1
 autosectionlabel_prefix_document = True
 
 # RTD Theme Configs
-html_theme_options = {'titles_only': True,
-                      'prev_next_buttons_location': 'both'}
+html_theme_options = {"titles_only": True, "prev_next_buttons_location": "both"}
 
-#def skip(app, what, name, obj, would_skip, options):
-    #if name == "__init__":
-        #return True
-    #return would_skip
+# def skip(app, what, name, obj, would_skip, options):
+# if name == "__init__":
+# return True
+# return would_skip
 
-#def setup(app):
-    #app.connect("autodoc-skip-member", skip)
-    
+# def setup(app):
+# app.connect("autodoc-skip-member", skip)

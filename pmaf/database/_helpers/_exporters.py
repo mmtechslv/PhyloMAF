@@ -6,7 +6,7 @@ from typing import Optional
 from pmaf.internal._typing import AnyGenericIdentifier
 
 class ExportableDatabase(DatabaseTaxonomyMixin,DatabaseSequenceMixin,DatabaseBase):
-    """Dummy Class that represent two exportable mixins. """
+    """Dummy Class that represent two exportable mixins."""
     pass
 
 # TODO: When and if Intersection[t1,t2] type hint that was described in `PEP 483
@@ -24,12 +24,31 @@ def export_database_by_rid(
 ):
     """Export database into QIIME formatted files.
 
-    Args:
-      database: Database to extract data from.
-      output_fasta_fp: Path to output FASTA file
-      output_tax_fp: Path to output taxonomy file (QIIME/Greengenes notation)
-      ids: Reference identifiers to extract. Default is None to extract all.
-      chunksize: Process data in chunks. Default is 100 records per chunk.
+    Parameters
+    ----------
+    database :
+        Database to extract data from.
+    output_fasta_fp :
+        Path to output FASTA file
+    output_tax_fp :
+        Path to output taxonomy file (QIIME/Greengenes notation)
+    ids :
+        Reference identifiers to extract. Default is None to extract all.
+    chunksize :
+        Process data in chunks. Default is 100 records per chunk.
+    database: ExportableDatabase :
+        
+    output_fasta_fp: str :
+        
+    output_tax_fp: str :
+        
+    ids: Optional[AnyGenericIdentifier] :
+         (Default value = None)
+    chunksize: int :
+         (Default value = 100)
+
+    Returns
+    -------
 
     """
     if not isinstance(database, DatabaseBase):

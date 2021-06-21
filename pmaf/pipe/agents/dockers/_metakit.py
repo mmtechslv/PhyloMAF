@@ -1,261 +1,309 @@
 from abc import ABC,abstractmethod
 
 class DockerBackboneMetabase(ABC):
-    '''Base interface for all Docker classes.'''
+    """Base interface for all Docker classes."""
     @abstractmethod
     def wrap_meta(self):
-        '''Returns a wrapped metadata as a dictionary.'''
+        """Returns a wrapped metadata as a dictionary."""
         pass
 
     @abstractmethod
     def get_subset(self, indices, exclude_missing):
-        '''Returns subset of the Docker instance.
+        """Returns subset of the Docker instance.
 
-        Args:
-          indices: 
-          exclude_missing: 
+        Parameters
+        ----------
+        indices :
+            
+        exclude_missing :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_iterator(self, indices, exclude_missing):
-        '''Returns an generator for that iterates over Docker elements.
+        """Returns an generator for that iterates over Docker elements.
 
-        Args:
-          indices: 
-          exclude_missing: 
+        Parameters
+        ----------
+        indices :
+            
+        exclude_missing :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @property
     @abstractmethod
     def singleton(self):
-        '''Returns true if instance is singleton.'''
+        """Returns true if instance is singleton."""
         pass
 
     @property
     @abstractmethod
     def empty(self):
-        '''Returns true of instance is empty.'''
+        """Returns true of instance is empty."""
         pass
 
     @property
     @abstractmethod
     def data(self):
-        '''Returns objects with actual data that docker contains.'''
+        """Returns objects with actual data that docker contains."""
         pass
 
     @property
     @abstractmethod
     def missing(self):
-        '''Returns IDs of elements that are set to None.'''
+        """Returns IDs of elements that are set to None."""
         pass
 
     @property
     @abstractmethod
     def valid(self):
-        '''Returns IDs of elements that are not set to None.'''
+        """Returns IDs of elements that are not set to None."""
         pass
 
     @property
     @abstractmethod
     def _transit(self):
-        '''Returns true of Docker is a transit/intermediate object.'''
+        """Returns true of Docker is a transit/intermediate object."""
         pass
 
     @property
     @abstractmethod
     def metadata(self):
-        '''Returns metadata of the Docker.'''
+        """Returns metadata of the Docker."""
         pass
 
     @metadata.setter
     @abstractmethod
     def metadata(self, value):
-        '''Setter for the metadata property of the docker.
+        """Setter for the metadata property of the docker.
 
-        Args:
-          value: 
+        Parameters
+        ----------
+        value :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @property
     @abstractmethod
     def name(self):
-        '''Returns name/label of the docker.'''
+        """Returns name/label of the docker."""
         pass
 
     @name.setter
     @abstractmethod
     def name(self, value):
-        '''Set name property of the docker.
+        """Set name property of the docker.
 
-        Args:
-          value: 
+        Parameters
+        ----------
+        value :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @property
     @abstractmethod
     def index(self):
-        '''Returns all IDs.'''
+        """Returns all IDs."""
         pass
 
     @property
     @abstractmethod
     def count(self):
-        ''' '''
+        """ """
         pass
 
 class DockerIdentifierMetabase(DockerBackboneMetabase):
-    '''Interface for DockerIdentifiers.'''
+    """Interface for DockerIdentifiers."""
     @abstractmethod
     def to_array(self, indices, exclude_missing):
-        '''Converts Docker elements into array or Docker container into dict of arrays.
+        """Converts Docker elements into array or Docker container into dict of arrays.
 
-        Args:
-          indices: 
-          exclude_missing: 
+        Parameters
+        ----------
+        indices :
+            
+        exclude_missing :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
 class DockerTaxonomyMetabase(DockerBackboneMetabase):
-    '''Interface for DockerTaxonomy.'''
+    """Interface for DockerTaxonomy."""
     @abstractmethod
     def get_avail_ranks(self,indices):
-        '''
+        """
 
-        Args:
-          indices: 
+        Parameters
+        ----------
+        indices :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def to_dataframe(self, indices, ranks):
-        '''Converts docker elements into dataframe or Docker container into dict of dataframes.
+        """Converts docker elements into dataframe or Docker container into dict of dataframes.
 
-        Args:
-          indices: 
-          ranks: 
+        Parameters
+        ----------
+        indices :
+            
+        ranks :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
 class DockerPhylogenyMetabase(DockerBackboneMetabase):
-    '''Interface for DockerPhylogeny.'''
+    """Interface for DockerPhylogeny."""
     @abstractmethod
     def get_node_names(self, indices):
-        '''
+        """
 
-        Args:
-          indices: 
+        Parameters
+        ----------
+        indices :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_tip_names(self, indices):
-        '''Returns only tip names of the tree that Docker contains.
+        """Returns only tip names of the tree that Docker contains.
 
-        Args:
-          indices: 
+        Parameters
+        ----------
+        indices :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
 class DockerSequenceMetabase(DockerBackboneMetabase):
-    '''Interface for DockerSequence.'''
+    """Interface for DockerSequence."""
     @abstractmethod
     def to_multiseq(self, indices):
-        '''Converts Docker elements into Multiseq object.
+        """Converts Docker elements into Multiseq object.
 
-        Args:
-          indices: 
+        Parameters
+        ----------
+        indices :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_records(self, indices): # FIXME: This method is ugly since it only required by classifier module that is not working at the moment. Hence, it should be carried out only when necessary by a separate function.
-        '''Returns the Docker elements as "record" tuples.
+        """Returns the Docker elements as "record" tuples.
 
-        Args:
-          indices: 
+        Parameters
+        ----------
+        indices :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @abstractmethod
     def get_stats(self, indices):# FIXME: Same as DockerSequenceMetabase.get_records(...). Just remove it.
-        '''Returns the "stats" for "record" elements.
+        """Returns the "stats" for "record" elements.
 
-        Args:
-          indices): # FIXME: Same as DockerSequenceMetabase.get_records(...:
-          indices): # FIXME: Same as DockerSequenceMetabase.get_records(...:
-          indices):# FIXME: Same as DockerSequenceMetabase.get_records(...: 
+        Parameters
+        ----------
+        indices) :
+            # FIXME: Same as DockerSequenceMetabase.get_records(...:
+        indices) :
+            # FIXME: Same as DockerSequenceMetabase.get_records(...:
+        indices) :
+            # FIXME: Same as DockerSequenceMetabase.get_records(...:
+        indices):# FIXME: Same as DockerSequenceMetabase.get_records(... :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass
 
     @property
     @abstractmethod
     def mode(self):
-        '''Returns mode of the Docker instance. Mode refers to DNA, RNA or Protein.'''
+        """Returns mode of the Docker instance. Mode refers to DNA, RNA or Protein."""
         pass
 
     @property
     @abstractmethod
     def aligned(self):
-        '''Returns True if the sequences that Docker contains are aligned.'''
+        """Returns True if the sequences that Docker contains are aligned."""
         pass
 
 class DockerAccessionMetabase(DockerBackboneMetabase):
-    '''Interface for DockerAccession.'''
+    """Interface for DockerAccession."""
     @property
     @abstractmethod
     def sources(self):
-        ''' '''
+        """ """
         pass
 
     @abstractmethod
     def to_identifier_by_src(self, source, exclude_missing):
-        '''Converts the Docker elements to the DockerIdentifier for selected `source` parameter.
+        """Converts the Docker elements to the DockerIdentifier for selected `source` parameter.
 
-        Args:
-          source: 
-          exclude_missing: 
+        Parameters
+        ----------
+        source :
+            
+        exclude_missing :
+            
 
-        Returns:
+        Returns
+        -------
 
-        '''
+        """
         pass

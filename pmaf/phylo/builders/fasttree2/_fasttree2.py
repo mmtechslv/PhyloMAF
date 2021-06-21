@@ -42,11 +42,20 @@ class TreeBuilderFastTree2(TreeBuilderBackboneMetabase):
     def build(self, alignment: MultiSequenceMetabase, **kwargs: Any) -> PhyloTree:
         """Constructs a *de-novo* phylogenetic tree from MSA(param `alignment`).
 
-        Args:
-            alignment: MSA alignment of representative sequences
-            **kwargs: Compatibility
+        Parameters
+        ----------
+        alignment :
+            MSA alignment of representative sequences
+        **kwargs :
+            Compatibility
+        alignment: MultiSequenceMetabase :
+            
+        **kwargs: Any :
+            
 
-        Returns:
+        Returns
+        -------
+        
             Phylogenetic tree with estimated branches
 
         """

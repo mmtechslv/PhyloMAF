@@ -26,10 +26,12 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> None:
         """Constructor for :class:`.RepSequence`
 
-        Args:
-            sequences: Sequence data
-            **kwargs: Compatibility
-
+        Parameters
+        ----------
+        sequences
+             Sequence data
+        kwargs
+            Compatibility
         """
         super().__init__(**kwargs)
         tmp_sequences = []
@@ -71,10 +73,15 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> Optional[AnyGenericIdentifier]:
         """Remove features by `ids` and ratify action.
 
-        Args:
-                ids: Feature identifiers
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        ids
+            Feature identifiers
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__sequence_df.index.dtype)
         if len(tmp_ids) > 0:
@@ -86,17 +93,22 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> Optional[Mapper]:
         """Merge features and ratify action. THIS METHOD IS INCOMPLETE.
 
-        Args:
-                map_dict: Map to use for merging
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        map_dict
+            Map to use for merging
+        **kwargs
+            Compatibility
 
+        Returns
+        -------
         """
         print(
             "ASSUME ALIGNED SEQUENCES! :))"
         )  # TODO: This method must align sequences.
         return self._ratify_action("_merge_features_by_map", map_dict, **kwargs)
 
-    def copy(self) -> 'RepSequence':
+    def copy(self) -> "RepSequence":
         """Copy of the instance."""
         return type(self)(
             sequences=self.__sequence_df.loc[:, "sequence"],
@@ -106,16 +118,21 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
 
     def get_subset(
         self, rids: Optional[AnyGenericIdentifier] = None, *args: Any, **kwargs: Any
-    ) -> 'RepSequence':
+    ) -> "RepSequence":
         """Get subset of the :class:`.RepSequence`.
 
-        Args:
-                rids: Feature identifiers.
-                *args: Compatibility
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        rids
+            Feature identifiers.
+        *args
+            Compatibility
+        **kwargs
+            Compatibility
 
-        Returns:
-                :class:`.RepSequence`
+        Returns
+        -------
+        class:`.RepSequence`
         """
         if rids is None:
             target_rids = self.xrid
@@ -130,10 +147,13 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         )
 
     def to_multiseq(self) -> MultiSequence:
-        """Creates an instance of :class:`~pmaf.sequence._multiple._multiple.MultiSequence` containing sequences.
+        """Creates an instance of
+        :class:`~pmaf.sequence._multiple._multiple.MultiSequence` containing
+        sequences.
 
-        Returns:
-            :class:`~pmaf.sequence._multiple._multiple.MultiSequence`
+        Returns
+        -------
+        class:`~pmaf.sequence._multiple._multiple.MultiSequence`
         """
         tmp_sequences = []
         for ix, seq, desc in self.__sequence_df[
@@ -156,11 +176,19 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> None:
         """Exports the FASTA sequences into the specified file.
 
-        Args:
-                output_fp: Export filepath
-                *args: Compatibility
-                _add_ext: Add file extension or not.
-                **kwargs: Compatibility
+        Parameters
+        ----------
+        output_fp
+            Export filepath
+        *args
+            Compatibility
+        _add_ext
+            Add file extension or not.
+        **kwargs
+            Compatibility
+
+        Returns
+        -------
         """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:
@@ -175,5 +203,5 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
 
     @property
     def xrid(self) -> pd.Index:
-        """Feature identifiers"""
+        """Feature identifiers."""
         return self.__sequence_df.index

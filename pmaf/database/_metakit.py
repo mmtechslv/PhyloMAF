@@ -15,10 +15,13 @@ class DatabaseBackboneMetabase(ABC):
     def build_database_storage(cls,**kwargs):
         """
 
-        Args:
-          **kwargs:
+        Parameters
+        ----------
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -27,14 +30,21 @@ class DatabaseBackboneMetabase(ABC):
     def find_rid_by_tid(self, ids, subs, iterator, flatten, mode):
         """
 
-        Args:
-          ids:
-          subs:
-          iterator:
-          flatten:
-          mode:
+        Parameters
+        ----------
+        ids :
+            
+        subs :
+            
+        iterator :
+            
+        flatten :
+            
+        mode :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -43,14 +53,21 @@ class DatabaseBackboneMetabase(ABC):
     def find_tid_by_rid(self, ids, levels, flatten, method, mode):
         """
 
-        Args:
-          ids:
-          levels:
-          flatten:
-          method:
-          mode:
+        Parameters
+        ----------
+        ids :
+            
+        levels :
+            
+        flatten :
+            
+        method :
+            
+        mode :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -58,13 +75,19 @@ class DatabaseBackboneMetabase(ABC):
     def find_sub_tids_by_tid(self, ids, ter_rank, flatten, mode):
         """
 
-        Args:
-          ids:
-          ter_rank:
-          flatten:
-          mode:
+        Parameters
+        ----------
+        ids :
+            
+        ter_rank :
+            
+        flatten :
+            
+        mode :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -73,13 +96,19 @@ class DatabaseBackboneMetabase(ABC):
     def take_tids_by_rank(self, levels, iterator, flatten, mode):
         """
 
-        Args:
-          levels:
-          iterator:
-          flatten:
-          mode:
+        Parameters
+        ----------
+        levels :
+            
+        iterator :
+            
+        flatten :
+            
+        mode :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -88,13 +117,19 @@ class DatabaseBackboneMetabase(ABC):
     def take_rids_by_rank(self, levels, iterator, flatten, mode):
         """
 
-        Args:
-          levels:
-          iterator:
-          flatten:
-          mode:
+        Parameters
+        ----------
+        levels :
+            
+        iterator :
+            
+        flatten :
+            
+        mode :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -103,12 +138,17 @@ class DatabaseBackboneMetabase(ABC):
     def get_stats_by_rid(self, ids, include, exclude):
         """
 
-        Args:
-          ids:
-          include:
-          exclude:
+        Parameters
+        ----------
+        ids :
+            
+        include :
+            
+        exclude :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -117,12 +157,17 @@ class DatabaseBackboneMetabase(ABC):
     def get_stats_by_tid(self, ids, include, exclude):
         """
 
-        Args:
-          ids:
-          include:
-          exclude:
+        Parameters
+        ----------
+        ids :
+            
+        include :
+            
+        exclude :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -181,10 +226,13 @@ class DatabasePhylogenyMetabase(DatabaseBackboneMetabase):
     def prune_tree_by_tid(self, ids):
         """
 
-        Args:
-          ids:
+        Parameters
+        ----------
+        ids :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -193,10 +241,13 @@ class DatabasePhylogenyMetabase(DatabaseBackboneMetabase):
     def infer_topology_by_tid(self, ids):
         """
 
-        Args:
-          ids:
+        Parameters
+        ----------
+        ids :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -205,10 +256,13 @@ class DatabasePhylogenyMetabase(DatabaseBackboneMetabase):
     def prune_tree_by_rid(self, ids):
         """
 
-        Args:
-          ids:
+        Parameters
+        ----------
+        ids :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -217,10 +271,13 @@ class DatabasePhylogenyMetabase(DatabaseBackboneMetabase):
     def infer_topology_by_rid(self, ids):
         """
 
-        Args:
-          ids:
+        Parameters
+        ----------
+        ids :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -231,13 +288,19 @@ class DatabaseTaxonomyMetabase(DatabaseBackboneMetabase):
     def get_lineage_by_tid(self, ids, missing_rank, desired_ranks, drop_ranks):
         """
 
-        Args:
-          ids:
-          missing_rank:
-          desired_ranks:
-          drop_ranks:
+        Parameters
+        ----------
+        ids :
+            
+        missing_rank :
+            
+        desired_ranks :
+            
+        drop_ranks :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -246,13 +309,19 @@ class DatabaseTaxonomyMetabase(DatabaseBackboneMetabase):
     def get_lineage_by_rid(self, ids, missing_rank, desired_ranks, drop_ranks):
         """
 
-        Args:
-          ids:
-          missing_rank:
-          desired_ranks:
-          drop_ranks:
+        Parameters
+        ----------
+        ids :
+            
+        missing_rank :
+            
+        desired_ranks :
+            
+        drop_ranks :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -261,11 +330,15 @@ class DatabaseTaxonomyMetabase(DatabaseBackboneMetabase):
     def get_taxonomy_by_tid(self, ids, levels):
         """
 
-        Args:
-          ids:
-          levels:
+        Parameters
+        ----------
+        ids :
+            
+        levels :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -274,12 +347,17 @@ class DatabaseTaxonomyMetabase(DatabaseBackboneMetabase):
     def get_taxonomy_by_rid(self, ids, levels, result_format):
         """
 
-        Args:
-          ids:
-          levels:
-          result_format:
+        Parameters
+        ----------
+        ids :
+            
+        levels :
+            
+        result_format :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -288,10 +366,13 @@ class DatabaseTaxonomyMetabase(DatabaseBackboneMetabase):
     def get_taxonomy_by_rank(self, levels):
         """
 
-        Args:
-          levels:
+        Parameters
+        ----------
+        levels :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -303,11 +384,15 @@ class DatabaseAccessionMetabase(DatabaseBackboneMetabase):
     def get_accession_by_tid(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -316,11 +401,15 @@ class DatabaseAccessionMetabase(DatabaseBackboneMetabase):
     def get_accession_by_rid(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -331,11 +420,15 @@ class DatabaseSequenceMetabase(DatabaseBackboneMetabase):
     def get_sequence_by_tid(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -344,11 +437,15 @@ class DatabaseSequenceMetabase(DatabaseBackboneMetabase):
     def get_sequence_by_rid(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -357,11 +454,15 @@ class DatabaseSequenceMetabase(DatabaseBackboneMetabase):
     def get_alignment_by_tid(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -370,11 +471,15 @@ class DatabaseSequenceMetabase(DatabaseBackboneMetabase):
     def get_alignment_by_rid(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass

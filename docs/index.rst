@@ -9,7 +9,7 @@ Welcome to PhyloMAF's documentation!
 .. toctree::
    :maxdepth: 2
 
-   api/pmaf/index
+   API Reference <api/index>
    glossary
    bibliography
    changes

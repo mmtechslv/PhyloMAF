@@ -45,12 +45,24 @@ class BranchestFastTree2(BranchEstimatorBackboneMetabase):
     ) -> PhyloTree:
         """Estimate branches of on fixed tree topology(param `tree`) using MSA of representative sequences(param `alignment`)
 
-        Args:
-            alignment: MSA alignment of representative sequences
-            tree: Phylogenetic tree topology.
-            **kwargs: Compatibility
+        Parameters
+        ----------
+        alignment :
+            MSA alignment of representative sequences
+        tree :
+            Phylogenetic tree topology.
+        **kwargs :
+            Compatibility
+        alignment: MultiSequenceMetabase :
+            
+        tree: PhyloTree :
+            
+        **kwargs: Any :
+            
 
-        Returns:
+        Returns
+        -------
+        
             Phylogenetic tree with estimated branches
 
         """

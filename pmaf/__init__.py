@@ -6,19 +6,6 @@ PhyloMAF  (:mod:`pmaf`)
 
 PhyloMaf Desc
 
-Modules
-----------
-.. toctree::
-   :titlesonly:
-   :maxdepth: 1
-
-   biome/index
-   database/index
-   pipe/index
-   sequence/index
-   alignment/index
-   phylo/index
-   remote/index
 
 """
 

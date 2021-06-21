@@ -17,12 +17,17 @@ class EssentialBackboneMetabase(BiomeBackboneMetabase):
     def export(self, output_fp, *args, **kwargs):
         """
 
-        Args:
-          output_fp:
-          *args:
-          **kwargs:
+        Parameters
+        ----------
+        output_fp :
+            
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -31,11 +36,15 @@ class EssentialBackboneMetabase(BiomeBackboneMetabase):
     def get_subset(self, *args, **kwargs):
         """
 
-        Args:
-          *args:
-          **kwargs:
+        Parameters
+        ----------
+        *args :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -54,10 +63,13 @@ class EssentialBackboneMetabase(BiomeBackboneMetabase):
     def _mount_controller(self, controller):
         """
 
-        Args:
-          controller:
+        Parameters
+        ----------
+        controller :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -66,12 +78,17 @@ class EssentialBackboneMetabase(BiomeBackboneMetabase):
     def _ratify_action(self, method, value, **kwargs):
         """
 
-        Args:
-          method:
-          value:
-          **kwargs:
+        Parameters
+        ----------
+        method :
+            
+        value :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -108,11 +125,15 @@ class EssentialFeatureMetabase(BiomeFeatureMetabase, EssentialBackboneMetabase):
     def _remove_features_by_id(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -121,11 +142,15 @@ class EssentialFeatureMetabase(BiomeFeatureMetabase, EssentialBackboneMetabase):
     def _merge_features_by_map(self, map_dict, **kwargs):
         """
 
-        Args:
-          map_dict:
-          **kwargs:
+        Parameters
+        ----------
+        map_dict :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -138,11 +163,15 @@ class EssentialSampleMetabase(BiomeSampleMetabase, EssentialBackboneMetabase):
     def _remove_samples_by_id(self, ids, **kwargs):
         """
 
-        Args:
-          ids:
-          **kwargs:
+        Parameters
+        ----------
+        ids :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -151,11 +180,15 @@ class EssentialSampleMetabase(BiomeSampleMetabase, EssentialBackboneMetabase):
     def _merge_samples_by_map(self, map_dict, **kwargs):
         """
 
-        Args:
-          map_dict:
-          **kwargs:
+        Parameters
+        ----------
+        map_dict :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -168,10 +201,13 @@ class EssentialControllerBackboneMetabse(ABC):
     def insert_essential(self, essential):
         """
 
-        Args:
-          essential:
+        Parameters
+        ----------
+        essential :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -180,10 +216,13 @@ class EssentialControllerBackboneMetabse(ABC):
     def verify_essential(self, essential):
         """
 
-        Args:
-          essential:
+        Parameters
+        ----------
+        essential :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass
@@ -192,13 +231,19 @@ class EssentialControllerBackboneMetabse(ABC):
     def reflect_action(self, source, method, value, **kwargs):
         """
 
-        Args:
-          source:
-          method:
-          value:
-          **kwargs:
+        Parameters
+        ----------
+        source :
+            
+        method :
+            
+        value :
+            
+        **kwargs :
+            
 
-        Returns:
+        Returns
+        -------
 
         """
         pass

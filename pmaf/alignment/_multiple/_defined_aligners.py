@@ -4,17 +4,23 @@ from Bio.Align.Applications import ClustalwCommandline
 
 
 def clustalw2_wrapper(in_tmp_file, out_tmp_file, param_dict={}, cmd_bin='clustalw2'):
-    '''
+    """
 
-    Args:
-      in_tmp_file: 
-      out_tmp_file: 
-      param_dict: (Default value = {})
-      cmd_bin: (Default value = 'clustalw2')
+    Parameters
+    ----------
+    in_tmp_file :
+        
+    out_tmp_file :
+        
+    param_dict :
+        (Default value = {})
+    cmd_bin :
+        (Default value = 'clustalw2')
 
-    Returns:
+    Returns
+    -------
 
-    '''
+    """
     default_cmd = 'clustalw2'
     output_format = 'clustal'
     cmb_bin_adj = default_cmd if cmd_bin is None else cmd_bin
