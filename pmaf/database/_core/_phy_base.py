@@ -1,50 +1,81 @@
-from pmaf.database._metakit import  DatabasePhylogenyMetabase
+from pmaf.database._metakit import DatabasePhylogenyMetabase
 from pmaf.phylo.tree._tree import PhyloTree
 import numpy as np
 import pandas as pd
 from collections import defaultdict
 import ete3
 import pickle
+from pmaf.internal._typing import AnyGenericIdentifier
+from typing import Optional, Tuple
 
 
 class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
-    """ """
+    """Mixin class for handling phylogeny data."""
 
     def __retrieve_tree_instance(self):
-        tree_pickled = self.storage_manager.retrieve_data_by_element('tree-object')
+        tree_pickled = self.storage_manager.retrieve_data_by_element("tree-object")
         return pickle.loads(tree_pickled)
 
     @staticmethod
-    def __copy_ete3_node(node):
+    def __copy_ete3_node(node: ete3.Tree) -> ete3.Tree:
+        """Static method that make a ete3 tree node copy.
+
+        Parameters
+        ----------
+        node
+            Ete3 Tree
+
+        Returns
+        -------
+        """
         tmp_node = ete3.TreeNode()
         for feature in node.features:
             tmp_node.add_feature(feature, getattr(node, feature))
         return tmp_node
 
-    def prune_tree_by_tid(self, ids, subreps=False, include_rid=False):
-        """
+    def prune_tree_by_tid(
+        self,
+        ids: AnyGenericIdentifier,
+        subreps: bool = False,
+        include_rid: bool = False,
+    ) -> PhyloTree:
+        """Prune reference tree and keep tips with `ids`
 
         Parameters
         ----------
-        ids :
-            
-        subreps :
-            (Default value = False)
-        include_rid :
-            (Default value = False)
+        ids
+            Target :term:`tids` or tips of the tree to keep.
+        subreps
+            Whether to look for :term:`subs`.
+        include_rid
+            Whether to keep phylogeny with :term:`rids` attached to :term:`tids`.
 
         Returns
         -------
-
+           Pruned reference phylogenetic tree.
         """
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xtid.isin(target_ids).sum() == len(target_ids):
-                repseq_map = self.find_rid_by_tid(target_ids, subs=subreps, iterator=False, flatten=False, mode='dict')
+                repseq_map = self.find_rid_by_tid(
+                    target_ids, subs=subreps, iterator=False, flatten=False, mode="dict"
+                )
                 if min(map(len, repseq_map.values())) == 0:
-                    raise ValueError('At least one of tids does not contain any direct rids. Use `subreps=True` to prevent this error.')
-                rids_flat = list(set([str(rid) for rid_list in repseq_map.values() for rid in rid_list]))
-                tid_rid_map = {tid: list(map(str, rids)) for tid, rids in repseq_map.items()}
+                    raise ValueError(
+                        "At least one of tids does not contain any direct rids. Use `subreps=True` to prevent this error."
+                    )
+                rids_flat = list(
+                    set(
+                        [
+                            str(rid)
+                            for rid_list in repseq_map.values()
+                            for rid in rid_list
+                        ]
+                    )
+                )
+                tid_rid_map = {
+                    tid: list(map(str, rids)) for tid, rids in repseq_map.items()
+                }
 
                 ref_tree = self.__retrieve_tree_instance()
 
@@ -59,7 +90,7 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
 
                 node_map = defaultdict(None)
                 tmp_tree = self.__copy_ete3_node(ref_tree)
-                tmp_tree.name = 'root'
+                tmp_tree.name = "root"
                 node_map[ref_tree] = tmp_tree
 
                 for node in target_nodes:
@@ -85,7 +116,7 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
 
                     tmp_tree.prune(adj_tids, preserve_branch_length=True)
                     for leave in tmp_tree.traverse():
-                        if leave.name.startswith('t'):
+                        if leave.name.startswith("t"):
                             leave.name = leave.name[1:]
                 else:
                     for node in target_nodes:
@@ -95,32 +126,32 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
                         new_rid_nodes = [node_map[node] for node in rid_nodes]
                         if len(new_rid_nodes) > 1:
                             tmp_mcra = tmp_tree.get_common_ancestor(new_rid_nodes)
-                            if tmp_mcra.name.startswith('t'):
+                            if tmp_mcra.name.startswith("t"):
                                 tmp_mcra.add_sister(name=str(tid))
                             else:
                                 tmp_mcra.name = str(tid)
                         else:
-                            if new_rid_nodes[0].name.startswith('t'):
+                            if new_rid_nodes[0].name.startswith("t"):
                                 new_rid_nodes[0].add_sister(name=str(tid))
                             else:
                                 new_rid_nodes[0].name = str(tid)
                 return PhyloTree(tmp_tree)
             else:
-                raise RuntimeError('Invalid identifiers are provided.')
+                raise RuntimeError("Invalid identifiers are provided.")
         else:
-            raise RuntimeError('Storage is closed.')
+            raise RuntimeError("Storage is closed.")
 
-    def prune_tree_by_rid(self, ids):
-        """
+    def prune_tree_by_rid(self, ids: AnyGenericIdentifier) -> PhyloTree:
+        """Prune the reference tree and keep `ids`
 
         Parameters
         ----------
-        ids :
-            
+        ids
+            Target :term:`rids` or tips of the tree to keep.
 
         Returns
         -------
-
+            Pruned reference phylogenetic tree
         """
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
@@ -147,84 +178,154 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
                 tmp_tree.standardize(preserve_branch_length=True)
                 return PhyloTree(tmp_tree)
             else:
-                raise RuntimeError('Invalid identifiers are provided.')
+                raise RuntimeError("Invalid identifiers are provided.")
         else:
-            raise RuntimeError('Storage is closed.')
+            raise RuntimeError("Storage is closed.")
 
-
-    def __fix_mapped_tree_nodes(self,tree,root_name,tips=None):
-        tree.standardize(preserve_branch_length=True)
-        for node in tree.traverse():
-            if node.name == root_name:
-                node.name = 'root'
-            elif node.name.startswith('+') or node.name.startswith('r+'):
-                node.name = ''
-        if tips is not None:
-            tree.prune(tips,preserve_branch_length=True)
-        return tree
-
-
-    def infer_topology_by_tid(self, ids, subreps=False, include_rid=False):
-        """Rapidly infers topology from map-tree.
+    # TODO: This function should work with PhyloTree not ete3.Tree
+    @staticmethod
+    def __fix_mapped_tree_nodes(
+            tree: ete3.Tree,
+        root_name: str,
+        tips: Optional[AnyGenericIdentifier] = None,
+    ) -> ete3.Tree:
+        """Private helper method to fix tree nodes during by standardizing the
+        tree and removing intermediate nodes.
 
         Parameters
         ----------
-        ids :
-            Tips to infer for.
-        subreps :
-            (Default value = False)
-        include_rid :
-            (Default value = False)
+        tree
+            Target tree to fix
+        root_name
+            Root of the target tree
+        tips
+            Tips to prune for
 
         Returns
         -------
+            Return fixed tree
+        """
+        tree.standardize(preserve_branch_length=True)
+        for node in tree.traverse():
+            if node.name == root_name:
+                node.name = "root"
+            elif node.name.startswith("+") or node.name.startswith("r+"):
+                node.name = ""
+        if tips is not None:
+            tree.prune(tips, preserve_branch_length=True)
+        return tree
 
+    def infer_topology_by_tid(
+        self,
+        ids: AnyGenericIdentifier,
+        subreps: bool = False,
+        include_rid: bool = False,
+    ) -> PhyloTree:
+        """Quickly infers topology from tree node map.
+
+        Parameters
+        ----------
+        ids
+            Tips to keep.
+        subreps
+            Whether to look for :term:`subs`.
+        include_rid
+            Whether to keep phylogeny with :term:`rids` attached to :term:`tids`.
+
+        Returns
+        -------
+            Pruned reference phylogenetic tree.
         """
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xtid.isin(target_ids).sum() == len(target_ids):
-                repseq_map = self.find_rid_by_tid(target_ids, subs=subreps, iterator=False, flatten=False, mode='dict')
+                repseq_map = self.find_rid_by_tid(
+                    target_ids, subs=subreps, iterator=False, flatten=False, mode="dict"
+                )
                 if min(map(len, repseq_map.values())) == 0:
-                    raise ValueError('At least one of tids does not contain any direct rids. Use `subreps=True` to prevent this error.')
-                rids_flat = list(set([str(rid) for rid_list in repseq_map.values() for rid in rid_list]))
+                    raise ValueError(
+                        "At least one of tids does not contain any direct rids. Use `subreps=True` to prevent this error."
+                    )
+                rids_flat = list(
+                    set(
+                        [
+                            str(rid)
+                            for rid_list in repseq_map.values()
+                            for rid in rid_list
+                        ]
+                    )
+                )
                 tree_map_df, root_node_name = self.__make_tree_map_by_rid(rids_flat)
-                preceding_list_dict, following_df_dict = self.__make_aligned_lineage_maps(tree_map_df, repseq_map)
+                (
+                    preceding_list_dict,
+                    following_df_dict,
+                ) = self.__make_aligned_lineage_maps(tree_map_df, repseq_map)
                 if not include_rid:
-                    tmp_tree = self.__infer_tree_for_tids(preceding_list_dict, root_node_name)
-                    return PhyloTree(self.__fix_mapped_tree_nodes(tmp_tree, root_node_name, preceding_list_dict.keys()))
+                    tmp_tree = self.__infer_tree_for_tids(
+                        preceding_list_dict, root_node_name
+                    )
+                    return PhyloTree(
+                        self.__fix_mapped_tree_nodes(
+                            tmp_tree, root_node_name, list(preceding_list_dict.keys())
+                        )
+                    )
                 else:
-                    tmp_tree = self.__infer_tree_for_tids_with_rids(preceding_list_dict, following_df_dict, root_node_name)
-                    return PhyloTree(self.__fix_mapped_tree_nodes(tmp_tree, root_node_name))
+                    tmp_tree = self.__infer_tree_for_tids_with_rids(
+                        preceding_list_dict, following_df_dict, root_node_name
+                    )
+                    return PhyloTree(
+                        self.__fix_mapped_tree_nodes(tmp_tree, root_node_name)
+                    )
             else:
-                raise RuntimeError('Invalid identifiers are provided.')
+                raise RuntimeError("Invalid identifiers are provided.")
         else:
-            raise RuntimeError('Storage is closed.')
+            raise RuntimeError("Storage is closed.")
 
-    def infer_topology_by_rid(self, ids):
-        """
+    def infer_topology_by_rid(self, ids: AnyGenericIdentifier):
+        """Quickly infers topology from tree node map.
 
         Parameters
         ----------
-        ids :
-            
+        ids
+            Tips to keep.
 
         Returns
         -------
-
+            Pruned reference phylogenetic tree.
         """
         if self.storage_manager.state == 1:
             target_ids = np.unique(np.asarray(ids))
             if self.xrid.isin(target_ids).sum() == len(target_ids):
                 repseq_ids = list(map(str, target_ids))
                 tree_map_df, root_node_name = self.__make_tree_map_by_rid(repseq_ids)
-                tmp_tree = self.__infer_tree_for_rids(tree_map_df, root_node_name, repseq_ids)
-                return PhyloTree(self.__fix_mapped_tree_nodes(tmp_tree, root_node_name, repseq_ids))
+                tmp_tree = self.__infer_tree_for_rids(
+                    tree_map_df, root_node_name, repseq_ids
+                )
+                return PhyloTree(
+                    self.__fix_mapped_tree_nodes(tmp_tree, root_node_name, repseq_ids)
+                )
             else:
-                raise RuntimeError('Invalid identifiers are provided.')
+                raise RuntimeError("Invalid identifiers are provided.")
         else:
-            raise RuntimeError('Storage is closed.')
+            raise RuntimeError("Storage is closed.")
 
-    def __infer_tree_for_tids(self, preceding_list_dict, root_node_name):
+    @staticmethod
+    def __infer_tree_for_tids(
+        preceding_list_dict: dict, root_node_name: str
+    ) -> ete3.Tree:
+        """Infer reference tree for :term:`tids` as tips`.
+
+        Parameters
+        ----------
+        preceding_list_dict
+            Preceding lineage map.
+        root_node_name
+            Tree root name
+
+        Returns
+        -------
+            Inferred tree
+        """
         existing_nodes_dict = defaultdict(ete3.Tree)
         tmp_tree = ete3.Tree(name=root_node_name)
         existing_nodes_dict[root_node_name] = tmp_tree
@@ -240,12 +341,36 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
         return tmp_tree
 
     # FIX THIS
-    def __infer_tree_for_rids(self, tree_map_df, root_node_name, tip_ids):
-        lineage_map_list = tree_map_df.values.tolist()
+    @staticmethod
+    def __infer_tree_for_rids(
+            tree_map_df: pd.DataFrame,
+        root_node_name: str,
+        tip_ids: AnyGenericIdentifier,
+    ) -> ete3.Tree:
+        """Infer reference tree for :term:`rids` as tips.
+
+        Parameters
+        ----------
+        tree_map_df
+            Reference tree map
+        root_node_name
+            Tree root node name
+        tip_ids
+            Tip ids (:term:`rids`)
+
+        Returns
+        -------
+            Inferred tree.
+        """
+        lineage_map_list = list(tree_map_df.values)
         lineage_map_list_fixed = []
         for lineage_map_list_elem in lineage_map_list:
             taxon_elem_seen = set()
-            tmp_lineage_map_list_elem_unique_ordered = [elem for elem in lineage_map_list_elem if not (elem in taxon_elem_seen or taxon_elem_seen.add(elem))]
+            tmp_lineage_map_list_elem_unique_ordered = [
+                elem
+                for elem in lineage_map_list_elem
+                if not (elem in taxon_elem_seen or taxon_elem_seen.add(elem))
+            ]
             lineage_map_list_fixed.append(tmp_lineage_map_list_elem_unique_ordered)
         tmp_tree = ete3.Tree(name=root_node_name)
 
@@ -253,7 +378,9 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
             last_node = tmp_tree
             for lineage_taxon_name in tip_lineage_map:
                 try:
-                    existing_nodes = next(tmp_tree.iter_search_nodes(name=lineage_taxon_name))
+                    existing_nodes = next(
+                        tmp_tree.iter_search_nodes(name=lineage_taxon_name)
+                    )
                 except StopIteration:
                     existing_nodes = None
                 except:
@@ -265,16 +392,23 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
         return tmp_tree
 
     def __make_tree_map_by_rid(self, repseq_ids):
-        tree_map = self.storage_manager.retrieve_data_by_element('map-tree')
-        non_roots_indices = tree_map[tree_map['pid'].notna()].index
-        top_level_uid = tree_map[~tree_map.index.isin(non_roots_indices)].index.values.tolist()[0]
+        tree_map = self.storage_manager.retrieve_data_by_element("map-tree")
+        non_roots_indices = tree_map[tree_map["pid"].notna()].index
+        top_level_uid = tree_map[
+            ~tree_map.index.isin(non_roots_indices)
+        ].index.values.tolist()[0]
         if tree_map is not None:
             taxon_level = 1
-            pid_map_df = tree_map.loc[repseq_ids]['pid'].reset_index().reindex(columns=['pid', 'uid']).rename(columns={'pid': taxon_level, 'uid': 0})
+            pid_map_df = (
+                tree_map.loc[repseq_ids]["pid"]
+                .reset_index()
+                .reindex(columns=["pid", "uid"])
+                .rename(columns={"pid": taxon_level, "uid": 0})
+            )
             top_level = False
             while not top_level:
                 taxon_level = taxon_level + 1
-                tmp_level_map = tree_map.loc[pid_map_df[taxon_level - 1]]['pid']
+                tmp_level_map = tree_map.loc[pid_map_df[taxon_level - 1]]["pid"]
                 if tmp_level_map.isna().any():
                     tmp_level_map.fillna(top_level_uid, inplace=True)
                 pid_map_df.set_index(taxon_level - 1, inplace=True)
@@ -284,49 +418,87 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
                 if tmp_level_map.nunique() == 1:
                     if tmp_level_map.iloc[0] == top_level_uid:
                         top_level = True
-            pid_map_df = pid_map_df.reindex(sorted(pid_map_df.columns, reverse=True), axis=1)
+            pid_map_df = pid_map_df.reindex(
+                sorted(pid_map_df.columns, reverse=True), axis=1
+            )
             pid_map_df.drop(taxon_level, axis=1, inplace=True)
             return pid_map_df, top_level_uid
 
-    def __make_aligned_lineage_maps(self, tree_map_df, repseq_map):
+    def __make_aligned_lineage_maps(
+        self, tree_map_df: pd.DataFrame, repseq_map: pd.DataFrame
+    ) -> Tuple[dict, dict]:
+        """Creates a lineage map dataframe to use for tree inferring.
 
+        Parameters
+        ----------
+        tree_map_df
+            Original tree map :class:`~pandas.DataFrame` retrieved from storage
+        repseq_map
+            Original repseq map :class:`~pandas.DataFrame` retrieved from storage
+
+        Returns
+        -------
+            (Node preceding lineage map, node following lineage maps)
+        """
         total_levels = tree_map_df.shape[1]
         mca_preceding_lineage_dict = defaultdict(list)
         mca_following_aligned_df_dict = defaultdict(pd.DataFrame)
 
         def adjust_unique(rid_row):
-            """
-
-            Parameters
-            ----------
-            rid_row :
-                
-
-            Returns
-            -------
-
-            """
             unique_rid = rid_row.unique()
-            return np.concatenate((unique_rid, np.array([None] * (total_levels - len(unique_rid)))))
+            return np.concatenate(
+                (unique_rid, np.array([None] * (total_levels - len(unique_rid))))
+            )
 
         for tid, rid_list in repseq_map.items():
             tid_str = str(tid)
             tmp_pid_map_df = tree_map_df[tree_map_df[0].isin(list(map(str, rid_list)))]
             if len(rid_list) > 1:
-                tmp_pid_map_df_adjusted = tmp_pid_map_df.apply(adjust_unique, axis=1, result_type='broadcast')
-                mca_level = np.argmax(~tmp_pid_map_df_adjusted.apply(lambda level_col: level_col.duplicated(keep=False), axis=0).all(axis=0).values) - 1
-                tmp_preceding = tmp_pid_map_df_adjusted.iloc[0, :mca_level].values.tolist() + [tid_str]
+                tmp_pid_map_df_adjusted = tmp_pid_map_df.apply(
+                    adjust_unique, axis=1, result_type="broadcast"
+                )
+                mca_level = (
+                    np.argmax(
+                        ~tmp_pid_map_df_adjusted.apply(
+                            lambda level_col: level_col.duplicated(keep=False), axis=0
+                        )
+                        .all(axis=0)
+                        .values
+                    )
+                    - 1
+                )
+                tmp_preceding = tmp_pid_map_df_adjusted.iloc[
+                    0, :mca_level
+                ].values.tolist() + [tid_str]
                 tmp_following = tmp_pid_map_df_adjusted.iloc[:, mca_level:]
-                tmp_following_adj = tmp_following.loc[:, ~tmp_following.isnull().all(axis=0)]
+                tmp_following_adj = tmp_following.loc[
+                    :, ~tmp_following.isnull().all(axis=0)
+                ]
                 mca_preceding_lineage_dict[tid_str].extend(tmp_preceding)
                 mca_following_aligned_df_dict[tid_str] = tmp_following_adj
-
             else:
-                mca_preceding_lineage_dict[tid_str].extend(tmp_pid_map_df.iloc[0, :].unique()[:-1].tolist() + [tid_str])
+                mca_preceding_lineage_dict[tid_str].extend(
+                    tmp_pid_map_df.iloc[0, :].unique()[:-1].tolist() + [tid_str]
+                )
         return mca_preceding_lineage_dict, mca_following_aligned_df_dict
 
     @staticmethod
-    def __make_tree_node_from_aligned_df(aligned_df, root_name):
+    def __make_tree_node_from_aligned_df(
+        aligned_df: pd.DataFrame, root_name: str
+    ) -> ete3.Tree:
+        """Creates a tree node from alignment.
+
+        Parameters
+        ----------
+        aligned_df
+            Lineage map dataframe
+        root_name
+            Root name for created node
+
+        Returns
+        -------
+            Node created from lineage dataframe
+        """
         nodes_dict = defaultdict(ete3.Tree)
         tmp_tree = ete3.Tree(name=root_name)
         nodes_dict[root_name] = tmp_tree
@@ -343,8 +515,26 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
                     nodes_dict[node_id] = new_node
         return tmp_tree
 
+    def __infer_tree_for_tids_with_rids(
+        self, preceding_list_dict: dict, following_df_dict: dict, root_node_name: str
+    ) -> ete3.Tree:
+        """Infer reference tree from tree map for :term:`tids` without dropping
+        :term:`rids`
 
-    def __infer_tree_for_tids_with_rids(self, preceding_list_dict, following_df_dict, root_node_name):
+        Parameters
+        ----------
+        preceding_list_dict
+           Preceding lineage map
+        following_df_dict
+            Following lineage map
+        root_node_name
+            Root node name
+
+        Returns
+        -------
+            Inferred tree
+
+        """
         nodes_dict = defaultdict(ete3.Tree)
         tmp_tree = ete3.Tree(name=root_node_name)
         nodes_dict[root_node_name] = tmp_tree

@@ -40,12 +40,16 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.autosummary",
     "sphinx.ext.extlinks",
+    "sphinx.ext.inheritance_diagram",
+    'sphinx.ext.autosectionlabel',
     # 'autoapi.extension',
     "sphinx.ext.autodoc.typehints",
+    'sphinx_automodapi.automodapi',
+    'sphinx_automodapi.smart_resolver',
     #'sphinx_autodoc_typehints',
     # "sphinx-prompt",
     # "sphinx_copybutton",
-    # 'sphinx_git',
+    'sphinx_git',
     "hoverxref.extension",
     "sphinxcontrib.bibtex",
 ]
@@ -68,6 +72,10 @@ intersphinx_mapping = {
 # Autosummary Configs
 autosummary_generate = True
 
+# AutoModApi Configs
+numpydoc_show_class_members = False
+automodsumm_inherited_members = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -82,7 +90,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "alabaster"
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

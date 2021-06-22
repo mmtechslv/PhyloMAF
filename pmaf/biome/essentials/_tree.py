@@ -42,7 +42,8 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         ignore_polytomy
             Whether to resolve tree polytomy or not.
         kwargs
-            Compatibility
+            Compatibility:w
+
         """
         super().__init__(**kwargs)
         if feature_ids is None:
@@ -209,6 +210,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             while .png will produce PNG file.
         annotated
             Whether to create tree with annotated tips or not.
+
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -225,8 +227,6 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         annotated :
             Whether to create tree with annotated tips or not.
-        annotated: bool :
-             (Default value = False)
 
         Returns
         -------
@@ -253,6 +253,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             Whether to create tree with annotated tips or not.
         **kwargs :
             Compatibility.
+
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -283,6 +284,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             Add file extension or not.
         **kwargs :
             Compatibility
+
         """
         tmp_export, _ = self._export(**kwargs)
         if _add_ext:
@@ -350,6 +352,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             File write mode.
         **kwargs :
             Compatibility
+
         """
 
         tmp_export, _ = self._export(**kwargs)

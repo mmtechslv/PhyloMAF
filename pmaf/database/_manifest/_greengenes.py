@@ -22,7 +22,8 @@ class DatabaseGreengenes(
     DatabaseAccessionMixin,
     DatabaseBase,
 ):
-    """Database class for Greengenes database :cite:t:`mcdonaldImprovedGreengenesTaxonomy2012a`"""
+    """Database class for Greengenes database
+    :cite:t:`mcdonaldImprovedGreengenesTaxonomy2012a`"""
 
     DATABASE_NAME = "Greengenes"
     INVALID_TAXA = "uncultured"
@@ -43,12 +44,12 @@ class DatabaseGreengenes(
         chunksize: int = 500,
         **kwargs: Any
     ) -> None:
-        """Factory method to build new database `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file.
+        """Factory method to build new database :term:`hdf5`
 
         Parameters
         ----------
         storage_hdf5_fp :
-            Output path for `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_ file
+            Output path for :term:`hdf5` file
         taxonomy_map_csv_fp :
             Path to taxonomy file
         tree_newick_fp :
@@ -66,30 +67,11 @@ class DatabaseGreengenes(
             faster to process but require more memory.
         **kwargs :
             Compatibility.
-        storage_hdf5_fp: str :
-            
-        taxonomy_map_csv_fp: str :
-            
-        tree_newick_fp: str :
-            
-        sequence_fasta_fp: str :
-            
-        sequence_alignment_fasta_fp: str :
-            
-        stamp_dict: dict :
-            
-        force: bool :
-             (Default value = False)
-        chunksize: int :
-             (Default value = 500)
-        **kwargs: Any :
-            
 
         Returns
         -------
-        
-            None if file was created successfully.
 
+            None if file was created successfully.
         """
         if path.exists(storage_hdf5_fp) and not force:
             raise ValueError("Storage file exists.")
@@ -147,13 +129,17 @@ class DatabaseGreengenes(
     ) -> Tuple[AnyGenericIdentifier, np.ndarray, pd.Series, pd.Series]:
         """Process taxonomy and accession numbers.
 
-        Args:
-            storage_manager: Active storage manager
-            taxonomy_map_csv_fp: Path to taxonomy map
+        Parameters
+        ----------
+        storage_manager
+            Active storage manager
+        taxonomy_map_csv_fp
+            Path to taxonomy map
 
-        Returns:
+        Returns
+        -------
+
             Results of the process that need to be passed to builder.
-
         """
         from pmaf.database._parsers._qiime import (
             read_qiime_taxonomy_map,
@@ -161,51 +147,17 @@ class DatabaseGreengenes(
         )
 
         def produce_taxonomy_prior(tmp_taxonomy_prior, index_mapper):
-            """The *taxonomy-prior* storage element producer function.
-
-            Parameters
-            ----------
-            tmp_taxonomy_prior :
-                
-            index_mapper :
-                
-
-            Returns
-            -------
-
-            """
+            """The *taxonomy-prior* storage element producer function."""
             yield None, None
             yield transformer.reindex_frame(tmp_taxonomy_prior, index_mapper)
 
         def produce_taxonomy_sheet(taxonomy_sheet):
-            """The *taxonomy-sheet* storage element producer function.
-
-            Parameters
-            ----------
-            taxonomy_sheet :
-                
-
-            Returns
-            -------
-
-            """
+            """The *taxonomy-sheet* storage element producer function."""
             yield None, None
             yield taxonomy_sheet
 
         def produce_sequence_accession(index_mapper, dropped_taxa):
-            """The *sequence-accession* storage element producer function.
-
-            Parameters
-            ----------
-            index_mapper :
-                
-            dropped_taxa :
-                
-
-            Returns
-            -------
-
-            """
+            """The *sequence-accession* storage element producer function."""
             yield None, None
             tmp_accessions = (
                 index_mapper.drop(index=dropped_taxa, errors="ignore")
@@ -216,32 +168,12 @@ class DatabaseGreengenes(
             yield tmp_accessions
 
         def produce_metadata_db_history(transformation_details):
-            """The *metadata-db-history* storage element producer function.
-
-            Parameters
-            ----------
-            transformation_details :
-                
-
-            Returns
-            -------
-
-            """
+            """The *metadata-db-history* storage element producer function."""
             yield None, None
             yield transformation_details["changes"]
 
         def produce_map_rep2tid(transformation_details):
-            """The *map-rep2tid* storage element producer function.
-
-            Parameters
-            ----------
-            transformation_details :
-                
-
-            Returns
-            -------
-
-            """
+            """The *map-rep2tid* storage element producer function."""
             yield None, None
             yield transformation_details["map-rep2tid"]
 
@@ -294,80 +226,43 @@ class DatabaseGreengenes(
         tree_newick_fp: str,
         index_mapper: pd.Series,
     ):
-        """Process phylogenetic tree
+        """Process phylogenetic tree.
 
-        Args:
-            storage_manager: Active storage manager
-            tree_newick_fp: Path to Newick tree
-            index_mapper: New index mapper.
+        Parameters
+        ----------
+        storage_manager
+            Active storage manager
+        tree_newick_fp
+            Path to Newick tree
+        index_mapper
+            New index mapper.
 
-        Returns:
+        Returns
+        -------
+
             Results of the process that need to be passed to builder.
-
         """
         from pmaf.database._parsers._phylo import read_newick_tree
         from ete3 import Tree
 
         def produce_tree_prior(tree_newick_fp):
-            """The *tree-prior* storage element producer function.
-
-            Parameters
-            ----------
-            tree_newick_fp :
-                
-
-            Returns
-            -------
-
-            """
+            """The *tree-prior* storage element producer function."""
             yield None, None
             yield read_newick_tree(tree_newick_fp)
 
         def produce_tree_parsed(tree_newick_string, index_mapper):
-            """The *tree-parsed* storage element producer function.
-
-            Parameters
-            ----------
-            tree_newick_string :
-                
-            index_mapper :
-                
-
-            Returns
-            -------
-
-            """
+            """The *tree-parsed* storage element producer function."""
             yield None, None
             tmp_tree = Tree(tree_newick_string, format=0)
             yield transformer.reparse_tree(tmp_tree, index_mapper)
 
         def produce_tree_object(tree_newick_string):
-            """The *tree-object* storage element producer function.
-
-            Parameters
-            ----------
-            tree_newick_string :
-                
-
-            Returns
-            -------
-
-            """
+            """The *tree-object* storage element producer function."""
             yield None, None
             yield Tree(tree_newick_string, format=2, quoted_node_names=True)
 
         def produce_map_tree(tree_object):
-            """The *map-tree* storage element producer function.
-
-            Parameters
-            ----------
-            tree_object :
-                
-
-            Returns
-            -------
-
-            """
+            """The *map-tree* storage element producer function."""
             yield None, None
             tmp_rebuilded_tree = transformer.rebuild_phylo(tree_object)
             yield transformer.make_tree_map(tmp_rebuilded_tree)
@@ -398,41 +293,35 @@ class DatabaseGreengenes(
     ) -> pd.Series:
         """Process sequences and alignments.
 
-        Args:
-            storage_manager: Active storage manager
-            index_mapper: Index mapper
-            removed_rids: List of removed identifiers to drop during processing of sequences.
-            prior_recap: Overall recap
-            sequence_fasta_fp: Path to sequence FASTA file
-            sequence_alignment_fasta_fp: Path to MSA FASTA file
-            chunksize: Size of sequence processing chunks
+        Parameters
+        ----------
+        storage_manager
+            Active storage manager
+        index_mapper
+            Inqex mapper
+        removed_rids
+            List of removed identifiers to drop during processing of sequences.
+        prior_recap
+            Overall recap
+        sequence_fasta_fp
+            Path to sequence FASTA file
+        sequence_alignment_fasta_fp
+            Path to MSA FASTA file
+        chunksize
+            Size of sequence processing chunks
 
-        Returns:
+        Returns
+        -------
+
             Results of the process that need to be passed to builder.
-
         """
         from pmaf.database._parsers._qiime import parse_qiime_sequence_generator
 
         def produce_sequence_representative(
             sequence_fasta_fp, index_mapper, dropped_taxa, chunksize
         ):
-            """The *sequence-representative* storage element producer function.
-
-            Parameters
-            ----------
-            sequence_fasta_fp :
-                
-            index_mapper :
-                
-            dropped_taxa :
-                
-            chunksize :
-                
-
-            Returns
-            -------
-
-            """
+            """The *sequence-representative* storage element producer
+            function."""
             sequence_parser = parse_qiime_sequence_generator(
                 sequence_fasta_fp, chunksize, False
             )
@@ -451,23 +340,7 @@ class DatabaseGreengenes(
         def produce_sequence_aligned(
             sequence_alignment_fasta_fp, index_mapper, dropped_taxa, chunksize
         ):
-            """The *sequence-aligned* storage element producer function.
-
-            Parameters
-            ----------
-            sequence_alignment_fasta_fp :
-                
-            index_mapper :
-                
-            dropped_taxa :
-                
-            chunksize :
-                
-
-            Returns
-            -------
-
-            """
+            """The *sequence-aligned* storage element producer function."""
             sequence_parser = parse_qiime_sequence_generator(
                 sequence_alignment_fasta_fp, chunksize, True
             )
@@ -507,41 +380,22 @@ class DatabaseGreengenes(
     def __process_interxmaps(cls, storage_manager: DatabaseStorageManager) -> None:
         """Process taxonomy and accession numbers.
 
-        Args:
+        Parameters
+        ----------
             storage_manager: Active storage manager
 
-        Returns:
+        Returns
+        -------
             Results of the process that need to be passed to builder.
-
         """
 
         def produce_map_interx_taxon(interx_maker_result):
-            """The *map-interx-taxon* storage element producer function.
-
-            Parameters
-            ----------
-            interx_maker_result :
-                
-
-            Returns
-            -------
-
-            """
+            """The *map-interx-taxon* storage element producer function."""
             yield None, None
             yield interx_maker_result["map-interx-taxon"]
 
         def produce_map_interx_repseq(interx_maker_result):
-            """The *map-interx-repseq storage element producer function.
-
-            Parameters
-            ----------
-            interx_maker_result :
-                
-
-            Returns
-            -------
-
-            """
+            """The *map-interx-repseq storage element producer function."""
             yield None, None
             yield interx_maker_result["map-interx-repseq"]
 
@@ -556,5 +410,5 @@ class DatabaseGreengenes(
 
     @property
     def name(self) -> str:
-        """Database name/label"""
+        """Database name/label."""
         return self.DATABASE_NAME

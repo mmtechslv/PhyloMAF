@@ -11,3 +11,6 @@ Glossary
     
     subs
         Refer to any number of inherited subordinate taxa that make a single :term:`tid <tids>`
+
+    hdf5
+        Hierarchical Data Format 5. For details refer to `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_

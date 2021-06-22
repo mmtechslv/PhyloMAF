@@ -6,7 +6,7 @@ from typing import Optional, Any, Union, Dict, Generator, Tuple
 
 
 class DatabaseAccessionMixin(DatabaseAccessionMetabase):
-    """ """
+    """Mixin class for handling accession numbers data."""
 
     def get_accession_by_tid(
         self,
@@ -21,18 +21,12 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
 
         Parameters
         ----------
-        ids :
+        ids
             Target :term:`tids`. Use None for all :term:`tids`
-        subs :
+        subs
             If True :term:`subs` will be included. Default is False.
-        iterator :
+        iterator
             If True return a generator object. Default is True.
-        ids: Optional[AnyGenericIdentifier] :
-             (Default value = None)
-        subs: bool :
-             (Default value = False)
-        iterator: bool :
-             (Default value = True)
 
         Returns
         -------
@@ -40,13 +34,12 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
             Returns a :class:`Generator` that yields (:term:`tid<tids>`, dict)
         if `iterator` is False
             Returns a dictionary where keys are :term:`tid<tids>` and values are dict with accession numbers.
-
         """
         if self.storage_manager.state == 1:
             repseq_map_gen = self.find_rid_by_tid(ids, subs=subs, iterator=True)
 
             def acc_generator():
-                """ """
+                """"""
                 for taxon_id, repseq_ids in repseq_map_gen:
                     yield taxon_id, self._retrieve_accs_by_id(repseq_ids)
 
@@ -66,13 +59,17 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
 
         Parameters
         ----------
-        ids :
-            (Default value = None)
-        iterator :
-            (Default value = False)
+        ids
+            Target :term:`rids`. Use None for all :term:`rids`
+        iterator
+            If True return a generator object. Default is True.
 
         Returns
         -------
+        If `iterator` is True
+            Returns a :class:`Generator` that yields (:term:`rid<rids>`, dict)
+        if `iterator` is False
+            Returns a dictionary where keys are :term:`rid<rids>` and values are dict with accession numbers.
 
         """
         if self.storage_manager.state == 1:
@@ -82,7 +79,7 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
                 target_ids = np.asarray(ids)
 
             def acc_generator():
-                """ """
+                """"""
                 for rid in target_ids:
                     yield rid, self._retrieve_accs_by_id([rid])[rid]
 
@@ -93,17 +90,17 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
         else:
             raise RuntimeError("Storage is closed.")
 
-    def _retrieve_accs_by_id(self, repseq_ids):
-        """
+    def _retrieve_accs_by_id(self, repseq_ids: AnyGenericIdentifier) -> Optional[dict]:
+        """Helper function used by accession number generators.
 
         Parameters
         ----------
-        repseq_ids :
-            
+        repseq_ids
+            Target :term:`rids`
 
         Returns
         -------
-
+            Accession number map
         """
         if len(repseq_ids) > 0:
             tmp_acc_df = self.storage_manager.get_element_data_by_ids(

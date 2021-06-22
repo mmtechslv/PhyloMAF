@@ -32,6 +32,7 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
              Sequence data
         kwargs
             Compatibility
+
         """
         super().__init__(**kwargs)
         tmp_sequences = []
