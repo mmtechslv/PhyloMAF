@@ -1,11 +1,11 @@
 from pmaf.pipe.agents.mediators._metakit import MediatorPhylogenyMetabase
-from pmaf.pipe.agents.mediators.local._base import MediatorLocalBase
+from pmaf.pipe.agents.mediators._local._base import MediatorLocalBase
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase
 from pmaf.pipe.agents.dockers._mediums._phy_medium import DockerPhylogenyMedium
 from pmaf.database._metakit import DatabasePhylogenyMetabase
 
 class MediatorLocalPhylogenyMixin(MediatorLocalBase,MediatorPhylogenyMetabase):
-    """ """
+    """"""
     PHYLO_EXTRACT_METHODS = ['infer','prune']
     def __init__(self,database,
                  phy_method='infer',

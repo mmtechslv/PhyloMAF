@@ -54,7 +54,7 @@ _ERROR_CODES = {
     9:'Can\'t get available ranks for initiated taxonomy',#get_avail_ranks
     10:'Error while fixing missing taxa', #_fix_missing_taxa
     11:'Failed to reconstruct internal lineages',#reconstruct_internal_lineages
-    12:'Error during local loading',#load_taxonomy_database
+    12:'Error during _local loading',#load_taxonomy_database
     13:'Failed to initiate taxonomy map',#__load_taxonomy_map
     14:'Failed to initiate internal taxonomy dataframe',#__init_internal_taxonomy
     15:'Error Loading OTU Table',#load_OTU_table
@@ -70,16 +70,16 @@ _ERROR_CODES = {
     25:'Failed to drop OTUs without given rank(s).',#drop_otus_without_ranks
     26:'Error while merging duplicated taxa.',#merge_duplicated_taxa
     27:'Error while merging OTUs by rank.',#merge_otus_by_rank
-    28:'Error loading given taxonomic local.',#load_database
+    28:'Error loading given taxonomic _local.',#load_database
     29:'Failed to generate OTU-Taxon correlations.',#generate_taxa_correlations
     30:'Failed to reconstruct instance for new OTU IDs.',#reconstruct_for_otu_ids
-    31:'Failed to retrieve custom FeatureTable for required taxonomic local.',#retrieve_custom
-    32:'Failed to get active taxonomic local of instance.',#get_active_taxonomic_db
+    31:'Failed to retrieve custom FeatureTable for required taxonomic _local.',#retrieve_custom
+    32:'Failed to get active taxonomic _local of instance.',#get_active_taxonomic_db
     33:'Error while generating OTU table CSV file.',#save_as_csv
     34:'Error while exporting FeatureTable data.',#export_data
     35:'Failed to set new internal IDS.',#__set_internal_ids
     36:'Failed to construct taxonomy from lineages',#__construct_taxonomy_from_lineages
-    37:'Failed to derive new taxonomy for given taxonomic local.',#__derive_taxonomy_db
+    37:'Failed to derive new taxonomy for given taxonomic _local.',#__derive_taxonomy_db
     38:'Failed to record <prior ID - new ID> group relations',#__record_group_relations
     39:'Failed to reassign <OTU ID - OTU Label> associations',#__reassign_label_assoc
     40:'Failed to record removed data to self.lost_otus',#__record_removed_taxa
@@ -91,8 +91,8 @@ _ERROR_CODES = {
     47:'Failed to retrieve label-id Series',#IdByLabel
     48:'Failed to retrieve info of initial loadings',#loader_info
     49:'Failed to retrieve phylogenetic tree (ete3 Tree Object) ',#phylo_tree
-    50:'Failed to retrieve active taxonomic local type',#taxonomy_db_type
-    51:'Failed to retrieve active taxonomic local name',#taxonomy_db_name
+    50:'Failed to retrieve active taxonomic _local type',#taxonomy_db_type
+    51:'Failed to retrieve active taxonomic _local name',#taxonomy_db_name
     52:'Failed to create new directory.',#ensure_new_dir
     53:'Failed to make a copy.',#copy
     54:'Error occured during pattern search.',#search

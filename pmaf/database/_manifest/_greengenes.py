@@ -48,24 +48,24 @@ class DatabaseGreengenes(
 
         Parameters
         ----------
-        storage_hdf5_fp :
+        storage_hdf5_fp
             Output path for :term:`hdf5` file
-        taxonomy_map_csv_fp :
+        taxonomy_map_csv_fp
             Path to taxonomy file
-        tree_newick_fp :
+        tree_newick_fp
             Path to Newick tree file
-        sequence_fasta_fp :
+        sequence_fasta_fp
             Path to FASTA sequences file
-        sequence_alignment_fasta_fp :
+        sequence_alignment_fasta_fp
             Path to FASTA alignment file
-        stamp_dict :
+        stamp_dict
             Dictionary with metadata that will be stamped to the database
-        force :
+        force
             Force output file overwrite
-        chunksize :
+        chunksize
             Sequence/Alignment data processing chunk size. Longer chunks are
             faster to process but require more memory.
-        **kwargs :
+        **kwargs
             Compatibility.
 
         Returns
@@ -378,7 +378,7 @@ class DatabaseGreengenes(
 
     @classmethod
     def __process_interxmaps(cls, storage_manager: DatabaseStorageManager) -> None:
-        """Process taxonomy and accession numbers.
+        """Process interx maps.
 
         Parameters
         ----------

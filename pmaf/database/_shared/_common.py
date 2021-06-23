@@ -18,10 +18,10 @@ DATABASE_HDF5_STRUCT = {    'root-tree':'/tre', # Path
                             'sequence-representative':'/seq/reps',
                             'sequence-aligned':'/seq/algn',
                             'sequence-accession':'/seq/accs',
-                            'metadata-db-summary':'/meta/summary', # pandas Series that contain all of the statistics and summary of the local such as taxonomy summary, representative sequence summary.
+                            'metadata-db-summary':'/meta/summary', # pandas Series that contain all of the statistics and summary of the _local such as taxonomy summary, representative sequence summary.
                             'metadata-db-info':'/meta/info', # pandas Series that will contain all of the information about which structure elements are full and which are inactive
-                            'metadata-db-stamp':'/meta/stamp', # pandas Series that contain all of the information about the local creation such as author, creation time, etc.
-                            'metadata-db-history':'/meta/history', # pandas Series that contain all of the information about the local processing. Data must be sufficient to reconstruct local to the prior state.
+                            'metadata-db-stamp':'/meta/stamp', # pandas Series that contain all of the information about the _local creation such as author, creation time, etc.
+                            'metadata-db-history':'/meta/history', # pandas Series that contain all of the information about the _local processing. Data must be sufficient to reconstruct _local to the prior state.
                             'map-interx-taxon':'/map/interxtax',
                             'map-interx-repseq':'/map/interxreps',
                             'map-rep2tid':'/map/reptid', # DataFrame of size len(# Valid RepSeqs) x (7 ranks + 1 TaxonID)

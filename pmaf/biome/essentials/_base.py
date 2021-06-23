@@ -113,7 +113,7 @@ class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):
 
     @property
     def controller(self) -> EssentialControllerBackboneMetabse:
-        """"""
+        """Active `essentials` controller instance."""
         return self.__controller
 
     @property

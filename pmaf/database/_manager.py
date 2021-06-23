@@ -89,7 +89,7 @@ class DatabaseStorageManager:
             if not self.initiate_memory_cache():
                 raise RuntimeError("Cannot initiate cache.")
         except TypeError:
-            raise TypeError("Invalid local file.")
+            raise TypeError("Invalid _local file.")
         except:
             raise RuntimeError(
                 "Failed to initiate manager. Reading HDF5 was not successful."
@@ -217,7 +217,7 @@ class DatabaseStorageManager:
             self._storer = None
             self._init_state = 0
         except:
-            raise RuntimeError("Error during closing local.")
+            raise RuntimeError("Error during closing _local.")
         return
 
     def __close_storer(self):
@@ -551,7 +551,7 @@ class DatabaseStorageManager:
         return ret
 
     def imprint_database(self, stamp_dict: dict):
-        """This is the final function that local constructor must call. This
+        """This is the final function that _local constructor must call. This
         function will add signature to the storage file and will lock it so
         that no changes can be performed. Locking is performed only stamp
         presence check via storage manager.
@@ -567,7 +567,7 @@ class DatabaseStorageManager:
                 and self._db_info_cache["map-interx-repseq"]
             ):
                 raise ValueError(
-                    "Cannot imprint local without `map-interx-taxon` and `map-interx-repseq` elements."
+                    "Cannot imprint _local without `map-interx-taxon` and `map-interx-repseq` elements."
                 )
 
             if self.__open_as_tables("r"):

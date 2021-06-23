@@ -1,5 +1,5 @@
 from pmaf.pipe.agents.mediators._metakit import MediatorSequenceMetabase
-from pmaf.pipe.agents.mediators.local._base import MediatorLocalBase
+from pmaf.pipe.agents.mediators._local._base import MediatorLocalBase
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase
 from pmaf.pipe.agents.dockers._mediums._seq_medium import DockerSequenceMedium
 from pmaf.database._metakit import DatabaseSequenceMetabase
@@ -8,7 +8,7 @@ import numpy as np
 from collections import defaultdict
 
 class MediatorLocalSequenceMixin(MediatorLocalBase,MediatorSequenceMetabase):
-    """ """
+    """"""
     SEQ_EXTRACT_METHODS = ['refseq', 'consensus']
     SEQ_FILTER_METHODS = ['random','tab']
     def __init__(self, database,

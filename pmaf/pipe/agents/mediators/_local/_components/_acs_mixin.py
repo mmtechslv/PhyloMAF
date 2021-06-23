@@ -1,5 +1,5 @@
 from pmaf.pipe.agents.mediators._metakit import MediatorAccessionMetabase
-from pmaf.pipe.agents.mediators.local._base import MediatorLocalBase
+from pmaf.pipe.agents.mediators._local._base import MediatorLocalBase
 from pmaf.database._metakit import DatabaseAccessionMetabase
 from pmaf.pipe.agents.dockers._mediums._acs_medium import DockerAccessionMedium
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase
@@ -7,7 +7,7 @@ import numpy as np
 from collections import defaultdict
 
 class MediatorLocalAccessionMixin(MediatorLocalBase,MediatorAccessionMetabase):
-    """ """
+    """"""
     ACS_FILTER_METHODS = ['random','first']
     def __init__(self, database,
                  acs_refrep='tid',

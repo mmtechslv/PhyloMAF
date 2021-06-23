@@ -1,10 +1,10 @@
 r"""
-Module Database  (:mod:`pmaf.database`)
-=======================================
+Package Database  (:mod:`pmaf.database`)
+========================================
 
 .. currentmodule:: pmaf.database
 
-This module :mod:`~pmaf.database` is responsible for construction, maintenance and
+This package :mod:`~pmaf.database` is responsible for construction, maintenance and
 management of taxonomic classification databases.
 
 """

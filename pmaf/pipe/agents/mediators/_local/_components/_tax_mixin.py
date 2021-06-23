@@ -4,7 +4,7 @@ from pmaf.pipe.agents.dockers._mediums._tax_medium import DockerTaxonomyMedium
 from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase,DockerTaxonomyMetabase
 from pmaf.pipe.agents.mediators._metakit import MediatorTaxonomyMetabase
-from pmaf.pipe.agents.mediators.local._base import MediatorLocalBase
+from pmaf.pipe.agents.mediators._local._base import MediatorLocalBase
 from pmaf.database._metakit import DatabaseTaxonomyMetabase
 from pmaf.internal._shared import sort_ranks,get_rank_upto
 from pmaf.database._shared._common import verify_tax_format
@@ -16,7 +16,7 @@ import numpy as np
 
 
 class MediatorLocalTaxonomyMixin(MediatorLocalBase,MediatorTaxonomyMetabase):
-    """ """
+    """"""
     CORRELATION_METHODS = ['lineage','complement','taxon']
     def __init__(self,database,
                  tax_rank_tolerance=None,

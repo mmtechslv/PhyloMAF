@@ -17,12 +17,13 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
     _cache_prefix = "erable_"
 
     def __init__(
-        self, bin_fp: Optional[str] = "erable", cache_dir: Optional[str] = None
+        self, bin_fp: Optional[str] = "_erable", cache_dir: Optional[str] = None
     ):
-        """ERaBLE phylogenetic tree estimator on fixed tree topology. :cite:t:`binetFastAccurateBranch2016`
+        """ERaBLE phylogenetic tree estimator on fixed tree topology.
+        :cite:t:`binetFastAccurateBranch2016`
 
         Args:
-            bin_fp: Path to 'erable' executable or None for default.
+            bin_fp: Path to '_erable' executable or None for default.
             cache_dir: Cache directory to use or None for seamless caching.
         """
         if cache_dir is not None:
@@ -53,13 +54,12 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
         multiseq :
             Aligned representative sequences.
         multiseq: MultiSequenceMetabase :
-            
+
 
         Returns
         -------
-        
-            Input string for ERaBLE executive.
 
+            Input string for ERaBLE executive.
         """
         seq_names = multiseq.index
         dist = pd.DataFrame(index=seq_names, columns=seq_names, dtype="f")
@@ -83,7 +83,8 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
     def estimate(
         self, alignment: MultiSequenceMetabase, tree: PhyloTree, **kwargs: Any
     ) -> PhyloTree:
-        """Estimate branches of on fixed tree topology(param `tree`) using MSA of representative sequences(param `alignment`)
+        """Estimate branches of on fixed tree topology(param `tree`) using MSA
+        of representative sequences(param `alignment`)
 
         Parameters
         ----------
@@ -94,17 +95,16 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
         **kwargs :
             Compatibility
         alignment: MultiSequenceMetabase :
-            
+
         tree: PhyloTree :
-            
+
         **kwargs: Any :
-            
+
 
         Returns
         -------
-        
-            Phylogenetic tree with estimated branches
 
+            Phylogenetic tree with estimated branches
         """
         if not isinstance(alignment, MultiSequenceMetabase) and isinstance(
             tree, PhyloTreeMetabase
@@ -143,15 +143,15 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
 
     @property
     def last_out(self):
-        """Lastest Output"""
+        """Lastest Output."""
         return self.__last_output
 
     @property
     def last_error(self):
-        """Latest Error"""
+        """Latest Error."""
         return self.__last_error
 
     @property
     def last_rates(self):
-        """Latest Rates Product"""
+        """Latest Rates Product."""
         return self.__last_rates
