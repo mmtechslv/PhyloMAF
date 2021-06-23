@@ -1,8 +1,8 @@
 r"""
-Dockers  (:mod:`pmaf.pipe.agents.dockers`)
-======================================================
+Data Dockers  (:mod:`pmaf.pipe.agents.dockers`)
+===============================================
 
-.. currentmodule:: pmaf.pipe.agents.dockers.
+.. currentmodule:: pmaf.pipe.agents.dockers
 
 This sub-package :mod:`~pmaf.pipe.agents.dockers` contains classes for transitional
 data management called `docker` instances. Any instance of `docker` can be seen as a
@@ -10,8 +10,8 @@ temporary data dock that is understood by :mod:`~pmaf.pipe.agents.mediators` and
 :mod:`~pmaf.pipe.agents.miners`.
 
 
-Classes
--------
+Dockers (Classes)
+-----------------
 
 .. autosummary::
    :toctree: generated/

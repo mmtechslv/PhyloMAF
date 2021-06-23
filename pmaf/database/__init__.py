@@ -1,11 +1,35 @@
 r"""
-Package Database  (:mod:`pmaf.database`)
-========================================
+Database (pmaf.database)
+========================
+
+Building and management of databases
+------------------------------------
 
 .. currentmodule:: pmaf.database
 
 This package :mod:`~pmaf.database` is responsible for construction, maintenance and
 management of taxonomic classification databases.
+
+Database Manifests (Classes)
+----------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    DatabaseGreengenes
+    DatabaseOTL
+    DatabaseGTDB
+    DatabaseUNITE
+    DatabaseSILVA
+
+Other (Classes)
+---------------
+
+.. autosummary::
+   :toctree: generated/
+
+   DatabaseStorageManager
+
 
 """
 

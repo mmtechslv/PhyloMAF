@@ -1,12 +1,25 @@
 r"""
-Sub-Package Agents  (:mod:`pmaf.pipe.agents`)
-=============================================
+Pipe (pmaf.pipe)
+================
+
+Working with data mining pipelines
+----------------------------------
 
 .. currentmodule:: pmaf.pipe.agents
 
 This sub-package :mod:`~pmaf.pipe.agents` contains classes for transitional data
-management,  mediator classes for _remote and _local databases and data main miner
+management,  mediator classes for remote and local databases and data main miner
 class.
+
+Agents (Packages)
+-----------------
+
+.. autosummary::
+   :toctree: generated/
+
+   dockers
+   mediators
+   miners
 
 """
 

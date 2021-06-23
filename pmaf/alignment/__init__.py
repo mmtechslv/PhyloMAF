@@ -1,3 +1,21 @@
-from ._multiple import * # noqa: F401,F403
-from ._pairwise import * # noqa: F401,F403
+r"""
+Alignment (pmaf.alignment)
+==========================
 
+Interface for external MSA tools
+--------------------------------
+
+.. currentmodule:: pmaf.alignment
+
+Multiple Sequence Aligners (Classes)
+------------------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    MultiSequenceAligner
+
+"""
+from ._multiple import MultiSequenceAligner
+
+# TODO: Add doc for defined aligners.

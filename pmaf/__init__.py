@@ -1,10 +1,24 @@
 r"""
 PhyloMAF  (:mod:`pmaf`)
-===================================
+=======================
+
+.. rubric:: Phylogenetic Microbiome Analysis Framework
 
 .. currentmodule:: pmaf
 
 PhyloMaf Desc
+
+.. toctree::
+   :maxdepth: 1
+
+   pmaf.alignment
+   pmaf.biome
+   pmaf.database
+   pmaf.internal
+   pmaf.phylo
+   pmaf.pipe
+   pmaf.remote
+   pmaf.sequence
 
 
 """

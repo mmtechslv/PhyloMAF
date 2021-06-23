@@ -1,8 +1,8 @@
 r"""
-Sub-Package Mediators  (:mod:`pmaf.pipe.agents.mediators`)
-==========================================================
+Database Mediators  (:mod:`pmaf.pipe.agents.mediators`)
+=======================================================
 
-.. currentmodule:: pmaf.pipe.agents.mediators.
+.. currentmodule:: pmaf.pipe.agents.mediators
 
 This sub-package :mod:`~pmaf.pipe.agents.dockers.mediators` contains classes called
 `mediator`-classes. These are group of classes that are responsible for exploitation
@@ -11,8 +11,8 @@ classes composition of which depends on the database instance that will be media
 Although, `mediators` are be directly used it is recommended to use `miner` instance
 instead.
 
-Mediators
----------
+Mediators (Classes)
+-------------------
 
 .. autosummary::
    :toctree: generated/
