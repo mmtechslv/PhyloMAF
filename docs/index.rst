@@ -13,11 +13,6 @@ Welcome to PhyloMAF's documentation!
    glossary
    bibliography
    changes
-    
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
+   
+   genindex
 

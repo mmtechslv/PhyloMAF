@@ -14,3 +14,19 @@ Glossary
 
     hdf5
         Hierarchical Data Format 5. For details refer to `HDF5 <https://www.hdfgroup.org/solutions/hdf5/>`_
+        
+    MSA
+        Multiple Sequence Alignment
+
+    MRCA
+        Most Recent Common Ancestor
+
+    16S
+        16S ribosomal RNA
+
+    IUPAC
+        International Union of Pure and Applied Chemistry
+
+    rRNA
+        ribosomal RNA
+

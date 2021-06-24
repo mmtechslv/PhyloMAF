@@ -11,14 +11,41 @@ from pmaf.internal.io._seq import SequenceIO
 from pmaf.sequence._sequence._nucleotide import Nucleotide
 from pmaf.sequence._metakit import MultiSequenceMetabase, NucleotideMetabase
 from pmaf.sequence._shared import validate_seq_mode
+from typing import Union, Optional, Any, Sequence, Generator
+from pmaf.internal._typing import AnyGenericIdentifier
 
 
 class MultiSequence(MultiSequenceMetabase):
-    """ """
+    """Class responsible for handling multiple sequences."""
 
     def __init__(
-        self, sequences, name=None, mode=None, metadata=None, aligned=False, **kwargs
+        self,
+        sequences: Any,
+        name: Optional[str] = None,
+        mode: Optional[str] = None,
+        metadata: Optional[dict] = None,
+        aligned: bool = False,
+        **kwargs: Any
     ):
+        """Constructor for :class:`.MultiSequence`
+
+        Parameters
+        ----------
+        sequences
+            Anything that can be parsed as multiple sequences.
+        name
+            Name of the multi-sequence instance
+        mode
+            Mode of the sequences. All sequences must have same mode/type.
+            Otherwise error will be raised
+        metadata
+            Metadata of the multi-sequence instance
+        aligned
+            True if sequences are aligned. Default is False
+        kwargs
+            Compatibility
+        """
+
         if name is None or np.isscalar(name):
             tmp_name = name
         else:
@@ -115,17 +142,20 @@ class MultiSequence(MultiSequenceMetabase):
         )
         return repr_str
 
-    def to_skbio_msa(self, indices=None):
-        """
+    def to_skbio_msa(
+        self, indices: Optional[AnyGenericIdentifier] = None
+    ) -> TabularMSA:
+        """Convert to :mod:`skbio` :class:`~skbio.alignment.TabularMSA`
+        instance.
 
         Parameters
         ----------
-        indices :
-            (Default value = None)
+        indices
+            List of target sequences to select. Default is None for all sequences.
 
         Returns
         -------
-
+            Instance of :class:`skbio.alignment.TabularMSA`
         """
         if self.__aligned:
             tmp_sequences = self.__get_seqs_by_index(indices)
@@ -133,7 +163,8 @@ class MultiSequence(MultiSequenceMetabase):
         else:
             raise RuntimeError("TabularMSA can only be retrieved for alignment.")
 
-    def __get_seqs_by_index(self, ids):
+    def __get_seqs_by_index(self, ids: Optional[AnyGenericIdentifier]):
+        """Get sequences by indices/ids."""
         if ids is not None:
             target_ids = np.asarray(ids)
         else:
@@ -143,17 +174,20 @@ class MultiSequence(MultiSequenceMetabase):
         else:
             raise ValueError("Invalid indices are provided.")
 
-    def get_consensus(self, indices=None):
-        """
+    def get_consensus(
+        self, indices: Optional[AnyGenericIdentifier] = None
+    ) -> Nucleotide:
+        """If sequence are aligned, estimate consensus sequence from the
+        :term:`MSA`
 
         Parameters
         ----------
-        indices :
-            (Default value = None)
+        indices
+            List of target sequences to select. Default is None for all sequences.
 
         Returns
         -------
-
+            Consensus sequence.
         """
         if self.__aligned:
             tmp_msa = self.to_skbio_msa(indices)
@@ -166,17 +200,19 @@ class MultiSequence(MultiSequenceMetabase):
         else:
             raise RuntimeError("Consensus can be retrieved only from alignment.")
 
-    def get_subset(self, indices=None):
-        """
+    def get_subset(
+        self, indices: Optional[AnyGenericIdentifier] = None
+    ) -> "MultiSequence":
+        """Get subset of the mutli-sequence instance.
 
         Parameters
         ----------
-        indices :
-            (Default value = None)
+        indices
+            Indices to subset for.
 
         Returns
         -------
-
+            Subset instance of :class:`.MultiSequence`
         """
         return type(self)(
             self.__get_seqs_by_index(indices),
@@ -186,8 +222,13 @@ class MultiSequence(MultiSequenceMetabase):
             aligned=self.__aligned,
         )
 
-    def buckle_for_alignment(self):
-        """ """
+    def buckle_for_alignment(self) -> dict:
+        """Buckle individual sequences for alignment.
+
+        Returns
+        ------
+            Packed metadata of all sequences.
+        """
         if not self.__buckled:
             from collections import defaultdict
             from random import random
@@ -209,17 +250,17 @@ class MultiSequence(MultiSequenceMetabase):
         else:
             raise RuntimeError("MultiSequence instance is already buckled.")
 
-    def restore_buckle(self, buckled_pack):
-        """
+    def restore_buckle(self, buckled_pack: dict) -> None:
+        """Restore the buckled :class:`MultiSequence` instance.
 
         Parameters
         ----------
-        buckled_pack :
-            
+        buckled_pack
+            Backed up packed metadata of all individual sequences
 
         Returns
         -------
-
+            None if success or raise error
         """
         if self.__buckled:
             self.__metadata = buckled_pack["master-metadata"]
@@ -233,21 +274,24 @@ class MultiSequence(MultiSequenceMetabase):
         else:
             raise RuntimeError("MultiSequence instance is not buckled.")
 
-    def get_iter(self, method="asis"):
-        """
+    def get_iter(self, method: str = "asis") -> Generator:
+        """Get generator for the idividual sequences.
 
         Parameters
         ----------
-        method :
-            (Default value = 'asis')
+        method
+            Method indicate how generator must yield the sequence data
 
         Returns
         -------
-
+            Generator for the sequences.
+            Depending on `method` result can yield on of following:
+            - 'asis' - (name[str], sequence[Instance])
+            - 'string' - (name[str], sequence[str])
+            - 'skbio' - (name[str], sequence[skbio])
         """
 
         def make_generator():
-            """ """
             for sequence in self.__sequences:
                 if method == "asis":
                     yield sequence.name, sequence
@@ -261,24 +305,20 @@ class MultiSequence(MultiSequenceMetabase):
         return make_generator()
 
     def copy(self):
-        """ """
+        """Copy current instance."""
         return copy.deepcopy(self)
 
-    def write(self, file, mode="w", **kwargs):
-        """
+    def write(self, file: Union[str, IOBase], mode: str = "w", **kwargs: Any) -> None:
+        """Write the sequence data into the file.
 
         Parameters
         ----------
-        file :
-            
-        mode :
-            (Default value = 'w')
-        **kwargs :
-            
-
-        Returns
-        -------
-
+        file
+            File path or IO stream to write into
+        mode
+            File write mode such as "w" or "a" or "w+"
+        kwargs
+            Compatibility.
         """
         buffer_io = self.__make_fasta_io(**kwargs)
         if isinstance(file, IOBase):
@@ -291,16 +331,16 @@ class MultiSequence(MultiSequenceMetabase):
         buffer_io.close()
 
     def get_string_as(self, **kwargs):
-        """
+        """Get string of all sequences.
 
         Parameters
         ----------
-        **kwargs :
-            
+        kwargs
+            Compatibility. Will be passed to :meth:`pmaf.sequence.Nucleotide.write` method.
 
         Returns
         -------
-
+            String with formatted sequence data
         """
         buffer_io = self.__make_fasta_io(**kwargs)
         ret = buffer_io.getvalue()
@@ -308,6 +348,7 @@ class MultiSequence(MultiSequenceMetabase):
         return ret
 
     def __make_fasta_io(self, **kwargs):
+        """Make a FASTA file IO stream."""
         buffer_io = StringIO()
         for sequence in self.__sequences:
             sequence.write(buffer_io, mode="a", **kwargs)
@@ -315,21 +356,25 @@ class MultiSequence(MultiSequenceMetabase):
         return buffer_io
 
     @classmethod
-    def from_buckled(cls, sequences, buckled_pack, **kwargs):
-        """
+    def from_buckled(
+        cls, sequences: Any, buckled_pack: dict, **kwargs: Any
+    ) -> "MultiSequence":
+        """Factory method to create :class:`.MultiSequence` using packed
+        metadata from buckling.
 
         Parameters
         ----------
-        sequences :
-            
-        buckled_pack :
-            
-        **kwargs :
-            
+        sequences
+            Sequences that will be passed to constructor
+        buckled_pack
+            Packed metadata produced during buckling
+        kwargs
+            Compatibility
+
 
         Returns
         -------
-
+            New instance of :class:`.MultiSequence`
         """
         if not isinstance(buckled_pack, dict):
             raise TypeError("`buckled_pack` must have dict type.")
@@ -339,45 +384,45 @@ class MultiSequence(MultiSequenceMetabase):
 
     @property
     def count(self):
-        """ """
+        """Total number of sequences."""
         return len(self.__sequences)
 
     @property
     def metadata(self):
-        """ """
+        """Instance metadata."""
         return self.__metadata
 
     @property
     def mode(self):
-        """ """
+        """Mode/type of the sequences."""
         return self.__mode
 
     @property
     def skbio_mode(self):
-        """ """
+        """The :mod:`skbio` mode of the sequence."""
         return self.__skbio_mode
 
     @property
     def sequences(self):
-        """ """
+        """List of individual sequence instances."""
         return self.__sequences
 
     @property
     def name(self):
-        """ """
+        """Name of the instance."""
         return self.__name
 
     @property
     def is_alignment(self):
-        """ """
+        """Is mutli-sequence is aligned or not."""
         return self.__aligned
 
     @property
     def is_buckled(self):
-        """ """
+        """Is mulit-sequence instance is buckled or not."""
         return self.__buckled
 
     @property
     def index(self):
-        """ """
+        """Indices of the internals sequences."""
         return self.__indices

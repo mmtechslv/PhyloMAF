@@ -15,7 +15,6 @@ import sys
 
 sys.path.insert(0, os.path.abspath("../"))
 
-
 # -- Project information -----------------------------------------------------
 
 project = "PhyloMAF"
@@ -41,15 +40,13 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.extlinks",
     "sphinx.ext.inheritance_diagram",
-    'sphinx.ext.autosectionlabel',
-    # 'autoapi.extension',
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.autodoc.typehints",
-    'sphinx_automodapi.automodapi',
-    'sphinx_automodapi.smart_resolver',
-    #'sphinx_autodoc_typehints',
-    # "sphinx-prompt",
-    # "sphinx_copybutton",
-    'sphinx_git',
+    "sphinx_automodapi.automodapi",
+    "sphinx_automodapi.smart_resolver",
+    "sphinx_git",
+    "sphinx-prompt",
+    "sphinx_copybutton",
     "hoverxref.extension",
     "sphinxcontrib.bibtex",
 ]
@@ -67,6 +64,8 @@ intersphinx_mapping = {
     "pandas": ("https://pandas.pydata.org/docs/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "python": ("https://docs.python.org/3/", None),
+    "skbio": ("http://scikit-bio.org/docs/latest/", None),
+    "ete3": ("http://etetoolkit.org/docs/latest/reference/", None),
 }
 
 # Autosummary Configs
@@ -82,7 +81,12 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ""'_templates/autosummary/*.rst']
+exclude_patterns = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    "" "_templates/autosummary/*.rst",
+]
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -90,7 +94,9 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ""'_templates/autosummar
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+# html_theme = "alabaster"
 html_theme = "sphinx_rtd_theme"
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -167,10 +173,17 @@ autosectionlabel_prefix_document = True
 # RTD Theme Configs
 html_theme_options = {"titles_only": True, "prev_next_buttons_location": "both"}
 
-# def skip(app, what, name, obj, would_skip, options):
-# if name == "__init__":
-# return True
-# return would_skip
-
+#
+# def skip_member(app, what, name, obj, skip, options):
+#     if what == "attribute":
+#         if name in ["DATABASE_NAME", "INVALID_TAXA"]:
+#             return True
+#     elif what == 'method':
+#         if name.startswith('_'):
+#             return True
+#     return None
+#
+#
 # def setup(app):
-# app.connect("autodoc-skip-member", skip)
+#     app.connect("autodoc-skip-member", skip_member)
+#

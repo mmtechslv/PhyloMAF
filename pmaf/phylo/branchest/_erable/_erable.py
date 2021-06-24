@@ -22,9 +22,12 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
         """ERaBLE phylogenetic tree estimator on fixed tree topology.
         :cite:t:`binetFastAccurateBranch2016`
 
-        Args:
-            bin_fp: Path to '_erable' executable or None for default.
-            cache_dir: Cache directory to use or None for seamless caching.
+        Parameters
+        ----------
+        bin_fp
+            Path to 'erable' executable or None for default.
+        cache_dir
+            Cache directory to use or None for seamless caching.
         """
         if cache_dir is not None:
             if path.isdir(cache_dir):
@@ -51,10 +54,8 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
 
         Parameters
         ----------
-        multiseq :
+        multiseq
             Aligned representative sequences.
-        multiseq: MultiSequenceMetabase :
-
 
         Returns
         -------
@@ -88,18 +89,12 @@ class BranchestERABLE(BranchEstimatorBackboneMetabase):
 
         Parameters
         ----------
-        alignment :
+        alignment
             MSA alignment of representative sequences
-        tree :
+        tree
             Phylogenetic tree topology.
-        **kwargs :
+        kwargs
             Compatibility
-        alignment: MultiSequenceMetabase :
-
-        tree: PhyloTree :
-
-        **kwargs: Any :
-
 
         Returns
         -------

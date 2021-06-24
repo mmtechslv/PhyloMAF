@@ -1,5 +1,6 @@
 {# This template was modified from autosummaries default format #}
-{{ fullname | escape | underline}}
+{# {{ fullname | escape | underline}} #}
+{{ name | escape | underline}}
 
 .. currentmodule:: {{ module }}
 

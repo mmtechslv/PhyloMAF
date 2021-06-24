@@ -3,6 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/pmaf/_externals" />
+      <excludeFolder url="file://$MODULE_DIR$/api.bkp" />
+      <excludeFolder url="file://$MODULE_DIR$/PhyloMAF.egg-info" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (akasha)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

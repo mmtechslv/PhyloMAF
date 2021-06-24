@@ -27,7 +27,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
         """
         self.__storage_manager = DatabaseStorageManager(storage_hdf5_fp, self.name)
         if self.__storage_manager.state != 1:
-            raise ValueError("Invalid _local storage file provided.")
+            raise ValueError("Invalid local storage file provided.")
         self.__avail_ranks = self.__storage_manager.summary["avail-ranks"].split("|")
         tmp_tid_stats = self.__storage_manager.retrieve_data_by_element("stat-taxs")
         self.__novel_tids = tmp_tid_stats[tmp_tid_stats["novel"] == True].index.values
@@ -663,7 +663,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
             raise RuntimeError("Storage is closed.")
 
     def close(self):
-        """Closes _local client by shutting down storage manager."""
+        """Closes local client by shutting down storage manager."""
         self.__storage_manager.shutdown()
 
     @property

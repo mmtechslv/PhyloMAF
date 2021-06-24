@@ -16,11 +16,16 @@ class BranchestFastTree2(BranchEstimatorBackboneMetabase):
     def __init__(
         self, bin_fp: Optional[str] = "fasttree", cache_dir: Optional[str] = None
     ):
-        """FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. :cite:t:`priceFastTreeApproximatelyMaximumLikelihood2010`
+        """FastTree infers approximately-maximum-likelihood phylogenetic trees
+        from alignments of nucleotide or protein sequences.
+        :cite:t:`priceFastTreeApproximatelyMaximumLikelihood2010`
 
-        Args:
-            bin_fp: Path to 'fasttree' executable or None for default.
-            cache_dir: Cache directory to use or None for seamless caching.
+        Parameters
+        ----------
+        bin_fp
+            Path to 'fasttree' executable or None for default.
+        cache_dir
+            Cache directory to use or None for seamless caching.
         """
         if cache_dir is not None:
             if path.isdir(cache_dir):
@@ -43,28 +48,21 @@ class BranchestFastTree2(BranchEstimatorBackboneMetabase):
     def estimate(
         self, alignment: MultiSequenceMetabase, tree: PhyloTree, **kwargs: Any
     ) -> PhyloTree:
-        """Estimate branches of on fixed tree topology(param `tree`) using MSA of representative sequences(param `alignment`)
+        """Estimate branches of on fixed tree topology(param `tree`) using MSA
+        of representative sequences(param `alignment`)
 
         Parameters
         ----------
-        alignment :
+        alignment
             MSA alignment of representative sequences
-        tree :
+        tree
             Phylogenetic tree topology.
-        **kwargs :
+        kwargs
             Compatibility
-        alignment: MultiSequenceMetabase :
-            
-        tree: PhyloTree :
-            
-        **kwargs: Any :
-            
 
         Returns
         -------
-        
             Phylogenetic tree with estimated branches
-
         """
         if not isinstance(alignment, MultiSequenceMetabase) and isinstance(
             tree, PhyloTreeMetabase
@@ -97,11 +95,11 @@ class BranchestFastTree2(BranchEstimatorBackboneMetabase):
         return PhyloTree(tmp_outtree_str)
 
     @property
-    def last_out(self):
-        """Latest Output"""
+    def last_out(self) -> str:
+        """Latest Output."""
         return self.__last_output
 
     @property
-    def last_error(self):
-        """Latest Error"""
+    def last_error(self) -> str:
+        """Latest Error."""
         return self.__last_error

@@ -1,6 +1,6 @@
 r"""
-Pipe (pmaf.pipe)
-================
+Pipe Agents (:mod:`pmaf.pipe.agents`)
+=====================================
 
 Working with data mining pipelines
 ----------------------------------

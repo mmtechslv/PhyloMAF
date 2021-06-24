@@ -55,7 +55,7 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
             raise RuntimeError("Storage is closed.")
 
     def get_accession_by_rid(self, ids=None, iterator=False):
-        """
+        """Get accession numbers from the database.
 
         Parameters
         ----------
@@ -70,7 +70,6 @@ class DatabaseAccessionMixin(DatabaseAccessionMetabase):
             Returns a :class:`Generator` that yields (:term:`rid<rids>`, dict)
         if `iterator` is False
             Returns a dictionary where keys are :term:`rid<rids>` and values are dict with accession numbers.
-
         """
         if self.storage_manager.state == 1:
             if ids is None:
