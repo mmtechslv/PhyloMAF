@@ -30,3 +30,11 @@ Glossary
     rRNA
         ribosomal RNA
 
+    NCBI
+        National Center for Biotechnology Information
+
+    API
+        Application Programming Interface
+
+    taxid
+        Taxon identifier in :term:`NCBI` database

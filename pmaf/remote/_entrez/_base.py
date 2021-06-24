@@ -69,7 +69,7 @@ def control_request_runtime(method_pass):
 
 
 class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
-    """ """
+    """"""
     def __init__(self,email,api_key = None,tool='PhyloMAF'):
         super().__init__()
         self._BioEntrez = None
@@ -102,7 +102,7 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
         return repr_str
 
     def _init_entrez(self):
-        """ """
+        """"""
         self._BioEntrez = Entrez
         self._BioEntrez.email = self._email
         self._BioEntrez.tool = self._tool_name
@@ -112,14 +112,14 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
         return
 
     def check_init(self):
-        """ """
+        """Check instance ready status."""
         ret = False
         if self._init_state:
             ret = True
         return ret
 
     def _get_attempts(self):
-        """ """
+        """"""
         return self._attempts
 
     def _set_last_runtime(self,runtime):
@@ -138,20 +138,20 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
         return
 
     def _get_last_runtime(self):
-        """ """
+        """"""
         return self.__last_runtime
 
     def _reset_request_counter(self,):
-        """ """
+        """"""
         self.__request_counter = 0
         return
 
     def _get_request_count(self):
-        """ """
+        """"""
         return self.__request_counter
 
     def _next_request(self):
-        """ """
+        """"""
         self.__request_counter = self.__request_counter + 1
         return
 
@@ -171,7 +171,7 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
         return
 
     def get_request_logs(self):
-        """ """
+        """Get low level request codes for debugging."""
         return self.__request_logs
 
     @control_request_runtime
@@ -271,7 +271,7 @@ class EntrezBase(EntrezBackboneMetabase,IdiomaticBase):
 
     @property
     def state(self):
-        """ """
+        """State of the instance."""
         return self.check_init()
 
 

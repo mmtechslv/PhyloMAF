@@ -65,7 +65,7 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "python": ("https://docs.python.org/3/", None),
     "skbio": ("http://scikit-bio.org/docs/latest/", None),
-    "ete3": ("http://etetoolkit.org/docs/latest/reference/", None),
+    "ete3": ("http://etetoolkit.org/docs/latest/", None),
 }
 
 # Autosummary Configs
