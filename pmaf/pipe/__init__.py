@@ -10,6 +10,16 @@ Working with data mining pipelines
 This package :mod:`~pmaf.pipe` is responsible for creating and using taxonomic,
 phylogenetic, sequence and accession data pipeline.
 
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   pmaf.pipe.agents
+   pmaf.pipe.factors
+   pmaf.pipe.markers
+   pmaf.pipe.specs
+
 Sub-Packages
 ------------
 
@@ -20,6 +30,7 @@ Sub-Packages
    factors
    markers
    specs
+
 
 """
 from . import specs

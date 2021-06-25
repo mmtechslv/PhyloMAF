@@ -4,9 +4,10 @@ from pmaf.pipe.specs._inventory._primitive._is import SpecIS
 from pmaf.phylo.builders._metakit import TreeBuilderBackboneMetabase
 from pmaf.pipe.agents.dockers._mediums._phy_medium import DockerPhylogenyMedium
 from pmaf.pipe.agents.dockers._mediums._seq_medium import DockerSequenceMedium
+from pmaf.pipe.agents.dockers._mediums._tax_medium import DockerTaxonomyMedium
 
 class SpecTSBP(SpecificationCompositeBase):
-    """ """
+    """Taxonomy -> Sequence Alignments -> Branched Phylogeny(de-novo)"""
     def __init__(self, *args, tree_builder,  **kwargs):
         if not isinstance(tree_builder,TreeBuilderBackboneMetabase):
             raise TypeError('`tree_builder` has invalid type.')
@@ -39,8 +40,13 @@ class SpecTSBP(SpecificationCompositeBase):
 
     @property
     def outlet(self):
-        """ """
+        """:class:`.DockerPhylogenyMedium`"""
         return DockerPhylogenyMedium
+
+    @property
+    def inlet(self):
+        """:class:`.DockerTaxonomyMedium`"""
+        return DockerTaxonomyMedium
 
 
 

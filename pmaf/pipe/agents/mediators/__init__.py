@@ -4,7 +4,7 @@ Database Mediators  (:mod:`pmaf.pipe.agents.mediators`)
 
 .. currentmodule:: pmaf.pipe.agents.mediators
 
-This sub-package :mod:`~pmaf.pipe.agents.dockers.mediators` contains classes called
+This sub-package :mod:`~pmaf.pipe.agents.mediators` contains classes called
 `mediator`-classes. These are group of classes that are responsible for exploitation
 of various remote and local databases. Each mediator class consist of multiple mixin
 classes composition of which depends on the database instance that will be mediated.

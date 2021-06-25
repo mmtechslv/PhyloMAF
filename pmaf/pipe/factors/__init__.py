@@ -1,5 +1,5 @@
 r"""
-Sub-Package Factors  (:mod:`pmaf.pipe.factors`)
+Pipe Factors  (:mod:`pmaf.pipe.factors`)
 ===============================================
 
 .. currentmodule:: pmaf.pipe.factors

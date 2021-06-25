@@ -7,7 +7,7 @@ from pmaf.pipe.agents.dockers._mediums._tax_medium import DockerTaxonomyMedium
 from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase,DockerBackboneMetabase
 
 class SpecIT(SpecificationPrimitiveBase):
-    """ """
+    """Identifiers -> Taxonomy."""
     def __init__(self, mediator, factor, **kwargs):
         if not isinstance(mediator, MediatorTaxonomyMetabase):
             raise TypeError('`mediator` must be instance of MediatorTaxonomyMetabase.')
@@ -39,26 +39,12 @@ class SpecIT(SpecificationPrimitiveBase):
         taxonomy = next(self.miner.yield_taxonomy_by_identifier(docker, **kwargs))
         return taxonomy, args, kwargs
 
-    def verify_docker(self, docker):
-        """
-
-        Parameters
-        ----------
-        docker :
-            
-
-        Returns
-        -------
-
-        """
-        return self.miner.verify_docker(docker) and isinstance(docker, DockerIdentifierMetabase)
-
     @property
     def inlet(self):
-        """ """
+        """:class:`.DockerIdentifierMedium`"""
         return DockerIdentifierMedium
 
     @property
     def outlet(self):
-        """ """
+        """:class:`.DockerTaxonomyMedium`"""
         return DockerTaxonomyMedium

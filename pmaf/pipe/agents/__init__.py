@@ -11,6 +11,7 @@ This sub-package :mod:`~pmaf.pipe.agents` contains classes for transitional data
 management,  mediator classes for remote and local databases and data main miner
 class.
 
+
 Agents (Packages)
 -----------------
 
@@ -20,6 +21,7 @@ Agents (Packages)
    dockers
    mediators
    miners
+
 
 """
 

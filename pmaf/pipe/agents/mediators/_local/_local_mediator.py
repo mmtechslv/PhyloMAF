@@ -1,7 +1,8 @@
 from pmaf.database._metakit import DatabaseBackboneMetabase,DatabaseAccessionMetabase,DatabasePhylogenyMetabase,DatabaseTaxonomyMetabase,DatabaseSequenceMetabase
 from ._components import MediatorLocalAccessionMixin,MediatorLocalSequenceMixin,MediatorLocalPhylogenyMixin,MediatorLocalTaxonomyMixin
+from typing import Any
 
-def LocalMediator(database, **kwargs):
+def LocalMediator(database: DatabaseBackboneMetabase, **kwargs: Any):
     """
 
     Parameters

@@ -1,5 +1,5 @@
 r"""
-Sub-Package Markers  (:mod:`pmaf.pipe.markers`)
+Pipe Markers  (:mod:`pmaf.pipe.markers`)
 ===============================================
 
 .. currentmodule:: pmaf.pipe.markers

@@ -7,7 +7,7 @@ from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase,DockerPhy
 from pmaf.pipe.agents.mediators._metakit import MediatorPhylogenyMetabase
 
 class SpecIP(SpecificationPrimitiveBase):
-    """ """
+    """Identifiers -> Phylogeny."""
     def __init__(self, mediator, factor, **kwargs):
         if not isinstance(mediator, MediatorPhylogenyMetabase):
             raise TypeError('`mediator` must be instance of MediatorPhylogenyMetabase.')
@@ -39,27 +39,12 @@ class SpecIP(SpecificationPrimitiveBase):
         phylogeny = next(self.miner.yield_phylogeny_by_identifier(docker, **kwargs))
         return phylogeny, args, kwargs
 
-    def verify_docker(self, docker):
-        """
-
-        Parameters
-        ----------
-        docker :
-            
-
-        Returns
-        -------
-
-        """
-        return self.miner.verify_docker(docker) and isinstance(docker, DockerIdentifierMetabase)
-
-
     @property
     def inlet(self):
-        """ """
+        """:class:`.DockerIdentifierMedium`"""
         return DockerIdentifierMedium
 
     @property
     def outlet(self):
-        """ """
+        """:class:`.DockerPhylogenyMedium`"""
         return DockerPhylogenyMedium

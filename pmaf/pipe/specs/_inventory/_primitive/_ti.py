@@ -7,7 +7,7 @@ from pmaf.pipe.agents.dockers._metakit import DockerTaxonomyMetabase,DockerBackb
 from pmaf.pipe.agents.mediators._metakit import MediatorTaxonomyMetabase
 
 class SpecTI(SpecificationPrimitiveBase):
-    """ """
+    """Taxonomy -> Identifier."""
     def __init__(self, mediator, factor, **kwargs):
         if not isinstance(mediator,MediatorTaxonomyMetabase):
             raise TypeError('`mediator` must be instance of MediatorTaxonomyMetabase.')
@@ -40,25 +40,14 @@ class SpecTI(SpecificationPrimitiveBase):
         return identifiers, args, kwargs
 
     def verify_docker(self, docker):
-        """
-
-        Parameters
-        ----------
-        docker :
-            
-
-        Returns
-        -------
-
-        """
         return self.miner.verify_docker(docker) and isinstance(docker, DockerTaxonomyMetabase)
 
     @property
     def inlet(self):
-        """ """
+        """:class:`.DockerTaxonomyMedium`"""
         return DockerTaxonomyMedium
 
     @property
     def outlet(self):
-        """ """
+        """:class:`.DockerIdentifierMedium`"""
         return DockerIdentifierMedium

@@ -4,10 +4,12 @@ from pmaf.pipe.specs._inventory._primitive._ip import SpecIP
 from pmaf.pipe.specs._inventory._primitive._is import SpecIS
 from pmaf.phylo.branchest._metakit import BranchEstimatorBackboneMetabase
 from pmaf.pipe.agents.dockers._mediums._phy_medium import DockerPhylogenyMedium
+from pmaf.pipe.agents.dockers._mediums._tax_medium import DockerTaxonomyMedium
 import numpy as np
 
 class SpecTSPBP(SpecificationCompositeBase):
-    """ """
+    """Taxonomy -> Phylogeny/Topology + Sequence Alignments -> Branched
+    Phylogeny."""
     def __init__(self, *args, branch_estimator,  **kwargs):
         if not isinstance(branch_estimator,BranchEstimatorBackboneMetabase):
             raise TypeError('`branch_estimator` has invalid type.')
@@ -44,9 +46,14 @@ class SpecTSPBP(SpecificationCompositeBase):
 
     @property
     def outlet(self):
-        """ """
+        """:class:`.DockerPhylogenyMedium`"""
         return DockerPhylogenyMedium
 
+
+    @property
+    def inlet(self):
+        """:class:`.DockerTaxonomyMedium`"""
+        return DockerTaxonomyMedium
 
 
 

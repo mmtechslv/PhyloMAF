@@ -38,3 +38,15 @@ Glossary
 
     taxid
         Taxon identifier in :term:`NCBI` database
+
+    spec
+        In PhyloMAF "spec" refers to set of stepwise instructions(or specifications) that define a pipeline(or pipe)
+
+    docker
+        In PhyloMAF "docker" refer to any intermediate data instance that moves in or out pipe :term:`specs<spec>`
+
+    mediator
+        In PhyloMAF "mediator" refer to any class from :mod:`~pmaf.pipe.agents.mediators` module that is responsible for providing mediator interface for the client database.
+
+    factor
+        In PhyloMAF "factor" refer to any class from :mod:`~pmaf.pipe.factors` module that describe the type of data to be mined.

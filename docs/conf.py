@@ -12,6 +12,7 @@
 #
 import os
 import sys
+from pprint import pprint
 
 sys.path.insert(0, os.path.abspath("../"))
 
@@ -23,7 +24,6 @@ author = "Farid Musa"
 
 # The full version, including alpha/beta/rc tags
 release = "1.0"
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -173,17 +173,16 @@ autosectionlabel_prefix_document = True
 # RTD Theme Configs
 html_theme_options = {"titles_only": True, "prev_next_buttons_location": "both"}
 
-#
-# def skip_member(app, what, name, obj, skip, options):
-#     if what == "attribute":
-#         if name in ["DATABASE_NAME", "INVALID_TAXA"]:
-#             return True
-#     elif what == 'method':
-#         if name.startswith('_'):
-#             return True
-#     return None
-#
-#
-# def setup(app):
-#     app.connect("autodoc-skip-member", skip_member)
-#
+
+def skip_member(app, what, name, obj, skip, options):
+    if what == "attribute":
+        if name in ["DATABASE_NAME", "INVALID_TAXA", "SEQ_EXTRACT_METHODS"]:
+            return True
+    elif what == 'method':
+        if name.startswith('_'):
+            return True
+    return None
+
+
+def setup(app):
+    app.connect("autodoc-skip-member", skip_member)
