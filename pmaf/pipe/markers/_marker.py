@@ -81,7 +81,7 @@ class Marker(MarkerBackboneMetabase):
         Parameters
         ----------
         *args
-            Instances of :term:`specs` that must be embedded.
+            Instances of :term:`spec` that must be embedded.
 
 
         Returns
@@ -191,7 +191,7 @@ class Marker(MarkerBackboneMetabase):
             raise RuntimeError("Marker is not initiated.")
 
     def compute(self):
-        """Evaluate :term:`specs`"""
+        """Evaluate :term:`specs<spec>`"""
         if len(self.__tasks) > 0:
             tmp_product = None
             while len(self.__get_pending()) > 0:

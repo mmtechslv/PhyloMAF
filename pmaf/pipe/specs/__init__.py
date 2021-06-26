@@ -14,8 +14,6 @@ Primitive Specs
 ^^^^^^^^^^^^^^^
 
 .. autosummary::
-   :recursive:
-   :toctree: generated/
 
     SpecIP
     SpecIS
@@ -27,8 +25,6 @@ Composite Specs
 ^^^^^^^^^^^^^^^
 
 .. autosummary::
-   :recursive:
-   :toctree: generated/
 
     SpecTP
     SpecTS
@@ -39,8 +35,6 @@ Special Functions
 ^^^^^^^^^^^^^^^^^
 
 .. autosummary::
-   :recursive:
-   :toctree: generated/
 
     ForgeSpec
 

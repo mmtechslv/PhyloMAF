@@ -12,7 +12,7 @@ Factors (Classes)
 -----------------
 
 .. autosummary::
-   :toctree: generated/
+   :toctree:
 
    Factor16S
 

@@ -2,23 +2,14 @@ r"""
 Pipe (pmaf.pipe)
 ================
 
+.. currentmodule:: pmaf.pipe
+
 Working with data mining pipelines
 -----------------------------------
-
-.. currentmodule:: pmaf.pipe
 
 This package :mod:`~pmaf.pipe` is responsible for creating and using taxonomic,
 phylogenetic, sequence and accession data pipeline.
 
-
-.. toctree::
-   :hidden:
-   :maxdepth: 1
-
-   pmaf.pipe.agents
-   pmaf.pipe.factors
-   pmaf.pipe.markers
-   pmaf.pipe.specs
 
 Sub-Packages
 ------------

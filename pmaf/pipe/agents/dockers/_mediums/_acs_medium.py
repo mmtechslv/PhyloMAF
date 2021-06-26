@@ -3,11 +3,22 @@ from pmaf.pipe.agents.dockers._base import DockerBase
 from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium
 import pandas as pd
 import numpy as np
+from typing import Union,Any
 
 class DockerAccessionMedium(DockerAccessionMetabase,DockerBase):
-    """ """
+    """The :term:`docker` class responsible for handling accession numbers."""
     _UNIT_TYPES = (dict,type(None))
-    def __init__(self, accessions, **kwargs):
+    def __init__(self, accessions:Union[list,pd.Series,pd.DataFrame,dict,'DockerAccessionMedium'], **kwargs:Any):
+        """Constructor.
+
+        Parameters
+        ----------
+        accessions
+            List-like or dict-like like accession data where values are either
+            accession numbers with types :attr:`.UNIT_TYPE` (singleton) or instances of :class:`.DockerAccessionMedium`
+        kwargs
+            Compatibility
+        """
         if isinstance(accessions, list):
             try:
                 tmp_accessions = {k: {v[0]:v[1]} for k, v in enumerate(accessions)}
@@ -45,19 +56,20 @@ class DockerAccessionMedium(DockerAccessionMetabase,DockerBase):
         super().__init__(_data_dict=tmp_accessions_adj, _valid_types=self._UNIT_TYPES, **kwargs)
 
 
-    def to_identifier_by_src(self, source, exclude_missing=False):
-        """
+    def to_identifier_by_src(self, source:str, exclude_missing:bool=False) -> DockerIdentifierMedium:
+        """Convert to instances of :class:`DockerIdentifierMedium` for target
+        `source`
 
         Parameters
         ----------
-        source :
-            
-        exclude_missing :
-            (Default value = False)
+        source
+            Accession number source label. For example, "ncbi", "greengenes", etc.
+        exclude_missing
+            Exclude missing data
 
         Returns
         -------
-
+            Instance of :class:`.DockerIdentifierMedium`
         """
         if source not in self.__sources:
             raise ValueError('`source` was not found.')
@@ -84,5 +96,5 @@ class DockerAccessionMedium(DockerAccessionMetabase,DockerBase):
 
     @property
     def sources(self):
-        """ """
+        """List available accession number sources."""
         return self.__sources

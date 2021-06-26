@@ -12,7 +12,7 @@ Classes
 -------
 
 .. autosummary::
-   :toctree: generated/
+   :toctree:
 
    Marker
 

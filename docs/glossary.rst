@@ -50,3 +50,10 @@ Glossary
 
     factor
         In PhyloMAF "factor" refer to any class from :mod:`~pmaf.pipe.factors` module that describe the type of data to be mined.
+
+    singleton
+        In PhyloMAF "singleton" refer to any instance of the class from :mod:`~pmaf.pipe.agents.dockers` module that contain actual data and not nested instances of type(self) of the :term:`docker`.
+
+    tab
+        Refers to Total Ambiguous Bases within single sequence
+

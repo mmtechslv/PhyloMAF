@@ -3,7 +3,7 @@ from pmaf.database._metakit import DatabaseBackboneMetabase
 from pmaf.pipe.factors._metakit import FactorBackboneMetabase
 
 class MediatorLocalBase(MediatorBase):
-    """ """
+    """"""
     def __init__(self,database,**kwargs):
         if not isinstance(database,DatabaseBackboneMetabase):
             TypeError('`database` has invalid type.')
@@ -17,16 +17,17 @@ class MediatorLocalBase(MediatorBase):
         return repr_str
 
     def verify_factor(self, factor):
-        """
+        """Verify/validate compatibility of the current :term:`mediator` and
+        :term:`factor`
 
         Parameters
         ----------
-        factor :
-            
+        factor
+            Factor to validate
 
         Returns
         -------
-
+            Validation result
         """
         if isinstance(factor,FactorBackboneMetabase):
             gene_type = factor.factors.get('gene-type', None) == 'marker'
@@ -39,5 +40,5 @@ class MediatorLocalBase(MediatorBase):
 
     @property
     def state(self):
-        """ """
+        """State of the mediator(client)"""
         return self.client.state == 1

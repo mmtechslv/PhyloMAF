@@ -29,8 +29,8 @@ class Miner(MinerBase):
     def yield_taxonomy_by_identifier(
         self, docker: DockerIdentifierMedium, **kwargs: Any
     ) -> Generator[DockerTaxonomyMedium, None, None]:
-        """Yield the next taxonomy :term:`docker` from given identifier
-        :term:`docker` parameter `docker`
+        """Yields the next taxonomy :term:`docker` from the given identifier
+        parameter `docker`
 
         Parameters
         ----------
@@ -55,7 +55,7 @@ class Miner(MinerBase):
         self, docker: DockerIdentifierMedium, **kwargs: Any
     ) -> DockerPhylogenyMedium:
         """Yield the next phylogeny :term:`docker` from given identifier
-        :term:`docker` parameter `docker`
+        parameter `docker`
 
         Parameters
         ----------
@@ -81,7 +81,7 @@ class Miner(MinerBase):
         self, docker: DockerIdentifierMedium, **kwargs: Any
     ) -> DockerSequenceMedium:
         """Yield the next sequence :term:`docker` from given identifier
-        :term:`docker` parameter `docker`
+        parameter `docker`
 
         Parameters
         ----------
@@ -107,7 +107,7 @@ class Miner(MinerBase):
         self, docker: DockerIdentifierMedium, **kwargs: Any
     ) -> DockerAccessionMedium:
         """Yield the next accession :term:`docker` from given identifier
-        :term:`docker` parameter `docker`
+        parameter `docker`
 
         Parameters
         ----------
@@ -130,10 +130,9 @@ class Miner(MinerBase):
             raise TypeError("`docker` must be instance of DockerIdentifierMetabase.")
 
     def yield_identifier_by_docker(self, docker, **kwargs):
-        """Yield the next identifier :term:`docker` from any given
-        :term:`docker` parameter `docker`. This method will automatically
-        decide which result to produce depending on assigned :term:`mediator`
-        instance.
+        """Yield the next identifier :term:`docker` from any given parameter
+        `docker`. This method will automatically decide which result to produce
+        depending on assigned :term:`mediator` instance.
 
         Parameters
         ----------
