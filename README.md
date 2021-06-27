@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/mmtechslv/PhyloMAF/1df9a93d992c7602ec0f8301855d82ffae4b2ffe/logo.png?token=AI5GEESFXMZVGTLKUX66Z7LA3D2OW" height="130">
+    <img src="https://raw.githubusercontent.com/mmtechslv/PhyloMAF/1df9a93d992c7602ec0f8301855d82ffae4b2ffe/logo.png?token=AI5GEESFXMZVGTLKUX66Z7LA3D2OW" height="450">
 </p>
 <p align="center">
     PhyloMAF - Phylogenetic Microbiome Analysis Framework
@@ -7,5 +7,9 @@
 <p align="center">
     <img src="https://travis-ci.com/mmtechslv/PhyloMAF.svg?token=sBXDx4EANVBbNzh5fzox&branch=master" alt="Build Status">
 </p>
+<p>
+    PhyloMAF is a novel comprehensive microbiome data analysis tool based on Python programming language. With memory efficient and extensible design, PhyloMAF have wide range of applications including but not limited to: post OTU picking microbiome data analysis, microbiome data meta-analysis, taxonomy based reference phylogenetic tree pruning and reconstruction, cross database data validation, primer design by taxonomic ranks, heterogeneous data retrieval from different databases including remote mega-databases like NCBI or Ensembl.
+</p>
 
-Project will be uploaded during article publication process.
+NOTE: Project will be uploaded during article publication process.
+
