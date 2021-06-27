@@ -2,7 +2,7 @@
 *~
 
 # HDF5
-*.hdf5
+/*.hdf5
 
 # Active Python scripts
 /*.py
