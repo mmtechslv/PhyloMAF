@@ -1,0 +1,2 @@
+.. automodule:: pmaf.database
+
