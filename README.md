@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/mmtechslv/PhyloMAF/master/logo.png?token=AI5GEEUPZJWXRVI233DEVUTA3D3HI" height="400" width="400">
+    <img src="https://raw.githubusercontent.com/mmtechslv/PhyloMAF/master/logo.png?token=AI5GEEUPZJWXRVI233DEVUTA3D3HI" width="1280" height="640">
 </p>
 <p align="center">
     PhyloMAF - Phylogenetic Microbiome Analysis Framework
