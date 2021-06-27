@@ -48,8 +48,12 @@ extensions = [
     "sphinx-prompt",
     "sphinx_copybutton",
     "hoverxref.extension",
+    "sphinx.ext.coverage",
     "sphinxcontrib.bibtex",
 ]
+
+#Coverage Configs
+coverage_show_missing_items = True
 
 # Napoleon Configs
 napoleon_google_docstring = True
@@ -124,29 +128,6 @@ add_module_names = False
 autoclass_content = "both"
 # Group members
 autodoc_member_order = "groupwise"
-# AutoAPI configurations
-# autoapi_options = [
-#     "inherited-member",
-#     "members",
-#     "undoc-members",
-#     "show-inheritance",
-#     "show-module-summary",
-#     "imported-members"
-# ]
-# autoapi_dirs = ["../pmaf"]
-# autoapi_root = 'api'
-# autoapi_ignore = ["*tests*"]
-# autoapi_python_class_content = "both"
-# autoapi_member_order = "groupwise"
-# autodoc_typehints = "description"
-# autoapi_python_use_implicit_namespaces = False
-# autoapi_add_toctree_entry = False # Add TOC manually
-# autoapi_keep_files = True # Keep the source files after build.
-# autoapi_generate_api_docs = True # Turn off after first build
-
-# Automodapi Configs
-# numpydoc_show_class_members = False
-# automodsumm_inherited_members = True
 
 # Autodoc Typehints
 autodoc_typehints = "description"
