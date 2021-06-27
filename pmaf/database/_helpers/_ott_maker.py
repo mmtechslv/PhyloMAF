@@ -3,30 +3,24 @@ import os
 
 
 def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) -> bool:
-    """Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life clades.
+    """Reconstructs OpenTreeOfLife taxonomy by removing non-microbial life
+    clades.
 
     Parameters
     ----------
-    reftax_path :
+    reftax_path
         Path to reference taxonomy directory.
         `Download Latest OTT <https://tree.opentreeoflife.org/about/taxonomy-version>`_
         Run Make to compile OTT Jython files.
-    newtax_path :
+    newtax_path
         Path to output taxonomy directory.
-    reftax_src_path :
+    reftax_src_path
         Path to OTL reference-taxonomy tool('smasher')'s source code.
-    reftax_path: str :
-        
-    newtax_path: str :
-        
-    reftax_src_path: str :
-        
 
     Returns
     -------
-    
-        Result status
 
+        Result status
     """
 
     if not os.path.isdir(reftax_src_path):

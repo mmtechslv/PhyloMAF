@@ -36,17 +36,24 @@ import tables as __tables_
 import sys as __sys_
 import os as __os_
 
-if __sys_.platform == 'win32':
-    __sep_ = ';'
+if __sys_.platform == "win32":
+    __sep_ = ";"
 else:
-    __sep_ = ':'
+    __sep_ = ":"
 
-__os_.environ['PATH'] += __sep_ + __sys_.prefix
-__os_.environ['PATH'] += __sep_ + __sys_.prefix + '/bin'
+__os_.environ["PATH"] += __sep_ + __sys_.prefix
+__os_.environ["PATH"] += __sep_ + __sys_.prefix + "/bin"
 
+__warnings_.simplefilter("ignore", category=DeprecationWarning)
+__warnings_.simplefilter("ignore", category=SyntaxWarning)
+__warnings_.simplefilter("ignore", category=PendingDeprecationWarning)
 
-__warnings_.filterwarnings(action='ignore', category=__tables_.NaturalNameWarning,module='tables')
-__warnings_.filterwarnings(action='ignore', category=__tables_.PerformanceWarning,module='tables')
+__warnings_.filterwarnings(
+    action="ignore", category=__tables_.NaturalNameWarning, module="tables"
+)
+__warnings_.filterwarnings(
+    action="ignore", category=__tables_.PerformanceWarning, module="tables"
+)
 
 from . import database
 from . import biome
@@ -56,4 +63,4 @@ from . import pipe
 from . import remote
 from . import sequence
 
-__all__ = ['database','biome','alignment','phylo','pipe','remote','sequence']
+__all__ = ["database", "biome", "alignment", "phylo", "pipe", "remote", "sequence"]
