@@ -38,7 +38,7 @@ class FrequencyTable(
         allow_nan
             Allow NA/NaN values or raise an error.
         kwargs
-            Remaining parameters passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
+            Remaining parameters passed to :func:`~pandas.read_csv` or :mod:`biom` loader
         """
         self.__internal_frequency = None
         tmp_skipcols = np.asarray([])
@@ -118,14 +118,12 @@ class FrequencyTable(
         Parameters
         ----------
         filepath
-            Path to :mod:`biom` file.
-        **kwargs
+            Path to :mod:`biom` file
+        kwargs
             Compatibility
-
 
         Returns
         -------
-
             Instance of class:`.FrequencyTable`
         """
         frequency_frame, new_metadata = cls.__load_biom(filepath, **kwargs)
@@ -142,12 +140,11 @@ class FrequencyTable(
         ----------
         filepath
             Path to .csv file.
-        **kwargs
+        kwargs
             Compatibility
 
         Returns
         -------
-
             Instance of class:`.FrequencyTable`
         """
         tmp_frequency = pd.read_csv(filepath, **kwargs)
@@ -178,12 +175,8 @@ class FrequencyTable(
         ----------
         map_like
             Mapper to use for renaming
-        **kwargs
+        kwargs
             Compatibility
-
-
-        Returns
-        -------
         """
         self.__internal_frequency.rename(mapper=map_like, axis=1, inplace=True)
         return self._ratify_action("_rename_samples_by_map", map_like, **kwargs)
@@ -195,15 +188,10 @@ class FrequencyTable(
 
         Parameters
         ----------
-        ids :
+        ids
             Feature identifiers.
-        **kwargs :
+        kwargs
             Compatibility
-        ids: AnyGenericIdentifier :
-
-
-        Returns
-        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_frequency.index.dtype)
         if len(tmp_ids) > 0:
@@ -221,11 +209,8 @@ class FrequencyTable(
             Feature-wise map to use for merging
         aggfunc
             Aggregation function
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
@@ -249,11 +234,8 @@ class FrequencyTable(
         ----------
         ids
             Feature identifiers
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_frequency.columns.dtype)
         if len(tmp_ids) > 0:
@@ -272,11 +254,8 @@ class FrequencyTable(
             Sample-wise map to use for merging
         aggfunc
             Aggregation function
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
@@ -303,11 +282,7 @@ class FrequencyTable(
         Parameters
         ----------
         value
-            Value to replace NaN's.
-
-
-        Returns
-        -------
+            Value to replace NaN's
         """
         self.__internal_frequency.fillna(value, inplace=True)
 
@@ -318,10 +293,6 @@ class FrequencyTable(
         ----------
         ids
             Feature identifiers
-
-
-        Returns
-        -------
         """
         target_ids = np.asarray(ids)
         if self.__internal_frequency.index.isin(target_ids).sum() == len(target_ids):
@@ -338,9 +309,6 @@ class FrequencyTable(
         ----------
         mapper
             Rename samples by map
-
-        Returns
-        -------
         """
         if isinstance(mapper, dict) or callable(mapper):
             if isinstance(mapper, dict):
@@ -368,15 +336,12 @@ class FrequencyTable(
             return target_ids
 
     def drop_samples_by_id(self, ids: AnyGenericIdentifier) -> Optional[np.ndarray]:
-        """Drop samples by `ids`.
+        """Drop samples by `ids`
 
         Parameters
         ----------
         ids
             Sample identifiers
-
-        Returns
-        -------
         """
         target_ids = np.asarray(ids)
         if self.__internal_frequency.columns.isin(target_ids).sum() == len(target_ids):
@@ -393,7 +358,7 @@ class FrequencyTable(
     def merge_features_by_map(
         self, mapping: Mapper, aggfunc: Union[str, Callable] = "sum", **kwargs
     ) -> Optional[Mapper]:
-        """Merge features by `mapping`.
+        """Merge features by `mapping`
 
         Parameters
         ----------
@@ -401,11 +366,8 @@ class FrequencyTable(
             Map with values as feature identifiers to be aggregated.
         aggfunc
             Aggregation function to apply
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         if isinstance(mapping, (dict, pd.Series)):
             tmp_ids = sorted(
@@ -429,11 +391,8 @@ class FrequencyTable(
             Map with values as sample identifiers to be aggregated.
         aggfunc
             Aggregation function to apply
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         if isinstance(mapping, (dict, pd.Series)):
             tmp_ids = sorted(
@@ -463,18 +422,17 @@ class FrequencyTable(
 
         Parameters
         ----------
-        rids :
+        rids
             Feature Identifiers
-        sids :
+        sids
             Sample Identifiers
-        *args :
+        args
             Compatibility
-        **kwargs :
+        kwargs
             Compatibility
 
         Returns
         -------
-
             Instance of class:`.FrequencyTable`.
         """
         if rids is None:
@@ -509,7 +467,7 @@ class FrequencyTable(
             Apply sorting on ['counts']
         ascending
             Sorting
-        **kwargs
+        kwargs
             Compatibility
         """
         if sortby == "counts":

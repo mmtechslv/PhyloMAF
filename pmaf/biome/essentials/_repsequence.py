@@ -32,7 +32,6 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
              Sequence data
         kwargs
             Compatibility
-
         """
         super().__init__(**kwargs)
         tmp_sequences = []
@@ -78,11 +77,8 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         ids
             Feature identifiers
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__sequence_df.index.dtype)
         if len(tmp_ids) > 0:
@@ -98,11 +94,8 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         map_dict
             Map to use for merging
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         print(
             "ASSUME ALIGNED SEQUENCES! :))"
@@ -126,14 +119,14 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         rids
             Feature identifiers.
-        *args
+        args
             Compatibility
-        **kwargs
+        kwargs
             Compatibility
 
         Returns
         -------
-        class:`.RepSequence`
+            class:`.RepSequence`
         """
         if rids is None:
             target_rids = self.xrid
@@ -154,7 +147,7 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Returns
         -------
-        class:`~pmaf.sequence._multiple._multiple.MultiSequence`
+            class:`~pmaf.sequence._multiple._multiple.MultiSequence`
         """
         tmp_sequences = []
         for ix, seq, desc in self.__sequence_df[
@@ -181,15 +174,12 @@ class RepSequence(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         output_fp
             Export filepath
-        *args
+        args
             Compatibility
         _add_ext
             Add file extension or not.
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:

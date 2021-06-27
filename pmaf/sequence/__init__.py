@@ -12,7 +12,6 @@ Classes
    :toctree: generated/
 
    MultiSequence
-   MultiSequenceStream
    Nucleotide
 
 """

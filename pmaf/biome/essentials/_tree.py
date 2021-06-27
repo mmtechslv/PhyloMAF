@@ -38,12 +38,11 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         annotation
             Annotations for tips
         copy
-            Whether to copy the original tree. May require long time if tree is large.
+            Whether to copy the original tree. May require long time if tree is large
         ignore_polytomy
-            Whether to resolve tree polytomy or not.
+            Whether to resolve tree polytomy or not
         kwargs
-            Compatibility:w
-
+            Compatibility
         """
         super().__init__(**kwargs)
         if feature_ids is None:
@@ -116,11 +115,8 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         ids
             Feature identifiers
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_ids = np.asarray(ids).astype(self.__feature_ids.dtype)
 
@@ -147,7 +143,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         _annotations
             New annotations to passed to
             `essential` class :class:`~pmaf.biome.essentials._taxonomy.RepTaxonomy`
-        **kwargs
+        kwargs
             Compatibility
         """
         new_tips = []
@@ -174,7 +170,8 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
     def __make_annotated_tree(self) -> PhyloTree:
         """Create an original tree with annotated tips.
 
-        Returns:
+        Returns
+        -------
             Annotated tree of class :class:`~pmaf.phylo.tree._tree.PhyloTree`
         """
         tmp_annotated_tree = self.__internal_tree.copy()
@@ -187,8 +184,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Returns
         -------
-        Annotated tree of class
-            class:`~pmaf.phylo.tree.PhyloTree`
+            Annotated tree of class class:`~pmaf.phylo.tree.PhyloTree`
         """
         if len(self.__annotations) > 0:
             return self.__make_annotated_tree()
@@ -210,7 +206,6 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             while .png will produce PNG file.
         annotated
             Whether to create tree with annotated tips or not.
-
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -225,8 +220,8 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        annotated :
-            Whether to create tree with annotated tips or not.
+        annotated
+            Whether to create tree with annotated tips or not
 
         Returns
         -------
@@ -247,13 +242,12 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        rooted :
-            Whether to create rooted tree or not.
-        annotated :
-            Whether to create tree with annotated tips or not.
-        **kwargs :
-            Compatibility.
-
+        rooted
+            Whether to create rooted tree or not
+        annotated
+            Whether to create tree with annotated tips or not
+        kwargs
+            Compatibility
         """
         if annotated:
             if len(self.__annotations) > 0:
@@ -278,13 +272,12 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        output_fp :
+        output_fp
             Export filepath
-        _add_ext :
-            Add file extension or not.
-        **kwargs :
+        _add_ext
+            Add file extension or not
+        kwargs
             Compatibility
-
         """
         tmp_export, _ = self._export(**kwargs)
         if _add_ext:
@@ -313,16 +306,16 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        rids :
+        rids
             Feature Identifiers
-        *args :
+        args
             Compatibility
-        **kwargs :
+        kwargs
             Compatibility
 
         Returns
         -------
-            Instance of class:`.RepPhylogeny`.
+            Instance of class:`.RepPhylogeny`
         """
         if rids is None:
             target_rids = self.__feature_ids
@@ -346,13 +339,12 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        output_fp :
+        output_fp
             Output filepath
-        mode :
+        mode
             File write mode.
-        **kwargs :
+        kwargs
             Compatibility
-
         """
 
         tmp_export, _ = self._export(**kwargs)

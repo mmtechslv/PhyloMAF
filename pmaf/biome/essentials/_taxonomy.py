@@ -38,10 +38,14 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
     ) -> None:
         """Constructor for :class:`.RepTaxonomy`
 
-        Args:
-            taxonomy: Data containing feature taxonomy
-            taxonomy_columns: Column(s) containing taxonomy data
-            **kwargs: Passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
+        Parameters
+        ----------
+        taxonomy
+            Data containing feature taxonomy
+        taxonomy_columns
+            Column(s) containing taxonomy data
+        kwargs
+             Passed to :func:`~pandas.read_csv` or :mod:`biome` loader.
         """
         tmp_metadata = kwargs.pop("metadata", {})
         self.__avail_ranks = []
@@ -113,24 +117,13 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        filepath :
+        filepath
             Path to .csv File
-        taxonomy_columns :
+        taxonomy_columns
             Column(s) containing taxonomy data
-        **kwargs :
+        kwargs
             Passed to the constructor.
-        filepath: str :
-
-        taxonomy_columns: Union[str :
-
-        int :
-
-        Sequence[Union[int :
-
-        str]]] :
-             (Default value = None)
-        **kwargs: Any :
-
+        filepath:
 
         Returns
         -------
@@ -155,14 +148,10 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        filepath :
+        filepath
             :mod:`biom` file path.
-        **kwargs :
+        kwargs
             Passed to the constructor.
-        filepath: str :
-
-        **kwargs: Any :
-
 
         Returns
         -------
@@ -178,9 +167,12 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
     def __load_biom(cls, filepath: str, **kwargs: Any) -> Tuple[pd.DataFrame, dict]:
         """Actual private method to process :mod:`biom` file.
 
-        Args:
-            filepath: :mod:`biom` file path.
-            **kwargs:  Compatibility.
+        Parameters
+        ----------
+        filepath
+            :mod:`biom` file path.
+        kwargs
+            Compatibility
         """
         biom_file = biom.load_table(filepath)
         if biom_file.metadata(axis="observation") is not None:
@@ -214,17 +206,10 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        ids :
+        ids
             Feature identifiers
-        **kwargs :
+        kwargs
             Compatibility
-        ids: AnyGenericIdentifier :
-
-        **kwargs: Any :
-
-
-        Returns
-        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_taxonomy.index.dtype)
         if len(tmp_ids) > 0:
@@ -238,21 +223,12 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        map_dict :
+        map_dict
             Map to use for merging
-        done :
+        done
             Whether merging was completed or not. Compatibility.
-        **kwargs :
+        kwargs
             Compatibility
-        map_dict: Mapper :
-
-        done: bool :
-             (Default value = False)
-        **kwargs: Any :
-
-
-        Returns
-        -------
         """
         if not done:
             raise NotImplementedError
@@ -271,17 +247,10 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        ids :
+        ids
             Feature identifiers
-        **kwargs :
+        kwargs
             Compatibility
-        ids: AnyGenericIdentifier :
-
-        **kwargs: Any :
-
-
-        Returns
-        -------
         """
         target_ids = np.asarray(ids)
         if self.xrid.isin(target_ids).sum() == len(target_ids):
@@ -296,14 +265,11 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        ids :
+        ids
             Either feature indices or None for all.
-        ids: Optional[AnyGenericIdentifier] :
-             (Default value = None)
 
         Returns
         -------
-
             class:`pandas.DataFrame` with taxonomy data
         """
         if ids is None:
@@ -327,34 +293,21 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        ids :
+        ids
             Either feature indices or None for all.
-        missing_rank :
+        missing_rank
             If True will generate prefix like `s__` or `d__`
-        desired_ranks :
+        desired_ranks
             List of desired ranks to generate.
             If False then will generate all main ranks
-        drop_ranks :
+        drop_ranks
             List of ranks to drop from desired ranks.
             This parameter only useful if `missing_rank` is True
-        **kwargs :
+        kwargs
             Compatibility.
-        ids: Optional[AnyGenericIdentifier] :
-             (Default value = None)
-        missing_rank: bool :
-             (Default value = False)
-        desired_ranks: Union[bool :
-
-        Sequence[str]] :
-             (Default value = False)
-        drop_ranks: Union[bool :
-
-        **kwargs: Any :
-
 
         Returns
         -------
-
             class:`pandas.Series` with consensus lineages and corresponding IDs
         """
         if ids is None:
@@ -387,22 +340,16 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        pattern_str :
+        pattern_str
             Pattern to search for
-        case_sensitive :
+        case_sensitive
             Case sensitive mode
-        regex :
+        regex
             Use regular expressions
-        pattern_str: str :
 
-        case_sensitive: bool :
-             (Default value = False)
-        regex: bool :
-             (Default value = False)
 
         Returns
         -------
-
             class:`~numpy.ndarray` with indices
         """
         return self.__internal_taxonomy[
@@ -418,11 +365,8 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        **kwargs: Any :
-
-
-        Returns
-        -------
+        kwargs
+            Compatibility
         """
         ids_to_drop = self.find_features_without_taxa()
         return self._remove_features_by_id(ids_to_drop, **kwargs)
@@ -438,12 +382,9 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             Ranks to look for
         any
             If True removes feature with single occurrence of missing rank.
-                If False all `ranks` must be missing.
+            If False all `ranks` must be missing.
         kwargs
             Compatibility
-
-        Returns
-        -------
         """
         target_ranks = np.asarray(ranks)
         if self.__internal_taxonomy.columns.isin(target_ranks).sum() == len(
@@ -463,7 +404,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        **kwargs :
+        kwargs
             Compatibility
         """
         ret = {}
@@ -486,13 +427,10 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
 
         Parameters
         ----------
-        level :
+        level
             Taxonomic rank/level to use for merging.
-        **kwargs :
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         ret = {}
         if not isinstance(level, str):
@@ -522,12 +460,8 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
     def find_features_without_taxa(self) -> np.ndarray:
         """Find features without taxa.
 
-        Parameters
-        ----------
-
         Returns
         -------
-
             class:`~numpy.ndarray` with feature indices.
         """
         return self.__internal_taxonomy.loc[
@@ -546,14 +480,13 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         rids
             Feature identifiers.
-        *args
+        args
             Compatibility
-        **kwargs
+        kwargs
             Compatibility
 
         Returns
         -------
-
             class:`.RepTaxonomy`
         """
         if rids is None:
@@ -579,7 +512,7 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             Generate taxonomy in format(currently only `lineage` is supported.)
         ascending
             Sorting
-        **kwargs
+        kwargs
             Compatibility
         """
         if taxlike == "lineage":
@@ -604,13 +537,13 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         ----------
         output_fp
             Export filepath
-        *args
+        args
             Compatibility
         _add_ext
             Add file extension or not.
         sep
             Delimiter
-        **kwargs
+        kwargs
             Compatibility
         """
         tmp_export, rkwarg = self._export(*args, **kwargs)
@@ -724,11 +657,9 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         taxonomy_series
             :class:`pandas.Series` with taxonomy lineages
         taxonomy_notation
-            Taxonomy lineage notation style.
-                Can be one of :const:`pmaf.internals._constants.AVAIL_TAXONOMY_NOTATIONS`
+            Taxonomy lineage notation style. Can be one of :const:`pmaf.internals._constants.AVAIL_TAXONOMY_NOTATIONS`
         order_ranks
-            List with the target rank order. Default is set to None.
-                The 'silva' notation require `order_ranks`.
+            List with the target rank order. Default is set to None. The 'silva' notation require `order_ranks`.
         """
         # Check if taxonomy is known and is available for parsing. Otherwise indentify_taxon_notation() will try to identify notation
         if taxonomy_notation in AVAIL_TAXONOMY_NOTATIONS:
@@ -831,15 +762,13 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
         taxonomy_dataframe
             :class:`~pandas.DataFrame` with taxa split by ranks.
         taxonomy_notation
-            Taxonomy lineage notation style.
-                Can be one of :const:`pmaf.internals._constants.AVAIL_TAXONOMY_NOTATIONS`
+            Taxonomy lineage notation style. Can be one of :const:`pmaf.internals._constants.AVAIL_TAXONOMY_NOTATIONS`
         order_ranks
-            List with the target rank order.
-                Default is set to None. The 'silva' notation require `order_ranks`.
+            List with the target rank order. Default is set to None. The 'silva' notation require `order_ranks`.
 
         Returns
         -------
-        :class:`~pandas.DataFrame`
+            :class:`~pandas.DataFrame`
         """
         valid_ranks = extract_valid_ranks(taxonomy_dataframe.columns, VALID_RANKS)
         if valid_ranks is not None:

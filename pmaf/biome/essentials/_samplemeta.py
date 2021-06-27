@@ -33,7 +33,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         index_col
              Which row/column to use as index.
         kwargs
-            Passed to :func:`~pandas.read_csv` or :mod:`biom` loader.
+            Passed to :func:`~pandas.read_csv` or :mod:`biome` loader.
         """
         tmp_sample = None
         tmp_metadata = kwargs.pop("metadata", {})
@@ -82,7 +82,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         filepath
             Path to .csv file.
-        **kwargs
+        kwargs
             Passed to the constructor.
 
         Returns
@@ -102,9 +102,9 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         Parameters
         ----------
         filepath
-             Path to :mod:`biom` file.
-        **kwargs
-            Passed to the constructor.
+             Path to :mod:`biom` file
+        kwargs
+            Passed to the constructor
 
         Returns
         -------
@@ -122,12 +122,9 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         Parameters
         ----------
         filepath
-             :mod:`biom` file path.
+             :mod:`biom` file path
         kwargs
             Compatibility
-
-        Returns
-        -------
         """
         biom_file = biom.load_table(filepath)
         if biom_file.metadata(axis="sample") is not None:
@@ -143,11 +140,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         map_like
             Mapper to use for renaming.
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         self.__internal_samples.rename(mapper=map_like, axis=0, inplace=True)
         return self._ratify_action("_rename_samples_by_map", map_like, **kwargs)
@@ -161,11 +155,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         ids
             Sample identifiers
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_ids = np.asarray(ids, dtype=self.__internal_samples.index.dtype)
         if len(tmp_ids) > 0:
@@ -189,11 +180,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             Aggregation function
         variable
             Compatibility
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
@@ -216,9 +204,6 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         mapper
             Dict-like mapper use for renaming.
-
-        Returns
-        -------
         """
         if isinstance(mapper, dict) or callable(mapper):
             if isinstance(mapper, dict):
@@ -242,12 +227,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         ids
             Identifiers to remove
-        **kwargs
+        kwargs
             Compatibility
-
-
-        Returns
-        -------
         """
         target_ids = np.asarray(ids)
         if self.xsid.isin(target_ids).sum() == len(target_ids):
@@ -267,7 +248,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ids
             Sample identifiers
         variables
-            Metadata varibles
+            Metadata variables
 
         Returns
         -------
@@ -306,11 +287,8 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             Aggregation function that will be applied to both :class:`.SampleMetadata`
             instance and ratified to other `essentials`
             if contained in :class:`~pmaf.biome.assembly.BiomeAssembly` instance.
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         ret = {}
         if variable not in self.__internal_samples.columns:
@@ -347,12 +325,12 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         sids
             Sample Identifiers
-        *args
+        args
             Compatibility
 
         Returns
         -------
-            Instance of class:`.SampleMetadata`.
+            Instance of class:`.SampleMetadata`
         """
         if sids is None:
             target_sids = self.xsid
@@ -380,17 +358,14 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         ----------
         output_fp
             Export filepath
-        *args
+        args
             Compatibility
         _add_ext
             Add file extension or not.
         sep
             Delimiter
-        **kwargs
+        kwargs
             Compatibility
-
-        Returns
-        -------
         """
         tmp_export, rkwarg = self._export(*args, **kwargs)
         if _add_ext:

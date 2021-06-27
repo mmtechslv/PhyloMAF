@@ -20,7 +20,7 @@ import os
 
 
 class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
-    """ """
+    """:meta private:"""
 
     _temp_filename_suffix_maker = lambda self, path_with_preffix: "{}_pmaf_{}".format(
         path_with_preffix, str(round(100000000 * random()))
@@ -127,7 +127,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         return
 
     def _init_seq_stream_storer(self):
-        """ """
+        """"""
         ret = False
         try:
             tmp_filters = (
@@ -165,7 +165,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         return ret
 
     def _restore_init(self):
-        """ """
+        """"""
         ret = False
         try:
             tmp_stream_store_read = tables.open_file(self._stream_filepath, mode="r")
@@ -236,7 +236,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         acc_number :
-            
+
 
         Returns
         -------
@@ -253,7 +253,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         acc_numbers :
-            
+
 
         Returns
         -------
@@ -275,7 +275,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         return ret
 
     def iter_sequences(self):
-        """ """
+        """"""
         for acc_num in self._stream_map.index.values.tolist():
             yield self._get_sequence_by_acc_id(acc_num)
 
@@ -285,7 +285,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         fasta_fp :
-            
+
         write_in_chunks :
             (Default value = 100)
 
@@ -339,7 +339,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         accid :
-            
+
 
         Returns
         -------
@@ -358,7 +358,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         accid :
-            
+
 
         Returns
         -------
@@ -372,7 +372,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         seqid :
-            
+
 
         Returns
         -------
@@ -389,7 +389,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         seqid :
-            
+
 
         Returns
         -------
@@ -406,7 +406,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         sequence :
-            
+
 
         Returns
         -------
@@ -438,7 +438,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         sequence_instance :
-            
+
 
         Returns
         -------
@@ -462,7 +462,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         multiseq :
-            
+
 
         Returns
         -------
@@ -493,7 +493,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         multiseq :
-            
+
 
         Returns
         -------
@@ -509,11 +509,11 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         name :
-            
+
         mode :
-            
+
         sequence_str :
-            
+
         metadata_dict :
             (Default value = {})
 
@@ -550,11 +550,11 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         seq_name :
-            
+
         sequence_str :
-            
+
         metadata_dict :
-            
+
 
         Returns
         -------
@@ -576,7 +576,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         seq_data :
-            
+
 
         Returns
         -------
@@ -595,7 +595,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         metadata :
-            
+
 
         Returns
         -------
@@ -613,7 +613,7 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
         Parameters
         ----------
         seq_str :
-            
+
 
         Returns
         -------
@@ -628,25 +628,25 @@ class MultiSequenceStream(MultiSequenceStreamBackboneMetabase):
 
     @property
     def name(self):
-        """ """
+        """"""
         return self._name
 
     @property
     def mode(self):
-        """ """
+        """"""
         return self._mode
 
     @property
     def count(self):
-        """ """
+        """"""
         return len(self._stream_map)
 
     @property
     def summarize(self):
-        """ """
+        """"""
         return
 
     @property
     def accession_numbers(self):
-        """ """
+        """"""
         return self._stream_map.index.tolist()

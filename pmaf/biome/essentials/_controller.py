@@ -20,7 +20,7 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         ----------
         remount
             Force remount
-        **kwargs
+        kwargs
             Compatibility
         """
         self.__essentials = []
@@ -35,9 +35,6 @@ class EssentialsController(EssentialControllerBackboneMetabse):
         ----------
         essential
             Instance of :class:`~pmaf.biome.essentials._metakit.EssentialBackboneMetabase`
-
-        Returns
-        -------
         """
         if isinstance(essential, EssentialBackboneMetabase):
             if not essential.is_mounted or self.__remount:
@@ -66,8 +63,7 @@ class EssentialsController(EssentialControllerBackboneMetabse):
 
         Returns
         -------
-        bool
-            Result of validation.
+            Result of validation
         """
         ret = False
         if isinstance(essential, EssentialBackboneMetabase):
@@ -184,12 +180,11 @@ class EssentialsController(EssentialControllerBackboneMetabse):
             Name of the method to be reflected.
         value
             Value to be passed to mirroring functions. Eg. ids to be removed.
-        **kwargs
+        kwargs
             Remaining parameters passed to mirroring function.
 
         Returns
         -------
-
             Dictionary with results for each `essential`
         """
         if not self.__essentials:
@@ -223,12 +218,11 @@ class EssentialsController(EssentialControllerBackboneMetabse):
 
         Parameters
         ----------
-        *args
+        args
             Unpacked elements of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
 
         Returns
         -------
-
             Check result.
         """
         ret = []
@@ -248,7 +242,6 @@ class EssentialsController(EssentialControllerBackboneMetabse):
 
         Returns
         -------
-
             Instance of `essential`
         """
         ret = None

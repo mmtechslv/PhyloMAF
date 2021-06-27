@@ -53,13 +53,11 @@ class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):
             Is the beginning of reflection or continuation.
         rlog
             Return the result or not. Used while debugging
-        **kwargs
+        kwargs
             Compatibility
-
 
         Returns
         -------
-
             Result of called method.
         """
         if self.__buckled and (self.__controller is not None):
@@ -80,7 +78,7 @@ class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):
         self.__buckled = True
 
     def _unbuckle(self) -> None:
-        """Unmark `Essental` istance as buckled.
+        """Unmark `essential` instance as buckled.
 
         When unbuckled some methods, which are ratified return to their
         original behavior.
@@ -89,16 +87,13 @@ class EssentialBackboneBase(BiomeBackboneBase, EssentialBackboneMetabase):
 
     def _mount_controller(self, controller: EssentialControllerBackboneMetabse) -> None:
         """Mount the
-        :class:`~pmaf.biome.essentials._controller.EssentialsController` to
-        current instance of `essentials`
+        :class:`~pmaf.biome.essentials._controller.EssentialsController` to current instance of `essentials`
 
         Parameters
         ----------
         controller
             :class:`~pmaf.biome.essentials._controller.EssentialsController` instance
 
-        Returns
-        -------
         """
         if self.__controller is not None:
             raise RuntimeError("Controller is already mounted.")
