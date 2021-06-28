@@ -11,3 +11,9 @@ ete3
 tables
 biopython
 scikit-bio
+sphinx-git
+sphinx-prompt
+sphinx-copybutton
+sphinx-hoverxref
+sphinxcontrib-bibtex
+sphinx-rtd-theme

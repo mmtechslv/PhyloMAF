@@ -40,11 +40,11 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.extlinks",
     "sphinx.ext.autosectionlabel",
+    "sphinx.ext.coverage",
     "sphinx_git",
     "sphinx-prompt",
     "sphinx_copybutton",
     "hoverxref.extension",
-    "sphinx.ext.coverage",
     "sphinxcontrib.bibtex",
 ]
 
