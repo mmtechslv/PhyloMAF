@@ -1,3 +1,3 @@
-from ._cython import rapid_lineage_generator
-from ._cython import rapid_ott_taxonomy_reader
-from ._cpython import cext
+from .build.cython_functions import generate_lineages_from_taxa_list as rapid_lineage_generator
+from .build.cython_functions import generate_taxa_list_for_ott as rapid_ott_taxonomy_reader
+from .build import PMAFCEXT

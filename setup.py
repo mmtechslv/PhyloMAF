@@ -1,41 +1,48 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from Cython.Build import cythonize
 from distutils.extension import Extension
-from Cython.Distutils import build_ext
+from setuptools.command.build_ext import build_ext as _build_ext
+import os
 
-cython_root = "internal/_extensions/_cython/"
-cpython_root = "internal/_extensions/_cpython/"
+USE_CYTHON = os.environ.get("USE_CYTHON", False)
+ext = ".pyx" if USE_CYTHON else ".c"
+
+cython_root = "pmaf/internal/_extensions/_cython/"
+cpython_root = "pmaf/internal/_extensions/_cpython/"
+
+
+class build_ext(_build_ext):
+    def finalize_options(self):
+        super().finalize_options()
+        build_py = self.get_finalized_command("build_py")
+        self.inplace = True
+
 
 ext_modules = [
-    cythonize(
-        cython_root + "_source/cython_functions.pyx",
-        compiler_directives={"language_level": "3"},
-    ),
     Extension(
-        "PMAFCEXT",
+        "pmaf.internal._extensions.PMAFCEXT",
         sources=[
             cpython_root + "_pmafc_extension/_source/c_parser.c",
             cpython_root + "_pmafc_extension/_source/c_hmerizer.c",
         ],
         include_dirs=[cpython_root + "_pmafc_extension/_source"],
     ),
-]
+] + cythonize(
+    Extension(
+        "pmaf.internal._extensions.cython_functions",
+        [cython_root + "_source/cython_functions" + ext],
+    ),
+    compiler_directives={"language_level": "3"},
+)
 
+
+print(ext_modules)
 cmdclass = {"build_ext": build_ext}
 
 setup(
     name="PhyloMAF",
     version="1.0",
-    packages=[
-        "pmaf",
-        "pmaf.pipe",
-        "pmaf.biome",
-        "pmaf.phylo",
-        "pmaf.remote",
-        "pmaf.database",
-        "pmaf.sequence",
-        "pmaf.alignment",
-    ],
+    packages=find_packages(),
     url="https://github.com/mmtechslv/PhyloMAF",
     license="BSD-3-Clause",
     author="Farid Musa",
