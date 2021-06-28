@@ -51,7 +51,7 @@ setup(
         "pytest",
         "urllib3",
         "ete3",
-        "pytables",
+        "tables",
         "biopython",
         "scikit-bio",
     ],
