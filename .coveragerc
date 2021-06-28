@@ -5,7 +5,9 @@ source=pmaf
 omit=
     */tests/*
     */__init__.py
+    */pmaf/internal/_extensions/*
 include = */pmaf/*
+parallel = True
 
 [report]
 exclude_lines =
@@ -15,3 +17,6 @@ exclude_lines =
 omit =
     */tests*
     */__init__.py
+
+[xml]
+output=coverage.xml
