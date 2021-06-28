@@ -82,7 +82,8 @@ exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
-    "" "_templates/autosummary/*.rst",
+    "_templates/autosummary/*.rst",
+    "_extensions/**"
 ]
 
 
