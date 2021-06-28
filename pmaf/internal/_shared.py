@@ -12,7 +12,7 @@ from ._constants import (
     jRegexSINTAX,
     jRegexQIIME,
 )
-from pmaf.internal._extensions import cython_functions  # pragma: no cover
+from ._extensions import cython_functions  # pragma: no cover
 import statistics
 from itertools import groupby, islice
 from pathlib import Path

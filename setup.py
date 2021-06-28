@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
 from Cython.Build import cythonize
 from distutils.extension import Extension
-# from setuptools.command.build_ext import build_ext
 from setuptools.command.build_ext import build_ext as _build_ext
 
 import os
@@ -12,12 +11,10 @@ ext = ".pyx" if USE_CYTHON else ".c"
 cython_root = "pmaf/internal/_extensions/_cython/"
 cpython_root = "pmaf/internal/_extensions/_cpython/"
 
-
 class build_ext(_build_ext):
     def finalize_options(self):
         super().finalize_options()
         self.inplace = True
-
 
 ext_modules = [
     Extension(
@@ -33,7 +30,6 @@ ext_modules = [
         [cython_root + "_source/cython_functions" + ext],
     ),
 ]
-
 
 # ext_modules = [
 #     Extension(
