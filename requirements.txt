@@ -17,3 +17,5 @@ sphinx-copybutton
 sphinx-hoverxref
 sphinxcontrib-bibtex
 sphinx-rtd-theme
+coverage
+pytest-cov
