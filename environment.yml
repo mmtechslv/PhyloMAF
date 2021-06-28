@@ -209,6 +209,6 @@ dependencies:
     - sphinx-git
     - sphinx-hoverxref
     - sphinx-rtd-theme
-    -
+
 build:
   script: python setup.py build_ext --inplace
