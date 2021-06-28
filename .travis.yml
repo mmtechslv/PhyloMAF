@@ -5,6 +5,8 @@ python:
 install:
   - pip install numpy
   - pip install -r requirements.txt
+ignore:
+  - pmaf/internal/_extensions/*
 script:
   - pytest
 after_success:
