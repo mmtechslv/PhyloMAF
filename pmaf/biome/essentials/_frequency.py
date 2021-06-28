@@ -61,7 +61,7 @@ class FrequencyTable(
             else:
                 raise ValueError("Provided `frequency` Datafame is invalid.")
         elif isinstance(frequency, str):
-            if path.isfile(frequency):
+            if not path.isfile(frequency):
                 raise FileNotFoundError("Provided `frequency` file path is invalid.")
             file_extension = path.splitext(frequency)[-1].lower()
             if file_extension in [".csv", ".tsv"]:

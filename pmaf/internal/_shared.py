@@ -12,7 +12,7 @@ from ._constants import (
     jRegexSINTAX,
     jRegexQIIME,
 )
-from ._extensions import _cython as CyMethods
+from ._extensions import rapid_lineage_generator
 import statistics
 from itertools import groupby, islice
 from pathlib import Path
@@ -20,7 +20,7 @@ from typing import Union, Sequence, Optional
 
 
 def get_package_root():
-    """ Get root path of `pmaf` package. """
+    """Get root path of `pmaf` package."""
     return str(Path(__file__).parent.parent)
 
 
@@ -35,7 +35,6 @@ def to_array(data):
     Returns
     -------
     An array with data.
-
     """
     if np.isscalar(data):
         return np.asarray([data])
@@ -46,7 +45,7 @@ def to_array(data):
 
 
 def get_stats_for_sequence_record_df(sequence_record_df: pd.DataFrame) -> pd.DataFrame:
-    """Retrieve stats for :class:`pandas.DataFrame` with  sequence records
+    """Retrieve stats for :class:`pandas.DataFrame` with  sequence records.
 
     Parameters
     ----------
@@ -56,8 +55,6 @@ def get_stats_for_sequence_record_df(sequence_record_df: pd.DataFrame) -> pd.Dat
     Returns
     -------
         :class:`pandas.DataFrame` with sequence stats.
-
-
     """
     reps_ex_columns = list(IUPAC_AMBIGUOUS.keys())
     reps_ex_buffer = {col: [] for col in reps_ex_columns}
@@ -119,7 +116,7 @@ def get_stats_for_sequence_record_df(sequence_record_df: pd.DataFrame) -> pd.Dat
 
 
 def chunk_generator(iterable, chunksize):
-    """Convert iterable to chunk generator
+    """Convert iterable to chunk generator.
 
     Parameters
     ----------
@@ -132,7 +129,6 @@ def chunk_generator(iterable, chunksize):
     -------
     Generator
         Chunk generator
-
     """
     iterator = iter(iterable)
     while True:
@@ -145,7 +141,7 @@ def chunk_generator(iterable, chunksize):
 
 
 def get_datetime(datetime_str, format=None):
-    """Helper func"""
+    """Helper func."""
     if format is not None:
         ret = dateparser.parse(datetime_str, date_formats=format)
     else:
@@ -169,7 +165,6 @@ def validate_ranks(ranks: Sequence[str], ref_ranks: Optional[Sequence[str]] = No
     -------
     None or bool
         Validation result.
-
     """
     if ref_ranks:
         if not isinstance(ref_ranks, (list, tuple)):
@@ -182,7 +177,7 @@ def validate_ranks(ranks: Sequence[str], ref_ranks: Optional[Sequence[str]] = No
 def extract_valid_ranks(
     ranks: Sequence[str], ref_ranks: Optional[Sequence[str]] = None
 ):
-    """Extract real rank values from list-like ranks
+    """Extract real rank values from list-like ranks.
 
     Parameters
     ----------
@@ -195,7 +190,6 @@ def extract_valid_ranks(
     -------
     None or bool
         Extracted ranks
-
     """
     if ref_ranks:
         if not isinstance(ref_ranks, (list, tuple)):
@@ -223,7 +217,6 @@ def cols2ranks(
     -------
     list
         Transformed ranks
-
     """
     if ref_ranks:
         if not isinstance(ref_ranks, (list, tuple)):
@@ -256,7 +249,6 @@ def get_rank_upto(
     -------
     list
         List of ranks
-
     """
     ret = []
     tmp_ranks = list(ranks)
@@ -284,7 +276,6 @@ def sort_ranks(ranks):
     -------
 
         Sorted ranks
-
     """
     ret = False
     ranks = list(ranks) if not isinstance(ranks, list) else ranks
@@ -294,7 +285,7 @@ def sort_ranks(ranks):
 
 
 def ensure_list(var):
-    """Makes sure that `var` is a list
+    """Makes sure that `var` is a list.
 
     Parameters
     ----------
@@ -305,14 +296,13 @@ def ensure_list(var):
     -------
     list
         `var` as list
-
     """
     return var if type(var) is list else [var]
 
 
 def is_table_taxa_alike(feature_table1, feature_table2):
-    """This method checks if `feature_table2` instance contains same taxonomy as
-    `feature_table1`
+    """This method checks if `feature_table2` instance contains same taxonomy
+    as `feature_table1`
 
     Parameters
     ----------
@@ -325,7 +315,6 @@ def is_table_taxa_alike(feature_table1, feature_table2):
     -------
     bool
         True if taxonomies are same. False otherwise
-
     """
     feature_table1_lineage_sorted = (
         feature_table1.taxonomy.loc[:, "lineage"]
@@ -342,7 +331,7 @@ def is_table_taxa_alike(feature_table1, feature_table2):
 
 def indentify_taxon_notation(taxon_string):
     """Identifies taxonomic notation from `taxon_string` . Currently available
-    conventions are Greengenens, sintax and SILVA
+    conventions are Greengenens, sintax and SILVA.
 
     Examples:
 
@@ -381,7 +370,7 @@ def generate_lineages_from_taxa(
     desired_ranks: Union[Sequence[str], bool] = False,
     drop_ranks: Union[Sequence[str], bool] = False,
 ):
-    """Generate consensus lineages in QIIME convention format from taxonomy
+    """Generate consensus lineages in QIIME convention format from taxonomy.
 
     Parameters
     ----------
@@ -398,7 +387,6 @@ def generate_lineages_from_taxa(
     -------
     :class:`pandas.Series`
         Series with generated consensus lineages and corresponding IDs as Series index
-
     """
     if desired_ranks and not all(e in VALID_RANKS for e in desired_ranks):
         print(
@@ -415,7 +403,7 @@ def generate_lineages_from_taxa(
     if drop_ranks:
         pass_taxa_df.iloc[:][drop_ranks] = None
     pass_taxa_list = pass_taxa_df.values.tolist()
-    new_lineages = CyMethods.rapid_lineage_generator(
+    new_lineages = rapid_lineage_generator(
         pass_taxa_list, missing_rank, make_ranks
     )
     return pd.Series(index=pass_taxa_df.index, data=new_lineages)
@@ -423,7 +411,7 @@ def generate_lineages_from_taxa(
 
 def cut_lineages(in_lineages, levels):
     """Supplementary function for cutting ranks both ends of lineages with
-    Greengenes convention
+    Greengenes convention.
 
     Parameters
     ----------
@@ -437,7 +425,6 @@ def cut_lineages(in_lineages, levels):
     -------
     :class:`pandas.Series`
         New lineages
-
     """
     lineages = list(in_lineages.values)
     lineage_indices = list(in_lineages.index)
@@ -461,7 +448,7 @@ def ensure_new_dir(dir_name):
     """Creates new directory if it does not exist. If it does exist then it
     checks if existing directory was generated via this function if it does it
     reads counter prefix in directory name and creates new directory with
-    increment
+    increment.
 
     Parameters
     ----------
@@ -472,7 +459,6 @@ def ensure_new_dir(dir_name):
     -------
     str|bool
         Path to new directory or False.
-
     """
     new_path_result = False
     if os.path.exists(dir_name):
@@ -502,7 +488,7 @@ def ensure_new_dir(dir_name):
 
 
 def read_csv(file_path, sep=",", quote='"'):
-    """Reads CSV/TSV file and returns content as list
+    """Reads CSV/TSV file and returns content as list.
 
     Parameters
     ----------
@@ -517,7 +503,6 @@ def read_csv(file_path, sep=",", quote='"'):
     -------
     list
         Content of the CSV/TSV file
-
     """
     file_content = []
     with open(file_path, "r") as feature_file:
@@ -528,7 +513,7 @@ def read_csv(file_path, sep=",", quote='"'):
 
 
 def write_csv(iContent, file_path, sep=",", quote='"'):
-    """Writes content to CSV/TSV file
+    """Writes content to CSV/TSV file.
 
     Parameters
     ----------
@@ -540,7 +525,6 @@ def write_csv(iContent, file_path, sep=",", quote='"'):
         Delimiter of CSV/TSV file (Default value = ')
     quote
         Quoting of CSV/TSV file (Default value = '"')
-
     """
     with open(file_path, "w") as write_file:
         file_writer = csv.writer(write_file, delimiter=sep, quotechar=quote)
