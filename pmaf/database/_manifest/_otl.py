@@ -103,7 +103,7 @@ class DatabaseOTL(
         taxonomy_map_csv_fp: str,
         delimiter: str,
     ) -> Tuple[AnyGenericIdentifier, np.ndarray, pd.Series, pd.Series]:
-        from pmaf.internal._extensions import rapid_ott_taxonomy_reader
+        from pmaf.internal._extensions import cython_functions
         from pmaf.internal._constants import VALID_RANKS
         from tempfile import NamedTemporaryFile
         from collections import defaultdict
@@ -210,7 +210,7 @@ class DatabaseOTL(
                 columns=["parent_uid", "name", "rank"],
                 index_label="uid",
             )
-            tmp_ott_sheet = rapid_ott_taxonomy_reader(
+            tmp_ott_sheet = cython_functions.generate_taxa_list_for_ott(
                 VALID_RANKS, tmp_taxonomy.name, "|"
             )
         tmp_taxonomy_sheet_master = pd.DataFrame.from_records(

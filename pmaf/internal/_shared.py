@@ -12,7 +12,7 @@ from ._constants import (
     jRegexSINTAX,
     jRegexQIIME,
 )
-from pmaf.internal._extensions import rapid_lineage_generator  # pragma: no cover
+from pmaf.internal._extensions import cython_functions  # pragma: no cover
 import statistics
 from itertools import groupby, islice
 from pathlib import Path
@@ -403,7 +403,7 @@ def generate_lineages_from_taxa(
     if drop_ranks:
         pass_taxa_df.iloc[:][drop_ranks] = None
     pass_taxa_list = pass_taxa_df.values.tolist()
-    new_lineages = rapid_lineage_generator(pass_taxa_list, missing_rank, make_ranks)
+    new_lineages = cython_functions.generate_lineages_from_taxa_list(pass_taxa_list, missing_rank, make_ranks)
     return pd.Series(index=pass_taxa_df.index, data=new_lineages)
 
 

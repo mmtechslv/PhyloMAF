@@ -1,3 +1,1 @@
-from pmaf.internal._extensions import PMAFCEXT
-from pmaf.internal._extensions.cython_functions import generate_lineages_from_taxa_list as rapid_lineage_generator
-from pmaf.internal._extensions.cython_functions import generate_taxa_list_for_ott as rapid_ott_taxonomy_reader
+__all__ = ['PMAFCEXT','cython_functions']
