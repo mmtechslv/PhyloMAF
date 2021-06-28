@@ -5,7 +5,7 @@ source=pmaf
 omit=
     */tests/*
     */__init__.py
-include = */skbio/*
+include = */pmaf/*
 
 [report]
 exclude_lines =
