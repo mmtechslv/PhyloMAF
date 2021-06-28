@@ -205,3 +205,7 @@ dependencies:
   - yaml=0.2.5=h516909a_0
   - zlib=1.2.11=h516909a_1010
   - zstd=1.5.0=ha95c52a_0
+  - pip:
+    - sphinx-git
+    - sphinx-hoverxref
+    - sphinx-rtd-theme
