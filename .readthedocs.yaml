@@ -1,12 +1,12 @@
 version: 2
 
+python:
+  version: 3.8
+  
 sphinx:
   builder: html
   configuration: docs/conf.py
-  fail_on_warning: true
+  fail_on_warning: false
 
 conda:
   environment: environment.yml
-
-python:
-  version: 3.8
