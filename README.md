@@ -2,14 +2,15 @@
     <img src="https://github.com/mmtechslv/PhyloMAF/blob/c1132dae7a778811a6abd9bafd329b6067916396/logo.png">
 </p>
 <p align="center">
-    PhyloMAF - Phylogenetic Microbiome Analysis Framework <a href="https://zenodo.
-org/badge/latestdoi/197987819"><img src="https://zenodo.org/badge/197987819.svg" alt="DOI"></a>
-
+    PhyloMAF - Phylogenetic Microbiome Analysis Framework
 </p>
 <p align="center">
     <img src="https://travis-ci.com/mmtechslv/PhyloMAF.svg?token=sBXDx4EANVBbNzh5fzox&branch=master" alt="Build Status">
     <a href='https://phylomaf.readthedocs.io/en/latest/?badge=latest'>
         <img src='https://readthedocs.org/projects/phylomaf/badge/?version=latest' alt='Documentation Status' />
+    </a>
+    <a href="https://zenodo.org/badge/latestdoi/197987819">
+        <img src="https://zenodo.org/badge/197987819.svg" alt="DOI">
     </a>
 </p>
 <p>
