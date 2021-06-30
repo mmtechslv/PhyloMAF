@@ -1,12 +1,15 @@
 version: 2
 
+conda:
+  environment: environment.yml
+
 python:
   version: 3.8
-  
+  install:
+    - method: setuptools
+      path: .
+
 sphinx:
   builder: html
   configuration: docs/conf.py
   fail_on_warning: false
-
-conda:
-  environment: environment.yml
