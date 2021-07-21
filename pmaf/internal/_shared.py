@@ -11,6 +11,7 @@ from ._constants import (
     jRegexGG,
     jRegexSINTAX,
     jRegexQIIME,
+    ITS
 )
 from ._extensions import cython_functions  # pragma: no cover
 import statistics
@@ -203,8 +204,10 @@ def extract_valid_ranks(
 
 def cols2ranks(
     cols: Sequence[Union[str, int]], ref_ranks: Optional[Sequence[str]] = None
-) -> Sequence[str]:
-    """Transform columns to ranks based on order.
+) -> Sequence[str]: # TODO: Write a test for this function.
+    """Transform columns to ranks based on order. This func was modified and
+    required testing. It now transforms by inferring the rank names or by
+    order.
 
     Parameters
     ----------
@@ -226,8 +229,27 @@ def cols2ranks(
     ref_ranks = ref_ranks[::-1]
     ranks = []
     for i, col in enumerate(cols[::-1]):
-        ranks.append(ref_ranks[i])
-    return ranks[::-1]
+        tmp_rank = ref_ranks[i]
+        if col[0].isupper() and len(col) > 1:
+            try:
+               tmp_rank = ITS['Rank2r'][col]
+            except KeyError:
+                pass
+            except:
+                raise
+        elif col[0].isupper() and len(col) == 1:
+            col_lower = col.lower()
+            if col_lower in VALID_RANKS:
+                tmp_rank = col_lower
+        elif col[0].islower() and len(col) > 1:
+            try:
+                tmp_rank = ITS['rank2r'][col]
+            except KeyError:
+                pass
+            except:
+                raise
+        ranks.append(tmp_rank)
+    return sort_ranks(ranks)
 
 
 def get_rank_upto(
@@ -280,7 +302,7 @@ def sort_ranks(ranks):
     ret = False
     ranks = list(ranks) if not isinstance(ranks, list) else ranks
     if len(ranks) > 0:
-        ret = [rank for rank in MAIN_RANKS if rank in ranks]
+        ret = [rank for rank in VALID_RANKS if rank in ranks]
     return ret
 
 

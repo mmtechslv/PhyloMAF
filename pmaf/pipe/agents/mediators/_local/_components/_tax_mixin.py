@@ -48,7 +48,7 @@ class MediatorLocalTaxonomyMixin(MediatorLocalBase, MediatorTaxonomyMetabase):
         tax_corr_method
             Taxonomy correlation method. Can one of :attr:`.CORRELATION_METHODS`
             - The "lineage" refer to lineage based correlation approach
-            - The "complement" is used when missing taxonomy (from Family to Domain) must be complemeneted
+            - The "complement" is used when missing taxonomy (from Family to Domain) must be complemented
             - The "taxon" refer to individual and cumulative taxon matching approach
         tax_fuzzy_cutoff
             Cutoff value when fuzzy matching is enabled
