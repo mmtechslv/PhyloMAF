@@ -46,7 +46,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
             Whether to copy `essentials` or not.
         kwargs
             Compatibility
-
         """
         if essentials is not None:
             if isinstance(essentials, (tuple, list)):
@@ -130,7 +129,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
         Returns:
             Instance of :class:`~pmaf.biome.essentials._base.EssentialBackboneBase`
-
         """
         for essential in self.__controller.essentials:
             if attribute == type(essential).__name__:
@@ -138,14 +136,16 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         super().__getattribute__(attribute)
 
     def __dir__(self):
-        """Provides list of installed `essential` class names for built-in :func:`dir` method()"""
+        """Provides list of installed `essential` class names for built-in
+        :func:`dir` method()"""
         return sorted(
             dir(type(self))
             + [type(essential).__name__ for essential in self.__controller.essentials]
         )
 
     def _repr_appendage__(self):
-        """Helper for `__repr__` method of class :class:`~pmaf.biome.BiomeBackboneBase`"""
+        """Helper for `__repr__` method of class
+        :class:`~pmaf.biome.BiomeBackboneBase`"""
         return {"Essentials": len(self.__controller.essentials)}
 
     def copy(self) -> "BiomeAssembly":
@@ -161,7 +161,8 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         curb: Optional[str] = None,
         copy: bool = True
     ) -> None:
-        """Add instance of `essentials` to the current instance of :class:`.BiomeAssembly`
+        """Add instance of `essentials` to the current instance of
+        :class:`.BiomeAssembly`
 
         Parameters
         ----------
@@ -171,7 +172,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
             Can be either `intersect` or None.
         copy
             Whether to copy essentials or not.
-
         """
         tmp_essentials = []
         for arg in args:
@@ -235,8 +235,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         Returns
         -------
             Subset instance of :class:`.BiomeAssembly`
-
-
         """
         if rids is None:
             target_rids = self.xrid
@@ -291,7 +289,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
         Returns:
             :class:`~pandas.DataFrame` of OTU-table
-
         """
         if not self.__controller.has_essential_by_types(RepTaxonomy, FrequencyTable):
             raise AttributeError(
@@ -336,9 +333,8 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
         -------
 
             :class:`~pandas.DataFrame` of OTU-table
-
         """
-        return self.__make_otu_table(*args, **kwargs)[0]
+        return self.__make_otu_table(*args, **kwargs)
 
     def write_otu_table(
         self, output_fp: str, *args: Any, sep: str = ",", **kwargs: Any
@@ -355,7 +351,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
             Delimiter
         **kwargs
             Compatibility
-
         """
         tmp_otu_table = self.__make_otu_table(*args, **kwargs)
         tmp_otu_table.to_csv(output_fp, sep=sep)
@@ -382,8 +377,6 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
             Delimiter
         **kwargs
             Compatibility.
-
-
         """
         for essential in self.__controller.essentials:
             if not (
@@ -415,7 +408,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
     @property
     def xrid(self) -> AnyGenericIdentifier:
-        """Feature identifiers"""
+        """Feature identifiers."""
         return pd.Index(
             self.__controller.xrid
             if self.__controller.xrid is not None
@@ -424,7 +417,7 @@ class BiomeAssembly(BiomeBackboneBase, BiomeAssemblyBackboneMetabase):
 
     @property
     def xsid(self) -> AnyGenericIdentifier:
-        """Sample identifiers"""
+        """Sample identifiers."""
         return pd.Index(
             self.__controller.xsid
             if self.__controller.xsid is not None
