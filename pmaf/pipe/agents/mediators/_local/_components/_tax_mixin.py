@@ -1,4 +1,6 @@
 from pmaf.internal._constants import MAIN_RANKS
+#from pmaf.internal._constants import VALID_RANKS as MAIN_RANKS
+
 from pmaf.internal._shared import generate_lineages_from_taxa
 from pmaf.pipe.agents.dockers._mediums._tax_medium import DockerTaxonomyMedium
 from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium

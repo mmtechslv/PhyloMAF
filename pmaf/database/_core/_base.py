@@ -12,7 +12,6 @@ from functools import reduce
 from pmaf.internal._typing import AnyGenericIdentifier
 from typing import Optional, Union, Tuple, Generator, Sequence, Any
 
-
 class DatabaseBase(DatabaseBackboneMetabase):
     """Base database class that provides minimum functionality."""
 

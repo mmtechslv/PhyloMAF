@@ -183,11 +183,16 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         kwargs
             Compatibility
         """
+        def safe_aggfunc(values):
+            if pd.api.types.is_categorical_dtype(values):
+                return '|'.join(values.unique().tolist())
+            else:
+                return pd.Series(values).agg(aggfunc)
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
             tmp_agg_dict[new_id] = (
                 self.__internal_samples.loc[group, :]
-                .agg(func=aggfunc, axis=0)
+                .agg(func=safe_aggfunc, axis=0)
                 .to_dict()
             )
         tmp_samples = pd.DataFrame.from_dict(tmp_agg_dict, orient="index")
@@ -294,7 +299,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         if variable not in self.__internal_samples.columns:
             raise TypeError("`variable` is invalid.")
         groups = self.__internal_samples.groupby(variable)
-        if len(groups.groups) > 1:
+        if len(groups.groups) > 0:
             tmp_variable = []
             tmp_groups = []
             group_indices = []

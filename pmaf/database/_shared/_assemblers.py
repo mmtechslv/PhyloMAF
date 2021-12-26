@@ -7,10 +7,13 @@ from pmaf.database._shared._common import (
 import pandas as pd
 import numpy as np
 from pmaf.internal._constants import MAIN_RANKS, VALID_RANKS
+# from pmaf.internal._constants import VALID_RANKS
+
 from pmaf.internal._shared import get_stats_for_sequence_record_df
 from tempfile import NamedTemporaryFile
 from pmaf.database._shared._summarizers import merge_recaps
 
+# MAIN_RANKS = VALID_RANKS
 
 def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kwargs):
     """
