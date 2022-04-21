@@ -399,8 +399,9 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
         ].index.values.tolist()[0]
         if tree_map is not None:
             taxon_level = 1
+            existing_ids = tree_map.index[tree_map.index.isin(repseq_ids)].values
             pid_map_df = (
-                tree_map.loc[repseq_ids]["pid"]
+                tree_map.loc[existing_ids]["pid"]
                 .reset_index()
                 .reindex(columns=["pid", "uid"])
                 .rename(columns={"pid": taxon_level, "uid": 0})

@@ -129,8 +129,7 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
         jython_channel.waitclose()
         gw.exit()
         ret = jython_channel_out
-
-        shutil.copytree(tmp_newtax_path, newtax_path)
+        shutil.copytree(tmp_newtax_path, newtax_path, dirs_exist_ok=True)
 
     temp_dir.cleanup()
 

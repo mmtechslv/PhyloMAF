@@ -203,6 +203,7 @@ class DatabaseOTL(
             header=0,
             dtype=str,
         )
+        full_taxonomy_map.index = full_taxonomy_map.index.astype(str)
         with NamedTemporaryFile() as tmp_taxonomy:
             full_taxonomy_map.to_csv(
                 tmp_taxonomy.name,
