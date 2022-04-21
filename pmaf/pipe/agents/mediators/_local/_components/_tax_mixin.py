@@ -25,7 +25,7 @@ from typing import Optional, Any, Union
 class MediatorLocalTaxonomyMixin(MediatorLocalBase, MediatorTaxonomyMetabase):
     """Mixin class for local :term:`mediator` that handle taxonomy data."""
 
-    CORRELATION_METHODS = ["lineage", "complement", "taxon"]
+    CORRELATION_METHODS = ["lineage", "complement", "taxon"] # TODO: Test 'taxon' more
     """Available methods for taxonomy correlations"""
 
     def __init__(

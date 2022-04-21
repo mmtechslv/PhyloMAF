@@ -54,14 +54,14 @@ __warnings_.filterwarnings(
 __warnings_.filterwarnings(
     action="ignore", category=__tables_.PerformanceWarning, module="tables"
 )
-
-import pydevd_pycharm
-try:
-    pydevd_pycharm.settrace('localhost', port=5555, stdoutToServer=True, stderrToServer=True)
-except ConnectionRefusedError:
-    pass
-except:
-    raise
+#
+# import pydevd_pycharm
+# try:
+#     pydevd_pycharm.settrace('localhost', port=5555, stdoutToServer=True, stderrToServer=True)
+# except ConnectionRefusedError:
+#     pass
+# except:
+#     raise
 
 from . import database
 from . import biome

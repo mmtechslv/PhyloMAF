@@ -1,4 +1,6 @@
 import execnet
+import shutil
+import tempfile
 import os
 
 
@@ -22,23 +24,8 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
 
         Result status
     """
-
     if not os.path.isdir(reftax_src_path):
-        raise NotADirectoryError("Parameter `otl_reftax_src` must be a directory.")
-    local_ott_path = os.path.abspath(reftax_src_path)
-    jython_jar_path = local_ott_path + "/lib/jython-standalone-2.7.0.jar"
-    sys_path_suffix_list = ["", "/util", "/lib", "/lib/json-simple-1.1.1.jar"]
-    sys_path_list = [local_ott_path + suffix for suffix in sys_path_suffix_list]
-    jythonpath_env = ":".join(sys_path_list)
-    sys_path_list_repr = repr(sys_path_list)
-    javaflags = "-Xmx14G"
-    java_exec = "java {} -jar {}".format(javaflags, jython_jar_path)
-
-    gate_str = "popen//python={0}//chdir={1}//env:PWD={1}//env:JYTHONPATH={2}".format(
-        java_exec, local_ott_path, jythonpath_env
-    )
-
-    ret = False
+        raise NotADirectoryError("Parameter `reftax_src_path` must be a directory.")
     reftax_path = (
         os.path.abspath(reftax_path) if not os.path.isabs(reftax_path) else reftax_path
     )
@@ -51,7 +38,33 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
         raise NotADirectoryError(
             "Parameter `reference_taxonomy_path` must be a directory."
         )
-    if reftax_path[-1] != "/" and newtax_path[-1] != "/":
+    #
+    temp_dir = tempfile.TemporaryDirectory()
+    tmp_reftax_src_path = tempfile.mkdtemp(dir=temp_dir.name)
+    tmp_reftax_path = tempfile.mkdtemp(dir=temp_dir.name)
+    tmp_newtax_path = tempfile.mkdtemp(dir=temp_dir.name)
+    if os.path.exists(tmp_reftax_src_path):
+        shutil.rmtree(tmp_reftax_src_path)
+        shutil.copytree(reftax_src_path, tmp_reftax_src_path)
+    if os.path.exists(tmp_reftax_path):
+        shutil.rmtree(tmp_reftax_path)
+        shutil.copytree(reftax_path, tmp_reftax_path)
+
+    local_ott_path = os.path.abspath(tmp_reftax_src_path)
+    jython_jar_path = local_ott_path + "/lib/jython-standalone-2.7.0.jar"
+    sys_path_suffix_list = ["", "/util", "/lib", "/lib/json-simple-1.1.1.jar"]
+    sys_path_list = [local_ott_path + suffix for suffix in sys_path_suffix_list]
+    jythonpath_env = ":".join(sys_path_list)
+    sys_path_list_repr = repr(sys_path_list)
+    javaflags = "-Xmx14G"
+    java_exec = "java {} -jar {}".format(javaflags, f"\"{jython_jar_path}\"")
+
+    gate_str = "popen//python={0}//chdir={1}//env:PWD={1}//env:JYTHONPATH={2}".format(
+        java_exec, local_ott_path, jythonpath_env
+    )
+
+    ret = False
+    if tmp_reftax_path[-1] != "/" and tmp_newtax_path[-1] != "/":
         jython_channel_out = []
 
         def jython_receiver(message):
@@ -109,11 +122,16 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
                                 channel.send('Newick tree was successfully saved.')
                                 channel.send('End of ReAssembly')
                                 """.format(
-                sys_path_list_repr, reftax_path, newtax_path
+                sys_path_list_repr, tmp_reftax_path, tmp_newtax_path
             )
         )
         jython_channel.setcallback(jython_receiver)
         jython_channel.waitclose()
         gw.exit()
         ret = jython_channel_out
+
+        shutil.copytree(tmp_newtax_path, newtax_path)
+
+    temp_dir.cleanup()
+
     return ret
