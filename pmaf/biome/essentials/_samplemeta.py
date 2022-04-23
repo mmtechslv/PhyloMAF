@@ -133,6 +133,11 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
             raise ValueError("Biom file does not contain sample metadata.")
         return sample_data, {}
 
+    def fix_metadata_dtypes(self):
+        cols = self.__internal_samples.select_dtypes(["object"]).columns
+        self.__internal_samples[cols] = self.__internal_samples[cols].apply(pd.Series.astype,
+                                                                                        dtype="category")
+
     def _rename_samples_by_map(self, map_like: Mapper, **kwargs) -> Optional[Mapper]:
         """Rename sample names by map and ratify action.
 
@@ -198,6 +203,7 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         tmp_samples = pd.DataFrame.from_dict(tmp_agg_dict, orient="index")
         tmp_samples.index.name = self.__internal_samples.index.name
         self.__internal_samples = tmp_samples
+        self.fix_metadata_dtypes()
         return self._ratify_action(
             "_merge_samples_by_map", map_dict, aggfunc=aggfunc, **kwargs
         )
