@@ -4,4 +4,10 @@ from ._unite import DatabaseUNITE
 from ._otl import DatabaseOTL
 from ._gtdb import DatabaseGTDB
 
-__all__ = ['DatabaseGreengenes', 'DatabaseSILVA', 'DatabaseUNITE', 'DatabaseOTL', 'DatabaseGTDB']
+__all__ = [
+    "DatabaseGreengenes",
+    "DatabaseSILVA",
+    "DatabaseUNITE",
+    "DatabaseOTL",
+    "DatabaseGTDB",
+]

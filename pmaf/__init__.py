@@ -56,8 +56,11 @@ __warnings_.filterwarnings(
 )
 
 import pydevd_pycharm
+
 try:
-    pydevd_pycharm.settrace('localhost', port=5555, stdoutToServer=True, stderrToServer=True)
+    pydevd_pycharm.settrace(
+        "localhost", port=5555, stdoutToServer=True, stderrToServer=True
+    )
 except ConnectionRefusedError:
     pass
 except:

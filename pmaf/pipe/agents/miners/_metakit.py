@@ -1,16 +1,17 @@
 from abc import ABC, abstractmethod
 
+
 class MinerBackboneMetabase(ABC):
     """ """
 
     @abstractmethod
-    def verify_docker(self,docker):
+    def verify_docker(self, docker):
         """
 
         Parameters
         ----------
         docker :
-            
+
 
         Returns
         -------
@@ -25,9 +26,9 @@ class MinerBackboneMetabase(ABC):
         Parameters
         ----------
         docker :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -59,9 +60,9 @@ class MinerBackboneMetabase(ABC):
         Parameters
         ----------
         docker :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -76,9 +77,9 @@ class MinerBackboneMetabase(ABC):
         Parameters
         ----------
         docker :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -93,9 +94,9 @@ class MinerBackboneMetabase(ABC):
         Parameters
         ----------
         docker :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -110,9 +111,9 @@ class MinerBackboneMetabase(ABC):
         Parameters
         ----------
         docker :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -137,9 +138,3 @@ class MinerBackboneMetabase(ABC):
     def state(self):
         """ """
         pass
-
-
-
-
-
-

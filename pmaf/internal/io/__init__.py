@@ -15,4 +15,4 @@ I/O Types (Classes)
 
 from ._seq import SequenceIO
 
-__all__ = ['SequenceIO']
+__all__ = ["SequenceIO"]

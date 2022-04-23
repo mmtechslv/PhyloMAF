@@ -53,5 +53,5 @@ __all__ = [
     "SpecTI",
     "SpecIT",
     "SpecIA",
-    "SpecAI"
+    "SpecAI",
 ]

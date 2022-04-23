@@ -18,15 +18,15 @@ import re
 regex_mrca_tags = re.compile("mrcaott[0-9]+ott[0-9]+")
 regex_ott_tags = re.compile("ott([0-9]+)")
 
+
 def get_tree_leafs(tree_newick_fp):
     tree_str = read_newick_tree(tree_newick_fp)
     newick_string_no_mrca_tag = re.sub(regex_mrca_tags, "", tree_str)
-    newick_string_parsed = re.sub(
-        regex_ott_tags, "\\1", newick_string_no_mrca_tag
-    )
+    newick_string_parsed = re.sub(regex_ott_tags, "\\1", newick_string_no_mrca_tag)
     tmp_tree = Tree(newick_string_parsed, format=8)
     nodes_with_names = [node.name for node in tmp_tree.iter_leaves() if node.name != ""]
     return nodes_with_names
+
 
 class DatabaseOTL(
     DatabaseTaxonomyMixin, DatabasePhylogenyMixin, DatabaseAccessionMixin, DatabaseBase
@@ -119,7 +119,7 @@ class DatabaseOTL(
         storage_manager: DatabaseStorageManager,
         taxonomy_map_csv_fp: str,
         delimiter: str,
-        tax_ids_in_tree: typing.List[str]
+        tax_ids_in_tree: typing.List[str],
     ) -> Tuple[AnyGenericIdentifier, np.ndarray, pd.Series, pd.Series]:
         from pmaf.internal._extensions import cython_functions
         from pmaf.internal._constants import VALID_RANKS
@@ -241,7 +241,9 @@ class DatabaseOTL(
         tmp_taxonomy_sheet_master.index = tmp_taxonomy_sheet_master.index.astype(
             full_taxonomy_map.index.dtype
         )
-        valid_tax_ids = tmp_taxonomy_sheet_master.index[tmp_taxonomy_sheet_master.index.isin(tax_ids_in_tree)]
+        valid_tax_ids = tmp_taxonomy_sheet_master.index[
+            tmp_taxonomy_sheet_master.index.isin(tax_ids_in_tree)
+        ]
         tmp_taxonomy_sheet_master = tmp_taxonomy_sheet_master.loc[valid_tax_ids]
         index_mapper = transformer.make_rid_index_mapper(
             tmp_taxonomy_sheet_master.index
@@ -351,6 +353,7 @@ class DatabaseOTL(
         storage_manager
             Active storage manager
         """
+
         def produce_map_interx_taxon(interx_maker_result):
             yield None, None
             yield interx_maker_result["map-interx-taxon"]

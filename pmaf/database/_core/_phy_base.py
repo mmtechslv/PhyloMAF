@@ -185,7 +185,7 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
     # TODO: This function should work with PhyloTree not ete3.Tree
     @staticmethod
     def __fix_mapped_tree_nodes(
-            tree: ete3.Tree,
+        tree: ete3.Tree,
         root_name: str,
         tips: Optional[AnyGenericIdentifier] = None,
     ) -> ete3.Tree:
@@ -343,7 +343,7 @@ class DatabasePhylogenyMixin(DatabasePhylogenyMetabase):
     # FIX THIS
     @staticmethod
     def __infer_tree_for_rids(
-            tree_map_df: pd.DataFrame,
+        tree_map_df: pd.DataFrame,
         root_node_name: str,
         tip_ids: AnyGenericIdentifier,
     ) -> ete3.Tree:

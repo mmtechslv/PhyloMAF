@@ -408,7 +408,9 @@ class FrequencyTable(
     def copy(self) -> "FrequencyTable":
         """Copy of the instance."""
         return type(self)(
-            frequency=self.__internal_frequency.copy(), metadata=self.metadata, name=self.name
+            frequency=self.__internal_frequency.copy(),
+            metadata=self.metadata,
+            name=self.name,
         )
 
     def get_subset(

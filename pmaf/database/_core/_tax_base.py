@@ -109,7 +109,7 @@ class DatabaseTaxonomyMixin(DatabaseTaxonomyMetabase):
         self,
         ids: Optional[AnyGenericIdentifier] = None,
         levels: Union[str, Sequence[str], None] = None,
-    ) -> Union[pd.Series,pd.DataFrame]:
+    ) -> Union[pd.Series, pd.DataFrame]:
         """Make taxonomy dataframe for given :term:`tids`.
 
         Parameters

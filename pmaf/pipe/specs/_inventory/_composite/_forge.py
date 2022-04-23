@@ -53,6 +53,12 @@ def ForgeSpec(name: str, *inters: SpecificationBackboneMetabase) -> type:
         self._outlet = tmp_specs[-1].outlet
         SpecificationCompositeBase.__init__(self, _specs=tmp_specs, _steps=tmp_steps)
 
-    return type(name, (SpecificationCompositeBase,), {"__init__": __init__,
-                                                      "inlet": property(lambda self: self._inlet),
-                                                      "outlet": property(lambda self: self._outlet)})
+    return type(
+        name,
+        (SpecificationCompositeBase,),
+        {
+            "__init__": __init__,
+            "inlet": property(lambda self: self._inlet),
+            "outlet": property(lambda self: self._outlet),
+        },
+    )

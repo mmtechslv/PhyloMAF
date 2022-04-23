@@ -1,6 +1,8 @@
 import warnings
-warnings.simplefilter('ignore', category=FutureWarning)
-from skbio.sequence import DNA,RNA,Protein,Sequence
+
+warnings.simplefilter("ignore", category=FutureWarning)
+from skbio.sequence import DNA, RNA, Protein, Sequence
+
 
 def sniff_mode(sequence_str):
     """
@@ -8,14 +10,14 @@ def sniff_mode(sequence_str):
     Parameters
     ----------
     sequence_str :
-        
+
 
     Returns
     -------
 
     """
-    if isinstance(sequence_str,str):
-        if len(sequence_str)>0:
+    if isinstance(sequence_str, str):
+        if len(sequence_str) > 0:
             try:
                 skbio_seq = DNA(sequence_str)
             except ValueError:
@@ -31,9 +33,10 @@ def sniff_mode(sequence_str):
                     raise
             return None if skbio_seq is None else type(skbio_seq)
         else:
-            raise ValueError('`sequence_str` must have length greater than one.')
+            raise ValueError("`sequence_str` must have length greater than one.")
     else:
-        raise TypeError('`sequence_str` must be string.')
+        raise TypeError("`sequence_str` must be string.")
+
 
 def mode_as_skbio(mode):
     """
@@ -41,22 +44,22 @@ def mode_as_skbio(mode):
     Parameters
     ----------
     mode :
-        
+
 
     Returns
     -------
 
     """
     ret = False
-    if isinstance(mode,str):
+    if isinstance(mode, str):
         mode_str = mode.lower()
     else:
         mode_str = mode
-    if mode_str == 'dna':
+    if mode_str == "dna":
         ret = DNA
-    elif mode_str == 'rna':
+    elif mode_str == "rna":
         ret = RNA
-    elif mode_str == 'protein':
+    elif mode_str == "protein":
         ret = Protein
     elif mode_str == None:
         ret = Sequence
@@ -64,13 +67,14 @@ def mode_as_skbio(mode):
         ret = False
     return ret
 
+
 def mode_as_str(mode_skbio):
     """
 
     Parameters
     ----------
     mode_skbio :
-        
+
 
     Returns
     -------
@@ -78,16 +82,17 @@ def mode_as_str(mode_skbio):
     """
     ret = False
     if mode_skbio == DNA:
-        ret = 'dna'
+        ret = "dna"
     elif mode_skbio == RNA:
-        ret = 'rna'
+        ret = "rna"
     elif mode_skbio == Protein:
-        ret = 'protein'
+        ret = "protein"
     elif mode_skbio == Sequence:
         ret = None
     else:
         ret = False
     return ret
+
 
 def mode_is_nucleotide(mode):
     """
@@ -95,20 +100,21 @@ def mode_is_nucleotide(mode):
     Parameters
     ----------
     mode :
-        
+
 
     Returns
     -------
 
     """
     ret = False
-    if isinstance(mode,str):
+    if isinstance(mode, str):
         mode_str = mode.lower()
-        if mode_str == 'dna' or mode_str == 'rna':
+        if mode_str == "dna" or mode_str == "rna":
             ret = True
     elif mode == DNA or mode == RNA:
         ret = True
     return ret
+
 
 def validate_seq_mode(mode_str):
     """
@@ -116,7 +122,7 @@ def validate_seq_mode(mode_str):
     Parameters
     ----------
     mode_str :
-        
+
 
     Returns
     -------
@@ -124,23 +130,24 @@ def validate_seq_mode(mode_str):
     """
     ret = False
     mode_str = mode_str.lower()
-    if mode_str == 'dna':
+    if mode_str == "dna":
         ret = True
-    elif mode_str == 'rna':
+    elif mode_str == "rna":
         ret = True
-    elif mode_str == 'protein':
+    elif mode_str == "protein":
         ret = True
     return ret
 
-def validate_seq_grammar(seq_str,mode_str):
+
+def validate_seq_grammar(seq_str, mode_str):
     """
 
     Parameters
     ----------
     seq_str :
-        
+
     mode_str :
-        
+
 
     Returns
     -------

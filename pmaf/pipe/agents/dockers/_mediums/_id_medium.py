@@ -2,7 +2,7 @@ from pmaf.pipe.agents.dockers._metakit import DockerIdentifierMetabase
 from pmaf.pipe.agents.dockers._base import DockerBase
 import pandas as pd
 import numpy as np
-from typing import Union, Any, Sequence, Optional,Dict
+from typing import Union, Any, Sequence, Optional, Dict
 
 
 class DockerIdentifierMedium(DockerIdentifierMetabase, DockerBase):
@@ -45,7 +45,7 @@ class DockerIdentifierMedium(DockerIdentifierMetabase, DockerBase):
         indices: Optional[np.ndarray] = None,
         exclude_missing: bool = False,
         unique=False,
-    ) -> Union[np.ndarray, Dict[Union[str,int],Optional[np.ndarray]]]:
+    ) -> Union[np.ndarray, Dict[Union[str, int], Optional[np.ndarray]]]:
         """Convert to :class:`numpy.ndarray` with identifiers.
 
         Parameters

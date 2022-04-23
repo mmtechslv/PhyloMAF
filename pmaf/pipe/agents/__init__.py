@@ -26,4 +26,4 @@ from . import dockers
 from . import mediators
 from . import miners
 
-__all__ = ['dockers', 'mediators', 'miners']
+__all__ = ["dockers", "mediators", "miners"]

@@ -1,4 +1,5 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class PhyloTreeMetabase(ABC):
     @abstractmethod
@@ -6,7 +7,7 @@ class PhyloTreeMetabase(ABC):
         pass
 
     @abstractmethod
-    def write(self, tree_fp, tree_format,root_node, output_format):
+    def write(self, tree_fp, tree_format, root_node, output_format):
         pass
 
     @abstractmethod
@@ -30,11 +31,11 @@ class PhyloTreeMetabase(ABC):
         pass
 
     @abstractmethod
-    def annotate_nodes_by_map(self, node_mapping,only_tips):
+    def annotate_nodes_by_map(self, node_mapping, only_tips):
         pass
 
     @abstractmethod
-    def replace_nodes_by_map(self, node_mapping,only_tips):
+    def replace_nodes_by_map(self, node_mapping, only_tips):
         pass
 
     @property

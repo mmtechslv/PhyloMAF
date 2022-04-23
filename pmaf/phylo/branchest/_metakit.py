@@ -1,6 +1,7 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class BranchEstimatorBackboneMetabase(ABC):
     @abstractmethod
-    def estimate(self,multiseq,tree,**kwargs):
+    def estimate(self, multiseq, tree, **kwargs):
         pass

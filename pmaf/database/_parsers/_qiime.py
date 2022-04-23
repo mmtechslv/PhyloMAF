@@ -17,11 +17,11 @@ def read_qiime_taxonomy_map(taxonomy_tsv_fp: str) -> pd.Series:
     taxonomy_tsv_fp :
         Path to QIIME/Greengenes formatted taxonomy map.
     taxonomy_tsv_fp: str :
-        
+
 
     Returns
     -------
-    
+
         class:`~pandas.Series` of taxonomy map.
 
     """
@@ -46,7 +46,7 @@ def parse_qiime_taxonomy_map(taxonomy_map_df: pd.DataFrame) -> pd.DataFrame:
     taxonomy_map_df :
         :class:`~pandas.DataFrame` with taxonomy data.
     taxonomy_map_df: pd.DataFrame :
-        
+
 
     Returns
     -------
@@ -77,7 +77,7 @@ def parse_qiime_taxonomy_map(taxonomy_map_df: pd.DataFrame) -> pd.DataFrame:
         Parameters
         ----------
         zip_list :
-            
+
 
         Returns
         -------
@@ -95,9 +95,9 @@ def parse_qiime_taxonomy_map(taxonomy_map_df: pd.DataFrame) -> pd.DataFrame:
         Parameters
         ----------
         lineage :
-            
+
         levels :
-            
+
 
         Returns
         -------
@@ -155,11 +155,11 @@ def parse_qiime_sequence_generator(
     alignment :
         True if MSA are supplied.
     sequence_fasta_fp: str :
-        
+
     chunk_size: int :
-        
+
     alignment: bool :
-        
+
 
     Returns
     -------

@@ -4,7 +4,7 @@ def read_newick_tree(newick_fp: str):
     Parameters
     ----------
     newick_fp: str :
-        
+
 
     Returns
     -------

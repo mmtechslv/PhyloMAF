@@ -11,7 +11,7 @@ from ._constants import (
     jRegexGG,
     jRegexSINTAX,
     jRegexQIIME,
-    ITS
+    ITS,
 )
 from ._extensions import cython_functions  # pragma: no cover
 import statistics
@@ -204,7 +204,7 @@ def extract_valid_ranks(
 
 def cols2ranks(
     cols: Sequence[Union[str, int]], ref_ranks: Optional[Sequence[str]] = None
-) -> Sequence[str]: # TODO: Write a test for this function.
+) -> Sequence[str]:  # TODO: Write a test for this function.
     """Transform columns to ranks based on order. This func was modified and
     required testing. It now transforms by inferring the rank names or by
     order.
@@ -232,7 +232,7 @@ def cols2ranks(
         tmp_rank = ref_ranks[i]
         if col[0].isupper() and len(col) > 1:
             try:
-               tmp_rank = ITS['Rank2r'][col]
+                tmp_rank = ITS["Rank2r"][col]
             except KeyError:
                 pass
             except:
@@ -243,7 +243,7 @@ def cols2ranks(
                 tmp_rank = col_lower
         elif col[0].islower() and len(col) > 1:
             try:
-                tmp_rank = ITS['rank2r'][col]
+                tmp_rank = ITS["rank2r"][col]
             except KeyError:
                 pass
             except:
@@ -425,7 +425,9 @@ def generate_lineages_from_taxa(
     if drop_ranks:
         pass_taxa_df.iloc[:][drop_ranks] = None
     pass_taxa_list = pass_taxa_df.values.tolist()
-    new_lineages = cython_functions.generate_lineages_from_taxa_list(pass_taxa_list, missing_rank, make_ranks)
+    new_lineages = cython_functions.generate_lineages_from_taxa_list(
+        pass_taxa_list, missing_rank, make_ranks
+    )
     return pd.Series(index=pass_taxa_df.index, data=new_lineages)
 
 

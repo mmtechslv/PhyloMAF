@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional
 from numpy.typing import DTypeLike
 
+
 class BiomeBackboneMetabase(ABC):
     """ """
 
@@ -35,7 +36,7 @@ class BiomeBackboneMetabase(ABC):
         Parameters
         ----------
         value :
-            
+
 
         Returns
         -------
@@ -51,13 +52,13 @@ class BiomeBackboneMetabase(ABC):
 
     @name.setter
     @abstractmethod
-    def name(self,value):
+    def name(self, value):
         """
 
         Parameters
         ----------
         value :
-            
+
 
         Returns
         -------
@@ -69,8 +70,7 @@ class BiomeBackboneMetabase(ABC):
 class BiomeFeatureMetabase(BiomeBackboneMetabase):
     """ """
 
-    def get_feature_ids(self,
-                        dtype: Optional[DTypeLike] = None):
+    def get_feature_ids(self, dtype: Optional[DTypeLike] = None):
         """This function and its sample twin is a rescue method to fix RepPhylogeny index problem.
 
         Parameters
@@ -82,7 +82,7 @@ class BiomeFeatureMetabase(BiomeBackboneMetabase):
 
         Returns
         -------
-        
+
             class:`~numpy.ndarray` of type `dtype`
 
         """
@@ -101,8 +101,7 @@ class BiomeFeatureMetabase(BiomeBackboneMetabase):
 class BiomeSampleMetabase(BiomeBackboneMetabase):
     """ """
 
-    def get_sample_ids(self,
-                       dtype: Optional[DTypeLike] = None):
+    def get_sample_ids(self, dtype: Optional[DTypeLike] = None):
         """This function and its sample twin is a rescue method to fix RepPhylogeny index problem.
 
         Parameters
@@ -114,7 +113,7 @@ class BiomeSampleMetabase(BiomeBackboneMetabase):
 
         Returns
         -------
-        
+
             class:`~numpy.ndarray` of type `dtype`
 
         """

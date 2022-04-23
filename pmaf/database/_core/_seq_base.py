@@ -145,7 +145,7 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
         iterator: bool = True,
         like: str = "multiseq",
         chunksize: int = 300,
-    ) -> Union[Generator,Any]:
+    ) -> Union[Generator, Any]:
         """Get representative alignments for :term:`rids`
 
         Parameters
@@ -177,7 +177,13 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
         else:
             raise RuntimeError("Storage is closed.")
 
-    def _retrieve_repseq_by_rid(self, repseq_ids: AnyGenericIdentifier, like: str, seq_name: str, alignment: bool) -> Any:
+    def _retrieve_repseq_by_rid(
+        self,
+        repseq_ids: AnyGenericIdentifier,
+        like: str,
+        seq_name: str,
+        alignment: bool,
+    ) -> Any:
         """
 
         Parameters
@@ -261,7 +267,14 @@ class DatabaseSequenceMixin(DatabaseSequenceMetabase):
         else:
             return None
 
-    def _iter_repseq_by_rid(self, repseq_ids: AnyGenericIdentifier, like: str, seq_name: str, alignment: bool, chunksize: int):
+    def _iter_repseq_by_rid(
+        self,
+        repseq_ids: AnyGenericIdentifier,
+        like: str,
+        seq_name: str,
+        alignment: bool,
+        chunksize: int,
+    ):
         """Iterator for target data.
 
         Parameters

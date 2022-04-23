@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 
+
 class MediatorBackboneMetabase(ABC):
     @abstractmethod
-    def verify_factor(self,factor):
+    def verify_factor(self, factor):
         pass
 
     @abstractmethod
-    def reconfig(self,name,value):
+    def reconfig(self, name, value):
         pass
 
     @property
@@ -23,6 +24,7 @@ class MediatorBackboneMetabase(ABC):
     @abstractmethod
     def configs(self):
         pass
+
 
 class MediatorAccessionMetabase(MediatorBackboneMetabase):
     @abstractmethod
@@ -43,6 +45,7 @@ class MediatorSequenceMetabase(MediatorBackboneMetabase):
     def get_identifier_by_sequence(self, docker, factor, **kwargs):
         pass
 
+
 class MediatorPhylogenyMetabase(MediatorBackboneMetabase):
     @abstractmethod
     def get_phylogeny_by_identifier(self, docker, factor, **kwargs):
@@ -51,6 +54,7 @@ class MediatorPhylogenyMetabase(MediatorBackboneMetabase):
     @abstractmethod
     def get_identifier_by_phylogeny(self, docker, factor, **kwargs):
         pass
+
 
 class MediatorTaxonomyMetabase(MediatorBackboneMetabase):
     @abstractmethod

@@ -57,7 +57,7 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
     jythonpath_env = ":".join(sys_path_list)
     sys_path_list_repr = repr(sys_path_list)
     javaflags = "-Xmx14G"
-    java_exec = "java {} -jar {}".format(javaflags, f"\"{jython_jar_path}\"")
+    java_exec = "java {} -jar {}".format(javaflags, f'"{jython_jar_path}"')
 
     gate_str = "popen//python={0}//chdir={1}//env:PWD={1}//env:JYTHONPATH={2}".format(
         java_exec, local_ott_path, jythonpath_env
@@ -73,7 +73,7 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
             Parameters
             ----------
             message :
-                
+
 
             Returns
             -------
@@ -95,7 +95,8 @@ def make_ott_taxonomy(reftax_path: str, newtax_path: str, reftax_src_path: str) 
                                 from java.io import PrintStream, OutputStream
                                 oldOut = System.out
                                 class NoOutputStream(OutputStream):
-                                    """ """
+                                    """
+            """
                                     def write(self, b, off, len): pass
                                 System.setOut(PrintStream(NoOutputStream()))
                                 result = [] 

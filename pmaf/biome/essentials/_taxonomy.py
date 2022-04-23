@@ -797,7 +797,10 @@ class RepTaxonomy(EssentialBackboneBase, EssentialFeatureMetabase):
             valid_ranks = cols2ranks(taxonomy_dataframe.columns)
             taxonomy_dataframe.columns = valid_ranks
             taxonomy_series = taxonomy_dataframe.apply(
-                lambda taxa: ";".join([(t if isinstance(t,str) else '') for t in taxa.values]), axis=1
+                lambda taxa: ";".join(
+                    [(t if isinstance(t, str) else "") for t in taxa.values]
+                ),
+                axis=1,
             )
             return self.__init_taxonomy_from_lineages(
                 taxonomy_series, taxonomy_notation, order_ranks

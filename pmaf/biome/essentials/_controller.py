@@ -2,7 +2,7 @@ from ._metakit import EssentialControllerBackboneMetabse
 from pmaf.biome.essentials._metakit import (
     EssentialFeatureMetabase,
     EssentialSampleMetabase,
-    EssentialBackboneMetabase
+    EssentialBackboneMetabase,
 )
 from pmaf.biome.essentials._tree import RepPhylogeny
 import numpy as np

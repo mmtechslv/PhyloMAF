@@ -49,13 +49,13 @@ class TreeBuilderFastTree2(TreeBuilderBackboneMetabase):
         **kwargs :
             Compatibility
         alignment: MultiSequenceMetabase :
-            
+
         **kwargs: Any :
-            
+
 
         Returns
         -------
-        
+
             Phylogenetic tree with estimated branches
 
         """

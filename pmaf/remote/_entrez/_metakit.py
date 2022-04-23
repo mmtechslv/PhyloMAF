@@ -1,7 +1,9 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class EntrezBackboneMetabase(ABC):
     """ """
+
     @property
     @abstractmethod
     def state(self):
@@ -9,13 +11,13 @@ class EntrezBackboneMetabase(ABC):
         pass
 
     @abstractmethod
-    def get_taxid_by_query(self,query):
+    def get_taxid_by_query(self, query):
         """
 
         Parameters
         ----------
         query :
-            
+
 
         Returns
         -------

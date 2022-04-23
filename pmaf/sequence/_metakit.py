@@ -1,4 +1,5 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class SequenceBackboneMetabase(ABC):
     """ """
@@ -34,15 +35,15 @@ class SequenceBackboneMetabase(ABC):
         pass
 
     @abstractmethod
-    def write(self,file,**kwargs):
+    def write(self, file, **kwargs):
         """
 
         Parameters
         ----------
         file :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -51,13 +52,13 @@ class SequenceBackboneMetabase(ABC):
         pass
 
     @abstractmethod
-    def get_string_as(self,**kwargs):
+    def get_string_as(self, **kwargs):
         """
 
         Parameters
         ----------
         **kwargs :
-            
+
 
         Returns
         -------
@@ -70,13 +71,13 @@ class NucleotideMetabase(SequenceBackboneMetabase):
     """ """
 
     @abstractmethod
-    def buckle_by_uid(self,tmp_uid):
+    def buckle_by_uid(self, tmp_uid):
         """
 
         Parameters
         ----------
         tmp_uid :
-            
+
 
         Returns
         -------
@@ -90,13 +91,13 @@ class NucleotideMetabase(SequenceBackboneMetabase):
         pass
 
     @abstractmethod
-    def restore_buckle(self,packed_metadata):
+    def restore_buckle(self, packed_metadata):
         """
 
         Parameters
         ----------
         packed_metadata :
-            
+
 
         Returns
         -------
@@ -116,13 +117,13 @@ class NucleotideMetabase(SequenceBackboneMetabase):
 
     @classmethod
     @abstractmethod
-    def read(cls, file, name=None, metadata=None, mode='DNA', **kwargs):
+    def read(cls, file, name=None, metadata=None, mode="DNA", **kwargs):
         """
 
         Parameters
         ----------
         file :
-            
+
         name :
             (Default value = None)
         metadata :
@@ -130,7 +131,7 @@ class NucleotideMetabase(SequenceBackboneMetabase):
         mode :
             (Default value = 'DNA')
         **kwargs :
-            
+
 
         Returns
         -------
@@ -159,6 +160,7 @@ class NucleotideMetabase(SequenceBackboneMetabase):
 
 class MultiSequenceMetabase(SequenceBackboneMetabase):
     """ """
+
     @abstractmethod
     def to_skbio_msa(self, indices):
         """
@@ -166,7 +168,7 @@ class MultiSequenceMetabase(SequenceBackboneMetabase):
         Parameters
         ----------
         indices :
-            
+
 
         Returns
         -------
@@ -180,13 +182,13 @@ class MultiSequenceMetabase(SequenceBackboneMetabase):
         pass
 
     @abstractmethod
-    def restore_buckle(self,packed_metadata):
+    def restore_buckle(self, packed_metadata):
         """
 
         Parameters
         ----------
         packed_metadata :
-            
+
 
         Returns
         -------
@@ -201,7 +203,7 @@ class MultiSequenceMetabase(SequenceBackboneMetabase):
         Parameters
         ----------
         method :
-            
+
 
         Returns
         -------
@@ -217,11 +219,11 @@ class MultiSequenceMetabase(SequenceBackboneMetabase):
         Parameters
         ----------
         sequences :
-            
+
         buckled_pack :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -242,13 +244,13 @@ class MultiSequenceMetabase(SequenceBackboneMetabase):
         pass
 
     @abstractmethod
-    def get_consensus(self,indices):
+    def get_consensus(self, indices):
         """
 
         Parameters
         ----------
         indices :
-            
+
 
         Returns
         -------
@@ -257,13 +259,13 @@ class MultiSequenceMetabase(SequenceBackboneMetabase):
         pass
 
     @abstractmethod
-    def get_subset(self,indices):
+    def get_subset(self, indices):
         """
 
         Parameters
         ----------
         indices :
-            
+
 
         Returns
         -------
@@ -288,17 +290,17 @@ class MultiSequenceStreamBackboneMetabase(ABC):
     """ """
 
     @abstractmethod
-    def __init__(self,filepath, mode, aligned, name,compressor):
+    def __init__(self, filepath, mode, aligned, name, compressor):
         pass
 
     @abstractmethod
-    def append_sequence(self,sequence):
+    def append_sequence(self, sequence):
         """
 
         Parameters
         ----------
         sequence :
-            
+
 
         Returns
         -------
@@ -307,13 +309,13 @@ class MultiSequenceStreamBackboneMetabase(ABC):
         pass
 
     @abstractmethod
-    def extend_multiseq(self,multiseq):
+    def extend_multiseq(self, multiseq):
         """
 
         Parameters
         ----------
         multiseq :
-            
+
 
         Returns
         -------
@@ -322,19 +324,19 @@ class MultiSequenceStreamBackboneMetabase(ABC):
         pass
 
     @abstractmethod
-    def append_string(self,name,mode,sequence_str,metadata_dict):
+    def append_string(self, name, mode, sequence_str, metadata_dict):
         """
 
         Parameters
         ----------
         name :
-            
+
         mode :
-            
+
         sequence_str :
-            
+
         metadata_dict :
-            
+
 
         Returns
         -------
@@ -343,13 +345,13 @@ class MultiSequenceStreamBackboneMetabase(ABC):
         pass
 
     @abstractmethod
-    def get_sequence_by_acc(self,acc_number):
+    def get_sequence_by_acc(self, acc_number):
         """
 
         Parameters
         ----------
         acc_number :
-            
+
 
         Returns
         -------
@@ -364,7 +366,7 @@ class MultiSequenceStreamBackboneMetabase(ABC):
         Parameters
         ----------
         acc_numbers :
-            
+
 
         Returns
         -------
@@ -401,5 +403,3 @@ class MultiSequenceStreamBackboneMetabase(ABC):
     def accession_numbers(self):
         """ """
         pass
-
-

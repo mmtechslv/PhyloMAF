@@ -16,4 +16,4 @@ Classes
 """
 from ._entrez import Entrez
 
-__all__ = ['Entrez']
+__all__ = ["Entrez"]

@@ -135,8 +135,9 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
 
     def fix_metadata_dtypes(self):
         cols = self.__internal_samples.select_dtypes(["object"]).columns
-        self.__internal_samples[cols] = self.__internal_samples[cols].apply(pd.Series.astype,
-                                                                                        dtype="category")
+        self.__internal_samples[cols] = self.__internal_samples[cols].apply(
+            pd.Series.astype, dtype="category"
+        )
 
     def _rename_samples_by_map(self, map_like: Mapper, **kwargs) -> Optional[Mapper]:
         """Rename sample names by map and ratify action.
@@ -188,11 +189,13 @@ class SampleMetadata(EssentialBackboneBase, EssentialSampleMetabase):
         kwargs
             Compatibility
         """
+
         def safe_aggfunc(values):
             if pd.api.types.is_categorical_dtype(values):
-                return '|'.join(values.unique().tolist())
+                return "|".join(values.unique().tolist())
             else:
                 return pd.Series(values).agg(aggfunc)
+
         tmp_agg_dict = defaultdict(list)
         for new_id, group in map_dict.items():
             tmp_agg_dict[new_id] = (

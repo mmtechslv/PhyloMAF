@@ -20,4 +20,4 @@ Miners (Classes)
 """
 from ._miner import Miner
 
-__all__ = ['Miner']
+__all__ = ["Miner"]

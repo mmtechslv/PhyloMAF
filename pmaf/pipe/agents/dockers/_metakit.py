@@ -1,4 +1,5 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class DockerBackboneMetabase(ABC):
     @abstractmethod
@@ -73,19 +74,22 @@ class DockerBackboneMetabase(ABC):
     def count(self):
         pass
 
+
 class DockerIdentifierMetabase(DockerBackboneMetabase):
     @abstractmethod
     def to_array(self, indices, exclude_missing):
         pass
 
+
 class DockerTaxonomyMetabase(DockerBackboneMetabase):
     @abstractmethod
-    def get_avail_ranks(self,indices):
+    def get_avail_ranks(self, indices):
         pass
 
     @abstractmethod
     def to_dataframe(self, indices, ranks):
         pass
+
 
 class DockerPhylogenyMetabase(DockerBackboneMetabase):
     @abstractmethod
@@ -96,17 +100,22 @@ class DockerPhylogenyMetabase(DockerBackboneMetabase):
     def get_tip_names(self, indices):
         pass
 
+
 class DockerSequenceMetabase(DockerBackboneMetabase):
     @abstractmethod
     def to_multiseq(self, indices):
         pass
 
     @abstractmethod
-    def get_records(self, indices): # FIXME: This method is ugly since it only required by classifier module that is not working at the moment. Hence, it should be carried out only when necessary by a separate function.
+    def get_records(
+        self, indices
+    ):  # FIXME: This method is ugly since it only required by classifier module that is not working at the moment. Hence, it should be carried out only when necessary by a separate function.
         pass
 
     @abstractmethod
-    def get_stats(self, indices):# FIXME: Same as DockerSequenceMetabase.get_records(...). Just remove it.
+    def get_stats(
+        self, indices
+    ):  # FIXME: Same as DockerSequenceMetabase.get_records(...). Just remove it.
         pass
 
     @property
@@ -118,6 +127,7 @@ class DockerSequenceMetabase(DockerBackboneMetabase):
     @abstractmethod
     def aligned(self):
         pass
+
 
 class DockerAccessionMetabase(DockerBackboneMetabase):
     @property

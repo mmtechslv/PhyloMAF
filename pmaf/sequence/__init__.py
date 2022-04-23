@@ -15,8 +15,7 @@ Classes
    Nucleotide
 
 """
-from ._sequence import * # noqa: F401,F403
-from ._multiple import * # noqa: F401,F403
+from ._sequence import *  # noqa: F401,F403
+from ._multiple import *  # noqa: F401,F403
 
-__all__ = ['MultiSequence', 'MultiSequenceStream', 'Nucleotide']
-
+__all__ = ["MultiSequence", "MultiSequenceStream", "Nucleotide"]

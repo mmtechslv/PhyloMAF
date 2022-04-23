@@ -14,4 +14,10 @@ from ._tree import RepPhylogeny
 from ._frequency import FrequencyTable
 from ._samplemeta import SampleMetadata
 
-__all__ = ['RepTaxonomy', 'RepSequence', 'RepPhylogeny', 'FrequencyTable', 'SampleMetadata']
+__all__ = [
+    "RepTaxonomy",
+    "RepSequence",
+    "RepPhylogeny",
+    "FrequencyTable",
+    "SampleMetadata",
+]

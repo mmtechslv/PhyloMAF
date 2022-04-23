@@ -5,4 +5,4 @@ from ._it import SpecIT
 from ._ia import SpecIA
 from ._ai import SpecAI
 
-__all__ = ['SpecIP', 'SpecIS', 'SpecTI', 'SpecIT', 'SpecIA', 'SpecAI']
+__all__ = ["SpecIP", "SpecIS", "SpecTI", "SpecIT", "SpecIA", "SpecAI"]

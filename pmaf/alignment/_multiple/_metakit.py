@@ -1,17 +1,19 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class MultiSequenceAlignerBackboneMetabase(ABC):
     """ """
+
     @abstractmethod
-    def align(self,input,**kwargs):
+    def align(self, input, **kwargs):
         """
 
         Parameters
         ----------
         input :
-            
+
         **kwargs :
-            
+
 
         Returns
         -------
@@ -48,4 +50,3 @@ class MultiSequenceAlignerBackboneMetabase(ABC):
     def name(self):
         """ """
         pass
-

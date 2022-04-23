@@ -7,6 +7,7 @@ from typing import Optional, Union, Any, Dict
 
 class DockerPhylogenyMedium(DockerPhylogenyMetabase, DockerBase):
     """The :term:`docker` class responsible for handling phylogeny data."""
+
     _UNIT_TYPES = (PhyloTree, type(None))
 
     def __init__(

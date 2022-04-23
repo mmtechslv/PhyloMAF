@@ -7,6 +7,7 @@ from pmaf.database._shared._common import (
 import pandas as pd
 import numpy as np
 from pmaf.internal._constants import MAIN_RANKS, VALID_RANKS
+
 # from pmaf.internal._constants import VALID_RANKS
 
 from pmaf.internal._shared import get_stats_for_sequence_record_df
@@ -15,19 +16,20 @@ from pmaf.database._shared._summarizers import merge_recaps
 
 # MAIN_RANKS = VALID_RANKS
 
+
 def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kwargs):
     """
 
     Parameters
     ----------
     storage_manager :
-        
+
     stamp_data :
-        
+
     prior_recap :
-        
+
     **kwargs :
-        
+
 
     Returns
     -------
@@ -40,7 +42,7 @@ def finalize_storage_construction(storage_manager, stamp_data, prior_recap, **kw
         Parameters
         ----------
         final_recap :
-            
+
 
         Returns
         -------
@@ -87,7 +89,7 @@ def make_interxmaps(storage_manager):
     Parameters
     ----------
     storage_manager :
-        
+
 
     Returns
     -------
@@ -113,9 +115,9 @@ def make_interxmaps(storage_manager):
                 Parameters
                 ----------
                 target_elements :
-                    
+
                 storage_manager :
-                    
+
 
                 Returns
                 -------
@@ -161,9 +163,9 @@ def reparse_tree(tree_object, index_mapper):
     Parameters
     ----------
     tree_object :
-        
+
     index_mapper :
-        
+
 
     Returns
     -------
@@ -192,7 +194,7 @@ def rebuild_phylo(tree_object):
     Parameters
     ----------
     tree_object :
-        
+
 
     Returns
     -------
@@ -224,7 +226,7 @@ def make_tree_map(tree_object):
     Parameters
     ----------
     tree_object :
-        
+
 
     Returns
     -------
@@ -249,9 +251,9 @@ def reconstruct_taxonomy(master_taxonomy_sheet_df, index_mapper, reject_taxa=Non
     Parameters
     ----------
     master_taxonomy_sheet_df :
-        
+
     index_mapper :
-        
+
     reject_taxa :
         (Default value = None)
 
@@ -281,7 +283,7 @@ def reconstruct_taxonomy(master_taxonomy_sheet_df, index_mapper, reject_taxa=Non
         Parameters
         ----------
         taxon :
-            
+
 
         Returns
         -------
@@ -414,7 +416,7 @@ def make_rid_index_mapper(rids_index):
     Parameters
     ----------
     rids_index :
-        
+
 
     Returns
     -------
@@ -434,9 +436,9 @@ def reindex_frame(target_df, index_mapper):
     Parameters
     ----------
     target_df :
-        
+
     index_mapper :
-        
+
 
     Returns
     -------
@@ -451,7 +453,7 @@ def make_column_details(storage_manager):
     Parameters
     ----------
     storage_manager :
-        
+
 
     Returns
     -------
@@ -479,9 +481,9 @@ def produce_rep_stats(storage_manager, chunksize):
     Parameters
     ----------
     storage_manager :
-        
+
     chunksize :
-        
+
 
     Returns
     -------
@@ -508,9 +510,9 @@ def produce_tax_stats(storage_manager, novel_tids):
     Parameters
     ----------
     storage_manager :
-        
+
     novel_tids :
-        
+
 
     Returns
     -------
@@ -542,7 +544,7 @@ def make_repseq_map_generator(transformation_details, chunksize=500):
     Parameters
     ----------
     transformation_details :
-        
+
     chunksize :
         (Default value = 500)
 

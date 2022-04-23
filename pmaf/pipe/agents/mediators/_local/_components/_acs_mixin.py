@@ -190,32 +190,52 @@ class MediatorLocalAccessionMixin(MediatorLocalBase, MediatorAccessionMetabase):
             An instance of :class:`.DockerIdentifierMedium` with matching accessions.
 
         """
-        db_acs_df = pd.DataFrame.from_dict(self.client.get_accession_by_rid(iterator=False), orient="index")
+        db_acs_df = pd.DataFrame.from_dict(
+            self.client.get_accession_by_rid(iterator=False), orient="index"
+        )
         acs_no_empty = docker.get_subset(exclude_missing=True)
         compatible_mask = db_acs_df.columns.isin(acs_no_empty.sources)
         if compatible_mask.sum() >= 1:
-            selected_acs_src = db_acs_df.columns[compatible_mask][0]  # First one is client's
+            selected_acs_src = db_acs_df.columns[compatible_mask][
+                0
+            ]  # First one is client's
         else:
             raise ValueError("No compatible accession sources were found")
         db_acs_df_full = db_acs_df[selected_acs_src]
         db_acs_df_major = db_acs_df_full.str.extract("^(.*?)\..*$").iloc[:, 0]
-        flat_target_acs = pd.Index([ac for ac in set([ac for acm in acs_no_empty.data.values() for ac in (acm.get(selected_acs_src,[]) if isinstance(acm, dict) else [])]) if ac is not None])
+        flat_target_acs = pd.Index(
+            [
+                ac
+                for ac in set(
+                    [
+                        ac
+                        for acm in acs_no_empty.data.values()
+                        for ac in (
+                            acm.get(selected_acs_src, [])
+                            if isinstance(acm, dict)
+                            else []
+                        )
+                    ]
+                )
+                if ac is not None
+            ]
+        )
         db_full_matches = db_acs_df_full[db_acs_df_full.isin(flat_target_acs)]
         db_major_matches = db_acs_df_major[db_acs_df_major.isin(flat_target_acs)]
-        db_major_matches = db_major_matches[~db_major_matches.index.isin(db_full_matches.index)]  # Exclude matches from full_matches
+        db_major_matches = db_major_matches[
+            ~db_major_matches.index.isin(db_full_matches.index)
+        ]  # Exclude matches from full_matches
         ref_matches = db_full_matches.append(db_major_matches, verify_integrity=True)
         acs_as_id = acs_no_empty.to_identifier_by_src(selected_acs_src)
         db_id_dict = {}
         for ix, acid in acs_as_id.get_iterator():
             acid_acs_flat = acid.to_array(exclude_missing=True, unique=True)
             acid_acs_rids = ref_matches.index[ref_matches.isin(acid_acs_flat)].tolist()
-            acid_acs_tids_df = self.client.find_tid_by_rid(acid_acs_rids, method='legal')
-            acid_acs_tids_last_valids = acid_acs_tids_df.map(lambda x: x[-1]).astype(int).unique()
+            acid_acs_tids_df = self.client.find_tid_by_rid(
+                acid_acs_rids, method="legal"
+            )
+            acid_acs_tids_last_valids = (
+                acid_acs_tids_df.map(lambda x: x[-1]).astype(int).unique()
+            )
             db_id_dict[ix] = DockerIdentifierMedium(acid_acs_tids_last_valids)
         return DockerIdentifierMedium(db_id_dict)
-
-
-
-
-
-

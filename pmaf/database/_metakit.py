@@ -1,4 +1,5 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
 
 class DatabaseBackboneMetabase(ABC):
     def __init__(self, storage_hdf5_fp, **kwargs):
@@ -10,7 +11,7 @@ class DatabaseBackboneMetabase(ABC):
 
     @classmethod
     @abstractmethod
-    def build_database_storage(cls,**kwargs):
+    def build_database_storage(cls, **kwargs):
         pass
 
     @abstractmethod
@@ -80,6 +81,7 @@ class DatabaseBackboneMetabase(ABC):
     def avail_ranks(self):
         pass
 
+
 class DatabasePhylogenyMetabase(DatabaseBackboneMetabase):
     @abstractmethod
     def prune_tree_by_tid(self, ids):
@@ -96,6 +98,7 @@ class DatabasePhylogenyMetabase(DatabaseBackboneMetabase):
     @abstractmethod
     def infer_topology_by_rid(self, ids):
         pass
+
 
 class DatabaseTaxonomyMetabase(DatabaseBackboneMetabase):
     @abstractmethod
@@ -128,6 +131,7 @@ class DatabaseAccessionMetabase(DatabaseBackboneMetabase):
     def get_accession_by_rid(self, ids, **kwargs):
         pass
 
+
 class DatabaseSequenceMetabase(DatabaseBackboneMetabase):
     @abstractmethod
     def get_sequence_by_tid(self, ids, **kwargs):
@@ -144,6 +148,3 @@ class DatabaseSequenceMetabase(DatabaseBackboneMetabase):
     @abstractmethod
     def get_alignment_by_rid(self, ids, **kwargs):
         pass
-
-
-

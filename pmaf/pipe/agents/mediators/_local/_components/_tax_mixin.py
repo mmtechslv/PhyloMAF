@@ -1,5 +1,6 @@
 from pmaf.internal._constants import MAIN_RANKS
-#from pmaf.internal._constants import VALID_RANKS as MAIN_RANKS
+
+# from pmaf.internal._constants import VALID_RANKS as MAIN_RANKS
 
 from pmaf.internal._shared import generate_lineages_from_taxa
 from pmaf.pipe.agents.dockers._mediums._tax_medium import DockerTaxonomyMedium
@@ -25,7 +26,7 @@ from typing import Optional, Any, Union
 class MediatorLocalTaxonomyMixin(MediatorLocalBase, MediatorTaxonomyMetabase):
     """Mixin class for local :term:`mediator` that handle taxonomy data."""
 
-    CORRELATION_METHODS = ["lineage", "complement", "taxon"] # TODO: Test 'taxon' more
+    CORRELATION_METHODS = ["lineage", "complement", "taxon"]  # TODO: Test 'taxon' more
     """Available methods for taxonomy correlations"""
 
     def __init__(
@@ -112,7 +113,9 @@ class MediatorLocalTaxonomyMixin(MediatorLocalBase, MediatorTaxonomyMetabase):
             **kwargs
         )
 
-    def get_taxonomy_by_identifier(self, docker: DockerIdentifierMedium, factor: FactorBase, **kwargs: Any) -> DockerTaxonomyMedium:
+    def get_taxonomy_by_identifier(
+        self, docker: DockerIdentifierMedium, factor: FactorBase, **kwargs: Any
+    ) -> DockerTaxonomyMedium:
         """Get taxonomy data that matches identifiers in `docker` within local
         database client.
 
@@ -139,7 +142,9 @@ class MediatorLocalTaxonomyMixin(MediatorLocalBase, MediatorTaxonomyMetabase):
         else:
             raise TypeError("`docker` must be instance of DockerIdentifierMetabase.")
 
-    def get_identifier_by_taxonomy(self, docker: DockerTaxonomyMedium, factor: FactorBase, **kwargs: Any) -> DockerIdentifierMedium:
+    def get_identifier_by_taxonomy(
+        self, docker: DockerTaxonomyMedium, factor: FactorBase, **kwargs: Any
+    ) -> DockerIdentifierMedium:
         """Get local database identifiers that match target taxonomy in
         `docker` within local database client.
 
