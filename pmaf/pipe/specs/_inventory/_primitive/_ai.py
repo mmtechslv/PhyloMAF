@@ -6,8 +6,8 @@ from pmaf.pipe.agents.dockers._mediums._id_medium import DockerIdentifierMedium
 from pmaf.pipe.agents.dockers._mediums._acs_medium import DockerAccessionMedium
 from pmaf.pipe.agents.dockers._metakit import DockerBackboneMetabase
 
-class SpecIA(SpecificationPrimitiveBase):
-    """Identifiers -> Accessions."""
+class SpecAI(SpecificationPrimitiveBase):
+    """Accessions -> Identifiers ."""
     def __init__(self, mediator, factor, **kwargs):
         if not isinstance(mediator, MediatorAccessionMetabase):
             raise TypeError('`mediator` must be instance of MediatorAccessionMetabase.')
@@ -21,13 +21,13 @@ class SpecIA(SpecificationPrimitiveBase):
         super().__init__(_steps=tmp_steps,_miner=tmp_miner)
 
     def __define_lazy_steps(self):
-        steps_dict = [('verify-input',self.__checkpoint_verify_input, DockerIdentifierMedium, 'Verify Input.'),
-                      ('identifier-to-accession', self.__checkpoint_identifier_to_accession, DockerAccessionMedium, 'Retrieve accessions by identifiers.')]
+        steps_dict = [('verify-input', self.__checkpoint_verify_input, DockerAccessionMedium, 'Verify Input.'),
+                      ('accession-to-identifier', self.__checkpoint_accession_to_identifier, DockerIdentifierMedium, 'Retrieve identifiers by accessions .')]
         return steps_dict
 
     def __checkpoint_verify_input(self, input, *args,**kwargs):
         if not isinstance(input, DockerBackboneMetabase):
-            tmp_docker = DockerIdentifierMedium(input, **kwargs)
+            tmp_docker = DockerAccessionMedium(input, **kwargs)
         else:
             tmp_docker = input
         if self.miner.verify_docker(tmp_docker):
@@ -35,16 +35,16 @@ class SpecIA(SpecificationPrimitiveBase):
         else:
             raise ValueError('`docker` is not supported by current specification.')
 
-    def __checkpoint_identifier_to_accession(self, docker, *args, **kwargs):
-        accessions = next(self.miner.yield_accession_by_identifier(docker, **kwargs))
-        return accessions, args, kwargs
+    def __checkpoint_accession_to_identifier(self, docker, *args, **kwargs):
+        identifiers = next(self.miner.yield_identifier_by_accession(docker, **kwargs))
+        return identifiers, args, kwargs
 
     @property
     def inlet(self):
         """:class:`.DockerIdentifierMedium`"""
-        return DockerIdentifierMedium
+        return DockerAccessionMedium
 
     @property
     def outlet(self):
         """:class:`.DockerAccessionMedium`"""
-        return DockerAccessionMedium
+        return DockerIdentifierMedium

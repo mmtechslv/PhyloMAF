@@ -2,8 +2,9 @@ from ._metakit import EssentialControllerBackboneMetabse
 from pmaf.biome.essentials._metakit import (
     EssentialFeatureMetabase,
     EssentialSampleMetabase,
-    EssentialBackboneMetabase,
+    EssentialBackboneMetabase
 )
+from pmaf.biome.essentials._tree import RepPhylogeny
 import numpy as np
 from typing import List, Any, Optional
 from pmaf.internal._typing import AnyGenericIdentifier
@@ -140,6 +141,8 @@ class EssentialsController(EssentialControllerBackboneMetabse):
                 else:
                     raise ValueError("Essentials must have same ids at both axes.")
         if essential_pass:
+            if isinstance(essential, RepPhylogeny):
+                essential._patch_xrid_dtype(self.__feature_ids.dtype)
             essential._mount_controller(self)
             essential._buckle()
             self.__essentials.append(essential)

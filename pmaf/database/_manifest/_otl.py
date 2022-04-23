@@ -1,3 +1,4 @@
+import typing
 from os import path
 from pmaf.database._core._base import DatabaseBase
 from pmaf.database._core._tax_base import DatabaseTaxonomyMixin
@@ -10,7 +11,22 @@ import pandas as pd
 import numpy as np
 from typing import Any, Tuple
 from pmaf.internal._typing import AnyGenericIdentifier
+from pmaf.database._parsers._phylo import read_newick_tree
+from ete3 import Tree
+import re
 
+regex_mrca_tags = re.compile("mrcaott[0-9]+ott[0-9]+")
+regex_ott_tags = re.compile("ott([0-9]+)")
+
+def get_tree_leafs(tree_newick_fp):
+    tree_str = read_newick_tree(tree_newick_fp)
+    newick_string_no_mrca_tag = re.sub(regex_mrca_tags, "", tree_str)
+    newick_string_parsed = re.sub(
+        regex_ott_tags, "\\1", newick_string_no_mrca_tag
+    )
+    tmp_tree = Tree(newick_string_parsed, format=8)
+    nodes_with_names = [node.name for node in tmp_tree.iter_leaves() if node.name != ""]
+    return nodes_with_names
 
 class DatabaseOTL(
     DatabaseTaxonomyMixin, DatabasePhylogenyMixin, DatabaseAccessionMixin, DatabaseBase
@@ -80,9 +96,10 @@ class DatabaseOTL(
             storage_name=cls.DATABASE_NAME,
             force_new=force,
         )
+        tax_ids_in_tree = get_tree_leafs(tree_newick_fp)
 
         removed_rids, novel_tids, index_mapper, tmp_recap = cls.__process_tax_acs_map(
-            tmp_storage_manager, taxonomy_map_csv_fp, delimiter
+            tmp_storage_manager, taxonomy_map_csv_fp, delimiter, tax_ids_in_tree
         )
         cls.__process_tree(tmp_storage_manager, tree_newick_fp, index_mapper)
 
@@ -102,6 +119,7 @@ class DatabaseOTL(
         storage_manager: DatabaseStorageManager,
         taxonomy_map_csv_fp: str,
         delimiter: str,
+        tax_ids_in_tree: typing.List[str]
     ) -> Tuple[AnyGenericIdentifier, np.ndarray, pd.Series, pd.Series]:
         from pmaf.internal._extensions import cython_functions
         from pmaf.internal._constants import VALID_RANKS
@@ -223,6 +241,8 @@ class DatabaseOTL(
         tmp_taxonomy_sheet_master.index = tmp_taxonomy_sheet_master.index.astype(
             full_taxonomy_map.index.dtype
         )
+        valid_tax_ids = tmp_taxonomy_sheet_master.index[tmp_taxonomy_sheet_master.index.isin(tax_ids_in_tree)]
+        tmp_taxonomy_sheet_master = tmp_taxonomy_sheet_master.loc[valid_tax_ids]
         index_mapper = transformer.make_rid_index_mapper(
             tmp_taxonomy_sheet_master.index
         )
@@ -287,12 +307,6 @@ class DatabaseOTL(
         index_mapper
             Index renamer/mapper
         """
-        from pmaf.database._parsers._phylo import read_newick_tree
-        from ete3 import Tree
-        import re
-
-        regex_mrca_tags = re.compile("mrcaott[0-9]+ott[0-9]+")
-        regex_ott_tags = re.compile("ott([0-9]+)")
 
         def produce_tree_prior(tree_newick_fp):
             yield None, None

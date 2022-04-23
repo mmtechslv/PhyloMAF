@@ -292,7 +292,7 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
         """Copy of the instance."""
         return type(self)(
             tree=self.__internal_tree,
-            feature_ids=self.__feature_ids,
+            feature_ids=self.xrid,
             annotation=self.__annotations,
             copy=True,
             metadata=self.metadata,
@@ -333,6 +333,9 @@ class RepPhylogeny(EssentialBackboneBase, EssentialFeatureMetabase):
             metadata=self.metadata,
             name=self.name,
         )
+
+    def _patch_xrid_dtype(self, dtype):
+        self.__feature_ids_dtype = dtype
 
     def write(self, output_fp: str, mode: str = "w", **kwargs: Any) -> None:
         """Writes the Newick tree into specified file.

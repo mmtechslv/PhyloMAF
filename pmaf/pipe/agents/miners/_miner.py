@@ -103,6 +103,32 @@ class Miner(MinerBase):
         else:
             raise TypeError("`docker` must be instance of DockerIdentifierMetabase.")
 
+    def yield_identifier_by_accession(
+        self, docker: DockerAccessionMedium, **kwargs: Any
+    ) -> DockerIdentifierMedium:
+        """Yield the next identifier :term:`docker` from given accessions
+        parameter `docker`
+
+        Parameters
+        ----------
+        docker
+            The input accession :term:`docker`
+        kwargs
+            Compatibility
+
+
+        Yields
+        ------
+            Identifier :term:`docker`
+        """
+        if isinstance(docker, DockerAccessionMetabase):
+            if isinstance(self.mediator, MediatorAccessionMetabase):
+                yield from self.__yield_identifier_by_accession(docker, **kwargs)
+            else:
+                raise RuntimeError("`mediator` does not support such request.")
+        else:
+            raise TypeError("`docker` must be instance of DockerIdentifierMetabase.")
+
     def yield_accession_by_identifier(
         self, docker: DockerIdentifierMedium, **kwargs: Any
     ) -> DockerAccessionMedium:

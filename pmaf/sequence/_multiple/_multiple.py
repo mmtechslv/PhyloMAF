@@ -412,6 +412,11 @@ class MultiSequence(MultiSequenceMetabase):
         """Name of the instance."""
         return self.__name
 
+    @name.setter
+    def name(self, value):
+        """Name of the instance."""
+        self.__name = value
+
     @property
     def is_alignment(self):
         """Is mutli-sequence is aligned or not."""

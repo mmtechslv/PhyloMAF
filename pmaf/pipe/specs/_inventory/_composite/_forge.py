@@ -2,7 +2,7 @@ from ._base import SpecificationCompositeBase
 from pmaf.pipe.specs._metakit import SpecificationBackboneMetabase
 
 
-def ForgeSpec(name: str, *inters: SpecificationBackboneMetabase) -> SpecificationBackboneMetabase:
+def ForgeSpec(name: str, *inters: SpecificationBackboneMetabase) -> type:
     """Function to forge a new :term:`spec` from intermediate
     :term:`specs<spec>`
 
@@ -49,6 +49,10 @@ def ForgeSpec(name: str, *inters: SpecificationBackboneMetabase) -> Specificatio
                     raise RuntimeError("Forged specification is incorrect.")
             else:
                 tmp_steps.append((inter.__name__, inter, last_outlet, str(inter)))
+        self._inlet = tmp_specs[0].inlet
+        self._outlet = tmp_specs[-1].outlet
         SpecificationCompositeBase.__init__(self, _specs=tmp_specs, _steps=tmp_steps)
 
-    return type(name, (SpecificationCompositeBase,), {"__init__": __init__})
+    return type(name, (SpecificationCompositeBase,), {"__init__": __init__,
+                                                      "inlet": property(lambda self: self._inlet),
+                                                      "outlet": property(lambda self: self._outlet)})

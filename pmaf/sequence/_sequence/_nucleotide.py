@@ -323,6 +323,11 @@ class Nucleotide(NucleotideMetabase):
         """Name of the sequence instance."""
         return self.__name
 
+    @name.setter
+    def name(self, value):
+        """Name of the instance."""
+        self.__name = value
+
     @property
     def is_buckled(self) -> bool:
         """Is sequence instance is buckled or not."""

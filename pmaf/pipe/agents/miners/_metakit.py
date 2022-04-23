@@ -36,6 +36,23 @@ class MinerBackboneMetabase(ABC):
         pass
 
     @abstractmethod
+    def yield_identifier_by_accession(self, docker, **kwargs):
+        """
+
+        Parameters
+        ----------
+        docker :
+
+        **kwargs :
+
+
+        Returns
+        -------
+
+        """
+        pass
+
+    @abstractmethod
     def yield_sequence_by_identifier(self, docker, **kwargs):
         """
 

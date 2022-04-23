@@ -3,7 +3,7 @@ import warnings
 warnings.simplefilter("ignore", category=FutureWarning)
 from pmaf.database._metakit import DatabaseBackboneMetabase
 from pmaf.database._manager import DatabaseStorageManager
-from pmaf.internal._shared import get_rank_upto
+from pmaf.internal._shared import get_rank_upto, sort_ranks
 from pmaf.database._shared._common import to_mode
 import numpy as np
 import pandas as pd
@@ -431,7 +431,7 @@ class DatabaseBase(DatabaseBackboneMetabase):
             else:
                 target_ranks = np.asarray(levels)
 
-            target_unique_ranks = np.unique(target_ranks)
+            target_unique_ranks = np.asarray(sort_ranks(np.unique(target_ranks)))
             target_unique_ids = np.unique(target_ids)
             if self.xrid.isin(target_unique_ids).sum() == len(target_unique_ids):
                 map2tid = self.storage_manager.retrieve_data_by_element("map-rep2tid")
